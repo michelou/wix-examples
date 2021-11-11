@@ -92,7 +92,7 @@ Figures 1.1 and 1.2 below illustrate the updated user environment after the succ
   <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>MyApp</i> executable<br>(<i>Program Files (x86)</i> folder).
 </td>
 <td style="text-align:center;">
-  <a href="images/MyApp_uninstall.png"><img style="max-width:180px;" src="images/MyApp_uninstall.png" /></a>
+  <a href="images/MyApp_Uninstall.png"><img style="max-width:180px;" src="images/MyApp_Uninstall.png" /></a>
   <div style="font-size:70%;"><b>Figure 1.2 -</b> Uninstalling <i>MyApp</i><br/>(<i>Settings</i> window).
 </td>
 </tr>
@@ -116,12 +116,14 @@ Figures 2.1 to 2.3 below illustrate the updated user environment after the succe
 <table>
 <tr>
 <td style="text-align:center;">
+  <div>
   <a href="images/MyAppShortcuts.png"><img style="max-width:180px;" src="images/MyAppShortcuts.png" /></a>
-  <div style="font-size:70%;"><b>Figure 2.1 -</b> <i>MyApp</i> executable<br/>(<i>Program Files (x86)</i> folder).
-</td>
-<td style="text-align:center; background-color:#bbeedd;">
+  <div style="font-size:70%;"><b>Figure 2.1 -</b> <i>MyApp</i> executable<br/>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  </div>
+  <div>
   <a href="images/MyAppShortcuts_Menu.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Menu.png" /></a>
   <div style="font-size:70%;"><b>Figure 2.2 -</b> <i>MyApp</i> shortcut<br/>(<a href="https://support.microsoft.com/en-us/windows/see-what-s-on-the-start-menu-a8ccb400-ad49-962b-d2b1-93f453785a13"><i>Start Menu</i></a> folder).
+  </div>
 </td>
 <td style="text-align:center;">
   <a href="images/MyAppShortcuts_Uninstall.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Uninstall.png" /></a>

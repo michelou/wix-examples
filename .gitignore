@@ -1,4 +1,6 @@
-Debug
+Debug/
+Release/
+target/
 *_LOCAL
 *.exe
 *.properties
