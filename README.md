@@ -20,13 +20,13 @@ This project depends on two external software for the **Microsoft Windows** plaf
 
 Optionally one may also install the following software:
 
-- [ImageMagick 7.1][magick_downloads] <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> ([*change log*][magick_changelog])
-- [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> ([*release notes*][vs2019_relnotes])
+- [ImageMagick 7.1][magick_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup> ([*change log*][magick_changelog])
+- [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_02"><a href="#footnote_02">2</a></sup> ([*release notes*][vs2019_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2021*) <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>:
+For instance our development environment looks as follows (*November 2021*) <sup id="anchor_03"><a href="#footnote_03">3</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.33.1\             <i>(279 MB)</i>
@@ -83,7 +83,7 @@ Environment variables:
 
 <b name="footnote_01">[1]</b> ***ImageMagick*** [↩](#anchor_01)
 
-[ImageMagick] is free software to create, edit, compose, or convert digital images. In this project we rely on the [`convert`][magick_convert] tool to customize dialog windows of the Windows installer.
+[ImageMagick] is free software to create, edit, compose, or convert digital images. In this project we rely on the [`convert`][magick_convert] tool to customize dialog windows in the generated Windows installer.
 
 <b name="footnote_02">[2]</b> ***Visual Studio 2019*** [↩](#anchor_02)
 
