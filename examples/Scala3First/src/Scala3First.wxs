@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+  <Product
+      Id='YOURGUID-PRODUCT_CODE' UpgradeCode='YOURGUID-UPGRADE_CODE'
+      Name='Scala 3'
+      Version='$SCALA3_VERSION' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+      Language='1033' Codepage='1252'>
+    <!--
+    See language codes on
+    https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
+	-->
+    <Package Id='*' Keywords='Scala, JVM'
+        Description="Scala 3 Installer"
+        Comments='The Scala Programming Language' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+        InstallerVersion='200' InstallScope="perMachine"
+        Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <Media Id='1' Cabinet='Scala3.cab' EmbedCab='yes' />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+          <!-- fragments.wxs -->
+      </Directory>
+      <!-- Step 1: Define the directory structure -->
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+         <Directory Id="ApplicationProgramsFolder" Name="Scala 3" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <!-- Step 2: Add the shortcut(s) to our installer package -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcuts" Guid="YOURGUID-APPLICATION_SHORTCUT">
+        <Shortcut Id="ScalaREPL" 
+            Name="Scala 3 REPL" 
+            Description="Scala 3 Interactive Shell"
+            Target="[SystemFolder]cmd.exe"
+            Arguments='/k "call ^"[#repl_bat]^""'
+            WorkingDirectory="PersonalFolder">
+		  <Icon Id="ScalaIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
+		</Shortcut>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\EPFL/LAMP\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        <Shortcut Id="UninstallProduct"             
+            Name="Uninstall Scala 3"
+            Description="Uninstalls Scala 3"
+            Target="[SystemFolder]msiexec.exe"
+            Arguments="/x [ProductCode]" />
+        <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
+        <Environment Id="UpdatePath"
+            Name="PATH" Value="[INSTALLDIR]" 
+            Action="set" Permanent="yes" System="yes" Part="last" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id='Complete' Title="Scala 3" Level='1'>
+      <ComponentGroupRef Id='PackFiles' />
+      <!-- Step 3: Tell WiX to install the shortcut(s) -->
+      <ComponentRef Id="ApplicationShortcuts" />
+    </Feature>
+
+    <Icon Id="Favicon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Favicon" />
+
+  </Product>
+</Wix>

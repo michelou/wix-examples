@@ -1,0 +1,5 @@
+Debug
+*_LOCAL
+*.exe
+*.properties
+*.user

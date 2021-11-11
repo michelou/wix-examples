@@ -1,0 +1,1 @@
+-v -ext WixUIExtension -nologo -out "Y:\\examples\\Scala3UI\\target\\Scala3UI.msi" -b "pack=Y:\examples\Scala3UI\app" -b "rsrc=Y:\examples\Scala3UI\target\resources"

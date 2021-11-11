@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="YOURGUID-PRODUCT_CODE"
+        UpgradeCode="YOURGUID-UPGRADE_CODE" Name="MyApp"
+        Version="$(var.ProductVersion).0" Manufacturer="MyCompany, Inc."
+        Language="1033" Codepage="1252">
+
+        <Package Id='*' Keywords='Installer'
+            Description="MyApp Installer"
+            Comments="Create application and uninstall shortcuts" Manufacturer="MyCompany, Inc."
+            InstallerVersion='200' InstallScope="perMachine"
+            Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+        <Media Id="1" Cabinet="Shortcut.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLFOLDER" Name="MyApp"/>
+            </Directory>
+        </Directory>
+
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="ApplicationExecutable" Guid="YOURGUID-APPLICATION_EXE">
+                <File Id="myapp_exe" Source="!(bindpath.pack)\MyApp.exe" KeyPath="yes" Checksum="yes"/>
+            </Component>
+        </DirectoryRef>
+
+        <Feature Id="MainApplication" Title="MyApp" Level="1">
+            <ComponentRef Id="ApplicationExecutable" />
+        </Feature>
+    </Product>
+</Wix>

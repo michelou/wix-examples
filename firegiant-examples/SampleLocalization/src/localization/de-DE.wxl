@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="de-DE" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG">1031</String>
+  <String Id="ProductName">Foobar 1.0</String>
+  <String Id="ManufacturerName">Acme Ltd.</String>
+
+  <String Id="PackageDescription">Foobar 1.0 Installationsprogramm von Acme Ltd.</String>
+  <String Id="PackageComments">Foobar ist ein eingetragenes Warenzeichen von Acme Ltd.</String>
+
+  <String Id="ExitDialog_Title">Auf Widersehen</String>
+</WixLocalization>

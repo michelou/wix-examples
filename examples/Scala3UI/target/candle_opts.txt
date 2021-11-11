@@ -1,0 +1,1 @@
+-v  "-IY:\\examples\\Scala3UI\\target\\src_gen" -nologo -out "Y:\\examples\\Scala3UI\\target\\" "-dProductVersion=3.1.0"
