@@ -21,17 +21,19 @@ This project depends on two external software for the **Microsoft Windows** plaf
 Optionally one may also install the following software:
 
 - [ImageMagick 7.1][magick_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup> ([*change log*][magick_changelog])
-- [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_02"><a href="#footnote_02">2</a></sup> ([*release notes*][vs2019_relnotes])
+- [InstEd 1.5][insted_downloads] <sup id="anchor_02"><a href="#footnote_02">2</a></sup> ([*release notes*][insted_relnotes])
+- [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_03"><a href="#footnote_03">3</a></sup> ([*release notes*][vs2019_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2021*) <sup id="anchor_03"><a href="#footnote_03">3</a></sup>:
+For instance our development environment looks as follows (*November 2021*) <sup id="anchor_04"><a href="#footnote_04">4</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.33.1\             <i>(279 MB)</i>
 C:\opt\ImageMagick-7.1.0-Q16\  <i>(300 MB)</i>
 C:\opt\WiX-3.11.2\             <i>( 99 MB)</i>
+C:\Program Files (x86)\instedit.com\InstEd\  <i>(  7 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(2.98 GB)</i>
 </pre>
 
@@ -83,13 +85,17 @@ Environment variables:
 
 <b name="footnote_01">[1]</b> ***ImageMagick*** [↩](#anchor_01)
 
-[ImageMagick] is free software to create, edit, compose, or convert digital images. In this project we rely on the [`convert`][magick_convert] tool to customize dialog windows in the generated Windows installer.
+[ImageMagick] is a free software to create, edit, compose, or convert digital images. In this project we rely on the [`convert`][magick_convert] tool to customize dialog windows in the generated Windows installer.
 
-<b name="footnote_02">[2]</b> ***Visual Studio 2019*** [↩](#anchor_02)
+<b name="footnote_02">[2]</b> ***InstEd*** [↩](#anchor_02)
 
-[Microft Visual Studio 2019](https://visualstudio.microsoft.com/vs/older-downloads/) is the defacto IDE for devopping Microsoft Windows application (either console applications or GUI applications). In this project we use the [`MSBuild`](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild) tool to build a basic GUI application and the Windows installer to install it.
+[InstEd][insted_downloads] is a free MSI editor built for professionals. In this project we use that tool to inspect and validate the generated Windows installers.
 
-<b name="footnote_03">[3]</b> ***Downloads*** [↩](#anchor_03)
+<b name="footnote_03">[3]</b> ***Visual Studio 2019*** [↩](#anchor_03)
+
+[Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/vs/older-downloads/) is the defacto [IDE] for devopping Microsoft Windows application (either console applications or [GUI] applications). In this project we use the [`MSBuild`](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild) tool to build a basic GUI application and the Windows installer to install it.
+
+<b name="footnote_04">[4]</b> ***Downloads*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -119,8 +125,12 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [github_markdown]: https://github.github.com/gfm/
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.1.txt
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
+[gui]: https://en.wikipedia.org/wiki/Graphical_user_interface
 [haskell_examples]: https://github.com/michelou/haskell-examples
+[ide]: https://en.wikipedia.org/wiki/Integrated_development_environment
 [imagemagick]: https://imagemagick.org/
+[insted_downloads]: http://www.instedit.com/download.html
+[insted_relnotes]: http://www.instedit.com/features2.html
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [linux_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples

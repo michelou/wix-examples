@@ -164,8 +164,8 @@ Command [`build link`](./Scala3First/build.bat) generates the Windows installer 
 │   Fragments.wixobj
 │   light_opts.txt
 │   Scala3First.msi
-│   Scala3.wixobj
-│   Scala3.wixpdb
+│   Scala3First.wixobj
+│   Scala3First.wixpdb
 └───<b>src_gen</b>
         Fragments.wxs.txt
         Scala3First.wxs

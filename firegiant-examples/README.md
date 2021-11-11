@@ -16,7 +16,7 @@ The following code examples are adapted from the ZIP archives available from [Fi
 - [`SampleRegistry.zip`](https://www.firegiant.com/system/files/samples/SampleRegistry.zip).
 
 > **&#9755;** ***Archive contents***<br/>
-> The contents of each archive file is minimal: one [WXS file](https://wixtoolset.org/documentation/manual/v3/overview/files.html) and 3 dummy (*and invalid*) binary files:
+> The contents of each archive file is minimal: one [WiX source file](https://wixtoolset.org/documentation/manual/v3/overview/files.html) and 3 dummy (*and invalid*) binary files:
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> -Z1 SampleFirst.zip</b>
 > Helper.dll
