@@ -1,2 +1,0 @@
-Y:\examples\Scala3UI\target\src_gen\Fragments.wxs 
-Y:\examples\Scala3UI\target\src_gen\Scala3UI.wxs 
