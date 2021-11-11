@@ -50,8 +50,8 @@ For that purpose we declare one single [component element][wix_component] in our
 Y:\examples\MyApp
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   build.bat
-│   build.properties
+│   <a href="./MyApp/build.bat">build.bat</a>
+│   <a href="./MyApp/build.properties">build.properties</a>
 ├───app
 │   └───HelloWorld
 │       │   <a href="./MyApp/app/HelloWorld/00download.txt">00download.txt</a>
@@ -100,7 +100,7 @@ Figures 1.1 and 1.2 below illustrate the updated user environment after the succ
 
 ## <span id="myapp_shortcuts">MyAppShortcuts</span>
 
-This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to example [`MyApp`](#myapp).
+This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above example [`MyApp`](#myapp).
 
 We declare 3 components in our WiX source file [`MyAppShortcuts.wxs`](./MyAppShortcuts/src/MyAppShortcuts.wxs) :
 - component 1 refers to the `MyApp` executable (as in previous example).
@@ -155,15 +155,15 @@ Y:\examples\Scala3First
 
 > **:mag_right:** Command [`build help`](./Scala3First/build.bat) displays the batch file options and subcommands:
 
-Command [`build pack`](./Scala3First/build.bat) generates the MSI package file:
+Command [`build link`](./Scala3First/build.bat) generates the Windows installer with name `Scala3First.msi`.
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./Scala3First/build.bat">build</a> clean pack &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+<b>&gt; <a href="./Scala3First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   candle_opts.txt
 │   candle_sources.txt
 │   Fragments.wixobj
 │   light_opts.txt
-│   Scala3.msi
+│   Scala3First.msi
 │   Scala3.wixobj
 │   Scala3.wixpdb
 └───<b>src_gen</b>
