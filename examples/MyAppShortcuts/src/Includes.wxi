@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-    <?define ProductName="MyApp" ?>
-    <?define CompanyName="MyCompany" ?>
-    <?define Manufacturer="MyCompany, Inc." ?>
-    <?define Languages="1033" ?>  <!-- 1033=en-us -->
+  <?define ProductName="MyApp" ?>
+  <?define CompanyName="MyCompany" ?>
+  <?define Manufacturer="MyCompany, Inc." ?>
+  <?define Languages="1033" ?>  <!-- 1033=en-us -->
 </Include>

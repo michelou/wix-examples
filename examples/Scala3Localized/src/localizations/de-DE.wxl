@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="de-DE" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Product_Language">1031</String>
+  <String Id="Product_Manufacturer">EPFL/LAMP and Lightbend, Inc.</String>
+  <String Id="Product_Name">Scala 3</String>
+
+  <String Id="Package_Comments">(C) Copyright 2002-2021 EPFL</String>
+  <String Id="Package_Description">Scala 3 Installationsprogramm</String>
+  <String Id="Package_Keywords">Scala, JVM, EPFL</String>
+  <String Id="Package_Manufacturer">EPFL/LAMP and Lightbend, Inc.</String>
+
+  <String Id="Shortcut_ScalaAPI_Description">Scala 3 Online API Dokumentation</String>
+  <String Id="Shortcut_ScalaAPI_Name">Scala 3 API Dokumentation</String>
+  <String Id="Shortcut_ScalaLicense_Description">Scala 3 Lizenz</String>
+  <String Id="Shortcut_ScalaLicense_Name">Lizenz</String>
+  <String Id="Shortcut_ScalaREPL_Description">Scala 3 Befehlszeile</String>
+  <String Id="Shortcut_ScalaREPL_Name">Scala 3 REPL</String>
+  <String Id="Shortcut_UninstallProduct_Description">Entfernt Scala 3 Installation</String>
+  <String Id="Shortcut_UninstallProduct_Name">Deinstallieren von Scala 3</String>
+
+  <String Id="Feature_Complete_Title">Scala 3</String>
+</WixLocalization>

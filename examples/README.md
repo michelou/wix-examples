@@ -11,12 +11,12 @@
   </tr>
 </table>
 
-The WiX projects presented in the following sections have several characteristics in common, i.e.
+The [WiX][wix_toolset] projects presented in the following sections have several characteristics in common, i.e.
 1) each project includes
    - an `app\` directory with the (*generated* or *downloaded*) application files
    - a `src\` directory with the WiX source files and resource files
    - a batch file `build.bat` to create the Windows installer from the two input directories.
-2) each WiX source file contains just GUID names; the corresponding GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the WiX tools are executed.<br/>For instance:
+2) each WiX source file contains just GUID names; the corresponding GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed.<br/>For instance:
 
 <table style="font-size:80%;width:70%;border:solid lightgray 2px;margin:0 0 0 40px;">
 <tr>
@@ -206,7 +206,7 @@ Figures 3.1 to 3.5 below illustrate the updated user environment after the succe
 
 ## <span id="scala3UI">Scala3UI</span>
 
-The `Scala3UI` project adds a graphical user interface to the Windows installer (aka. MSI file).
+The `Scala3UI` project adds customizations to the graphical user interface of the Windows installer.
 
 This project is organized as follows :
 <pre style="font-size:80%;">
@@ -266,6 +266,40 @@ Y:\examples\Scala3UI
 </tr>
 </table>
 
+## <span id="scala3Localized">Scala3Localized</span>
+
+The `Scala3Localized` project adds language localization to the graphical user interface of the Windows installer.
+
+Command [`build link`](./Scala3Localized/build.bat) generates a separate MSI file for each language localization, e.g. `Scala3Localized-sv-SE.msi` for the swedish version of the Windows installer.
+
+This project contains an additional directory [`src\localizations\`](./Scala3Localized/src/localizations/) :
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+Y:\examples\Scala3Localized
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+│   <a href="./Scala3Localized/build.bat">build.bat</a>
+├───<b>app</b>
+│   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
+└───<b>src</b>
+    │   <a href="./Scala3Localized/src/Fragments.wxs">Fragments.wxs</a>
+    │   <a href="./Scala3Localized/src/Includes.wxs">Includes.wxs</a>
+    │   <a href="./Scala3Localized/src/Scala3Localizedwxs">Scala3Localized.wxs</a>
+    ├───<b>localizations</b>
+    │       <a href="./Scala3Localized/src/localizations/de-DE.wxl">de-DE.wxl</a>
+    │       <a href="./Scala3Localized/src/localizations/en-US.wxl">en-US.wxl</a>
+    │       <a href="./Scala3Localized/src/localizations/fr-FR.wxl">fr-Fr.wxl</a>
+    │       <a href="./Scala3Localized/src/localizations/sv-SW.wxl">sv-SE.wxl</a>
+    └───<b>resources</b>
+            <a href="./Scala3Localized/src/resources/BannerTop.bmp">BannerTop.bmp</a>
+            <a href="./Scala3Localized/src/resources/Dialog.bmp">Dialog.bmp</a>
+            <a href="./Scala3Localized/src/resources/dotty-logo-white.svg">dotty-logo-white.svg</a>
+            favicon.ico
+            LICENSE.rtf
+            network.ico
+            <a href="./Scala3Localized/src/resources/repl.bat">repl.bat</a>
+</pre>
+
 ## <span id="footnotes">Footnotes</span>
 
 <b name="footnote_01">[1]</b> ***GUID*** [↩](#anchor_01)
@@ -290,3 +324,4 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 [wix_candle]: https://wixtoolset.org/documentation/manual/v3/overview/candle.html
 [wix_component]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/component.html
 [wix_light]: https://wixtoolset.org/documentation/manual/v3/overview/light.html
+[wix_toolset]: https://wixtoolset.org/

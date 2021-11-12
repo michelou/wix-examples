@@ -93,7 +93,12 @@ set "_CANDLE_CMD=%WIX%\candle.exe"
 set "_HEAT_CMD=%WIX%\heat.exe"
 set "_LIGHT_CMD=%WIX%\light.exe"
 
-set "_MSIEXEC_CMD=msiexec.exe"
+if not exist "%WINDIR%\System32\msiexec.exe" (
+    echo %_ERROR_LABEL% Microsoft Windows installer not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
 goto :eof
 
 :env_colors
@@ -277,7 +282,7 @@ if %_DEBUG%==1 set _STDOUT_REDIRECT=
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
-    if defined GIT_HOME echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
 	echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
@@ -300,7 +305,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%       show commands executed by this script
-echo     %__BEG_O%-timer%__END%       display total elapsed time
+echo     %__BEG_O%-timer%__END%       display total execution time
 echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -330,10 +335,10 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameter: _APP_VERSION
+@rem output parameter: _ANTLR_VERSION, _APP_VERSION
 :app_version
-set _APP_VERSION=
 set _ANTLR_VERSION=
+set _APP_VERSION=
 
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
@@ -459,6 +464,7 @@ if not %_EXITCODE%==0 goto :eof
 
 goto :eof
 
+@rem top banner image has a size of 493x58
 :gen_banner
 set "__LOGO_FILE=%_RESOURCES_DIR%\dotty-logo-white.svg"
 
@@ -486,14 +492,17 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+@rem dialog background image has a size of 493x312
 :gen_dialog
 set __TEXT_LINE1=The Scala 3 Programming Language
 set __TEXT_LINE2=Copyright ^(c^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
+set __TEXT_LINE3=Version %_APP_VERSION%
 set __TEXT_COLOR=white
 
 set __CONVERT_OPTS=-fill %__TEXT_COLOR%
-set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 28 -draw "text 16,276 '%__TEXT_LINE1%'"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 28 -draw "text 16,272 '%__TEXT_LINE1%'"
 set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 14 -draw "text 16,296 '%__TEXT_LINE2%'"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 14 -draw "text 390,296 '%__TEXT_LINE3%'"
 
 set "__INFILE=%_SOURCE_DIR%\resources\Dialog.bmp"
 set "__TEMP_FILE=%TEMP%\Dialog.bmp"

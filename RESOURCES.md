@@ -61,6 +61,7 @@
 
 ## <span id="tutorials">Tutorials</span>
 
+- [Windows Installer User's Guide](https://www.advancedinstaller.com/user-guide/windows-installer.html) by [Caphyon Srl](https://www.caphyon.com/).
 - [WiX Toolset Tutorial](https://www.firegiant.com/wix/tutorial/).
 
 ## <span id="videos">Videos</span>

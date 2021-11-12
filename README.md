@@ -85,15 +85,25 @@ Environment variables:
 
 <b name="footnote_01">[1]</b> ***ImageMagick*** [↩](#anchor_01)
 
-[ImageMagick] is a free software to create, edit, compose, or convert digital images. In this project we rely on the [`convert`][magick_convert] tool to customize dialog windows in the generated Windows installer.
+<p style="margin:0 0 1em 20px;">
+<a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize dialog windows in the generated Windows installer.
+</p>
 
 <b name="footnote_02">[2]</b> ***InstEd*** [↩](#anchor_02)
 
-[InstEd][insted_downloads] is a free MSI editor built for professionals. In this project we use that tool to inspect and validate the generated Windows installers.
+<p style="margin:0 0 1em 20px;">
+<a href="http://www.instedit.com/download.html">InstEd</a> is a free MSI editor built for professionals. In this project we use that tool to inspect Windows installers available for other software products, e.g.
+</p>
+<ul style="margin:0 0 1em 20px;">
+  <li><a href="https://developers.redhat.com/products/openjdk/download"><code>java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi</code></a></li>
+  <li><a href="https://adoptium.net/"><code>OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi</code></a></li>
+</ul>
 
 <b name="footnote_03">[3]</b> ***Visual Studio 2019*** [↩](#anchor_03)
 
-[Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/vs/older-downloads/) is the defacto [IDE] for devopping Microsoft Windows application (either console applications or [GUI] applications). In this project we use the [`MSBuild`](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild) tool to build a basic GUI application and the Windows installer to install it.
+<p style="margin:0 0 1em 20px;">
+<a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or [GUI] applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the Windows installer to install it.
+</p>
 
 <b name="footnote_04">[4]</b> ***Downloads*** [↩](#anchor_04)
 
@@ -127,7 +137,6 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gui]: https://en.wikipedia.org/wiki/Graphical_user_interface
 [haskell_examples]: https://github.com/michelou/haskell-examples
-[ide]: https://en.wikipedia.org/wiki/Integrated_development_environment
 [imagemagick]: https://imagemagick.org/
 [insted_downloads]: http://www.instedit.com/download.html
 [insted_relnotes]: http://www.instedit.com/features2.html
