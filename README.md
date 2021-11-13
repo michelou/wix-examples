@@ -44,7 +44,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(2.98 GB)</i>
 This project is organized as follows:
 <pre style="font-size:80%;">
 bin\
-examples\
+examples\{<a href="./examples/MyApp">MyApp</a>, <a href="./examples/Scala3First">Scala3First</a>, etc.}
 firegiant-examples\{<a href="./firegiant-examples/SampleFirst">SampleFirst</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
 README.md
@@ -67,7 +67,7 @@ where
 <pre style="font-size:80%;">
 <b>&gt; <a href="./setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   candle 3.11.2.4516,
+   candle 3.11.2.4516, light 3.11.2.4516,
    magick 7.1.0-7, git 2.33.1.windows.1, diff 3.8
 Tool paths:
    C:\opt\Wix-3.11.2\candle.exe
@@ -102,7 +102,7 @@ Environment variables:
 <b name="footnote_03">[3]</b> ***Visual Studio 2019*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-<a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or [GUI] applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the Windows installer to install it.
+<a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">GUI</a> applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the Windows installer to install it.
 </p>
 
 <b name="footnote_04">[4]</b> ***Downloads*** [↩](#anchor_04)

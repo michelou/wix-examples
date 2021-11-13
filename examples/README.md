@@ -13,10 +13,10 @@
 
 The [WiX][wix_toolset] projects presented in the following sections have several characteristics in common, i.e.
 1) each project includes
-   - an `app\` directory with the (*generated* or *downloaded*) application files
-   - a `src\` directory with the WiX source files and resource files
+   - an `app\` directory with the application files (*generated* or *downloaded*)
+   - a `src\` directory with the [WiX][wix_toolset] source files and resource files
    - a batch file `build.bat` to create the Windows installer from the two input directories.
-2) each WiX source file contains just GUID names; the corresponding GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed.<br/>For instance:
+2) each WiX source file contains just GUID names; the corresponding GUID values <sup id="anchor_01"><a href="#footnote_01">1</a></sup> are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed.<br/>For instance:
 
 <table style="font-size:80%;width:70%;border:solid lightgray 2px;margin:0 0 0 40px;">
 <tr>
@@ -68,7 +68,7 @@ Y:\examples\MyApp
 
 > **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple Visual Studio solution for generating the `MyApp.exe` executable to be later added to our Windows installer.
 
-Our main batch file [`build.bat`](./MyApp/build.bat) invokes the WiX tools [`candle`][wix_candle] (compiler) and [`light`][wix_light] (linker) with the appropriate settings and inputs.
+Our main batch file [`build.bat`](./MyApp/build.bat) invokes the [WiX][wix_toolset] tools [`candle`][wix_candle] (compiler) and [`light`][wix_light] (linker) with the appropriate settings and inputs.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./MyApp/build.bat">build</a> -verbose install</b>
@@ -122,7 +122,7 @@ Figures 2.1 to 2.3 below illustrate the updated user environment after the succe
   </div>
   <div>
   <a href="images/MyAppShortcuts_Menu.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Menu.png" /></a>
-  <div style="font-size:70%;"><b>Figure 2.2 -</b> <i>MyApp</i> shortcut<br/>(<a href="https://support.microsoft.com/en-us/windows/see-what-s-on-the-start-menu-a8ccb400-ad49-962b-d2b1-93f453785a13"><i>Start Menu</i></a> folder).
+  <div style="font-size:70%;"><b>Figure 2.2 -</b> <i>MyApp</i> shortcuts<br/>(<a href="https://support.microsoft.com/en-us/windows/see-what-s-on-the-start-menu-a8ccb400-ad49-962b-d2b1-93f453785a13"><i>Start Menu</i></a> folder).
   </div>
 </td>
 <td style="text-align:center;">
@@ -270,8 +270,6 @@ Y:\examples\Scala3UI
 
 The `Scala3Localized` project adds language localization to the graphical user interface of the Windows installer.
 
-Command [`build link`](./Scala3Localized/build.bat) generates a separate MSI file for each language localization, e.g. `Scala3Localized-sv-SE.msi` for the swedish version of the Windows installer.
-
 This project contains an additional directory [`src\localizations\`](./Scala3Localized/src/localizations/) :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
@@ -289,7 +287,7 @@ Y:\examples\Scala3Localized
     │       <a href="./Scala3Localized/src/localizations/de-DE.wxl">de-DE.wxl</a>
     │       <a href="./Scala3Localized/src/localizations/en-US.wxl">en-US.wxl</a>
     │       <a href="./Scala3Localized/src/localizations/fr-FR.wxl">fr-Fr.wxl</a>
-    │       <a href="./Scala3Localized/src/localizations/sv-SW.wxl">sv-SE.wxl</a>
+    │       <a href="./Scala3Localized/src/localizations/sv-SE.wxl">sv-SE.wxl</a>
     └───<b>resources</b>
             <a href="./Scala3Localized/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala3Localized/src/resources/Dialog.bmp">Dialog.bmp</a>
@@ -298,6 +296,25 @@ Y:\examples\Scala3Localized
             LICENSE.rtf
             network.ico
             <a href="./Scala3Localized/src/resources/repl.bat">repl.bat</a>
+</pre>
+
+Command [`build link`](./Scala3Localized/build.bat) generates a separate MSI file for each language localization, e.g. `Scala3Localized-sv-SE.msi` is the swedish version of the Windows installer.
+
+<pre style="font-size:80%;">
+<b>&gt; build clean link && dir /b /a-d target</b>
+candle_opts.txt
+candle_sources.txt
+Fragments.wixobj
+light_opts.txt
+<b>Scala3Localized-de-DE.msi</b>
+Scala3Localized-de-DE.wixpdb
+<b>Scala3Localized-fr-FR.msi</b>
+Scala3Localized-fr-FR.wixpdb
+<b>Scala3Localized-sv-SE.msi</b>
+Scala3Localized-sv-SE.wixpdb
+<b>Scala3Localized.msi</b>
+Scala3Localized.wixobj
+Scala3Localized.wixpdb
 </pre>
 
 ## <span id="footnotes">Footnotes</span>
