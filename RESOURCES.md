@@ -21,6 +21,10 @@
 - [WiX Software Blog](https://www.hass.de/category/software/wix) from Alexander Haas :
   - [How to create MSI packages with multilingual user interface (MUI) ?](https://www.hass.de/content/how-create-msi-packages-multilingual-user-interface-mui)
   - [How to create a MSI for deploying Fonts in Enterprise ?](https://www.hass.de/content/how-create-msi-deploying-fonts-enterprise), September 2016.
+- [WiX Tips](https://sorceryforce.net/en/tips/wix) from Yuuichi Onodera :
+  - [Create a Windows Installer "MSI" using WiX part2](https://sorceryforce.net/en/tips/wix-installer-create2), October 2021.
+  - [Create a Windows Installer "MSI" using WiX part1](https://sorceryforce.net/en/tips/wix-installer-create1), April 2020.
+  - [Set up WiX to create Windows Installer for program distribution](https://sorceryforce.net/en/tips/wix-setup), April 2020.
 - [Real-World Example: WiX/MSI Application Installer][blog_klein] by Helge Klein, February 2021.
 - [Variables and Conditional Statements in WiX][blog_kumar] by Arun Kumar, June 2014.
 - [WiX 3 Tutorial: Custom EULA License and MSI localization](https://weblogs.sqlteam.com/mladenp/2010/04/15/wix-3-tutorial-custom-eula-license-and-msi-localization/)  by Mladen Prajdić, April 2010.
@@ -49,6 +53,7 @@
 
 - [`cargo-wix`][cargo_wix] - a cargo subcommand to build Windows installers for Rust projects using the [WiX Toolset][wix_toolset].
 - [`go-msi`][go_msi] - an easy way to generate MSI package for a Go project.
+- [`iswix`](https://github.com/iswix-llc/iswix) - an industrial strength Windows installer XML application.
 - [`sbt-native-packager`](https://github.com/sbt/sbt-native-packager) - a [sbt plugin][sbt_plugin] to build application packages in native formats.
 - [`scala-dist`](https://github.com/scala/scala-dist) - morphs Maven artifact into a Scala distribution (zip, tar.gz, deb, rpm, and msi).
 - [`wixsharp`](https://github.com/oleg-shilo/wixsharp) - a framework for building a MSI or WiX source code using C# script files.

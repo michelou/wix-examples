@@ -4,6 +4,24 @@ setlocal enabledelayedexpansion
 set _SCALA_ENV=
 if defined JAVACMD ( set _SCALA_ENV=1
 ) else if defined JAVA_HOME ( set _SCALA_ENV=1
+) else if exist "%ProgramFiles%\Amazon Corretto\jdk*" (
+    call :javacmd "%ProgramFiles%\Amazon Corretto" "jdk*"
+    if defined _JAVACMD set "JAVACMD=!_JAVACMD!"& set _SCALA_ENV=1
+) else if exist "%ProgramFiles%\Eclipse Adoptium\" (
+    call :javacmd "%ProgramFiles%\Eclipse Adoptium"
+    if defined _JAVACMD set "JAVACMD=!_JAVACMD!"& set _SCALA_ENV=1
+) else if exist "%ProgramFiles%\Microsoft\jdk-*" (
+    call :javacmd "%ProgramFiles%\Microsoft" "jdk-*"
+    if defined _JAVACMD set "JAVACMD=!_JAVACMD!"& set _SCALA_ENV=1
+) else if exist "%ProgramFiles%\RedHat\java-*" (
+    call :javacmd "%ProgramFiles%\RedHat" "java-*"
+    if defined _JAVACMD set "JAVACMD=!_JAVACMD!"& set _SCALA_ENV=1
+) else if exist "%ProgramFiles%\SapMachine\JDK\*" (
+    call :javacmd "%ProgramFiles%\SapMachine\JDK"
+    if defined _JAVACMD set "JAVACMD=!_JAVACMD!"& set _SCALA_ENV=1
+) else if exist "%ProgramFiles%\Zulu\zulu-*" (
+    call :javacmd "%ProgramFiles%\Zulu" "zulu-*"
+    if defined _JAVACMD set "JAVACMD=!_JAVACMD!"& set _SCALA_ENV=1
 ) else if exist "%ProgramFiles%\Java\" (
     call :javacmd "%ProgramFiles%\Java"
     if defined _JAVACMD set "JAVACMD=!_JAVACMD!"& set _SCALA_ENV=1

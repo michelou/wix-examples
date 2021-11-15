@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="fr-FR" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Product_Language">1036</String>
+  <String Id="Product_Manufacturer">MyCompany SA</String>
+  <String Id="Product_Name">MyApp</String>
+
+  <String Id="Package_Comments">Create application and uninstall shortcuts</String>
+  <String Id="Package_Description">Assistant d'installation de MyApp</String>
+  <String Id="Package_Keywords">Application démo de l'outil WiX</String>
+  <String Id="Package_Manufacturer">MyCompany SA</String>
+
+  <String Id="Condition_NewerVersionDetected">xxxxxxxxxxxxxxxxxxx</String>
+
+  <String Id="MajorUpgrade_DowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
+
+  <String Id="Shortcut_ApplicationStartMenu_Description">Application MyApp</String>
+  <String Id="Shortcut_ApplicationStartMenu_Name">MyApp</String>
+  <String Id="Shortcut_UninstallProduct_Description">Désinstalle MyApp</String>
+  <String Id="Shortcut_UninstallProduct_Name">Désinstallation de MyApp</String>
+
+  <String Id="Feature_AppComponents_Title">Composants de MyApp</String>
+</WixLocalization>

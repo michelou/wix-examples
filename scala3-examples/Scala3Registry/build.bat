@@ -1,6 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
+@rem only for interactive debugging !
 set _DEBUG=0
 
 @rem #########################################################################
@@ -83,7 +84,12 @@ set "_CANDLE_CMD=%WIX%\candle.exe"
 set "_HEAT_CMD=%WIX%\heat.exe"
 set "_LIGHT_CMD=%WIX%\light.exe"
 
-set "_MSIEXEC_CMD=msiexec.exe"
+if not exist "%WINDIR%\System32\msiexec.exe" (
+    echo %_ERROR_LABEL% Microsoft Windows installer not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
 goto :eof
 
 :env_colors
@@ -320,10 +326,10 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameter: _APP_VERSION
+@rem output parameters: _ANTLR_VERSION, _APP_VERSION
 :app_version
-set _APP_VERSION=
 set _ANTLR_VERSION=
+set _APP_VERSION=
 
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
@@ -331,13 +337,13 @@ if not exist "%_APP_DIR%\VERSION" (
     set "__RELEASE=3.1.0"
     set "__ARCHIVE_FILE=scala3-!__RELEASE!.zip"
     set "__ARCHIVE_URL=https://github.com/lampepfl/dotty/releases/download/!__RELEASE!/!__ARCHIVE_FILE!"
-    set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
+    set "__OUTFILE=%TEMP%\!__ARCHIVE_FILE!"
 
     if not exist "!__OUTFILE_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTPUT_FILE!" 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTFILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
         )
-        call "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" > "!__OUTPUT_FILE!"
+        call "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" > "!__OUTFILE!"
         if not !ERRORLEVEL!==0 (
             echo.
             echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" 1>&2
@@ -345,10 +351,10 @@ if not exist "%_APP_DIR%\VERSION" (
             goto :eof
         )
     )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTPUT_FILE!" -d "%TEMP%\" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Extract zip archive to directory "%TEMP%" 1>&2
     )
-    call "%_UNZIP_CMD%" -o "!__OUTPUT_FILE!" -d "%TEMP%\" %_STDOUT_REDIRECT%
+    call "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to extract zip archive to directory "%TEMP%" 1>&2
         set _EXITCODE=1
@@ -391,10 +397,11 @@ set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -suid -sfrag -out "%_FRAGMENTS_F
 if %_VERBOSE%==1 set __HEAT_OPTS=%__HEAT_OPTS% -v
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file 1>&2
+) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -426,18 +433,20 @@ for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR %__PACK_F
     @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %%i=!__GUID! 1>&2
     set __REPLACE_PAIRS=!__REPLACE_PAIRS! -replace 'YOURGUID-%%i', '!__GUID!' 
 )
+@rem replace GUID placeholders found in .wx? files by their GUID values
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
     set "__INFILE=%%f"
     for %%g in (%%f) do set "__OUTFILE=%_GEN_DIR%\%%~nxg"
     for /f "usebackq" %%i in (`powershell -C "(Get-Content '!__INFILE!') %__REPLACE_PAIRS% ^| Out-File -encoding ASCII '!__OUTFILE!'"`) do (
-       @rem nop
+       @rem noop
     )
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_SOURCE_DIR%\resources" "%_TARGET_DIR%\resources" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
 )
-xcopy /i /q /y "%_SOURCE_DIR%\resources" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -459,7 +468,7 @@ echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARG
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
-for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wx?" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -500,7 +509,8 @@ if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
 set __OPT_EXTENSIONS=-ext WixUIExtension
-set __LIGHT_BINDINGS= -b "pack=%_APP_DIR%" -b "rsrc=%_RESOURCES_DIR%"
+@rem set __OPT_EXTENSIONS=
+set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_RESOURCES_DIR%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
@@ -611,11 +621,11 @@ set "__PRODUCT_CODE=%_GUID[PRODUCT_CODE]%"
 @rem     goto :eof
 @rem )
 if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Remove installation 1>&2
+) else if %_VERBOSE%==1 ( echo Remove installation "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_MSIEXEC_CMD%" /x "%_MSI_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_DEBUG_LABEL% Failed to remove MSI package "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to remove installation "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

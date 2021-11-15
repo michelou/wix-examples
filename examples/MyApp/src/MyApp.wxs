@@ -11,7 +11,7 @@
       InstallerVersion='200' InstallScope="perMachine"
       Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
-    <Media Id="1" Cabinet="Shortcut.cab" EmbedCab="yes" />
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">

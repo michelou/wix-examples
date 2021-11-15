@@ -1,6 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
+@rem only for interactive debugging !
 set _DEBUG=0
 
 @rem #########################################################################
@@ -283,7 +284,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
-	echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
@@ -313,7 +314,7 @@ echo     %__BEG_O%clean%__END%        delete generated files
 echo     %__BEG_O%help%__END%         display this help message
 echo     %__BEG_O%install%__END%      execute Windows installer %__BEG_O%%_PROJECT_NAME%%__END%
 echo     %__BEG_O%link%__END%         create Windows installer from WXS/WXI/WXL files
-echo     %__BEG_O%remove%__END%       remove installed program ^(same as %__BEG_O%uninstall%__END%")
+echo     %__BEG_O%remove%__END%       remove installed program ^(same as %__BEG_O%uninstall%__END%^)
 echo     %__BEG_O%uninstall%__END%    remove installed program
 goto :eof
 
@@ -335,7 +336,7 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameter: _ANTLR_VERSION, _APP_VERSION
+@rem output parameters: _ANTLR_VERSION, _APP_VERSION
 :app_version
 set _ANTLR_VERSION=
 set _APP_VERSION=
@@ -360,18 +361,24 @@ if not exist "%_APP_DIR%\VERSION" (
             goto :eof
         )
     )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTFILE!"  -d %TEMP%\ 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Extract zip archive to directory "%TEMP%" 1>&2
     )
-    call "%_UNZIP_CMD%" -o "!__OUTFILE!" -d %TEMP%\ %_STDOUT_REDIRECT%
+    call "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to extract zip archive to directory "%TEMP%" 1>&2
         set _EXITCODE=1
         goto :eof
     )
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%TEMP%\scala3-!__RELEASE!\*" "%_APP_DIR%\" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
     )
-	xcopy /s /y "%TEMP%\scala3-!__RELEASE!\*" "%_APP_DIR%\" %_STDOUT_REDIRECT%
+    xcopy /s /y "%TEMP%\scala3-!__RELEASE!\*" "%_APP_DIR%\" %_STDOUT_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_APP_DIR%\VERSION" 2^>NUL') do (
     set _APP_VERSION=%%j
@@ -435,18 +442,19 @@ for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR %__PACK_F
     @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %%i=!__GUID! 1>&2
     set __REPLACE_PAIRS=!__REPLACE_PAIRS! -replace 'YOURGUID-%%i', '!__GUID!' 
 )
+@rem replace GUID placeholders found in .wx? files by their GUID values
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
     set "__INFILE=%%f"
     for %%g in (%%f) do set "__OUTFILE=%_GEN_DIR%\%%~nxg"
     for /f "usebackq" %%i in (`powershell -C "(Get-Content '!__INFILE!') %__REPLACE_PAIRS% ^| Out-File -encoding ASCII '!__OUTFILE!'"`) do (
-       @rem nop
+       @rem noop
     )
 )
 for %%e in (bat ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_SOURCE_DIR%\resources\*.%%e" "%_TARGET_DIR%\resources" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
     )
-    xcopy /i /q /y "%_SOURCE_DIR%\resources\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
         set _EXITCODE=1
@@ -552,7 +560,7 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
-if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
+if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
@@ -679,18 +687,18 @@ goto :eof
 
 :install
 if not exist "%_MSI_FILE%" (
-    echo %_ERROR_LABEL% MSI package file not found ^("!_MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
+    echo %_ERROR_LABEL% Windows installer not found ^("!_MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "__LOG_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.log"
 
 if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Install MSI file "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to install "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -702,8 +710,8 @@ if not defined _GUID[PRODUCT_CODE] (
     set _EXITCODE=1
     goto :eof
 )
-set __HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-set __PRODUCT_CODE=%_GUID[PRODUCT_CODE]%
+set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
+set "__PRODUCT_CODE=%_GUID[PRODUCT_CODE]%"
 
 @rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_CODE%" 1>&2
 @rem ) else if %_VERBOSE%==1 ( echo Check if product if already installed 1>&2
@@ -719,7 +727,7 @@ if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
 )
 call "%_MSIEXEC_CMD%" /x "%_MSI_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_DEBUG_LABEL% Failed to remove MSI package "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to remove installation "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

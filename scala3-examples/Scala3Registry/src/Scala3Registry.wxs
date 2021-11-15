@@ -12,7 +12,7 @@
       InstallerVersion='200' InstallScope="perMachine"
       Languages='$(var.Languages)' Compressed='yes' SummaryCodepage='1252' />
 
-    <Media Id='1' Cabinet='Scala3.cab' EmbedCab='yes' />
+    <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>

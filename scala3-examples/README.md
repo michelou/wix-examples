@@ -13,7 +13,7 @@
 
 The [WiX][wix_toolset] projects presented in the following sections
 - share the same characteristics with [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
-- add a file `fragments.wxs` (*initially* generated using the [`heat`][wix_heat] tool) which contains all references to the application files. 
+- add a file `Fragments.wxs` (*initially* generated using the [`heat`][wix_heat] tool) which contains all references to the application files. 
 
 ## <span id="scala3first">Scala3First</span>
 
@@ -36,9 +36,11 @@ Y:\examples\Scala3First
             <a href="./Scala3First/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-> **:mag_right:** Command [`build help`](./Scala3First/build.bat) displays the batch file options and subcommands:
+> **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala3First/src/resources/repl.bat) is added to the `bin\` directory; its goal is to look for a Java installation <sup id="anchor_01">[1](#footnote_01)</sup> before starting the Scala 3 REPL (Scala commands require either variable `JAVA_HOME` or variable `JAVACMD` to be defined).
 
 Command [`build link`](./Scala3First/build.bat) generates the Windows installer with name `Scala3First.msi`.
+
+> **:mag_right:** Command [`build help`](./Scala3First/build.bat) displays the batch file options and subcommands:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
@@ -231,11 +233,57 @@ Figures 3.1 to 3.4 below illustrate the "**Welcome**" dialog window of the Windo
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***GUID*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> ***Default OpenJDK Location*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated.
+The different implementations of OpenJDK are available both as a Zip archive file or as a Windows installer. Not surprisingly, each Windows installer suggests a <i>different</i> default installation location :
 </p>
+<table style="margin:0 0 1em 20px;font-size:80%;">
+<tr>
+  <th style="padding:6px;">OpenJDK<br/>Implementation</th>
+  <th style="padding:6px;">Default location<br/>in directory <code>%ProgramFiles%</code></th>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://github.com/corretto/corretto-11/releases">Amazon Corretto 11</a></td>
+  <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.13_8\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">Azul Zulu 8</a></td>
+  <td style="padding:6px;"><code>Zulu\zulu-8\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">Azul Zulu 11</a></td>
+  <td style="padding:6px;"><code>Zulu\zulu-11\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk8&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;8</a></td>
+  <td style="padding:6px;"><code>Eclipse Adoptium\jdk-8.0.312.7-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;11</a></td>
+  <td style="padding:6px;"><code>Eclipse Adoptium\jdk-11.0.13.8-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;17</a></td>
+  <td style="padding:6px;"><code>Eclipse Adoptium\jdk-17.0.1.12-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11">Microsoft 11</a></td>
+  <td style="padding:6px;"><code>Microsoft\jdk-11.0.13.8-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 8</a></td>
+  <td style="padding:6px;"><code>RedHat\java-1.8.0-openjdk-1.8.0.312.2\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 11</a></td>
+  <td style="padding:6px;"><code>RedHat\java-11-openjdk-11.0.13-1\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://sap.github.io/SapMachine/">SapMachine 11</a></td>
+  <td style="padding:6px;"><code>SapMachine\JDK\11\</code></td>
+</tr>
+</table>
 
 ***
 

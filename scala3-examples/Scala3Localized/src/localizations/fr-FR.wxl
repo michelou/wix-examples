@@ -5,7 +5,7 @@
   <String Id="Product_Name">Scala 3</String>
 
   <String Id="Package_Comments">(C) Copyright 2002-2021 EPFL</String>
-  <String Id="Package_Description">Installateur Scala 3</String>
+  <String Id="Package_Description">Assistant d'installation de Scala 3</String>
   <String Id="Package_Keywords">Scala, JVM, EPFL</String>
   <String Id="Package_Manufacturer">EPFL/LAMP and Lightbend, Inc.</String>
 
