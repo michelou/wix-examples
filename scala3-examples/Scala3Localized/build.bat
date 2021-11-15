@@ -522,7 +522,7 @@ set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TEMP_FILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 80 ^) -gravity NorthWest -geometry +50+16 -composite "%__OUTFILE%"
+call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 60 ^) -gravity NorthWest -geometry +50+16 -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

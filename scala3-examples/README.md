@@ -6,14 +6,14 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by myself for creating  [Scala 3][scala3] Windows installer.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by myself for creating <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.
   </td>
   </tr>
 </table>
 
 The [WiX][wix_toolset] projects presented in the following sections
 - share the same characteristics with [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
-- add a file `fragments.wxs` initially generated using the [`heat`][wix_heat] tool. 
+- add a file `fragments.wxs` (*initially* generated using the [`heat`][wix_heat] tool) which contains all references to the application files. 
 
 ## <span id="scala3first">Scala3First</span>
 
@@ -56,33 +56,33 @@ Command [`build link`](./Scala3First/build.bat) generates the Windows installer 
 
 > **:mag_right:** In the above listing of the `target\` directory file `target\src_gen\Scala3First.wxs` contains the real GUIDs instead of the symbol names defined in file [`src\Scala3First.wxs`](./Scala3First/src/Scala3.wxs).
 
-Figures 3.1 to 3.5 below illustrate the updated user environment after the successful execution of the Windows installer.
+Figures 1.1 to 1.5 below illustrate the updated user environment after the successful execution of the Windows installer.
 
 <table>
 <tr>
 <td style="text-align:center;">
   <div>
   <a href="images/Scala3First.png"><img style="max-width:180px;" src="images/Scala3First.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3First_Menu.png"><img style="max-width:180px;" src="images/Scala3First_Menu.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.2 -</b> <i>Scala 3</i> shortcuts<br>(<i>Start Menu</i> folder).
+  <div style="font-size:70%;"><b>Figure 1.2 -</b> <i>Scala 3</i> shortcuts<br>(<i>Start Menu</i> folder).
   </div>
 </td>
 <td style="text-align:center;background-color:#bbeedd;">
   <div>
   <a href="images/Scala3First_StartMenu.png"><img style="max-width:160px;" src="images/Scala3First_StartMenu.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.3 -</b> <i>Scala 3</i> shorcuts<br>(<i>Start Menu</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 1.3 -</b> <i>Scala 3</i> shorcuts<br>(<i>Start Menu</i> folder).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3First_REPL.png"><img style="max-width:180px;" src="images/Scala3First_REPL.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.4 -</b> <i>Scala 3</i> REPL.
+  <div style="font-size:70%;"><b>Figure 1.4 -</b> <i>Scala 3</i> REPL.
   </div>
 </td>
 <td style="text-align:center;">
   <a href="images/Scala3First_Uninstall.png"><img style="max-width:180px;" src="images/Scala3First_Uninstall.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.5 -</b> Uninstalling <i>Scala 3</i><br/>(<i>Settings</i> window).
+  <div style="font-size:70%;"><b>Figure 1.5 -</b> Uninstalling <i>Scala 3</i><br/>(<i>Settings</i> window).
 </td>
 </tr>
 </table>
@@ -114,38 +114,38 @@ Y:\examples\Scala3UI
             <a href="./Scala3UI/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-Figures 4.1 to 4.6 below illustrate the updated user environment after the successful execution of the Windows installer together with the customized dialog windows.
+Figures 2.1 to 2.4 below illustrate the dialog windows of the Windows installer while figures 2.5 and 2.6 show the updated user environment after the successful execution of the Windows installer.
 
 <table>
 <tr>
-<td style="text-align:center;">
-  <div>
-  <a href="images/Scala3UI.png"><img style="max-width:180px;" src="images/Scala3UI.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
-  </div>
-  <div>
-  <a href="images/Scala3UI_Menu.png"><img style="max-width:180px;" src="images/Scala3UI_Menu.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.2 -</b> <i>Scala 3</i> shortcuts<br>(<i>Start Menu</i> folder).
-  </div>
-</td>
 <td style="text-align:center;background-color:#bbeedd;">
   <div>
   <a href="images/Scala3UI_Setup1.png"><img style="max-width:180px;" src="images/Scala3UI_Setup1.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.3 -</b> Welcome dialog window<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3UI_Setup2.png"><img style="max-width:180px;" src="images/Scala3UI_Setup2.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.4 -</b> EULA dialog window<br/><i>(Scala 3</i> Windows installer).
+  <div style="font-size:70%;"><b>Figure 2.2 -</b> EULA<br/>(<i>Scala 3</i> Windows installer).
   </div>
 </td>
 <td style="text-align:center;background-color:#bbeedd;">
   <div>
   <a href="images/Scala3UI_Setup3.png"><img style="max-width:180px;" src="images/Scala3UI_Setup3.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.5 -</b> <i>Destination Folder</i><br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.3 -</b> Destination Folder<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3UI_Setup5.png"><img style="max-width:180px;" src="images/Scala3UI_Setup5.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.6 -</b> <i>Scala 3</i> Windows installer.
+  <div style="font-size:70%;"><b>Figure 2.4 -</b> Completed installation<br/>(<i>Scala 3</i> Windows installer).
+  </div>
+</td>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala3UI.png"><img style="max-width:180px;" src="images/Scala3UI.png" /></a>
+  <div style="font-size:70%;"><b>Figure 2.5 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala3UI_Menu.png"><img style="max-width:180px;" src="images/Scala3UI_Menu.png" /></a>
+  <div style="font-size:70%;"><b>Figure 2.6 -</b> <i>Scala 3</i> shortcuts<br>(<i>Start Menu</i> folder).
   </div>
 </td>
 </tr>
@@ -155,7 +155,7 @@ Figures 4.1 to 4.6 below illustrate the updated user environment after the succe
 
 The `Scala3Localized` project adds language localization to the graphical user interface of the Windows installer.
 
-This project contains an additional directory [`src\localizations\`](./Scala3Localized/src/localizations/) :
+This project contains the additional directory [`src\localizations\`](./Scala3Localized/src/localizations/) with 4 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 Y:\examples\Scala3Localized
@@ -201,6 +201,33 @@ Scala3Localized-sv-SE.wixpdb
 Scala3Localized.wixobj
 Scala3Localized.wixpdb
 </pre>
+
+Figures 3.1 to 3.4 below illustrate the "**Welcome**" dialog window of the Windows installer in english, german, french and swedish.
+
+<table>
+<tr>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala3Localized_Setup1.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>english</i> version).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala3Localized_Setup1_de.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1_de.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> Welcome<br/>(<i>german</i> version).
+  </div>
+</td>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala3Localized_Setup1_fr.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1_fr.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.3 -</b> Welcome<br/>(<i>french</i> version).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala3Localized_Setup1_se.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1_se.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.4 -</b> Welcome<br/>(<i>swedish</i> version).
+  </div>
+</td>
+</tr>
+</table>
 
 ## <span id="footnotes">Footnotes</span>
 

@@ -497,12 +497,12 @@ goto :eof
 set __TEXT_LINE1=The Scala 3 Programming Language
 set __TEXT_LINE2=Copyright ^(c^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
 set __TEXT_LINE3=Version %_APP_VERSION%
-set __TEXT_COLOR=white
+set __TEXT_COLOR=gray
 
 set __CONVERT_OPTS=-fill %__TEXT_COLOR%
-set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 28 -draw "text 16,272 '%__TEXT_LINE1%'"
-set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 14 -draw "text 16,296 '%__TEXT_LINE2%'"
-set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 14 -draw "text 390,296 '%__TEXT_LINE3%'"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 18 -draw "text 180,276 '%__TEXT_LINE1%'"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 12 -draw "text 180,296 '%__TEXT_LINE2%'"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 12 -draw "text 406,296 '%__TEXT_LINE3%'"
 
 set "__INFILE=%_SOURCE_DIR%\resources\Dialog.bmp"
 set "__TEMP_FILE=%TEMP%\Dialog.bmp"
@@ -522,7 +522,7 @@ set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TEMP_FILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 80 ^) -gravity NorthWest -geometry +50+16 -composite "%__OUTFILE%"
+call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 60 ^) -gravity NorthWest -geometry +50+16 -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
