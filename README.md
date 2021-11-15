@@ -43,9 +43,10 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(2.98 GB)</i>
 
 This project is organized as follows:
 <pre style="font-size:80%;">
-bin\
-examples\{<a href="./examples/MyApp">MyApp</a>, <a href="./examples/Scala3First">Scala3First</a>, etc.}
+docs\
+examples\{<a href="./examples/MyApp">MyApp</a>, etc.}
 firegiant-examples\{<a href="./firegiant-examples/SampleFirst">SampleFirst</a>, etc.}
+scala3-examples\{<a href="./scala3-examples/Scala3First">Scala3First</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
@@ -55,9 +56,10 @@ README.md
 
 where
 
-- directory [**`bin\`**](bin/) contains utility batch scripts.
+- directory [**`docs\`**](docs/) contains [WiX] related papers/articles.
 - directory [**`examples\`**](examples/) contains [WiX] code examples (see [`README.md`](examples/README.md) file).
-- directory [**`firegiant-examples\`**](firegiant-examples/) contains [WiX] code examples from [FireGiant] (see [`README.md`](firegiant-examples/README.md) file).
+- directory [**`firegiant-examples\`**](firegiant-examples/) contains [WiX] examples from [FireGiant] (see [`README.md`](firegiant-examples/README.md) file).
+- directory [**`scala3-examples\`**](scala3-examples/) contains [WiX] examples of [Scala 3][scala3] installers (see [`README.md`](scala3-examples/README.md) file).
 - file [**`QUICKREF.md`**](QUICKREF.md) is our [WiX] quick reference.
 - file **`README.md`** is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) is the [Markdown][github_markdown] document presenting external resources.
@@ -96,6 +98,7 @@ Environment variables:
 </p>
 <ul style="margin:0 0 1em 20px;">
   <li><a href="https://developers.redhat.com/products/openjdk/download"><code>java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi</code></a></li>
+  <li><a href="https://www.mongodb.com/try/download/community"><code>mongodb-windows-x86_64-5.0.3-signed.msi</code></a></li>
   <li><a href="https://adoptium.net/"><code>OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi</code></a></li>
 </ul>
 
@@ -157,6 +160,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [python_examples]: https://github.com/michelou/python-examples
 [rust_examples]: https://github.com/michelou/rust-examples
+[scala3]: https://dotty.epfl.ch
 [scala3_examples]: https://github.com/michelou/dotty-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [vs2019_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/

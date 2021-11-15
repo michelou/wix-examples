@@ -8,18 +8,18 @@
   </tr>
 </table>
 
-Archive [wix3x11-binaries.zip](https://github.com/wixtoolset/wix3/releases) is available from GitHub project [`wixtoolset/wix3`][wixtoolset_wix3]. We can just extract its contents to some location, e.g. into directory `C:\opt\WiX-3.11.2\` in our case:
+The archive file [wix3x11-binaries.zip](https://github.com/wixtoolset/wix3/releases) is available from GitHub project [`wixtoolset/wix3`][wixtoolset_wix3]. We can just extract its contents to some location, e.g. into directory `C:\opt\WiX-3.11.2\` in our case:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/pushd">pushd</a> c:\opt\WiX-3.11.2&<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /ad/b&<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b *.exe&popd</b>
 doc
 sdk
 x86
-candle.exe
+<a href="https://wixtoolset.org/documentation/manual/v3/overview/candle.html">candle.exe</a>    <i>(compiler)</i>
 dark.exe
-heat.exe
+<a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat.exe</a>      <i>(WXS generator)
 insignia.exe
-light.exe
+<a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html">light.exe</a>     <i>(linker)</i>
 lit.exe
 lux.exe
 melt.exe

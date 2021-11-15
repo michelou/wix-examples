@@ -136,9 +136,10 @@ if exist "%__PROPS_FILE%" (
             set "__!__NAME!=!__VALUE!"
         )
     )
-    @rem PRODUCT_CODE UPGRADE_CODE INSTALLDIR
+    if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
     if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
     if defined __INSTALLDIR set "_GUID[INSTALLDIR]=!__INSTALLDIR!"
+    if defined __EXE_FILE set "_GUID[EXE_FILE]=!__EXE_FILE!"
     if defined __CONFIGURATION_FILE set "_GUID[CONFIGURATION_FILE]=!__CONFIGURATION_FILE!"
     if defined __REG_VAL_INSTALLATION set "_GUID[REG_VAL_INSTALLATION]=!__REG_VAL_INSTALLATION!"
 )
@@ -263,7 +264,7 @@ goto :eof
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 set __REPLACE_PAIRS=
-for %%i in (PRODUCT_CODE UPGRADE_CODE INSTALLDIR CONFIGURATION_FILE REG_VAL_INSTALLATION) do (
+for %%i in (PRODUCT_CODE UPGRADE_CODE INSTALLDIR EXE_FILE CONFIGURATION_FILE REG_VAL_INSTALLATION) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
@@ -292,7 +293,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
 set __OPT_PROPERTIES="-dProjectDir=%_APP_DIR:\=\\%" "-dPlatform=x64"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% -nologo -arch x64 -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -358,6 +359,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_F
 )
 call "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
+    echo 1111111111111111 ERRORLEVEL=%ERRORLEVEL%
     echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
