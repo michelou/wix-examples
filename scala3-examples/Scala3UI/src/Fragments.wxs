@@ -3,7 +3,7 @@
   <?include Includes.wxi ?>
   <Fragment>
 	<DirectoryRef Id='ProgramFilesFolder'>
-      <Directory Id='INSTALLDIR' Name='$(var.ProductName)'>
+      <Directory Id='INSTALLDIR' Name='$(var.Product_Name)'>
         <Component Id="VERSION" Guid="YOURGUID-VERSION">
           <File Id="VERSION" KeyPath="yes" Source="!(bindpath.pack)\VERSION" />
         </Component>

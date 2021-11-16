@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> code examples coming from various websites and books.
+    Directory <strong><code>examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> code examples coming from various websites.
   </td>
   </tr>
 </table>
@@ -16,7 +16,7 @@ The [WiX][wix_toolset] projects presented in the following sections have several
    - an `app\` directory with the application files
    - a `src\` directory with the [WiX][wix_toolset] source files and resource files
    - a batch file `build.bat` to create the Windows installer from the two input directories.
-2) each WiX source file contains just GUID <sup id="anchor_01"><a href="#footnote_01">1</a></sup> names; the corresponding GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed.<br/>For instance:
+2) each WiX source file contains just GUID <sup id="anchor_01"><a href="#footnote_01">1</a></sup> names instead of GUID values; GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed. For instance:
 
 <table style="font-size:80%;width:70%;border:solid lightgray 2px;margin:0 0 0 40px;">
 <tr>
@@ -52,17 +52,17 @@ Y:\examples\MyApp
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./MyApp/build.bat">build.bat</a>
 │   <a href="./MyApp/build.properties">build.properties</a>
-├───app
+├───<b>app</b>
 │   └───HelloWorld
 │       │   <a href="./MyApp/app/HelloWorld/00download.txt">00download.txt</a>
 │       │   <a href="./MyApp/app/HelloWorld/build.bat">build.bat</a>
 │       │   <a href="./MyApp/app/HelloWorld/README.md">README.md</a>
-│       └───cpp
-│           │   HelloWorld.sln
-│           │   HelloWorld.vcxproj
-│           └───src
+│       └───<b>cpp</b>
+│           │   <a href="./MyApp/app/HelloWorld/cpp/HelloWorld.sln">HelloWorld.sln</a>
+│           │   <a href="./MyApp/app/HelloWorld/cpp/HelloWorld.vcxproj">HelloWorld.vcxproj</a>
+│           └───<b>src</b>
 │                   <a href="./MyApp/app/HelloWorld/cpp/src/main.cpp">main.cpp</a>
-└───src
+└───<b>src</b>
         <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>
 </pre>
 
@@ -81,7 +81,7 @@ Create Windows installer "target\MyApp.msi"
 Execute Windows installer "target\MyApp.msi"
 </pre>
 
-Figures 1.1 and 1.2 below illustrate the updated user environment after the successful execution of the Windows installer.
+Figures **1.1** and **1.2** below illustrate the updated user environment after the successful execution of the Windows installer.
 
 > **:mag_right:** The user must navigate to the *Apps &amp; features* window in the *Windows Settings* in order to uninstall the `MyApp` application (**Figure 1.2**).
 
@@ -102,7 +102,7 @@ Figures 1.1 and 1.2 below illustrate the updated user environment after the succ
 
 This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above example [`MyApp`](#myapp).
 
-We declare 3 components in our WiX source file [`MyAppShortcuts.wxs`](./MyAppShortcuts/src/MyAppShortcuts.wxs) :
+We declare 3 components in our [WiX][wix_toolset] source file [`MyAppShortcuts.wxs`](./MyAppShortcuts/src/MyAppShortcuts.wxs) :
 - component 1 refers to the `MyApp` executable (as in previous example).
 - component 2 refers to the HTML file [`documentation.html`](./MyAppShortcuts/app/documentation.html).
 - component 3 defines the two shortcuts `MyApp` and `Uninstall MyApp` (**Figure 2.2**).
@@ -111,7 +111,7 @@ We declare 3 components in our WiX source file [`MyAppShortcuts.wxs`](./MyAppSho
 > - from the *Apps &amp; features* window in the [*Windows Settings*][windows_settings]
 > - through the *Uninstall MyApp* shortcut in the [*Start Menu*][windows_start_menu] folder.
 
-Figures 2.1 to 2.3 below illustrate the updated user environment after the successful execution of the Windows installer.
+Figures **2.1** to **2.3** below illustrate the updated user environment after the successful execution of the Windows installer.
 
 <table>
 <tr>
@@ -132,9 +132,49 @@ Figures 2.1 to 2.3 below illustrate the updated user environment after the succe
 </tr>
 </table>
 
+## <span id="myapp_localized">MyAppLocalized</span>
+
+*tbd*
+
+## <span id="myapp_features">MyAppFeatures</span>
+
+*tbd*
+
 ## <span id="uberAgent">uberAgent</span>
 
-Example `uberAgent` is adapted from Helge Klein's blog entry [Real-World Example: WiX/MSI Application Installer][uberAgent]
+Example `uberAgent` is adapted from Helge Klein's blog entry [Real-World Example: WiX/MSI Application Installer][uberAgent].
+
+The directory organization is similar to the previous [WiX][wix_toolset] examples :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+Y:\examples\uberAgent
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+│   <a href="./uberAgent/00download.txt">00download.txt</a>
+│   <a href="./uberAgent/build.bat">build.bat</a>
+│   <a href="./uberAgent/build.properties">build.properties</a>
+├───<b>app</b>
+│       Eula-en.rtf
+│       <a href="./uberAgent/app/uberAgent.conf">uberAgent.conf</a>
+│       <a href="./uberAgent/app/uberAgent.conf.txt">uberAgent.conf.txt</a>
+│       uberAgent.exe
+└───<b>src</b>
+    │   <a href="./uberAgent/src/LicenseAgreementDlg_HK.wxs">LicenseAgreementDlg_HK.wxs</a>
+    │   <a href="./uberAgent/src/Product.wxs">Product.wxs</a>
+    │   <a href="./uberAgent/src/Product_en-us.wxl">Product_en-us.wxl</a>
+    │   <a href="./uberAgent/src/ServerDlg.wxs">ServerDlg.wxs</a>
+    │   <a href="./uberAgent/src/WixUI_HK.wxs">WixUI_HK.wxs</a>
+    └───<b>images</b>
+            app.ico
+            <a href="./uberAgent/src/images/app.png">app.png</a>
+            <a href="./uberAgent/src/images/app.png.txt">app.png.txt</a>
+            <a href="./uberAgent/src/images/BannerTop.bmp">BannerTop.bmp</a>
+            <a href="./uberAgent/src/images/Dialog.bmp">Dialog.bmp</a>
+            <a href="./uberAgent/src/images/Dialog.bmp.txt">Dialog.bmp.txt</a>
+</pre>
+
+Figures **3.1** to **3.4** below illustrate the localized graphical user interface of the generated Windows installers.
 
 <table>
 <tr>

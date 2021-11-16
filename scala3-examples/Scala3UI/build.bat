@@ -502,15 +502,15 @@ goto :eof
 
 @rem dialog background image has a size of 493x312
 :gen_dialog
-set __TEXT_LINE1=The Scala 3 Programming Language
-set __TEXT_LINE2=Copyright ^(c^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
-set __TEXT_LINE3=Version %_APP_VERSION%
-set __TEXT_COLOR=gray
+set __TEXT_STR1=The Scala 3 Programming Language
+set __TEXT_STR2=Copyright ^(C^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
+set __TEXT_STR3=Version %_APP_VERSION%
 
-set __CONVERT_OPTS=-fill %__TEXT_COLOR%
-set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 18 -draw "text 180,276 '%__TEXT_LINE1%'"
-set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 12 -draw "text 180,296 '%__TEXT_LINE2%'"
-set __CONVERT_OPTS=%__CONVERT_OPTS% -pointsize 12 -draw "text 406,296 '%__TEXT_LINE3%'"
+@rem "Segoe-UI" is Windows 10's default system font
+set __CONVERT_OPTS=-font "Segoe-UI"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -fill gray -pointsize 18 -draw "text 180,276 '%__TEXT_STR1%'"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 180,296 '%__TEXT_STR2%'"
+set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 406,296 '%__TEXT_STR3%'"
 
 set "__INFILE=%_SOURCE_DIR%\resources\Dialog.bmp"
 set "__TEMP_FILE=%TEMP%\Dialog.bmp"
@@ -565,7 +565,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 )
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES="-dProductVersion=%_APP_VERSION%"
+set __OPT_PROPERTIES="-dProduct_Version=%_APP_VERSION%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
