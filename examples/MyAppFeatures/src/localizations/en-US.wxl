@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-US" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="Product_Language">1033</String>
+  <String Id="Product_Manufacturer">MyCompany, Inc.</String>
+  <String Id="Product_Name">MyApp</String>
+
+  <String Id="Package_Comments">Sample project with feature trees</String>
+  <String Id="Package_Description">MyApp Installer</String>
+  <String Id="Package_Keywords">WiX Demo Application</String>
+  <String Id="Package_Manufacturer">MyCompany, Inc.</String>
+
+  <String Id="Condition_NewerVersionDetected">xxxxxxxxxxxxxxxxxxx</String>
+
+  <String Id="MajorUpgrade_DowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
+
+  <!-- ######################## Shorcut elements ######################### -->
+  <!-- Description appears in field "Comments" of the dialog window "Properties" -->
+
+  <String Id="Shortcut_ApplicationStartMenu_Description">MyApp Application</String>
+  <String Id="Shortcut_ApplicationStartMenu_Name">MyApp</String>
+
+  <String Id="Shortcut_DocumentationStartMenu_Description">Product documentation</String>
+  <String Id="Shortcut_DocumentationStartMenu_Name">MyApp Documentation</String>
+
+  <String Id="Shortcut_UninstallProduct_Description">Uninstalls MyApp</String>
+  <String Id="Shortcut_UninstallProduct_Name">Uninstall MyApp</String>
+
+  <!-- ######################## Feature elements ######################### -->
+  <!-- Description appears on the right side of the installer window "Custom* -->
+
+  <String Id="Feature_AppComponents_Description">Installs MyApp components</String>
+  <String Id="Feature_AppComponents_Title">MyApp Components</String>
+
+  <String Id="Feature_AppDocumentation_Description">Installs MyApp documentation</String>
+  <String Id="Feature_AppDocumentation_Title">MyApp Documentation</String>
+
+  <String Id="Feature_AppEnvironment_Description">Updates the PATH environment variable</String>
+  <String Id="Feature_AppEnvironment_Title">Add to PATH</String>
+
+  <String Id="Feature_AppFiles_Description">Installs application files</String>
+  <String Id="Feature_AppFiles_Title">Application Files</String>
+</WixLocalization>

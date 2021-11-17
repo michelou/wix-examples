@@ -11,23 +11,23 @@
   </tr>
 </table>
 
-The [WiX][wix_toolset] projects presented in the following sections have several characteristics in common, i.e.
+The [WiX][wix_toolset] examples presented in the following sections have several characteristics in common, i.e.
 1) each project includes
    - an `app\` directory with the application files
    - a `src\` directory with the [WiX][wix_toolset] source files and resource files
    - a batch file `build.bat` to create the Windows installer from the two input directories.
-2) each WiX source file contains just GUID <sup id="anchor_01"><a href="#footnote_01">1</a></sup> names instead of GUID values; GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed. For instance:
+2) each [WiX][wix_toolset] source file contains just GUID <sup id="anchor_01"><a href="#footnote_01">1</a></sup> names instead of GUID values; GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed. For instance:
 
 <table style="font-size:80%;width:70%;border:solid lightgray 2px;margin:0 0 0 40px;">
 <tr>
 <td>
 <div>
-<code>src\MyApp.wxs</code><br/>
+<a href="./MyApp/src/MyApp.wxs"><code>src\MyApp.wxs</code></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;product&nbsp;id="YOURGUID-PRODUCT_CODE"&gt;</code>
 </div>
 <b>+</b>
 <div>
-<code>build.properties</code><br/>
+<a href="./MyApp/build.properties"><code>build.properties</code></a><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<code>PRODUCT_CODE=80dd48f1-ea75-4a81-bd56-a06f600fdc99</code>
 </div>
 <b>⇩</b>
@@ -41,21 +41,21 @@ The [WiX][wix_toolset] projects presented in the following sections have several
 
 ## <span id="myapp">`MyApp`</span>
 
-In this first example we aim to install a *single file*, concretely the Windows executable `MyApp.exe`, accessible for all users and located in the *MyApp* directory inside the [*Program Files*][windows_program_files] system folder.
+In this first example we aim to install a *single file*, concretely the Windows application `MyApp.exe`, accessible for all users and located in the *MyApp* directory inside the [*Program Files*][windows_program_files] system folder.
 
-For that purpose we declare one single [component element][wix_component] in our WiX source file [`MyApp.wxs`](./MyApp/src/MyApp.wxs); the component element belongs to the *MyApp* directory and refers to the above executable.
+For that purpose we declare one single [component element][wix_component] in our [WiX][wix_toolset] source file [`MyApp.wxs`](./MyApp/src/MyApp.wxs); the component element belongs to the *MyApp* directory and refers to the above executable.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 Y:\examples\MyApp
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   <a href="./MyApp/build.bat">build.bat</a>
-│   <a href="./MyApp/build.properties">build.properties</a>
+│   <a href="./MyApp/build.bat">build.bat</a>          <i>(calls candle/light)</i>
+│   <a href="./MyApp/build.properties">build.properties</a>   <i>(contains GUID values)</i>
 ├───<b>app</b>
-│   └───HelloWorld
+│   └───<b>HelloWorld</b>
 │       │   <a href="./MyApp/app/HelloWorld/00download.txt">00download.txt</a>
-│       │   <a href="./MyApp/app/HelloWorld/build.bat">build.bat</a>
+│       │   <a href="./MyApp/app/HelloWorld/build.bat">build.bat</a>  <i>(calls MSBuild)</i>
 │       │   <a href="./MyApp/app/HelloWorld/README.md">README.md</a>
 │       └───<b>cpp</b>
 │           │   <a href="./MyApp/app/HelloWorld/cpp/HelloWorld.sln">HelloWorld.sln</a>
@@ -66,7 +66,7 @@ Y:\examples\MyApp
         <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>
 </pre>
 
-> **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple Visual Studio solution for generating the `MyApp.exe` executable to be later added to our Windows installer.
+> **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple [Visual Studio solution][vs_solution] for generating `MyApp.exe` to be added to the `MyApp` Windows installer.
 
 Our main batch file [`build.bat`](./MyApp/build.bat) invokes the [WiX][wix_toolset] tools [`candle`][wix_candle] (compiler) and [`light`][wix_light] (linker) with the appropriate settings and inputs.
 
@@ -81,7 +81,7 @@ Create Windows installer "target\MyApp.msi"
 Execute Windows installer "target\MyApp.msi"
 </pre>
 
-Figures **1.1** and **1.2** below illustrate the updated user environment after the successful execution of the Windows installer.
+Figures **1.1** and **1.2** below illustrate the updated user environment after the successful execution of the `MyApp` Windows installer.
 
 > **:mag_right:** The user must navigate to the *Apps &amp; features* window in the *Windows Settings* in order to uninstall the `MyApp` application (**Figure 1.2**).
 
@@ -93,7 +93,7 @@ Figures **1.1** and **1.2** below illustrate the updated user environment after 
 </td>
 <td style="text-align:center;">
   <a href="images/MyApp_Uninstall.png"><img style="max-width:180px;" src="images/MyApp_Uninstall.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.2 -</b> Uninstalling <i>MyApp</i><br/>(<i>Settings</i> window).
+  <div style="font-size:70%;"><b>Figure 1.2 -</b> Uninstall <i>MyApp</i><br/>(<i>Settings</i> window).
 </td>
 </tr>
 </table>
@@ -111,7 +111,7 @@ We declare 3 components in our [WiX][wix_toolset] source file [`MyAppShortcuts.w
 > - from the *Apps &amp; features* window in the [*Windows Settings*][windows_settings]
 > - through the *Uninstall MyApp* shortcut in the [*Start Menu*][windows_start_menu] folder.
 
-Figures **2.1** to **2.3** below illustrate the updated user environment after the successful execution of the Windows installer.
+Figures **2.1** to **2.4** below illustrate the updated user environment after the successful execution of the `MyApp` Windows installer.
 
 <table>
 <tr>
@@ -129,12 +129,39 @@ Figures **2.1** to **2.3** below illustrate the updated user environment after t
   <a href="images/MyAppShortcuts_Uninstall.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Uninstall.png" /></a>
   <div style="font-size:70%;"><b>Figure 2.3 -</b> Uninstalling <i>MyApp</i><br/>(<i>Settings</i> window).
 </td>
+<td style="text-align:center;">
+  <a href="images/MyAppShortcuts_Uninstall_Properties.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Uninstall_Properties.png" /></a>
+  <div style="font-size:70%;"><b>Figure 2.4 -</b> Shortcut Properties<br/>(<i>Uninstall</i> shortcut).
+</td>
 </tr>
 </table>
+
+:mag_right: <b>Figure 2.4</b> shows the window <i>Properties</i> of the *Uninstall* shortcut visible in <b>Figure 2.2</b>; in particular we can read in the field "Target" the GUID value corresponding to `PRODUCT_CODE` in the file [`build.properties`](./MyAppShortcuts/build.properties).
 
 ## <span id="myapp_localized">MyAppLocalized</span>
 
 *tbd*
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+Y:\examples\MyAppLocalized
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+│   <a href="./MyAppLocalized/build.bat">build.bat</a>
+│   <a href="./MyAppLocalized/build.properties">build.properties</a>
+├───<b>app</b>
+│   │   <a href="./MyAppLocalized/app/documentation.html">documentation.html</a>
+│   └───<b>HelloWorld</b>
+│           <i>(same as before)</i>
+└───<b>src</b>
+    │   <a href="./MyAppLocalized/src/Includes.wxi">Includes.wxi</a>
+    │   <a href="./MyAppLocalized/src/MyAppLocalized.wxs">MyAppLocalized.wxs</a>
+    └───<b>localizations</b>
+            <a href="./MyAppLocalized/src/localizations/de-DE.wxl">de-DE.wxl</a>
+            <a href="./MyAppLocalized/src/localizations/en-US.xwl">en-US.wxl</a>
+            <a href="./MyAppLocalized/src/localizations/fr-FR.wxl">fr-FR.wxl</a>
+            <a href="./MyAppLocalized/src/localizations/README.txt">README.txt</a>
+</pre>
 
 ## <span id="myapp_features">MyAppFeatures</span>
 
@@ -142,9 +169,9 @@ Figures **2.1** to **2.3** below illustrate the updated user environment after t
 
 ## <span id="uberAgent">uberAgent</span>
 
-Example `uberAgent` is adapted from Helge Klein's blog entry [Real-World Example: WiX/MSI Application Installer][uberAgent].
+Example `uberAgent` is adapted from Helge Klein's blog entry [Real-World Example: WiX/MSI Application Installer][uberAgent] (February 2021).
 
-The directory organization is similar to the previous [WiX][wix_toolset] examples :
+The project directory is organized in the same way as the previous [WiX][wix_toolset] examples :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
@@ -206,7 +233,7 @@ Figures **3.1** to **3.4** below illustrate the localized graphical user interfa
 <b name="footnote_01">[1]</b> ***GUID*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated.
+A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated (<i>see also</i> the nice article series from <a href="https://ericlippert.com/about-eric-lippert/">Eric Lippert</a>'s <i>"Guid guide"</i>, <a href="https://ericlippert.com/2012/04/24/guid-guide-part-one/">part 1</a>, <a href="https://ericlippert.com/2012/04/30/guid-guide-part-two/">part 2</a> and <a href="https://ericlippert.com/2012/05/07/guid-guide-part-three/">part 3</a>).
 </p>
 
 ***
@@ -216,10 +243,8 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 
 <!-- link refs -->
 
-[firegiant]: https://www.firegiant.com/
-[microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
-[scala3_releases]: https://github.com/lampepfl/dotty/releases
 [uberAgent]: https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/
+[vs_solution]: https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/solution-dot-sln-file?view=vs-2022
 [windows_program_files]: https://en.wikipedia.org/wiki/Program_Files
 [windows_settings]: https://support.microsoft.com/en-us/windows/find-settings-in-windows-10-6ffbef87-e633-45ac-a1e8-b7a834578ac6
 [windows_start_menu]: https://support.microsoft.com/en-us/windows/see-what-s-on-the-start-menu-a8ccb400-ad49-962b-d2b1-93f453785a13

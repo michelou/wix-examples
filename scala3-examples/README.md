@@ -1,4 +1,4 @@
-# <span id="top">Scala 3 Windows Installer</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX code examples for Scala 3</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-The [WiX][wix_toolset] projects presented in the following sections
+The [WiX][wix_toolset] examples presented in the following sections
 - share the same characteristics as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
 - add the source file `Fragments.wxs` (generated *once* with the [`heat`][wix_heat] tool) which contains all references to the application files. 
 
@@ -91,7 +91,7 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 
 ## <span id="scala3_ui">Scala3UI</span>
 
-Project `Scala3UI` adds customizations to the graphical user interface of the Windows installer.
+Project `Scala3UI` adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -242,7 +242,10 @@ The `Scala3Features` project adds feature customization to the [Scala 3][scala3]
 <b name="footnote_01">[1]</b> ***Default OpenJDK Location*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-The different implementations of OpenJDK are available both as Zip archive file or as Windows installer. Not surprisingly, each Windows installer suggests a <i>different</i> default installation location :
+The different implementations of OpenJDK are available either as Zip archive file or as Windows installer.
+</p>
+<p style="margin:0 0 1em 20px;">
+Not surprisingly, each Windows installer suggests a <i>different</i> default installation location <b>and</b> <i>inconsistent</i> naming conventions:
 </p>
 <table style="margin:0 0 1em 20px;font-size:80%;">
 <tr>
