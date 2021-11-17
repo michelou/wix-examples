@@ -109,14 +109,14 @@ Y:\examples\Scala3UI
     └───<b>resources</b>
             <a href="./Scala3UI/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala3UI/src/resources/Dialog.bmp">Dialog.bmp</a>
-            <a href="./Scala3UI/src/resources/dotty-logo-white.svg">dotty-logo-white.svg</a>
+            <a href="./Scala3UI/src/resources/logo.svg">logo.svg</a>
             favicon.ico
             LICENSE.rtf
             network.ico
             <a href="./Scala3UI/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows installer while figures **2.5** and **2.6** show the updated user environment after the successful execution of the Windows installer.
+Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows installer while figures **2.5** and **2.6** show the updated user environment after the successful execution of the [Scala 3][scala3] Windows installer.
 
 <table>
 <tr>
@@ -178,7 +178,7 @@ Y:\examples\Scala3Localized
     └───<b>resources</b>
             <a href="./Scala3Localized/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala3Localized/src/resources/Dialog.bmp">Dialog.bmp</a>
-            <a href="./Scala3Localized/src/resources/dotty-logo-white.svg">dotty-logo-white.svg</a>
+            <a href="./Scala3Localized/src/resources/logo.svg">logo.svg</a>
             favicon.ico
             LICENSE.rtf
             network.ico

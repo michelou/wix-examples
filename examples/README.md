@@ -167,6 +167,19 @@ Y:\examples\MyAppLocalized
 
 *tbd*
 
+<table>
+<tr>
+<td style="text-align:center;">
+  <a href="images/MyAppFeatures_Welcome.png"><img style="max-width:180px;" src="images/MyAppFeatures_Welcome.png" /></a>
+  <div style="font-size:70%;"><b>Figure 4.1 -</b> Welcome<br>(<i>MyApp</i> installer).
+</td>
+<td style="text-align:center;">
+  <a href="images/MyAppFeatures_Custom.png"><img style="max-width:180px;" src="images/MyAppFeatures_Custom.png" /></a>
+  <div style="font-size:70%;"><b>Figure 4.2 -</b> Custom Setup<br/>(<i>MyApp</i> installer).
+</td>
+</tr>
+</table>
+
 ## <span id="uberAgent">uberAgent</span>
 
 Example `uberAgent` is adapted from Helge Klein's blog entry [Real-World Example: WiX/MSI Application Installer][uberAgent] (February 2021).

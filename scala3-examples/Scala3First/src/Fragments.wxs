@@ -52,52 +52,52 @@
             <File Id="dist_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\dist_3-$SCALA3_VERSION.jar" />
           </Component>
           <Component Id="flexmark_jar" Guid="YOURGUID-FLEXMARK_JAR">
-            <File Id="flexmark_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-0.42.12.jar" />
+            <File Id="flexmark_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_anchorlink_jar" Guid="YOURGUID-FLEXMARK_EXT_ANCHORLINK_JAR">
-            <File Id="flexmark_ext_anchorlink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-anchorlink-0.42.12.jar" />
+            <File Id="flexmark_ext_anchorlink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-anchorlink-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_autolink_jar" Guid="YOURGUID-FLEXMARK_EXT_AUTOLINK_JAR">
-            <File Id="flexmark_ext_autolink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-autolink-0.42.12.jar" />
+            <File Id="flexmark_ext_autolink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-autolink-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_emoji_jar" Guid="YOURGUID-FLEXMARK_EXT_EMOJI_JAR">
-            <File Id="flexmark_ext_emoji_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-emoji-0.42.12.jar" />
+            <File Id="flexmark_ext_emoji_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-emoji-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_gfm_strikethrough_jar" Guid="YOURGUID-FLEXMAKR_EXT_GFM_STRIKETHROUGH_JAR">
-            <File Id="flexmark_ext_gfm_strikethrough_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-strikethrough-0.42.12.jar" />
+            <File Id="flexmark_ext_gfm_strikethrough_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-strikethrough-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_gfm_tables_jar" Guid="YOURGUID-FLEXMARK_EXT_GFM_TABLES_JAR">
-            <File Id="flexmark_ext_gfm_tables_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-tables-0.42.12.jar" />
+            <File Id="flexmark_ext_gfm_tables_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-tables-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_gfm_tasklist_jar" Guid="YOURGUID-FLEXMARK_EXT_GFM_TASKLIST_JAR">
-            <File Id="flexmark_ext_gfm_tasklist_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-tasklist-0.42.12.jar" />
+            <File Id="flexmark_ext_gfm_tasklist_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-tasklist-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_ins_jar" Guid="YOURGUID-FLEXMARK_EXT_INS_JAR">
-            <File Id="flexmark_ext_ins_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-ins-0.42.12.jar" />
+            <File Id="flexmark_ext_ins_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-ins-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_superscript_jar" Guid="YOURGUID-FLEXMARK_EXT_SUPERSCRIPT_JAR">
-            <File Id="flexmark_ext_superscript_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-superscript-0.42.12.jar" />
+            <File Id="flexmark_ext_superscript_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-superscript-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_tables_jar" Guid="YOURGUID-FLEXMARK_EXT_TABLES_JAR">
-            <File Id="flexmark_ext_tables_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-tables-0.42.12.jar" />
+            <File Id="flexmark_ext_tables_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-tables-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_wikilink_jar" Guid="YOURGUID-FLEXMARK_EXT_WIKILINK_JAR">
-            <File Id="flexmark_ext_wikilink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-wikilink-0.42.12.jar" />
+            <File Id="flexmark_ext_wikilink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-wikilink-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_ext_yaml_front_matter_jar" Guid="YOURGUID-FLEXMARK_EXT_YAML_FRONT_MATTER_JAR">
-            <File Id="flexmark_ext_yaml_front_matter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-yaml-front-matter-0.42.12.jar" />
+            <File Id="flexmark_ext_yaml_front_matter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-yaml-front-matter-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_formatter_jar" Guid="YOURGUID-FLEXMARK_FORMATTER_JAR">
-            <File Id="flexmark_formatter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-formatter-0.42.12.jar" />
+            <File Id="flexmark_formatter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-formatter-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_html_parser_jar" Guid="YOURGUID-FLEXMARK_HTML_PARSER_JAR">
-            <File Id="flexmark_html_parser_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-html-parser-0.42.12.jar" />
+            <File Id="flexmark_html_parser_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-html-parser-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_jira_converter_jar" Guid="YOURGUID-FLEXMAKR_JIRA_CONVERTER_JAR">
-            <File Id="flexmark_jira_converter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-jira-converter-0.42.12.jar" />
+            <File Id="flexmark_jira_converter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-jira-converter-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="flexmark_util_jar" Guid="YOURGUID-FLEXMARK_UTIL_JAR">
-            <File Id="flexmark_util_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-util-0.42.12.jar" />
+            <File Id="flexmark_util_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-util-$FLEXMARK_VERSION.jar" />
           </Component>
           <Component Id="jackson_annotations_jar" Guid="YOURGUID-JACKSON_ANNOTATIONS_JAR">
             <File Id="jackson_annotations_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jackson-annotations-2.2.3.jar" />
@@ -112,13 +112,13 @@
             <File Id="jackson_dataformat_yaml_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jackson-dataformat-yaml-2.9.8.jar" />
           </Component>
           <Component Id="jline_reader_jar" Guid="YOURGUID-JLINE_READER_JAR">
-            <File Id="jline_reader_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-reader-3.19.0.jar" />
+            <File Id="jline_reader_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-reader-$JLINE_VERSION.jar" />
           </Component>
           <Component Id="jline_terminal_jar" Guid="YOURGUID-JLINE_TERMINAL_JAR">
-            <File Id="jline_terminal_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-terminal-3.19.0.jar" />
+            <File Id="jline_terminal_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-terminal-$JLINE_VERSION.jar" />
           </Component>
           <Component Id="jline_terminal_jna_jar" Guid="YOURGUID-JLINE_TERMINAL_JNA_JAR">
-            <File Id="jline_terminal_jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-terminal-jna-3.19.0.jar" />
+            <File Id="jline_terminal_jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-terminal-jna-$JLINE_VERSION.jar" />
           </Component>
           <Component Id="jna_jar" Guid="YOURGUID-JNA_JAR">
             <File Id="jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jna-5.3.1.jar" />

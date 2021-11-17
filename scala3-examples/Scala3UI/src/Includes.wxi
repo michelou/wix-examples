@@ -12,7 +12,7 @@
 
   <?define Package_Comments="The Scala Programming Language" ?>
   <?define Package_Description="Scala 3 Installer" ?>
-  <?define Package_Keywords="Scala, JVM" ?>
+  <?define Package_Keywords="Scala, Compiler, JVM" ?>
   <?define Package_Languages="1033" ?>  <!-- 1033 = en-us -->
   <?define Package_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
 
