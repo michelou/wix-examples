@@ -7,8 +7,8 @@
     Version="$(var.Product_Version).0" Manufacturer="!(loc.Product_Manufacturer)"
     Language="$(var.Product_Language)" Codepage="1252">
 
-    <Package Id='*' Keywords='!(loc.Package_Keywords)'
-      Description="!(loc.Package_Description)"
+    <Package Id='*'
+      Description="!(loc.Package_Description)" Keywords='!(loc.Package_Keywords)'
       Comments="!(loc.Package_Comments)" Manufacturer="!(loc.Package_Manufacturer)"
       InstallerVersion='200' InstallScope="perMachine"
       Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />

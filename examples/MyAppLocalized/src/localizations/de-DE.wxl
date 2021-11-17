@@ -4,7 +4,7 @@
   <String Id="Product_Manufacturer">MyCompany AG</String>
   <String Id="Product_Name">MyApp</String>
 
-  <String Id="Package_Comments">Create application and uninstall shortcuts</String>
+  <String Id="Package_Comments">Installiert Applikation und kreiert Startmenü-Verknüpfungen</String>
   <String Id="Package_Description">MyApp Installationsprogramm</String>
   <String Id="Package_Keywords">WiX Demo-Applikation</String>
   <String Id="Package_Manufacturer">MyCompany AG</String>
@@ -13,10 +13,18 @@
 
   <String Id="MajorUpgrade_DowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
 
+  <!-- ######################## Shorcut elements ######################### -->
+  <!-- Description appears in field "Comments" of the dialog window "Properties" -->
+
   <String Id="Shortcut_ApplicationStartMenu_Description">MyApp Applikation</String>
   <String Id="Shortcut_ApplicationStartMenu_Name">MyApp</String>
-  <String Id="Shortcut_UninstallProduct_Description">MyApp deinstallieren</String>
+
+  <String Id="Shortcut_UninstallProduct_Description">Entfernt die MyApp-Installation</String>
   <String Id="Shortcut_UninstallProduct_Name">MyApp Deinstallation</String>
 
+  <!-- ######################## Feature elements ######################### -->
+  <!-- Description appears on the right side of the installer window "Custom Setup" -->
+
+  <String Id="Feature_AppComponents_Description">Applikation, Dokumentation und Verknüpfungen von MyApp</String>
   <String Id="Feature_AppComponents_Title">MyApp Komponenten</String>
 </WixLocalization>

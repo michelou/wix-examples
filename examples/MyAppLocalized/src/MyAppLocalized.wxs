@@ -6,21 +6,21 @@
     Version="$(var.Product_Version).0" Manufacturer="!(loc.Product_Manufacturer)"
     Language="$(var.Product_Language)" Codepage="1252">
 
-    <Package Id='*' Keywords='Installer'
-      Description="!(loc.Package_Description)"
+    <Package Id='*'
+      Description="!(loc.Package_Description)" Keywords='!(loc.Package_Keywords)'
       Comments="!(loc.Package_Comments)" Manufacturer="!(loc.Package_Manufacturer)"
       InstallerVersion='200' InstallScope="perMachine"
       Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />
 
     <!-- https://www.joyofsetup.com/2010/01/16/major-upgrades-now-easier-than-ever/ -->
     <Upgrade Id="YOURGUID-UPGRADE_INFO">   
-      <UpgradeVersion Minimum="$(var.Product_Version)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />		
+      <UpgradeVersion Minimum="$(var.Product_Version)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />        
       <UpgradeVersion Minimum="0.0.0" IncludeMinimum="yes" Maximum="$(var.Product_Version)" IncludeMaximum="no" Property="OLDERVERSIONBEINGUPGRADED" />
     </Upgrade>
 <!--
-	<InstallExecuteSequence>
+    <InstallExecuteSequence>
       <RemoveExistingProducts After="InstallInitialize" />
-	</InstallExecuteSequence>
+    </InstallExecuteSequence>
 -->
     <Condition Message="!(loc.Condition_NewerVersionDetected)">
       NOT NEWERVERSIONDETECTED OR Installed
@@ -69,7 +69,9 @@
        </Component>
     </DirectoryRef>
 
-    <Feature Id="AppComponents" Title="!(loc.Feature_AppComponents_Title)" Level="1">
+    <Feature Id="AppComponents"
+      Title="!(loc.Feature_AppComponents_Title)" Level="1"
+      Description="!(loc.Feature_AppComponents_Description)">
       <ComponentRef Id="ApplicationExecutable" />
       <ComponentRef Id="DocumentationHtml" />
       <!-- Step 3: Tell WiX to install the shortcut(s) -->

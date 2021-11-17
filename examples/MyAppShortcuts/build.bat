@@ -306,10 +306,11 @@ set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -suid -sfrag -out "%_FRAGMENTS_F
 if %_VERBOSE%==1 set __HEAT_OPTS=%__HEAT_OPTS% -v
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file 1>&2
+) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -498,11 +499,11 @@ set "__PRODUCT_CODE=%_GUID[PRODUCT_CODE]%"
 @rem     goto :eof
 @rem )
 if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Remove installation 1>&2
+) else if %_VERBOSE%==1 ( echo Remove "%_APP_NAME%" installation ^(!_MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
 )
 call "%_MSIEXEC_CMD%" /x "%_MSI_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to remove installation 1>&2
+    echo %_ERROR_LABEL% Failed to remove "%_APP_NAME%" installation ^(!_MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

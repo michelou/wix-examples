@@ -156,7 +156,7 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
     if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
     if defined __UPGRADE_INFO set "_GUID[UPGRADE_INFO]=!__UPGRADE_INFO!"
-	if defined __DOCUMENTATION_HTML set "_GUID[DOCUMENTATION_HTML]=!__DOCUMENTATION_HTML!"
+    if defined __DOCUMENTATION_HTML set "_GUID[DOCUMENTATION_HTML]=!__DOCUMENTATION_HTML!"
     if defined __APPLICATION_EXE set "_GUID[APPLICATION_EXE]=!__APPLICATION_EXE!"
     if defined __APPLICATION_SHORTCUT set "_GUID[APPLICATION_SHORTCUT]=!__APPLICATION_SHORTCUT!"
 )
@@ -167,6 +167,7 @@ set _CLEAN=0
 set _HELP=0
 set _INSTALL=0
 set _LINK=0
+set _LOCALE=en-US
 set _REMOVE=0
 set _TIMER=0
 set _VERBOSE=0
@@ -181,6 +182,9 @@ if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-locale:de" ( set _LOCALE=de-DE
+    ) else if "%__ARG%"=="-locale:en" ( set _LOCALE=en-US
+    ) else if "%__ARG%"=="-locale:fr" ( set _LOCALE=fr-FR
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
@@ -210,7 +214,7 @@ set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _LOCALE=%_LOCALE% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
@@ -235,6 +239,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%       show commands executed by this script
+echo     %__BEG_O%-locale:^<lang^>%__END%      select localized Windows installer ^(%__BEG_O%lang:de,en,fr%__END%^)
 echo     %__BEG_O%-timer%__END%       display total execution time
 echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
@@ -308,10 +313,11 @@ set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -suid -sfrag -out "%_FRAGMENTS_F
 if %_VERBOSE%==1 set __HEAT_OPTS=%__HEAT_OPTS% -v
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file 1>&2
+) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -479,21 +485,28 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 goto :eof
 
 :install
-if not exist "%_MSI_FILE%" (
-    echo %_ERROR_LABEL% Windows installer not found ^("!_MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
+if %_LOCALE%==en-US ( set "__MSI_FILE=%_MSI_FILE%"
+) else ( set "__MSI_FILE=!_MSI_FILE:.msi=-%_LOCALE%.msi!"
+)
+if not exist "%__MSI_FILE%" (
+    echo %_ERROR_LABEL% Windows installer not found ^("!__MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "__LOG_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.log"
 
-if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /i "%__MSI_FILE%" /l* "%__LOG_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Windows installer "!__MSI_FILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%"
+call "%_MSIEXEC_CMD%" /i "%__MSI_FILE%" /l* "%__LOG_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute Windows installer "!__MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
+)
+if %_VERBOSE%+%_DEBUG% gtr 0 (
+    set "__INSTALL_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs\%_APP_NAME%"
+    dir /b /s "!__INSTALL_DIR!" 1>&2
 )
 goto :eof
 
@@ -515,12 +528,15 @@ set "__PRODUCT_CODE=%_GUID[PRODUCT_CODE]%"
 @rem     echo %_WARNING_LABEL% Product "%_PROJECT_NAME%" is not installed 1>&2
 @rem     goto :eof
 @rem )
-if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Remove installation "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+if %_LOCALE%==en-US ( set "__MSI_FILE=%_MSI_FILE%"
+) else ( set "__MSI_FILE=!_MSI_FILE:.msi=-%_LOCALE%.msi!"
 )
-call "%_MSIEXEC_CMD%" /x "%_MSI_FILE%"
+if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%__MSI_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Remove "%_APP_NAME%" installation ^("!__MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
+)
+call "%_MSIEXEC_CMD%" /x "%__MSI_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to remove installation "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to remove "%_APP_NAME%" installation ^("!__MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

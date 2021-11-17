@@ -5,8 +5,8 @@
     Version="$(var.ProductVersion).0" Manufacturer="MyCompany, Inc."
     Language="1033" Codepage="1252">
 
-    <Package Id='*' Keywords='Installer'
-      Description="MyApp Installer"
+    <Package Id='*'
+      Description="MyApp Installer" Keywords='Installer'
       Comments="Create application and uninstall shortcuts" Manufacturer="MyCompany, Inc."
       InstallerVersion='200' InstallScope="perMachine"
       Languages='1033' Compressed='yes' SummaryCodepage='1252' />
@@ -25,7 +25,9 @@
       </Component>
     </DirectoryRef>
 
-    <Feature Id="MainApplication" Title="MyApp" Level="1">
+    <Feature Id="AppComponents"
+      Title="MyApp" Level="1"
+      Description="MyApp Components">
       <ComponentRef Id="ApplicationExecutable" />
     </Feature>
   </Product>
