@@ -2,15 +2,15 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include Includes.wxi ?>
   <Product Id='YOURGUID-PRODUCT_CODE'
-    UpgradeCode='YOURGUID-UPGRADE_CODE' Name='$(var.ProductName)'
-    Version='$(var.ProductVersion).0' Manufacturer='$(var.Manufacturer)'
-    Language='$(var.LocaleID)' Codepage='1252'>
+    UpgradeCode='YOURGUID-UPGRADE_CODE' Name='$(var.Product_Name)'
+    Version='$(var.Product_Version).0' Manufacturer='$(var.Product_Manufacturer)'
+    Language='$(var.Product_Language)' Codepage='1252'>
 
     <Package Id='*'
-      Keywords='$(var.Keywords)' Description="$(var.ProductName) Installer"
-      Comments='The Scala Programming Language' Manufacturer='$(var.Manufacturer)'
+      Description="$(var.Package_Description)" Keywords='$(var.Package_Keywords)'
+      Comments='$(var.Package_Comments)' Manufacturer='$(var.Package_Manufacturer)'
       InstallerVersion='200' InstallScope="perMachine"
-      Languages='$(var.Languages)' Compressed='yes' SummaryCodepage='1252' />
+      Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />
 
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
@@ -20,7 +20,7 @@
       </Directory>
       <!-- Step 1: Define the directory structure -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
-         <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)" />
+         <Directory Id="ApplicationProgramsFolder" Name="$(var.Product_Name)" />
       </Directory>
       <Directory Id="DesktopFolder" Name="Desktop">
         <!-- no desktop shortcut -->
@@ -40,30 +40,30 @@
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcuts" Guid="YOURGUID-APPLICATION_SHORTCUT">
         <Shortcut Id="ScalaREPL" 
-          Name="$(var.ProductName) REPL" 
-          Description="$(var.ProductName) Interactive Shell"
+          Name="$(var.Shortcut_ScalaREPL_Name)" 
+          Description="$(var.Shortcut_ScalaREPL_Description)"
           Target="[SystemFolder]cmd.exe"
           Arguments='/k "call ^"[#repl_bat]^""'
           WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
         </Shortcut>
-        <Shortcut Id="APIShortcut"
-          Name="API Documentation"
-          Description="$(var.ProductName) API Documentation"
+        <Shortcut Id="ScalaAPI"
+          Name="$(var.Shortcut_ScalaAPI_Name)"
+          Description="$(var.Shortcut_ScalaAPI_Description)"
           Target="[APIURL]">
           <Icon Id="APIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
-        <Shortcut Id="LicenseShortcut"
-          Name="License"
-          Description="$(var.ProductName) License"
+        <Shortcut Id="ScalaLicense"
+          Name="$(var.Shortcut_ScalaLicense_Name)"
+          Description="$(var.Shortcut_ScalaLicense_Description)"
           Target="[LicenseURL]">
           <Icon Id="LicenseIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
         <Shortcut Id="UninstallProduct"             
-          Name="Uninstall $(var.ProductName)"
-          Description="Uninstalls $(var.ProductName)"
+          Name="$(var.Shortcut_UninstallProduct_Name)"
+          Description="$(var.Shortcut_UninstallProduct_Description)"
           Target="[SystemFolder]msiexec.exe"
           Arguments="/x [ProductCode]" />
       </Component>
@@ -78,7 +78,9 @@
       </Component>
     </DirectoryRef>
 
-    <Feature Id='Complete' Title="$(var.ProductName)" Level='1'>
+    <Feature Id='AppComponents'
+      Title="$(var.Feature_AppComponents_Title)" Level='1'
+      Description="$(var.Feature_AppComponents_Description)">
       <ComponentGroupRef Id='PackFiles' />
       <!-- Step 3: Tell WiX to install the shortcut(s) -->
       <ComponentRef Id="ApplicationShortcuts" />

@@ -336,10 +336,11 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameter: _ANTLR_VERSION, _APP_VERSION
+@rem output parameters: _ANTLR_VERSION, _APP_VERSION, _FLEXMARK_VERSION
 :app_version
 set _ANTLR_VERSION=
 set _APP_VERSION=
+set _FLEXMARK_VERSION=
 
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
@@ -361,11 +362,12 @@ if not exist "%_APP_DIR%\VERSION" (
             goto :eof
         )
     )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTFILE!"  -d "%TEMP%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Extract zip archive to directory "%TEMP%" 1>&2
     )
     call "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to extract zip archive to directory "%TEMP%" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -373,6 +375,11 @@ if not exist "%_APP_DIR%\VERSION" (
     ) else if %_VERBOSE%==1 ( echo Copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
     )
 	xcopy /s /y "%TEMP%\scala3-!__RELEASE!\*" "%_APP_DIR%\" %_STDOUT_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_APP_DIR%\VERSION" 2^>NUL') do (
     set _APP_VERSION=%%j
@@ -388,6 +395,15 @@ for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\antlr-3*.jar"') do
 )
 if not defined _ANTLR_VERSION (
     echo %_ERROR_LABEL% Antlr version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\flexmark-0*.jar"') do (
+    set "__STR=%%j"
+    set "_FLEXMARK_VERSION=!__STR:.jar=!"
+)
+if not defined _FLEXMARK_VERSION (
+    echo %_ERROR_LABEL% Flexmark version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -428,6 +444,7 @@ set __PACK_FILES=%__PACK_FILES% SCALADOC_3_JAR SNAKEYAML_JAR ST4_JAR TASTY_CORE_
 @rem and save the updated .wx? files into directory _GEN_DIR
 set __REPLACE_PAIRS=-replace '\$SCALA3_VERSION', '%_APP_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$ANTLR_VERSION', '%_ANTLR_VERSION%'
+set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$FLEXMARK_VERSION', '%_FLEXMARK_VERSION%'
 for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR %__PACK_FILES%) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
@@ -469,25 +486,33 @@ goto :eof
 
 @rem top banner image has a size of 493x58
 :gen_banner
-set "__LOGO_FILE=%_RESOURCES_DIR%\dotty-logo-white.svg"
+set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 
-@rem set "__INFILE=%_SOURCE_DIR%\resources\BannerTop.bmp"
-set "__TEMP_FILE=%TEMP%\BannerTop.bmp"
+set "__INFILE=%_RESOURCES_DIR%\BannerTop.bmp"
+set "__TMPFILE=%TEMP%\BannerTop.bmp"
 set "__OUTFILE=%_TARGET_DIR%\resources\BannerTop.bmp"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" -size 493x58 gradient:#e5e8e8 "%__TEMP_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+if exist "%__INFILE%" (
+    @rem no need to create initial banner image
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__INFILE%" "%__TMPFILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Use banner image found in directory "!_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
+    )
+    copy /y "%__INFILE%" "%__TMPFILE%" %_STDOUT_REDIRECT%
+) else (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
-call "%_CONVERT_CMD%" -size 493x58 gradient:#ca445e-#ca445e "%__TEMP_FILE%"
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TEMP_FILE%" "%__LOGO_FILE%" ... 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TMPFILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -resize 26 -transparent "#ffffff" ^) -gravity NorthEast -geometry +8+6 -compose over -composite "%__OUTFILE%"
+call "%_CONVERT_CMD%" "%__TMPFILE%" ^( "%__LOGO_FILE%" -resize 28 -transparent "#ffffff" ^) -gravity NorthEast -geometry +18+6 -compose over -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -501,8 +526,9 @@ set __TEXT_STR1=The Scala 3 Programming Language
 set __TEXT_STR2=Copyright ^(C^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
 set __TEXT_STR3=Version %_APP_VERSION%
 
-@rem "Segoe-UI" is Windows 10's default system font
-set __CONVERT_OPTS=-font "Segoe-UI"
+@rem "Segoe-UI" is Windows 10's default system font but WiX uses "Tahoma"
+@rem https://github.com/wixtoolset/wix3/blob/develop/src/ext/UIExtension/wixlib/WixUI_FeatureTree.wxs
+set __CONVERT_OPTS=-font "Tahoma"
 set __CONVERT_OPTS=%__CONVERT_OPTS% -fill gray -pointsize 18 -draw "text 180,276 '%__TEXT_STR1%'"
 set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 180,296 '%__TEXT_STR2%'"
 set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 406,296 '%__TEXT_STR3%'"
@@ -525,7 +551,7 @@ set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TEMP_FILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 60 ^) -gravity NorthWest -geometry +50+16 -composite "%__OUTFILE%"
+call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 40 ^) -gravity NorthWest -geometry +106+16 -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -708,7 +734,18 @@ call "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
-    goto :eof
+    @rem goto :eof
+)
+if %_VERBOSE%+%_DEBUG% gtr 0 (
+    set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
+    set __APP_DIR=
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*" 2^>NUL') do set "__APP_DIR=%%f"
+    if not defined __APP_DIR (
+        echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    dir /b /s "!__APP_DIR!" 1>&2
 )
 goto :eof
 

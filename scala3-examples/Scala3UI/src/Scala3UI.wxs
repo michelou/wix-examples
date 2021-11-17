@@ -7,8 +7,8 @@
       Language='$(var.Product_Language)' Codepage='1252'>
 
     <Package Id='*'
-        Keywords='$(var.Package_Keywords)' Description="$(var.Product_Name) Installer"
-        Comments='The Scala Programming Language' Manufacturer='$(var.Package_Manufacturer)'
+        Keywords='$(var.Package_Keywords)' Description='$(var.Package_Description)'
+        Comments='$(var.Package_Comments)' Manufacturer='$(var.Package_Manufacturer)'
         InstallerVersion='200' InstallScope="perMachine"
         Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />
 
@@ -45,15 +45,15 @@
             WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
         </Shortcut>
-        <Shortcut Id="APIShortcut"
-            Name="API Documentation"
-            Description="$(var.Product_Name) API Documentation"
+        <Shortcut Id="ScalaAPI"
+            Name="$(var.Shortcut_ScalaAPI_Name)"
+            Description="$(var.Shortcut_ScalaAPI_Description)"
             Target="[APIURL]">
           <Icon Id="APIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
-        <Shortcut Id="LicenseShortcut"
-            Name="License"
-            Description="$(var.Product_Name) License"
+        <Shortcut Id="ScalaLicense"
+            Name="$(var.Shortcut_ScalaLicense_Name)"
+            Description="$(var.Shortcut_ScalaLicense_Description)"
             Target="[LicenseURL]">
           <Icon Id="LicenseIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
@@ -65,18 +65,20 @@
             Target="[SystemFolder]msiexec.exe"
             Arguments="/x [ProductCode]" />
       </Component>
-	</DirectoryRef>
+    </DirectoryRef>
 
-	<DirectoryRef Id='ProgramFilesFolder'>
+    <DirectoryRef Id='ProgramFilesFolder'>
       <Component Id="ApplicationEnvironment" Guid="YOURGUID-APPLICATION_ENV" KeyPath="yes">
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
             Name="PATH" Value="[bin]" 
             Action="set" Permanent="no" System="yes" Part="last" Separator=";" />
-	  </Component>
+      </Component>
     </DirectoryRef>
 
-    <Feature Id='Complete' Title="$(var.Product_Name)" Level='1'>
+    <Feature Id='AppComponents'
+      Title="$(var.Feature_AppComponents_Title)" Level='1'
+      Description="$(var.Feature_AppComponents_Description)">
       <ComponentGroupRef Id='PackFiles' />
       <!-- Step 3: Tell WiX to install the shortcut(s) -->
       <ComponentRef Id="ApplicationShortcuts" />
@@ -90,11 +92,11 @@
     <WixVariable Id="WixUIBannerBmp" Value="!(bindpath.rsrc)\BannerTop.bmp" />  <!-- 493 x 58 -->
     <WixVariable Id="WixUIDialogBmp" Value="!(bindpath.rsrc)\Dialog.bmp" />  <!-- 493 x 312 -->
     <!--
-	<WixVariable Id="WixUIExclamationIco" Value="resources\exclamation.ico" />  32 × 32
+    <WixVariable Id="WixUIExclamationIco" Value="resources\exclamation.ico" />  32 × 32
     <WixVariable Id="WixUIInfoIco" Value="!(bindpath.rsrc)\favicon.ico" />  32 × 32
     <WixVariable Id="WixUINewIco" Value="!(bindpath.rsrc)\favicon.ico" />  16 x 16
     <WixVariable Id="WixUIUpIco" Value="!(bindpath.rsrc)\favicon.ico" />  16 x 16
-	-->
+    -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <UIRef Id="WixUI_InstallDir" />
   </Product>

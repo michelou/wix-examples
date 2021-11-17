@@ -407,10 +407,11 @@ set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -suid -sfrag -out "%_FRAGMENTS_F
 if %_VERBOSE%==1 set __HEAT_OPTS=%__HEAT_OPTS% -v
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file 1>&2
+) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -474,25 +475,33 @@ goto :eof
 
 @rem top banner image has a size of 493x58
 :gen_banner
-set "__LOGO_FILE=%_RESOURCES_DIR%\dotty-logo-white.svg"
+set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 
-@rem set "__INFILE=%_SOURCE_DIR%\resources\BannerTop.bmp"
-set "__TEMP_FILE=%TEMP%\BannerTop.bmp"
+set "__INFILE=%_RESOURCES_DIR%\BannerTop.bmp"
+set "__TMPFILE=%TEMP%\BannerTop.bmp"
 set "__OUTFILE=%_TARGET_DIR%\resources\BannerTop.bmp"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" -size 493x58 gradient:#e5e8e8 "%__TEMP_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+if exist "%__INFILE%" (
+    @rem no need to create initial banner image
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__INFILE%" "%__TMPFILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Use banner image found in directory "!_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
+    )
+    copy /y "%__INFILE%" "%__TMPFILE%" %_STDOUT_REDIRECT%
+) else (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
-call "%_CONVERT_CMD%" -size 493x58 gradient:#ca445e-#ca445e "%__TEMP_FILE%"
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TEMP_FILE%" "%__LOGO_FILE%" ... 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TMPFILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -resize 26 -transparent "#ffffff" ^) -gravity NorthEast -geometry +8+6 -compose over -composite "%__OUTFILE%"
+call "%_CONVERT_CMD%" "%__TMPFILE%" ^( "%__LOGO_FILE%" -resize 28 -transparent "#ffffff" ^) -gravity NorthEast -geometry +18+6 -compose over -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -506,20 +515,21 @@ set __TEXT_STR1=The Scala 3 Programming Language
 set __TEXT_STR2=Copyright ^(C^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
 set __TEXT_STR3=Version %_APP_VERSION%
 
-@rem "Segoe-UI" is Windows 10's default system font
-set __CONVERT_OPTS=-font "Segoe-UI"
+@rem "Segoe-UI" is Windows 10's default system font but WiX uses "Tahoma"
+@rem https://github.com/wixtoolset/wix3/blob/develop/src/ext/UIExtension/wixlib/WixUI_FeatureTree.wxs
+set __CONVERT_OPTS=-font "Tahoma"
 set __CONVERT_OPTS=%__CONVERT_OPTS% -fill gray -pointsize 18 -draw "text 180,276 '%__TEXT_STR1%'"
 set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 180,296 '%__TEXT_STR2%'"
 set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 406,296 '%__TEXT_STR3%'"
 
 set "__INFILE=%_SOURCE_DIR%\resources\Dialog.bmp"
-set "__TEMP_FILE=%TEMP%\Dialog.bmp"
+set "__TMPFILE=%TEMP%\Dialog.bmp"
 set "__OUTFILE=%_TARGET_DIR%\resources\Dialog.bmp"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" %__CONVERT_OPTS% "%__INFILE%" "%__TEMP_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Add text to the dialog image "!__TEMP_FILE:%_ROOT_DIR%=!" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" %__CONVERT_OPTS% "%__INFILE%" "%__TMPFILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Add text to the dialog image "!__TMPFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" %__CONVERT_OPTS% "%__INFILE%" "%__TEMP_FILE%"
+call "%_CONVERT_CMD%" %__CONVERT_OPTS% "%__INFILE%" "%__TMPFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add text to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -527,10 +537,10 @@ if not %ERRORLEVEL%==0 (
 )
 set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TEMP_FILE%" "%__LOGO_FILE%" ... 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TMPFILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" "%__TEMP_FILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 60 ^) -gravity NorthWest -geometry +50+16 -composite "%__OUTFILE%"
+call "%_CONVERT_CMD%" "%__TMPFILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 40 ^) -gravity NorthWest -geometry +106+16 -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -700,7 +710,18 @@ call "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
-    goto :eof
+    @rem goto :eof
+)
+if %_VERBOSE%+%_DEBUG% gtr 0 (
+    set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
+    set __APP_DIR=
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*" 2^>NUL') do set "__APP_DIR=%%f"
+    if not defined __APP_DIR (
+        echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    dir /b /s "!__APP_DIR!" 1>&2
 )
 goto :eof
 

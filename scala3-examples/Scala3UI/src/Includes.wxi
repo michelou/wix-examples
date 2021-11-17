@@ -2,14 +2,32 @@
 <Include>
   <?define CompanyName="EPFL/LAMP" ?>  <!-- UKCU registry key -->
 
-  <?define Product_Language="1033" ?>
-  <?define Product_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
-  <?define Product_Name="Scala 3" ?>
   <!--
   e.g. de-DE=1031, en-US=1033, fr-Fr=1036, it-IT=1040.
   See https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
   -->
+  <?define Product_Language="1033" ?>
+  <?define Product_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define Product_Name="Scala 3" ?>
+
+  <?define Package_Comments="The Scala Programming Language" ?>
+  <?define Package_Description="Scala 3 Installer" ?>
   <?define Package_Keywords="Scala, JVM" ?>
-  <?define Package_Languages="1033" ?>
+  <?define Package_Languages="1033" ?>  <!-- 1033 = en-us -->
   <?define Package_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+
+  <?define Shortcut_ScalaAPI_Description="Scala 3 API Documentation" ?>
+  <?define Shortcut_ScalaAPI_Name="API Documentation" ?>
+
+  <?define Shortcut_ScalaLicense_Description="Scala 3 License" ?>
+  <?define Shortcut_ScalaLicense_Name="License" ?>
+
+  <?define Shortcut_ScalaREPL_Description="Scala 3 Interactive Shell" ?>
+  <?define Shortcut_ScalaREPL_Name="Scala 3 REPL" ?>
+
+  <?define Shortcut_UninstallProduct_Description="Uninstalls Scala 3" ?>
+  <?define Shortcut_UninstallProduct_Name="Uninstall Scala 3" ?>
+
+  <?define Feature_AppComponents_Description="Scala 3 application, shortcuts and environment settings" ?>
+  <?define Feature_AppComponents_Title="Scala 3 Components" ?>
 </Include>

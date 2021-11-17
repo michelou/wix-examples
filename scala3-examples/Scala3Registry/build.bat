@@ -326,10 +326,11 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameters: _ANTLR_VERSION, _APP_VERSION
+@rem output parameters: _ANTLR_VERSION, _APP_VERSION, _FLEXMARK_VERSION
 :app_version
 set _ANTLR_VERSION=
 set _APP_VERSION=
+set _FLEXMARK_VERSION=
 
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
@@ -387,6 +388,15 @@ if not defined _ANTLR_VERSION (
     set _EXITCODE=1
     goto :eof
 )
+for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\flexmark-0*.jar"') do (
+    set "__STR=%%j"
+    set "_FLEXMARK_VERSION=!__STR:.jar=!"
+)
+if not defined _FLEXMARK_VERSION (
+    echo %_ERROR_LABEL% Flexmark version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :gen_src
@@ -424,6 +434,7 @@ set __PACK_FILES=%__PACK_FILES% SCALADOC_3_JAR SNAKEYAML_JAR ST4_JAR TASTY_CORE_
 @rem and save the updated .wx? files into directory _GEN_DIR
 set __REPLACE_PAIRS=-replace '\$SCALA3_VERSION', '%_APP_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$ANTLR_VERSION', '%_ANTLR_VERSION%'
+set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$FLEXMARK_VERSION', '%_FLEXMARK_VERSION%'
 for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR %__PACK_FILES%) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
@@ -462,7 +473,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 )
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES="-dProductVersion=%_APP_VERSION%"
+set __OPT_PROPERTIES="-dProduct_Version=%_APP_VERSION%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
@@ -598,7 +609,18 @@ call "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
-    goto :eof
+    @rem goto :eof
+)
+if %_VERBOSE%+%_DEBUG% gtr 0 (
+    set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
+    set __APP_DIR=
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*" 2^>NUL') do set "__APP_DIR=%%f"
+    if not defined __APP_DIR (
+        echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    dir /b /s "!__APP_DIR!" 1>&2
 )
 goto :eof
 

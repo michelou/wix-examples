@@ -9,14 +9,18 @@
   <String Id="Package_Keywords">Scala, JVM, EPFL</String>
   <String Id="Package_Manufacturer">EPFL/LAMP and Lightbend, Inc.</String>
 
-  <String Id="Shortcut_ScalaAPI_Description">Documentation en ligne de l'API Scala 3</String>
+  <String Id="Shortcut_ScalaAPI_Description">Affiche la documentation de l'API Scala 3</String>
   <String Id="Shortcut_ScalaAPI_Name">Documentation de l'API Scala 3</String>
-  <String Id="Shortcut_ScalaLicense_Description">Licence Scala 3</String>
-  <String Id="Shortcut_ScalaLicense_Name">Licence</String>
-  <String Id="Shortcut_ScalaREPL_Description">Ligne de commandes Scala 3</String>
+
+  <String Id="Shortcut_ScalaLicense_Description">Affiche la licence de Scala 3</String>
+  <String Id="Shortcut_ScalaLicense_Name">Licence Scala</String>
+
+  <String Id="Shortcut_ScalaREPL_Description">Démarre l'interpréteur Scala 3</String>
   <String Id="Shortcut_ScalaREPL_Name">Scala 3 REPL</String>
+
   <String Id="Shortcut_UninstallProduct_Description">Supprime l'installation de Scala 3</String>
   <String Id="Shortcut_UninstallProduct_Name">Désinstallation de Scala 3</String>
 
-  <String Id="Feature_Complete_Title">Scala 3</String>
+  <String Id="Feature_AppComponents_Description">Composants de Scala 3</String>
+  <String Id="Feature_AppComponents_Title">Scala 3</String>
 </WixLocalization>

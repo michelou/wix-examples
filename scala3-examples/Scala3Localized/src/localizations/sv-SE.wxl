@@ -10,14 +10,18 @@
   <String Id="Package_Manufacturer">EPFL/LAMP and Lightbend, Inc.</String>
 
   <String Id="Shortcut_ScalaAPI_Description">Scala 3 API Dokumentation</String>
-  <String Id="Shortcut_ScalaAPI_Name">API Dokumentation</String>
+  <String Id="Shortcut_ScalaAPI_Name">Scala 3 API Dokumentation</String>
+
   <String Id="Shortcut_ScalaLicense_Description">Scala 3 Licens</String>
-  <String Id="Shortcut_ScalaLicense_Name">Licens</String>
+  <String Id="Shortcut_ScalaLicense_Name">Scala Licens</String>
+
   <String Id="Shortcut_ScalaREPL_Description">Scala 3 Interaktivt Skal</String>
   <String Id="Shortcut_ScalaREPL_Name">Scala 3 REPL</String>
+
   <String Id="Shortcut_UninstallProduct_Description">Avinstallerar Scala 3</String>
   <String Id="Shortcut_UninstallProduct_Name">Scala 3 Avinstallation</String>
 
-  <String Id="Feature_Complete_Title">Scala 3</String>
+  <String Id="Feature_AppComponents_Description">Scala 3 komponenter</String>
+  <String Id="Feature_AppComponents_Title">Scala 3</String>
 </WixLocalization>
 
