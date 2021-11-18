@@ -46,6 +46,7 @@ This project is organized as follows:
 docs\
 examples\{<a href="./examples/MyApp">MyApp</a>, etc.}
 firegiant-examples\{<a href="./firegiant-examples/SampleFirst">SampleFirst</a>, etc.}
+scala2-examples\{<a href="./scala2-examples/Scala2First">Scala2First</a>, etc.}
 scala3-examples\{<a href="./scala3-examples/Scala3First">Scala3First</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
 README.md
@@ -59,7 +60,8 @@ where
 - directory [**`docs\`**](docs/) contains [WiX] related papers/articles.
 - directory [**`examples\`**](examples/) contains [WiX] code examples (see [`README.md`](examples/README.md) file).
 - directory [**`firegiant-examples\`**](firegiant-examples/) contains [WiX] examples from [FireGiant] (see [`README.md`](firegiant-examples/README.md) file).
-- directory [**`scala3-examples\`**](scala3-examples/) contains [WiX] examples of [Scala 3][scala3] installers (see [`README.md`](scala3-examples/README.md) file).
+- directory [**`scala2-examples\`**](scala2-examples/) contains [WiX] examples for creating [Scala 2][scala2] installers (see [`README.md`](scala2-examples/README.md) file).
+- directory [**`scala3-examples\`**](scala3-examples/) contains [WiX] examples for createing [Scala 3][scala3] installers (see [`README.md`](scala3-examples/README.md) file).
 - file [**`QUICKREF.md`**](QUICKREF.md) is our [WiX] quick reference.
 - file **`README.md`** is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) is the [Markdown][github_markdown] document presenting external resources.
@@ -160,7 +162,8 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [python_examples]: https://github.com/michelou/python-examples
 [rust_examples]: https://github.com/michelou/rust-examples
-[scala3]: https://dotty.epfl.ch
+[scala2]: https://www.scala-lang.org/download/scala2.html
+[scala3]: https://www.scala-lang.org/download/scala3.html
 [scala3_examples]: https://github.com/michelou/dotty-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [vs2019_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/
