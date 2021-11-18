@@ -8,26 +8,26 @@
   -->
   <?define Product_Language="1033" ?>
   <?define Product_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
-  <?define Product_Name="Scala 3" ?>
+  <?define Product_Name="Scala 2" ?>
 
   <?define Package_Comments="The Scala Programming Language" ?>
-  <?define Package_Description="Scala 3 Installer" ?>
+  <?define Package_Description="Scala 2 Installer" ?>
   <?define Package_Keywords="Scala, Compiler, Java, JVM" ?>
   <?define Package_Languages="1033" ?>  <!-- 1033 = en-us -->
   <?define Package_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
 
-  <?define Shortcut_ScalaAPI_Description="Displays the Scala 3 API Documentation" ?>
+  <?define Shortcut_ScalaAPI_Description="Displays the Scala 2 API Documentation" ?>
   <?define Shortcut_ScalaAPI_Name="API Documentation" ?>
 
-  <?define Shortcut_ScalaLicense_Description="Displays the Scala 3 License" ?>
+  <?define Shortcut_ScalaLicense_Description="Displays the Scala 2 License" ?>
   <?define Shortcut_ScalaLicense_Name="License" ?>
 
-  <?define Shortcut_ScalaREPL_Description="Launches the Scala 3 REPL" ?>
-  <?define Shortcut_ScalaREPL_Name="Scala 3 REPL" ?>
+  <?define Shortcut_ScalaREPL_Description="Launches the Scala 2 REPL" ?>
+  <?define Shortcut_ScalaREPL_Name="Scala 2 REPL" ?>
 
-  <?define Shortcut_UninstallProduct_Description="Removes the Scala 3 installation" ?>
-  <?define Shortcut_UninstallProduct_Name="Uninstall Scala 3" ?>
+  <?define Shortcut_UninstallProduct_Description="Removes the Scala 2 installation" ?>
+  <?define Shortcut_UninstallProduct_Name="Uninstall Scala 2" ?>
 
-  <?define Feature_AppComponents_Description="Scala 3 application, shortcuts and environment settings" ?>
-  <?define Feature_AppComponents_Title="Scala 3 Components" ?>
+  <?define Feature_AppComponents_Description="Scala 2 application, shortcuts and environment settings" ?>
+  <?define Feature_AppComponents_Title="Scala 2 Components" ?>
 </Include>

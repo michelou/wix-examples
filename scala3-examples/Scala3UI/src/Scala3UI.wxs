@@ -7,7 +7,7 @@
       Language='$(var.Product_Language)' Codepage='1252'>
 
     <Package Id='*'
-        Keywords='$(var.Package_Keywords)' Description='$(var.Package_Description)'
+        Description='$(var.Package_Description)' Keywords='$(var.Package_Keywords)'
         Comments='$(var.Package_Comments)' Manufacturer='$(var.Package_Manufacturer)'
         InstallerVersion='200' InstallScope="perMachine"
         Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />
@@ -16,13 +16,15 @@
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
-          <!-- fragments.wxs -->
+        <!-- fragments.wxs -->
       </Directory>
       <!-- Step 1: Define the directory structure -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
-         <Directory Id="ApplicationProgramsFolder" Name="$(var.Product_Name)" />
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.Product_Name)" />
       </Directory>
-      <Directory Id="DesktopFolder" Name="Desktop" />
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <!-- no desktop shortcut -->
+      </Directory>
     </Directory>
 
     <SetProperty Id="APIURL"
@@ -38,8 +40,8 @@
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcuts" Guid="YOURGUID-APPLICATION_SHORTCUT">
         <Shortcut Id="ScalaREPL" 
-            Name="$(var.Product_Name) REPL" 
-            Description="$(var.Product_Name) Interactive Shell"
+            Name="$(var.Shortcut_ScalaREPL_Name)" 
+            Description="$(var.Shortcut_ScalaREPL_Description)"
             Target="[SystemFolder]cmd.exe"
             Arguments='/k "call ^"[#repl_bat]^""'
             WorkingDirectory="PersonalFolder">
@@ -60,8 +62,8 @@
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
         <Shortcut Id="UninstallProduct"             
-            Name="Uninstall $(var.Product_Name)"
-            Description="Uninstalls $(var.Product_Name)"
+            Name="$(var.Shortcut_UninstallProduct_Name)"
+            Description="$(var.Shortcut_UninstallProduct_Description)"
             Target="[SystemFolder]msiexec.exe"
             Arguments="/x [ProductCode]" />
       </Component>

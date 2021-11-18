@@ -316,7 +316,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 @rem output parameters: _JLINE_VERSION, _JNA_VERSION, _SCALAP_VERSION
-@rem NB. we unset variable _PRODUCT_VERSION if download is *not* successful
+@rem NB. we unset variable _PRODUCT_VERSION if download fails
 :gen_app
 set _JLINE_VERSION=
 set _JNA_VERSION=
@@ -412,7 +412,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS
 )
 call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
-    echot %_ERROR_LABEL% Failed to generate auxilary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to generate auxilary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -420,6 +420,8 @@ set __PACK_FILES=LICENSE NOTICE FSC_BAT FSC_SH REPL_BAT SCALA_BAT SCALA_SH SCALA
 set __PACK_FILES=%__PACK_FILES% SCALADOC_BAT SCALADOC_SH SCALAP_BAT SCALAP_SH
 set __PACK_FILES=%__PACK_FILES% DOC_LICENSE_MD DOC_LICENSE_RTF DOC_README DOC_TASTYREAD_MD
 set __PACK_FILES=%__PACK_FILES% DOC_JNA_TXT DOC_ASM_TXT DOC_JLINE_TXT DOC_JQUERY_TXT
+set __PACK_FILES=%__PACK_FILES% DOC_FSC_HTML DOC_INDEX_HTML DOC_SCALA_HTML DOC_SCALAC_HTML DOC_SCALADOC_HTML
+set __PACK_FILES=%__PACK_FILES% DOC_SCALAP_HTML DOC_STYLE_CSS DOC_EXTERNAL_GIF DOC_SCALA_LOGO_PNG
 set __PACK_FILES=%__PACK_FILES% JLINE_JAR JNA_JAR SCALA_COMPILER_JAR SCALA_LIBRARY_JAR
 set __PACK_FILES=%__PACK_FILES% SCALA_REFLECT_JAR SCALAP_JAR
 set __PACK_FILES=%__PACK_FILES% FSC_MAN SCALA_MAN SCALAC_MAN SCALADOC_MAN SCALAP_MAN
@@ -469,12 +471,12 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
 set __OPT_PROPERTIES=
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
-for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wx?" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -500,7 +502,7 @@ goto :eof
 call :gen_app
 if not %_EXITCODE%==0 goto :eof
 
-call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_APP_DIR%\VERSION"
+call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_APP_DIR%\LICENSE"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 call :gen_src

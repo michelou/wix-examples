@@ -1,4 +1,4 @@
-# <span id="top">WiX examples with Scala 3 distros</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX examples with Scala 3 distribution</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -48,10 +48,11 @@ Command [`build link`](./Scala3First/build.bat) generates the Windows installer 
 │   candle_sources.txt
 │   Fragments.wixobj
 │   light_opts.txt
-│   Scala3First.msi
+│   scala3-3.1.0.msi
+│   scala3-3.1.0.wixpdb
 │   Scala3First.wixobj
-│   Scala3First.wixpdb
 └───<b>src_gen</b>
+        Fragments.wxs
         Fragments.wxs.txt
         Scala3First.wxs
 </pre>
@@ -64,27 +65,37 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 <tr>
 <td style="text-align:center;">
   <div>
-  <a href="images/Scala3First.png"><img style="max-width:180px;" src="images/Scala3First.png" /></a>
+  <a href="images/Scala3First.png">
+  <img style="max-width:180px;" src="images/Scala3First.png" alt="Scala 3 directory" />
+  </a>
   <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3First_Menu.png"><img style="max-width:180px;" src="images/Scala3First_Menu.png" /></a>
+  <a href="images/Scala3First_Menu.png">
+  <img style="max-width:180px;" src="images/Scala3First_Menu.png" alt="Scala 3 shortcuts" />
+  </a>
   <div style="font-size:70%;"><b>Figure 1.2 -</b> <i>Scala 3</i> shortcuts<br>(<i>Start Menu</i> folder).
   </div>
 </td>
 <td style="text-align:center;background-color:#bbeedd;">
   <div>
-  <a href="images/Scala3First_StartMenu.png"><img style="max-width:160px;" src="images/Scala3First_StartMenu.png" /></a>
+  <a href="images/Scala3First_StartMenu.png">
+  <img style="max-width:160px;" src="images/Scala3First_StartMenu.png" alt="Start Menu" />
+  </a>
   <div style="font-size:70%;"><b>Figure 1.3 -</b> <i>Scala 3</i> shorcuts<br>(<i>Start Menu</i> folder).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3First_REPL.png"><img style="max-width:180px;" src="images/Scala3First_REPL.png" /></a>
+  <a href="images/Scala3First_REPL.png">
+  <img style="max-width:180px;" src="images/Scala3First_REPL.png" alt="Scala 3 REPL" />
+  </a>
   <div style="font-size:70%;"><b>Figure 1.4 -</b> <i>Scala 3</i> REPL.
   </div>
 </td>
 <td style="text-align:center;">
-  <a href="images/Scala3First_Uninstall.png"><img style="max-width:180px;" src="images/Scala3First_Uninstall.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.5 -</b> Uninstalling <i>Scala 3</i><br/>(<i>Settings</i> window).
+  <a href="images/Scala3First_Uninstall.png">
+  <img style="max-width:180px;" src="images/Scala3First_Uninstall.png" alt="Uninstall Scala 3" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 1.5 -</b> Uninstall <i>Scala 3</i><br/>(<i>Settings</i> window).
 </td>
 </tr>
 </table>
@@ -122,31 +133,43 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 <tr>
 <td style="text-align:center;background-color:#bbeedd;">
   <div>
-  <a href="images/Scala3UI_Setup1.png"><img style="max-width:180px;" src="images/Scala3UI_Setup1.png" /></a>
+  <a href="images/Scala3UI_Setup1.png">
+  <img style="max-width:180px;" src="images/Scala3UI_Setup1.png" alt="Welcome" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3UI_Setup2.png"><img style="max-width:180px;" src="images/Scala3UI_Setup2.png" /></a>
+  <a href="images/Scala3UI_Setup2.png">
+  <img style="max-width:180px;" src="images/Scala3UI_Setup2.png" alt="EULA" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.2 -</b> EULA<br/>(<i>Scala 3</i> Windows installer).
   </div>
 </td>
 <td style="text-align:center;background-color:#bbeedd;">
   <div>
-  <a href="images/Scala3UI_Setup3.png"><img style="max-width:180px;" src="images/Scala3UI_Setup3.png" /></a>
-  <div style="font-size:70%;"><b>Figure 2.3 -</b> Destination Folder<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
+  <a href="images/Scala3UI_Setup3.png">
+  <img style="max-width:180px;" src="images/Scala3UI_Setup3.png" alt="Custom Setup" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 2.3 -</b> Custom Setup<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3UI_Setup5.png"><img style="max-width:180px;" src="images/Scala3UI_Setup5.png" /></a>
+  <a href="images/Scala3UI_Setup5.png">
+  <img style="max-width:180px;" src="images/Scala3UI_Setup5.png" alt="Completed" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.4 -</b> Completed installation<br/>(<i>Scala 3</i> Windows installer).
   </div>
 </td>
 <td style="text-align:center;">
   <div>
-  <a href="images/Scala3UI.png"><img style="max-width:180px;" src="images/Scala3UI.png" /></a>
+  <a href="images/Scala3UI.png">
+  <img style="max-width:180px;" src="images/Scala3UI.png" alt="Scala 3 directory" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.5 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3UI_Menu.png"><img style="max-width:180px;" src="images/Scala3UI_Menu.png" /></a>
+  <a href="images/Scala3UI_Menu.png">
+  <img style="max-width:180px;" src="images/Scala3UI_Menu.png" alt="Scala 3 shortcuts" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.6 -</b> <i>Scala 3</i> shortcuts<br>(<i>Start Menu</i> folder).
   </div>
 </td>
@@ -185,7 +208,7 @@ Y:\examples\Scala3Localized
             <a href="./Scala3Localized/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-Command [`build link`](./Scala3Localized/build.bat) generates a separate MSI file for each language localization, e.g. `Scala3Localized-sv-SE.msi` is the swedish version of the Windows installer.
+Command [`build link`](./Scala3Localized/build.bat) generates a separate MSI file for each language localization, e.g. `scala3-3.1.0-sv-SE.msi` is the swedish version of the Windows installer.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3Localized/build.bat">build</a> clean link && <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /a-d target</b>
@@ -193,15 +216,15 @@ candle_opts.txt
 candle_sources.txt
 Fragments.wixobj
 light_opts.txt
-<b>Scala3Localized-de-DE.msi</b>
-Scala3Localized-de-DE.wixpdb
-<b>Scala3Localized-fr-FR.msi</b>
-Scala3Localized-fr-FR.wixpdb
-<b>Scala3Localized-sv-SE.msi</b>
-Scala3Localized-sv-SE.wixpdb
-<b>Scala3Localized.msi</b>
-Scala3Localized.wixobj
-Scala3Localized.wixpdb
+<b>scala3-3.1.0-de-DE.msi</b>
+scala3-3.1.0-de-DE.wixpdb
+<b>scala3-3.1.0-fr-FR.msi</b>
+scala3-3.1.0-fr-FR.wixpdb
+<b>scala3-3.1.0-sv-SE.msi</b>
+scala3-3.1.0-sv-SE.wixpdb
+<b>scala3-3.1.0.msi</b>
+scala3-3.1.0.wixobj
+scala3-3.1.0.wixpdb
 </pre>
 
 Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of the [Scala 3][scala3] Windows installer in english, german, french and swedish.
@@ -210,21 +233,29 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
 <tr>
 <td style="text-align:center;">
   <div>
-  <a href="images/Scala3Localized_Setup1.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1.png" /></a>
+  <a href="images/Scala3Localized_Setup1.png">
+  <img style="max-width:180px;" src="images/Scala3Localized_Setup1.png" alt="Welcome" />
+  </a>
   <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>english</i> version).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3Localized_Setup1_de.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1_de.png" /></a>
+  <a href="images/Scala3Localized_Setup1_de.png">
+  <img style="max-width:180px;" src="images/Scala3Localized_Setup1_de.png" alt="Willkommen" />
+  </a>
   <div style="font-size:70%;"><b>Figure 3.2 -</b> Willkommen<br/>(<i>german</i> version).
   </div>
 </td>
 <td style="text-align:center;">
   <div>
-  <a href="images/Scala3Localized_Setup1_fr.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1_fr.png" /></a>
+  <a href="images/Scala3Localized_Setup1_fr.png">
+  <img style="max-width:180px;" src="images/Scala3Localized_Setup1_fr.png" alt="Bienvenue" />
+  </a>
   <div style="font-size:70%;"><b>Figure 3.3 -</b> Bienvenue<br/>(<i>french</i> version).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3Localized_Setup1_se.png"><img style="max-width:180px;" src="images/Scala3Localized_Setup1_se.png" /></a>
+  <a href="images/Scala3Localized_Setup1_se.png">
+  <img style="max-width:180px;" src="images/Scala3Localized_Setup1_se.png" alt="Välkommen" />
+  </a>
   <div style="font-size:70%;"><b>Figure 3.4 -</b> Välkommen<br/>(<i>swedish</i> version).
   </div>
 </td>
@@ -242,7 +273,7 @@ The `Scala3Features` project adds feature customization to the [Scala 3][scala3]
 <b name="footnote_01">[1]</b> ***Default OpenJDK Location*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-The different implementations of OpenJDK are available either as Zip archive file or as Windows installer.
+The different implementations of OpenJDK are available either as Zip archive files or as Windows installers.
 </p>
 <p style="margin:0 0 1em 20px;">
 Not surprisingly, each Windows installer suggests a <i>different</i> default installation location <b>and</b> <i>inconsistent</i> naming conventions:

@@ -66,8 +66,8 @@ for %%i in ("%_ROOT_DIR%.") do set "_PROJECT_NAME=%%~ni"
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
 set "_WIXOBJ_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.wixobj"
 
-set _PRODUCT_VERSION=3.1.0
-set "_MSI_FILE=%_TARGET_DIR%\scala3-%_PRODUCT_VERSION%.msi"
+set _PRODUCT_VERSION=2.13.7
+set "_MSI_FILE=%_TARGET_DIR%\scala-%_PRODUCT_VERSION%.msi"
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -76,6 +76,13 @@ if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
 )
 set "_CURL_CMD=%GIT_HOME%\mingw64\bin\curl.exe"
 set "_UNZIP_CMD=%GIT_HOME%\usr\bin\unzip.exe"
+
+if not exist "%MAGICK_HOME%\convert.exe" (
+    echo %_ERROR_LABEL% ImageMagick installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_CONVERT_CMD=%MAGICK_HOME%\convert.exe"
 
 if not exist "%WIX%\candle.exe" (
     echo %_ERROR_LABEL% WiX installation directory not found 1>&2
@@ -162,12 +169,14 @@ if exist "%__PROPS_FILE%" (
     if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
     if defined __MAIN_EXECUTABLE set "_GUID[MAIN_EXECUTABLE]=!__MAIN_EXECUTABLE!"
     if defined __PROGRAM_MENU_DIR set "_GUID[PROGRAM_MENU_DIR]=!__PROGRAM_MENU_DIR!"
+    if defined __APPLICATION_ENV set "_GUID[APPLICATION_ENV]=!__APPLICATION_ENV!"
     if defined __APPLICATION_SHORTCUT set "_GUID[APPLICATION_SHORTCUT]=!__APPLICATION_SHORTCUT!"
     @rem pack\ directory
-    if defined __VERSION set "_GUID[VERSION]=!__VERSION!"
+    if defined __LICENSE set "_GUID[LICENSE]=!__LICENSE!"
+    if defined __NOTICE set "_GUID[NOTICE]=!__NOTICE!"
     @rem pack\bin\ directory
-    if defined __COMMON_BAT set "_GUID[COMMON_BAT]=!__COMMON_BAT!"
-    if defined __COMMON_SH set "_GUID[COMMON_SH]=!__COMMON_SH!"
+    if defined __FSC_BAT set "_GUID[FSC_BAT]=!__FSC_BAT!"
+    if defined __FSC_SH set "_GUID[FSC_SH]=!__FSC_SH!"
     if defined __REPL_BAT set "_GUID[REPL_BAT]=!__REPL_BAT!"
     if defined __SCALA_BAT set "_GUID[SCALA_BAT]=!__SCALA_BAT!"
     if defined __SCALA_SH set "_GUID[SCALA_SH]=!__SCALA_SH!"
@@ -175,51 +184,39 @@ if exist "%__PROPS_FILE%" (
     if defined __SCALAC_SH set "_GUID[SCALAC_SH]=!__SCALAC_SH!"
     if defined __SCALADOC_BAT set "_GUID[SCALADOC_BAT]=!__SCALADOC_BAT!"
     if defined __SCALADOC_SH set "_GUID[SCALADOC_SH]=!__SCALADOC_SH!"
+    if defined __SCALAP_BAT set "_GUID[SCALAP_BAT]=!__SCALAP_BAT!"
+    if defined __SCALAP_SH set "_GUID[SCALAP_SH]=!__SCALAP_SH!"
+    @rem pack\doc\ directory
+    if defined __DOC_LICENSE_MD set "_GUID[DOC_LICENSE_MD]=!__DOC_LICENSE_MD!"
+    if defined __DOC_LICENSE_RTF set "_GUID[DOC_LICENSE_RTF]=!__DOC_LICENSE_RTF!"
+    if defined __DOC_README set "_GUID[DOC_README]=!__DOC_README!"
+    if defined __DOC_TASTYREAD_MD set "_GUID[DOC_TASTYREAD_MD]=!__DOC_TASTYREAD_MD!"
+    if defined __DOC_JNA_TXT set "_GUID[DOC_JNA_TXT]=!__DOC_JNA_TXT!"
+    if defined __DOC_ASM_TXT set "_GUID[DOC_ASM_TXT]=!__DOC_ASM_TXT!"
+    if defined __DOC_JLINE_TXT set "_GUID[DOC_JLINE_TXT]=!__DOC_JLINE_TXT!"
+    if defined __DOC_JQUERY_TXT set "_GUID[DOC_JQUERY_TXT]=!__DOC_JQUERY_TXT!"
+    if defined __DOC_FSC_HTML set "_GUID[DOC_FSC_HTML]=!__DOC_FSC_HTML!"
+    if defined __DOC_INDEX_HTML set "_GUID[DOC_INDEX_HTML]=!__DOC_INDEX_HTML!"
+    if defined __DOC_SCALA_HTML set "_GUID[DOC_SCALA_HTML]=!__DOC_SCALA_HTML!"
+    if defined __DOC_SCALAC_HTML set "_GUID[DOC_SCALAC_HTML]=!__DOC_SCALAC_HTML!"
+    if defined __DOC_SCALADOC_HTML set "_GUID[DOC_SCALADOC_HTML]=!__DOC_SCALADOC_HTML!"
+    if defined __DOC_SCALAP_HTML set "_GUID[DOC_SCALAP_HTML]=!__DOC_SCALAP_HTML!"
+    if defined __DOC_STYLE_CSS set "_GUID[DOC_STYLE_CSS]=!__DOC_STYLE_CSS!"
+    if defined __DOC_EXTERNAL_GIF set "_GUID[DOC_EXTERNAL_GIF]=!__DOC_EXTERNAL_GIF!"
+    if defined __DOC_SCALA_LOGO_PNG set "_GUID[DOC_SCALA_LOGO_PNG]=!__DOC_SCALA_LOGO_PNG!"
     @rem pack\lib\ directory
-    if defined __ANTLR_JAR set "_GUID[ANTLR_JAR]=!__ANTLR_JAR!"
-    if defined __ANTLR_RUNTIME_JAR set "_GUID[ANTLR_RUNTIME_JAR]=!__ANTLR_RUNTIME_JAR!"
-    if defined __AUTOLINK_JAR set "_GUID[AUTOLINK_JAR]=!__AUTOLINK_JAR!"
-    if defined __COMPILER_INTERFACE_JAR set "_GUID[COMPILER_INTERFACE_JAR]=!__COMPILER_INTERFACE_JAR!"
-    if defined __DIST_3_JAR set "_GUID[DIST_3_JAR]=!__DIST_3_JAR!"
-    if defined __FLEXMARK_JAR set "_GUID[FLEXMARK_JAR]=!__FLEXMARK_JAR!"
-    if defined __FLEXMARK_EXT_ANCHORLINK_JAR set "_GUID[FLEXMARK_EXT_ANCHORLINK_JAR]=!__FLEXMARK_EXT_ANCHORLINK_JAR!"
-    if defined __FLEXMARK_EXT_AUTOLINK_JAR set "_GUID[FLEXMARK_EXT_AUTOLINK_JAR]=!__FLEXMARK_EXT_AUTOLINK_JAR!"
-    if defined __FLEXMARK_EXT_EMOJI_JAR set "_GUID[FLEXMARK_EXT_EMOJI_JAR]=!__FLEXMARK_EXT_EMOJI_JAR!"
-    if defined __FLEXMAKR_EXT_GFM_STRIKETHROUGH_JAR set "_GUID[FLEXMAKR_EXT_GFM_STRIKETHROUGH_JAR]=!__FLEXMAKR_EXT_GFM_STRIKETHROUGH_JAR!"
-    if defined __FLEXMARK_EXT_GFM_TABLES_JAR set "_GUID[FLEXMARK_EXT_GFM_TABLES_JAR]=!__FLEXMARK_EXT_GFM_TABLES_JAR!"
-    if defined __FLEXMARK_EXT_GFM_TASKLIST_JAR set "_GUID[FLEXMARK_EXT_GFM_TASKLIST_JAR]=!__FLEXMARK_EXT_GFM_TASKLIST_JAR!"
-    if defined __FLEXMARK_EXT_INS_JAR set "_GUID[FLEXMARK_EXT_INS_JAR]=!__FLEXMARK_EXT_INS_JAR!"
-    if defined __FLEXMARK_EXT_SUPERSCRIPT_JAR set "_GUID[FLEXMARK_EXT_SUPERSCRIPT_JAR]=!__FLEXMARK_EXT_SUPERSCRIPT_JAR!"
-    if defined __FLEXMARK_EXT_TABLES_JAR set "_GUID[FLEXMARK_EXT_TABLES_JAR]=!__FLEXMARK_EXT_TABLES_JAR!"
-    if defined __FLEXMARK_EXT_WIKILINK_JAR set "_GUID[FLEXMARK_EXT_WIKILINK_JAR]=!__FLEXMARK_EXT_WIKILINK_JAR!"
-    if defined __FLEXMARK_EXT_YAML_FRONT_MATTER_JAR set "_GUID[FLEXMARK_EXT_YAML_FRONT_MATTER_JAR]=!__FLEXMARK_EXT_YAML_FRONT_MATTER_JAR!"
-    if defined __FLEXMARK_FORMATTER_JAR set "_GUID[FLEXMARK_FORMATTER_JAR]=!__FLEXMARK_FORMATTER_JAR!"
-    if defined __FLEXMARK_HTML_PARSER_JAR set "_GUID[FLEXMARK_HTML_PARSER_JAR]=!__FLEXMARK_HTML_PARSER_JAR!"
-    if defined __FLEXMAKR_JIRA_CONVERTER_JAR set "_GUID[FLEXMAKR_JIRA_CONVERTER_JAR]=!__FLEXMAKR_JIRA_CONVERTER_JAR!"
-    if defined __FLEXMARK_UTIL_JAR set "_GUID[FLEXMARK_UTIL_JAR]=!__FLEXMARK_UTIL_JAR!"
-    if defined __JACKSON_ANNOTATIONS_JAR set "_GUID[JACKSON_ANNOTATIONS_JAR]=!__JACKSON_ANNOTATIONS_JAR!"
-    if defined __JACKSON_CORE_JAR set "_GUID[JACKSON_CORE_JAR]=!__JACKSON_CORE_JAR!"
-    if defined __JACKSON_DATABIND_JAR set "_GUID[JACKSON_DATABIND_JAR]=!__JACKSON_DATABIND_JAR!"
-    if defined __JACKSON_DATAFORMAT_YAML_JAR set "_GUID[JACKSON_DATAFORMAT_YAML_JAR]=!__JACKSON_DATAFORMAT_YAML_JAR!"
-    if defined __JLINE_READER_JAR set "_GUID[JLINE_READER_JAR]=!__JLINE_READER_JAR!"
-    if defined __JLINE_TERMINAL_JAR set "_GUID[JLINE_TERMINAL_JAR]=!__JLINE_TERMINAL_JAR!"
-    if defined __JLINE_TERMINAL_JNA_JAR set "_GUID[JLINE_TERMINAL_JNA_JAR]=!__JLINE_TERMINAL_JNA_JAR!"
+    if defined __JLINE_JAR set "_GUID[JLINE_JAR]=!__JLINE_JAR!"
     if defined __JNA_JAR set "_GUID[JNA_JAR]=!__JNA_JAR!"
-    if defined __JSOUP_JAR set "_GUID[JSOUP_JAR]=!__JSOUP_JAR!"
-    if defined __LIQP_JAR set "_GUID[LIQP_JAR]=!__LIQP_JAR!"
-    if defined __PROTOBUF_JAVA_JAR set "_GUID[PROTOBUF_JAVA_JAR]=!__PROTOBUF_JAVA_JAR!"
-    if defined __SCALA_ASM_JAR set "_GUID[SCALA_ASM_JAR]=!__SCALA_ASM_JAR!"
+    if defined __SCALA_COMPILER_JAR set "_GUID[SCALA_COMPILER_JAR]=!__SCALA_COMPILER_JAR!"
     if defined __SCALA_LIBRARY_JAR set "_GUID[SCALA_LIBRARY_JAR]=!__SCALA_LIBRARY_JAR!"
-    if defined __SCALA3_COMPILER_JAR set "_GUID[SCALA3_COMPILER_JAR]=!__SCALA3_COMPILER_JAR!"
-    if defined __SCALA3_INTERFACES_JAR set "_GUID[SCALA3_INTERFACES_JAR]=!__SCALA3_INTERFACES_JAR!"
-    if defined __SCALA3_LIBRARY_JAR set "_GUID[SCALA3_LIBRARY_JAR]=!__SCALA3_LIBRARY_JAR!"
-    if defined __SCALA3_STAGING_3_JAR set "_GUID[SCALA3_STAGING_3_JAR]=!__SCALA3_STAGING_3_JAR!"
-    if defined __SCALA3_TASTY_INSPECTOR_JAR set "_GUID[SCALA3_TASTY_INSPECTOR_JAR]=!__SCALA3_TASTY_INSPECTOR_JAR!"
-    if defined __SCALADOC_3_JAR set "_GUID[SCALADOC_3_JAR]=!__SCALADOC_3_JAR!"
-    if defined __SNAKEYAML_JAR set "_GUID[SNAKEYAML_JAR]=!__SNAKEYAML_JAR!"
-    if defined __ST4_JAR set "_GUID[ST4_JAR]=!__ST4_JAR!"
-    if defined __TASTY_CORE_JAR set "_GUID[TASTY_CORE_JAR]=!__TASTY_CORE_JAR!"
-    if defined __UTIL_INTERFACE_JAR set "_GUID[UTIL_INTERFACE_JAR]=!__UTIL_INTERFACE_JAR!"
+    if defined __SCALA_REFLECT_JAR set "_GUID[SCALA_REFLECT_JAR]=!__SCALA_REFLECT_JAR!"
+    if defined __SCALAP_JAR set "_GUID[SCALAP_JAR]=!__SCALAP_JAR!"
+    @rem pack\man\ directory
+    if defined __FSC_MAN set "_GUID[FSC_MAN]=!__FSC_MAN!"
+    if defined __SCALA_MAN set "_GUID[SCALA_MAN]=!__SCALA_MAN!"
+    if defined __SCALAC_MAN set "_GUID[SCALAC_MAN]=!__SCALAC_MAN!"
+    if defined __SCALADOC_MAN set "_GUID[SCALADOC_MAN]=!__SCALADOC_MAN!"
+    if defined __SCALAP_MAN set "_GUID[SCALAP_MAN]=!__SCALAP_MAN!"
 )
 goto :eof
 
@@ -326,28 +323,25 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameters: _ANTLR_VERSION, _AUTOLINK_VERSION, _FLEXMARK_VERSION, _JLINE_VERSION, _JNA_VERSION, _JSOUP_VERSION
+@rem output parameters: _JLINE_VERSION, _JNA_VERSION, _SCALAP_VERSION
 @rem NB. we unset variable _PRODUCT_VERSION if download fails
 :gen_app
-set _ANTLR_VERSION=
-set _AUTOLINK_VERSION=
-set _FLEXMARK_VERSION=
 set _JLINE_VERSION=
 set _JNA_VERSION=
-set _JSOUP_VERSION=
+set _SCALAP_VERSION=
 
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
-if not exist "%_APP_DIR%\VERSION" (
+if not exist "%_APP_DIR%\LICENSE" (
     @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
     set "__RELEASE=%_PRODUCT_VERSION%"
     set _PRODUCT_VERSION=
 
-    set "__ARCHIVE_FILE=scala3-!__RELEASE!.zip"
-    set "__ARCHIVE_URL=https://github.com/lampepfl/dotty/releases/download/!__RELEASE!/!__ARCHIVE_FILE!"
+    set "__ARCHIVE_FILE=scala-!__RELEASE!.zip"
+    set "__ARCHIVE_URL=https://downloads.lightbend.com/scala/!__RELEASE!/!__ARCHIVE_FILE!"
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
-    if not exist "!__OUTPUT_FILE!" (
+    if not exist "!__OUTFILE_FILE!" (
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTPUT_FILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
         )
@@ -368,56 +362,25 @@ if not exist "%_APP_DIR%\VERSION" (
         set _EXITCODE=1
         goto :eof
     )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%TEMP%\scala3-!__RELEASE!\*" "%_APP_DIR%\" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%TEMP%\scala-!__RELEASE!\*" "%_APP_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /s /y "%TEMP%\scala3-!__RELEASE!\*" "%_APP_DIR%\" %_STDOUT_REDIRECT%
+    xcopy /s /y "%TEMP%\scala-!__RELEASE!\*" "%_APP_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+        echo %_ERROR_LABEL% Failed to copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
     set "_PRODUCT_VERSION=!__RELEASE!"
 )
+@rem https://downloads.lightbend.com/scala/2.13.7/scala-docs-2.13.7.zip
 if not defined _PRODUCT_VERSION (
-    echo %_ERROR_LABEL% Product version not found in file "!_APP_DIR:%_ROOT_DIR%=!\VERSION" 1>&2
+    echo %_ERROR_LABEL% Product version is undefined 1>&2
     set _EXITCODE=1
     goto :eof
 )
-for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_APP_DIR%\VERSION" 2^>NUL') do (
-    if not "%%j"=="%_PRODUCT_VERSION%" (
-        echo %_WARNING_LABEL% Version property and product version differ ^(found:%%j, expected:%_PRODUCT_VERSION%^) 1>&2
-    )
-)
-for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\antlr-3*.jar"') do (
+for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\jline-3*.jar"') do (
     set "__STR=%%j"
-    set "_ANTLR_VERSION=!__STR:.jar=!"
-)
-if not defined _ANTLR_VERSION (
-    echo %_ERROR_LABEL% Antlr version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\autolink-0*.jar"') do (
-    set "__STR=%%j"
-    set "_AUTOLINK_VERSION=!__STR:.jar=!"
-)
-if not defined _AUTOLINK_VERSION (
-    echo %_ERROR_LABEL% AutoLink version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\flexmark-0*.jar"') do (
-    set "__STR=%%j"
-    set "_FLEXMARK_VERSION=!__STR:.jar=!"
-)
-if not defined _FLEXMARK_VERSION (
-    echo %_ERROR_LABEL% Flexmark version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-for /f "delims=^- tokens=1,2,*" %%i in ('dir /b "%_APP_DIR%\lib\jline-reader-3*.jar"') do (
-    set "__STR=%%k"
     set "_JLINE_VERSION=!__STR:.jar=!"
 )
 if not defined _JLINE_VERSION (
@@ -434,12 +397,12 @@ if not defined _JNA_VERSION (
     set _EXITCODE=1
     goto :eof
 )
-for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\jsoup-1*.jar"') do (
+for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\scalap-2*.jar"') do (
     set "__STR=%%j"
-    set "_JSOUP_VERSION=!__STR:.jar=!"
+    set "_SCALAP_VERSION=!__STR:.jar=!"
 )
-if not defined _JSOUP_VERSION (
-    echo %_ERROR_LABEL% JSoup version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
+if not defined _SCALAP_VERSION (
+    echo %_ERROR_LABEL% Scalap version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -457,35 +420,30 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS
 )
 call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to generate auxilary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set __PACK_FILES=VERSION COMMON_BAT COMMON_SH REPL_BAT APPLICATION_SHORTCUT
-set __PACK_FILES=%__PACK_FILES% SCALA_BAT SCALA_SH SCALAC_BAT SCALAC_SH SCALADOC_BAT SCALADOC_SH
-set __PACK_FILES=%__PACK_FILES% ANTLR_JAR ANTLR_RUNTIME_JAR AUTOLINK_JAR COMPILER_INTERFACE_JAR
-set __PACK_FILES=%__PACK_FILES% DIST_3_JAR FLEXMARK_JAR FLEXMARK_EXT_ANCHORLINK_JAR FLEXMARK_EXT_AUTOLINK_JAR
-set __PACK_FILES=%__PACK_FILES% FLEXMARK_EXT_EMOJI_JAR FLEXMAKR_EXT_GFM_STRIKETHROUGH_JAR FLEXMARK_EXT_GFM_TABLES_JAR
-set __PACK_FILES=%__PACK_FILES% FLEXMARK_EXT_GFM_TASKLIST_JAR FLEXMARK_EXT_INS_JAR FLEXMARK_EXT_SUPERSCRIPT_JAR
-set __PACK_FILES=%__PACK_FILES% FLEXMARK_EXT_TABLES_JAR FLEXMARK_EXT_WIKILINK_JAR FLEXMARK_EXT_YAML_FRONT_MATTER_JAR
-set __PACK_FILES=%__PACK_FILES% FLEXMARK_FORMATTER_JAR FLEXMARK_HTML_PARSER_JAR FLEXMAKR_JIRA_CONVERTER_JAR FLEXMARK_UTIL_JAR
-set __PACK_FILES=%__PACK_FILES% JACKSON_ANNOTATIONS_JAR JACKSON_CORE_JAR JACKSON_DATABIND_JAR JACKSON_DATAFORMAT_YAML_JAR
-set __PACK_FILES=%__PACK_FILES% JLINE_READER_JAR JLINE_TERMINAL_JAR JLINE_TERMINAL_JNA_JAR JNA_JAR
-set __PACK_FILES=%__PACK_FILES% JSOUP_JAR LIQP_JAR PROTOBUF_JAVA_JAR SCALA_ASM_JAR SCALA_LIBRARY_JAR
-set __PACK_FILES=%__PACK_FILES% SCALA3_COMPILER_JAR SCALA3_INTERFACES_JAR SCALA3_LIBRARY_JAR
-set __PACK_FILES=%__PACK_FILES% SCALA3_STAGING_3_JAR SCALA3_TASTY_INSPECTOR_JAR
-set __PACK_FILES=%__PACK_FILES% SCALADOC_3_JAR SNAKEYAML_JAR ST4_JAR TASTY_CORE_JAR UTIL_INTERFACE_JAR
+set __WIX_IDS=PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR
+set __WIX_IDS=%__WIX_IDS% APPLICATION_ENV APPLICATION_SHORTCUT
+
+set __APP_IDS=LICENSE NOTICE FSC_BAT FSC_SH REPL_BAT SCALA_BAT SCALA_SH SCALAC_BAT SCALAC_SH
+set __APP_IDS=%__APP_IDS% SCALADOC_BAT SCALADOC_SH SCALAP_BAT SCALAP_SH
+set __APP_IDS=%__APP_IDS% DOC_LICENSE_MD DOC_LICENSE_RTF DOC_README DOC_TASTYREAD_MD
+set __APP_IDS=%__APP_IDS% DOC_JNA_TXT DOC_ASM_TXT DOC_JLINE_TXT DOC_JQUERY_TXT
+set __APP_IDS=%__APP_IDS% DOC_FSC_HTML DOC_INDEX_HTML DOC_SCALA_HTML DOC_SCALAC_HTML DOC_SCALADOC_HTML
+set __APP_IDS=%__APP_IDS% DOC_SCALAP_HTML DOC_STYLE_CSS DOC_EXTERNAL_GIF DOC_SCALA_LOGO_PNG
+set __APP_IDS=%__APP_IDS% JLINE_JAR JNA_JAR SCALA_COMPILER_JAR SCALA_LIBRARY_JAR
+set __APP_IDS=%__APP_IDS% SCALA_REFLECT_JAR SCALAP_JAR
+set __APP_IDS=%__APP_IDS% FSC_MAN SCALA_MAN SCALAC_MAN SCALADOC_MAN SCALAP_MAN
 
 @rem We replace both version and GUID placeholders found in .wx? files
 @rem and save the updated .wx? files into directory _GEN_DIR
-set __REPLACE_PAIRS=-replace '\$SCALA3_VERSION', '%_PRODUCT_VERSION%'
-set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$ANTLR_VERSION', '%_ANTLR_VERSION%'
-set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$AUTOLINK_VERSION', '%_AUTOLINK_VERSION%'
-set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$FLEXMARK_VERSION', '%_FLEXMARK_VERSION%'
+set __REPLACE_PAIRS=-replace '\$PRODUCT_VERSION', '%_PRODUCT_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JLINE_VERSION', '%_JLINE_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JNA_VERSION', '%_JNA_VERSION%'
-set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JSOUP_VERSION', '%_JSOUP_VERSION%'
-for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR %__PACK_FILES%) do (
+set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$SCALAP_VERSION', '%_SCALAP_VERSION%'
+for %%i in (%__WIX_IDS% %__APP_IDS%) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
@@ -502,6 +460,53 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
        @rem noop
     )
 )
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+)
+xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+call :gen_banner
+if not %_EXITCODE%==0 goto :eof
+goto :eof
+
+@rem top banner image has a size of 493x58
+:gen_banner
+set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
+
+set "__INFILE=%_RESOURCES_DIR%\BannerTop.bmp"
+set "__TMPFILE=%TEMP%\BannerTop.bmp"
+set "__OUTFILE=%_TARGET_DIR%\resources\BannerTop.bmp"
+
+if exist "%__INFILE%" (
+    @rem no need to create initial banner image
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__INFILE%" "%__TMPFILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Use banner image found in directory "!_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
+    )
+    copy /y "%__INFILE%" "%__TMPFILE%" %_STDOUT_REDIRECT%
+) else (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TMPFILE%" "%__LOGO_FILE%" ... 1>&2
+) else if %_VERBOSE%==1 ( echo Add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+)
+call "%_CONVERT_CMD%" "%__TMPFILE%" ^( "%__LOGO_FILE%" -resize 28 -transparent "#ffffff" ^) -gravity NorthEast -geometry +18+6 -compose over -composite "%__OUTFILE%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :compile
@@ -514,7 +519,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 )
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES=
+set __OPT_PROPERTIES="-dProduct_Version=%_PRODUCT_VERSION%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
@@ -542,11 +547,11 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :link
-@rem ensure file "%_APP_DIR%\VERSION" exists and variable _APP_VERSION is defined
+@rem ensure directory "%_APP_DIR%" contains the Scala 2 distribution
 call :gen_app
 if not %_EXITCODE%==0 goto :eof
 
-call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_APP_DIR%\VERSION"
+call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_APP_DIR%\LICENSE"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 call :gen_src
@@ -557,12 +562,11 @@ if not %_EXITCODE%==0 goto end
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
+if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-@rem set __OPT_EXTENSIONS=-ext WixUIExtension
-set __OPT_EXTENSIONS=
-set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_RESOURCES_DIR%"
+set __OPT_EXTENSIONS=-ext WixUIExtension
+set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_TARGET_DIR%\resources"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
@@ -651,6 +655,17 @@ if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
+)
+if %_VERBOSE%+%_DEBUG% gtr 0 (
+    set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
+    set __APP_DIR=
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala 2*" 2^>NUL') do set "__APP_DIR=%%f"
+    if not defined __APP_DIR (
+        echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    dir /b /s "!__APP_DIR!" 1>&2
 )
 goto :eof
 

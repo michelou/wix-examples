@@ -1,4 +1,4 @@
-# <span id="top">WiX examples with Scala 2 distributions</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX examples with Scala 2 distribution</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -36,7 +36,7 @@ Y:\examples\Scala2First
             <a href="./Scala3First/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-Command [`build link`](./Scala3First/build.bat) generates the Windows installer with file name `scala-2.13.7.msi`.
+Command [`build link`](./Scala3First/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
 
 > **:mag_right:** Command [`build help`](./Scala3First/build.bat) displays the batch file options and subcommands:
 
@@ -57,7 +57,7 @@ Command [`build link`](./Scala3First/build.bat) generates the Windows installer 
 
 > **:mag_right:** File `target\src_gen\Scala2First.wxs` in the above listing contains the real GUIDs instead of the symbol names defined in source file [`src\Scala2First.wxs`](./Scala2First/src/Scala2First.wxs).
 
-Figures **1.1** to **1.3** below illustrate the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
+Figures **1.1** to **1.4** below illustrate the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 
 <table>
 <tr>
@@ -72,19 +72,21 @@ Figures **1.1** to **1.3** below illustrate the updated user environment after t
   </div>
 </td>
 <td style="text-align:center;">
+  <div>
+  <a href="images/Scala2First_REPL.png"><img style="max-width:180px;" src="images/Scala2First_REPL.png" /></a>
+  <div style="font-size:70%;"><b>Figure 1.3 -</b> <i>Scala 2</i> REPL<br>(<i>Start Menu</i> folder).<br/>&nbsp;
+  </div>
+</td>
+<td style="text-align:center;">
   <a href="images/Scala2First_Uninstall.png"><img style="max-width:180px;" src="images/Scala2First_Uninstall.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.3 -</b> Uninstalling <i>Scala 2</i><br/>(<i>Settings</i> window).
+  <div style="font-size:70%;"><b>Figure 1.4 -</b> Uninstall <i>Scala 2</i><br/>(<i>Settings</i> window).
 </td>
 </tr>
 </table>
 
 ## <span id="scala2_sbt">Scala2Sbt</span>
 
-In this example we rely on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer.
-
-<a href="images/Scala2Sbt_Downloads.png">
-<img style="margin:0 25% 0 25%;max-width:200px;" src="images/Scala2Sbt_Downloads.png" />
-</a>
+In this example we rely on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
 
 Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows installer while Figure **2.5** shows the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 
@@ -92,28 +94,37 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 <tr>
 <td style="text-align:center;">
   <div>
-  <a href="images/Scala2Sbt_Setup1.png"><img style="max-width:180px;" src="images/Scala2Sbt_Setup1.png" /></a>
+  <a href="images/Scala2Sbt_Setup1.png">
+  <img style="max-width:180px;" src="images/Scala2Sbt_Setup1.png" alt="Welcome" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala2Sbt_Setup2.png"><img style="max-width:180px;" src="images/Scala2Sbt_Setup2.png" /></a>
+  <a href="images/Scala2Sbt_Setup2.png">
+  <img style="max-width:180px;" src="images/Scala2Sbt_Setup2.png" alt="License" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.2 -</b> License<br>(<i>Scala 2</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <div>
-  <a href="images/Scala2Sbt_Setup3.png"><img style="max-width:180px;" src="images/Scala2Sbt_Setup3.png" /></a>
+  <a href="images/Scala2Sbt_Setup3.png">
+  <img style="max-width:180px;" src="images/Scala2Sbt_Setup3.png" alt="Custom Setup" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.3 -</b> Custom Setup<br>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala2Sbt_Setup4.png"><img style="max-width:180px;" src="images/Scala2Sbt_Setup4.png" /></a>
+  <a href="images/Scala2Sbt_Setup4.png">
+  <img style="max-width:180px;" src="images/Scala2Sbt_Setup4.png" alt="Completed" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.4 -</b> Completed Installation<br>(<i>Scala 2</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
-
   <div>
-  <a href="images/Scala2Sbt_ProgFiles.png"><img style="max-width:180px;" src="images/Scala2Sbt_ProgFiles.png" /></a>
+  <a href="images/Scala2Sbt_ProgFiles.png">
+  <img style="max-width:180px;" src="images/Scala2Sbt_ProgFiles.png" alt="Scala 2 directory" />
+  </a>
   <div style="font-size:70%;"><b>Figure 2.5 -</b> <i>Scala 2</i> directory<br>(<i>Program Files (x86)</i> folder).
   </div>
 </td>
@@ -123,6 +134,55 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 ## <span id="scala2_ui">Scala2UI</span>
 
 *wip*
+
+Figures **3.1** to **3.4** below illustrate the dialog windows of the Windows installer while Figures **3.5** and **3.6** show the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
+
+<table>
+<tr>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala2UI_Setup1.png">
+  <img style="max-width:180px;" src="images/Scala2UI_Setup1.png" alt="Welcome" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br>(<i>Scala 2</i> installer).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala2UI_Setup2.png">
+  <img style="max-width:180px;" src="images/Scala2UI_Setup2.png" alt="License" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> License<br>(<i>Scala 2</i> installer).
+  </div>
+</td>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala2UI_Setup3.png">
+  <img style="max-width:180px;" src="images/Scala2UI_Setup3.png" alt="Custom Setup" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 3.3 -</b> Custom Setup<br>(<i>Scala 2</i> installer).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala2UI_Setup4.png">
+  <img style="max-width:180px;" src="images/Scala2UI_Setup4.png" alt="Completed" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 3.4 -</b> Completed Installation<br>(<i>Scala 2</i> installer).
+  </div>
+</td>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala2UI_ProgFiles.png">
+  <img style="max-width:180px;" src="images/Scala2UI_ProgFiles.png" alt="Scala 2 directory" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>Scala 2</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala2UI_StartMenu.png">
+  <img style="max-width:180px;" src="images/Scala2UI_StartMenu.png" alt="Scala 2 directory" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 3.6 -</b> <i>Scala 2</i> directory<br>(<i>Program Files (x86)</i> folder).
+  </div>
+</td>
+</tr>
+</table>
 
 <!--
 ## <span id="footnotes">Footnotes</span>

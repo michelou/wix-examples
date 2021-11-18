@@ -68,7 +68,9 @@ set _COPYRIGHT_OWNER=EPFL
 
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
 set "_WIXOBJ_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.wixobj"
-set "_MSI_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.msi"
+
+set _PRODUCT_VERSION=3.1.0
+set "_MSI_FILE=%_TARGET_DIR%\scala3-%_PRODUCT_VERSION%.msi"
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -336,26 +338,32 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameters: _ANTLR_VERSION, _APP_VERSION, _FLEXMARK_VERSION, _JLINE_VERSION
-:app_version
+@rem output parameters: _ANTLR_VERSION, _AUTOLINK_VERSION, _FLEXMARK_VERSION, _JLINE_VERSION, _JNA_VERSION, _JSOUP_VERSION
+@rem NB. we unset variable _PRODUCT_VERSION if download fails
+:gen_app
 set _ANTLR_VERSION=
-set _APP_VERSION=
+set _AUTOLINK_VERSION=
 set _FLEXMARK_VERSION=
 set _JLINE_VERSION=
+set _JNA_VERSION=
+set _JSOUP_VERSION=
 
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
 if not exist "%_APP_DIR%\VERSION" (
-    set "__RELEASE=3.1.0"
+    @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
+    set "__RELEASE=%_PRODUCT_VERSION%"
+    set _PRODUCT_VERSION=
+
     set "__ARCHIVE_FILE=scala3-!__RELEASE!.zip"
     set "__ARCHIVE_URL=https://github.com/lampepfl/dotty/releases/download/!__RELEASE!/!__ARCHIVE_FILE!"
-    set "__OUTFILE=%TEMP%\!__ARCHIVE_FILE!"
+    set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
-    if not exist "!__OUTFILE_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTFILE!" 1>&2
+    if not exist "!__OUTPUT_FILE!" (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTPUT_FILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
         )
-        call "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" > "!__OUTFILE!"
+        call "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" > "!__OUTPUT_FILE!"
         if not !ERRORLEVEL!==0 (
             echo.
             echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" 1>&2
@@ -363,10 +371,10 @@ if not exist "%_APP_DIR%\VERSION" (
             goto :eof
         )
     )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "!__OUTPUT_FILE!" -d "%TEMP%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Extract zip archive to directory "%TEMP%" 1>&2
     )
-    call "%_UNZIP_CMD%" -o "!__OUTFILE!" -d "%TEMP%" %_STDOUT_REDIRECT%
+    call "%_UNZIP_CMD%" -o "!__OUTPUT_FILE!" -d "%TEMP%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to extract zip archive to directory "%TEMP%" 1>&2
         set _EXITCODE=1
@@ -381,14 +389,17 @@ if not exist "%_APP_DIR%\VERSION" (
         set _EXITCODE=1
         goto :eof
     )
+    set "_PRODUCT_VERSION=!__RELEASE!"
 )
-for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_APP_DIR%\VERSION" 2^>NUL') do (
-    set _APP_VERSION=%%j
-)
-if not defined _APP_VERSION (
-    echo %_ERROR_LABEL% Version number not found in file "!_APP_DIR:%_ROOT_DIR%=!\VERSION" 1>&2
+if not defined _PRODUCT_VERSION (
+    echo %_ERROR_LABEL% Product version not found in file "!_APP_DIR:%_ROOT_DIR%=!\VERSION" 1>&2
     set _EXITCODE=1
     goto :eof
+)
+for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_APP_DIR%\VERSION" 2^>NUL') do (
+    if not "%%j"=="%_PRODUCT_VERSION%" (
+        echo %_WARNING_LABEL% Version property and product version differ ^(found:%%j, expected:%_PRODUCT_VERSION%^) 1>&2
+    )
 )
 for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\antlr-3*.jar"') do (
     set "__STR=%%j"
@@ -396,6 +407,15 @@ for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\antlr-3*.jar"') do
 )
 if not defined _ANTLR_VERSION (
     echo %_ERROR_LABEL% Antlr version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\autolink-0*.jar"') do (
+    set "__STR=%%j"
+    set "_AUTOLINK_VERSION=!__STR:.jar=!"
+)
+if not defined _AUTOLINK_VERSION (
+    echo %_ERROR_LABEL% AutoLink version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -417,6 +437,24 @@ if not defined _JLINE_VERSION (
     set _EXITCODE=1
     goto :eof
 )
+for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\jna-5*.jar"') do (
+    set "__STR=%%j"
+    set "_JNA_VERSION=!__STR:.jar=!"
+)
+if not defined _JNA_VERSION (
+    echo %_ERROR_LABEL% JNA version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f "delims=^- tokens=1,*" %%i in ('dir /b "%_APP_DIR%\lib\jsoup-1*.jar"') do (
+    set "__STR=%%j"
+    set "_JSOUP_VERSION=!__STR:.jar=!"
+)
+if not defined _JSOUP_VERSION (
+    echo %_ERROR_LABEL% JSoup version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :gen_src
@@ -431,7 +469,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS
 )
 call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -452,10 +490,13 @@ set __PACK_FILES=%__PACK_FILES% SCALADOC_3_JAR SNAKEYAML_JAR ST4_JAR TASTY_CORE_
 
 @rem We replace both version and GUID placeholders found in .wx? files
 @rem and save the updated .wx? files into directory _GEN_DIR
-set __REPLACE_PAIRS=-replace '\$SCALA3_VERSION', '%_APP_VERSION%'
+set __REPLACE_PAIRS=-replace '\$SCALA3_VERSION', '%_PRODUCT_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$ANTLR_VERSION', '%_ANTLR_VERSION%'
+set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$AUTOLINK_VERSION', '%_AUTOLINK_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$FLEXMARK_VERSION', '%_FLEXMARK_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JLINE_VERSION', '%_JLINE_VERSION%'
+set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JNA_VERSION', '%_JNA_VERSION%'
+set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JSOUP_VERSION', '%_JSOUP_VERSION%'
 for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR %__PACK_FILES%) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
@@ -597,7 +638,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 )
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES="-dProduct_Version=%_APP_VERSION%"
+set __OPT_PROPERTIES="-dProduct_Version=%_PRODUCT_VERSION%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
@@ -626,7 +667,7 @@ goto :eof
 
 :link
 @rem ensure file "%_APP_DIR%\VERSION" exists and variable _APP_VERSION is defined
-call :app_version
+call :gen_app
 if not %_EXITCODE%==0 goto :eof
 
 call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_APP_DIR%\VERSION"

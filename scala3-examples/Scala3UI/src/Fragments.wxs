@@ -44,7 +44,7 @@
             <File Id="antlr_runtime_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\antlr-runtime-$ANTLR_VERSION.jar" />
           </Component>
           <Component Id="autolink_jar" Guid="YOURGUID-AUTOLINK_JAR">
-            <File Id="autolink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\autolink-0.6.0.jar" />
+            <File Id="autolink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\autolink-$AUTOLINK_VERSION.jar" />
           </Component>
           <Component Id="compiler_interface_jar" Guid="YOURGUID-COMPILER_INTERFACE_JAR">
             <File Id="compiler_interface_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\compiler-interface-1.3.5.jar" />
@@ -122,10 +122,10 @@
             <File Id="jline_terminal_jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-terminal-jna-$JLINE_VERSION.jar" />
           </Component>
           <Component Id="jna_jar" Guid="YOURGUID-JNA_JAR">
-            <File Id="jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jna-5.3.1.jar" />
+            <File Id="jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jna-$JNA_VERSION.jar" />
           </Component>
           <Component Id="jsoup_jar" Guid="YOURGUID-JSOUP_JAR">
-            <File Id="jsoup_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jsoup-1.13.1.jar" />
+            <File Id="jsoup_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jsoup-$JSOUP_VERSION.jar" />
           </Component>
           <Component Id="liqp_jar" Guid="YOURGUID-LIQP_JAR">
             <File Id="liqp_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\liqp-0.6.7.jar" />
