@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <?define ProductName="MyApp" ?>
-  <?define CompanyName="MyCompany" ?>
-  <?define Manufacturer="MyCompany, Inc." ?>
-  <?define Languages="1033" ?>  <!-- 1033=en-us -->
+  <?define CompanyName="MyCompany" ?>  <!-- HKCU registry key -->
+
+  <?define Product_Language="1033" ?>
+  <?define Product_Manufacturer="MyCompany, Inc." ?>
+  <?define Product_Name="MyApp" ?>
+
+  <?define Package_Comments="Create application and uninstall shortcuts" ?>
+  <?define Package_Description="MyApp Installer" ?>
+  <?define Package_Keywords="Installer" ?>
+  <?define Package_Languages="1033" ?>  <!-- 1033=en-us -->
+  <?define Package_Manufacturer="MyCompany, Inc." ?>
+
+  <?define Shortcut_ApplicationStartMenu_Description="Starts the MyApp application" ?>
+  <?define Shortcut_ApplicationStartMenu_Name="Starts MyApp" ?>
+
+  <?define Shortcut_UninstallProduct_Description="Removes the MyApp installation" ?>
+  <?define Shortcut_UninstallProduct_Name="Uninstalls MyApp" ?>
+
+  <?define Feature_AppComponents_Description="MyApp application, documentation and shortcuts" ?>
+  <?define Feature_AppComponents_Title="MyApp" ?>
 </Include>

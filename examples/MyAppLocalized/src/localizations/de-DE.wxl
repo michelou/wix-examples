@@ -16,8 +16,8 @@
   <!-- ######################## Shorcut elements ######################### -->
   <!-- Description appears in field "Comments" of the dialog window "Properties" -->
 
-  <String Id="Shortcut_ApplicationStartMenu_Description">MyApp Applikation</String>
-  <String Id="Shortcut_ApplicationStartMenu_Name">MyApp</String>
+  <String Id="Shortcut_ApplicationStartMenu_Description">Startet die MyApp Applikation</String>
+  <String Id="Shortcut_ApplicationStartMenu_Name">MyApp Start</String>
 
   <String Id="Shortcut_UninstallProduct_Description">Entfernt die MyApp-Installation</String>
   <String Id="Shortcut_UninstallProduct_Name">MyApp Deinstallation</String>

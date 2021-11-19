@@ -28,10 +28,10 @@
   <!-- ######################## Feature elements ######################### -->
   <!-- Description appears on the right side of the installer window "Custom* -->
 
-  <String Id="Feature_AppComponents_Description">Installs MyApp components</String>
+  <String Id="Feature_AppComponents_Description">Installs the MyApp components</String>
   <String Id="Feature_AppComponents_Title">MyApp Components</String>
 
-  <String Id="Feature_AppDocumentation_Description">Installs MyApp documentation</String>
+  <String Id="Feature_AppDocumentation_Description">Installs the MyApp documentation</String>
   <String Id="Feature_AppDocumentation_Title">MyApp Documentation</String>
 
   <String Id="Feature_AppEnvironment_Description">Updates the PATH environment variable</String>

@@ -3,38 +3,38 @@
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
   <?include Includes.wxi ?>
   <Product Id="YOURGUID-PRODUCT_CODE"
-    UpgradeCode="YOURGUID-UPGRADE_CODE" Name="!(loc.Product_Name)"
-    Version="$(var.Product_Version).0" Manufacturer="!(loc.Product_Manufacturer)"
-    Language="$(var.Product_Language)" Codepage="1252">
+      UpgradeCode="YOURGUID-UPGRADE_CODE" Name="!(loc.Product_Name)"
+      Version="$(var.Product_Version).0" Manufacturer="!(loc.Product_Manufacturer)"
+      Language="$(var.Product_Language)" Codepage="1252">
 
     <Package Id='*'
-      Description="!(loc.Package_Description)" Keywords='!(loc.Package_Keywords)'
-      Comments="!(loc.Package_Comments)" Manufacturer="!(loc.Package_Manufacturer)"
-      InstallerVersion='200' InstallScope="perMachine"
-      Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />
+        Description="!(loc.Package_Description)" Keywords='!(loc.Package_Keywords)'
+        Comments="!(loc.Package_Comments)" Manufacturer="!(loc.Package_Manufacturer)"
+        InstallerVersion='200' InstallScope="perMachine"
+        Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />
 
     <!-- https://www.joyofsetup.com/2010/01/16/major-upgrades-now-easier-than-ever/ -->
     <Upgrade Id="YOURGUID-UPGRADE_INFO">   
-      <UpgradeVersion Minimum="$(var.Product_Version)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />		
+      <UpgradeVersion Minimum="$(var.Product_Version)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />        
       <UpgradeVersion Minimum="0.0.0" IncludeMinimum="yes" Maximum="$(var.Product_Version)" IncludeMaximum="no" Property="OLDERVERSIONBEINGUPGRADED" />
     </Upgrade>
 <!--
-	<InstallExecuteSequence>
+    <InstallExecuteSequence>
       <RemoveExistingProducts After="InstallInitialize" />
-	</InstallExecuteSequence>
+    </InstallExecuteSequence>
 -->
     <Condition Message="!(loc.Condition_NewerVersionDetected)">
       NOT NEWERVERSIONDETECTED OR Installed
     </Condition>
 
     <MajorUpgrade Schedule="afterInstallInitialize"
-      AllowDowngrades="no" AllowSameVersionUpgrades="no"
-      DowngradeErrorMessage="!(loc.MajorUpgrade_DowngradeErrorMessage)" />
+        AllowDowngrades="no" AllowSameVersionUpgrades="no"
+        DowngradeErrorMessage="!(loc.MajorUpgrade_DowngradeErrorMessage)" />
 
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="!(loc.Product_Name)"/>
       </Directory>
       <!-- Step 1: Define the directory structure -->
@@ -56,10 +56,10 @@
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcuts" Guid="YOURGUID-APPLICATION_SHORTCUT">
         <Shortcut Id="ApplicationStartMenu" 
-          Name="!(loc.Shortcut_ApplicationStartMenu_Name)" 
-          Description="!(loc.Shortcut_ApplicationStartMenu_Description)"
-          Target="[#myapp_exe]"
-          WorkingDirectory="INSTALLFOLDER" />
+            Name="!(loc.Shortcut_ApplicationStartMenu_Name)" 
+            Description="!(loc.Shortcut_ApplicationStartMenu_Description)"
+            Target="[#myapp_exe]"
+            WorkingDirectory="INSTALLFOLDER" />
         <Shortcut Id="DocumentationStartMenu"
             Name="!(loc.Shortcut_DocumentationStartMenu_Name)"
             Description="!(loc.Shortcut_DocumentationStartMenu_Description)"
@@ -68,46 +68,46 @@
         </Shortcut>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
         <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
-        <Shortcut Id="UninstallProduct"       
-          Name="!(loc.Shortcut_UninstallProduct_Name)"
-          Description="!(loc.Shortcut_UninstallProduct_Description)"
-          Target="[SystemFolder]msiexec.exe"
-          Arguments="/x [ProductCode]" />
+        <Shortcut Id="UninstallProduct"
+            Name="!(loc.Shortcut_UninstallProduct_Name)"
+            Description="!(loc.Shortcut_UninstallProduct_Description)"
+            Target="[System64Folder]msiexec.exe"
+            Arguments="/x [ProductCode]" />
        </Component>
     </DirectoryRef>
 
-    <DirectoryRef Id='ProgramFilesFolder'>
+    <DirectoryRef Id='ProgramFiles64Folder'>
       <Component Id="ApplicationEnvironment" Guid="YOURGUID-APPLICATION_ENV" KeyPath="yes">
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
-          Name="PATH" Value="INSTALLFOLDER" 
-          Action="set" Permanent="no" System="yes" Part="last" Separator=";" />
+            Action="set" Name="PATH" Value="[INSTALLFOLDER]" 
+            Permanent="no" System="yes" Part="last" Separator=";" />
       </Component>
     </DirectoryRef>
 
     <UIRef Id="WixUI_FeatureTree" />
 
     <Feature Id="AppComponents"
-      Title="!(loc.Feature_AppComponents_Title)" Display="expand" Level="1"
-      Description="!(loc.Feature_AppComponents_Description)">
+        Title="!(loc.Feature_AppComponents_Title)" Display="expand" Level="1"
+        Description="!(loc.Feature_AppComponents_Description)">
       <Feature Id="AppFiles"
-	    Title="!(loc.Feature_AppFiles_Title)" Level="1"
-        Description="!(loc.Feature_AppFiles_Description)">
+          Title="!(loc.Feature_AppFiles_Title)" Level="1"
+          Description="!(loc.Feature_AppFiles_Description)">
         <ComponentRef Id="ApplicationExecutable" />
         <!-- Step 3: Tell WiX to install the shortcut(s) -->
-        <ComponentRef Id="ApplicationShortcuts" />       
-	  </Feature>
+        <ComponentRef Id="ApplicationShortcuts" />
+      </Feature>
       <Feature Id="AppEnvironment"
-        Title="!(loc.Feature_AppEnvironment_Title)" Level="1"
-        Description="!(loc.Feature_AppEnvironment_Description)">
+          Title="!(loc.Feature_AppEnvironment_Title)" Level="1"
+          Description="!(loc.Feature_AppEnvironment_Description)">
         <ComponentRef Id="ApplicationEnvironment" />
       </Feature>
     </Feature>
 
     <Feature Id="AppDocumentation"
-      Title="!(loc.Feature_AppDocumentation_Title)" Display="expand" Level="1"
-      Description="!(loc.Feature_AppDocumentation_Description)">
-      <ComponentRef Id="DocumentationHtml" />      
+        Title="!(loc.Feature_AppDocumentation_Title)" Display="expand" Level="1"
+        Description="!(loc.Feature_AppDocumentation_Description)">
+      <ComponentRef Id="DocumentationHtml" />
     </Feature>
   </Product>
 </Wix>

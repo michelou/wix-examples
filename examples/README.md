@@ -51,7 +51,7 @@ Y:\examples\MyApp
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./MyApp/build.bat">build.bat</a>          <i>(calls candle/light)</i>
-│   <a href="./MyApp/build.properties">build.properties</a>   <i>(contains GUID values)</i>
+│   <a href="./MyApp/build.properties">build.properties</a>   <i>(contains GUID (name,value) pairs)</i>
 ├───<b>app</b>
 │   └───<b>HelloWorld</b>
 │       │   <a href="./MyApp/app/HelloWorld/00download.txt">00download.txt</a>
@@ -63,7 +63,7 @@ Y:\examples\MyApp
 │           └───<b>src</b>
 │                   <a href="./MyApp/app/HelloWorld/cpp/src/main.cpp">main.cpp</a>
 └───<b>src</b>
-        <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>
+        <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>      <i>(contains GUID names)</i>
 </pre>
 
 > **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple [Visual Studio solution][vs_solution] for generating `MyApp.exe` to be added to the `MyApp` Windows installer.
@@ -77,8 +77,8 @@ Copy executable "MyApp.exe" to directory "Y:\examples\MyApp\app\"
 Generate auxiliary WXS file
 [...]
 Compiling 1 WXS files to directory "target"
-Create Windows installer "target\MyApp.msi"
-Execute Windows installer "target\MyApp.msi"
+Create Windows installer "target\MyApp-1.0.0.msi"
+Execute Windows installer "target\MyApp-1.0.0.msi"
 </pre>
 
 Figures **1.1** and **1.2** below illustrate the updated user environment after the successful execution of the `MyApp` Windows installer.
@@ -89,7 +89,7 @@ Figures **1.1** and **1.2** below illustrate the updated user environment after 
 <tr>
 <td style="text-align:center;">
   <a href="images/MyApp.png"><img style="max-width:180px;" src="images/MyApp.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>MyApp</i> executable<br>(<i>Program Files (x86)</i> folder).
+  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>MyApp</i> executable<br>(<i>Program Files</i> folder).
 </td>
 <td style="text-align:center;">
   <a href="images/MyApp_Uninstall.png"><img style="max-width:180px;" src="images/MyApp_Uninstall.png" /></a>
@@ -118,20 +118,20 @@ Figures **2.1** to **2.4** below illustrate the updated user environment after t
 <td style="text-align:center;">
   <div>
   <a href="images/MyAppShortcuts.png"><img style="max-width:180px;" src="images/MyAppShortcuts.png" /></a>
-  <div style="font-size:70%;"><b>Figure 2.1 -</b> <i>MyApp</i> executable<br/>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.1 -</b> <i>MyApp</i> executable<br/>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/MyAppShortcuts_Menu.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Menu.png" /></a>
+  <a href="images/MyAppShortcuts_StartMenu.png"><img style="max-width:180px;" src="images/MyAppShortcuts_StartMenu.png" /></a>
   <div style="font-size:70%;"><b>Figure 2.2 -</b> <i>MyApp</i> shortcuts<br/>(<a href="https://support.microsoft.com/en-us/windows/see-what-s-on-the-start-menu-a8ccb400-ad49-962b-d2b1-93f453785a13"><i>Start Menu</i></a> folder).
   </div>
 </td>
 <td style="text-align:center;">
   <a href="images/MyAppShortcuts_Uninstall.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Uninstall.png" /></a>
-  <div style="font-size:70%;"><b>Figure 2.3 -</b> Uninstalling <i>MyApp</i><br/>(<i>Settings</i> window).
+  <div style="font-size:70%;"><b>Figure 2.3 -</b> Uninstall <i>MyApp</i><br/>(<i>Settings</i> window).
 </td>
 <td style="text-align:center;">
   <a href="images/MyAppShortcuts_Uninstall_Properties.png"><img style="max-width:180px;" src="images/MyAppShortcuts_Uninstall_Properties.png" /></a>
-  <div style="font-size:70%;"><b>Figure 2.4 -</b> Shortcut Properties<br/>(<i>Uninstall</i> shortcut).
+  <div style="font-size:70%;"><b>Figure 2.4 -</b> Shortcut properties<br/>(<i>Uninstall</i> shortcut).
 </td>
 </tr>
 </table>
@@ -152,7 +152,7 @@ Y:\examples\MyAppLocalized
 ├───<b>app</b>
 │   │   <a href="./MyAppLocalized/app/documentation.html">documentation.html</a>
 │   └───<b>HelloWorld</b>
-│           <i>(same as before)</i>
+│           ... <i>(same as before)</i>
 └───<b>src</b>
     │   <a href="./MyAppLocalized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./MyAppLocalized/src/MyAppLocalized.wxs">MyAppLocalized.wxs</a>
@@ -161,6 +161,22 @@ Y:\examples\MyAppLocalized
             <a href="./MyAppLocalized/src/localizations/en-US.xwl">en-US.wxl</a>
             <a href="./MyAppLocalized/src/localizations/fr-FR.wxl">fr-FR.wxl</a>
             <a href="./MyAppLocalized/src/localizations/README.txt">README.txt</a>
+</pre>
+
+The batch subcommand `link`generates one localized Windows installer for every localization file found in the directory `src\localizations\`.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./MyAppLocalized/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b target</b>
+candle_opts.txt
+candle_sources.txt
+light_opts.txt
+MyApp-1.0.0-de-DE.msi
+MyApp-1.0.0-de-DE.wixpdb
+MyApp-1.0.0-fr-FR.msi
+MyApp-1.0.0-fr-FR.wixpdb
+MyApp-1.0.0.msi
+MyApp-1.0.0.wixpdb
+MyAppLocalized.wixobj
 </pre>
 
 ## <span id="myapp_features">MyAppFeatures</span>
@@ -221,21 +237,21 @@ Figures **3.1** to **3.4** below illustrate the localized graphical user interfa
 <td style="text-align:center;">
   <div>
   <a href="images/uberAgent_Setup1.png"><img style="max-width:180px;" src="images/uberAgent_Setup1.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>uberAgent</i> Windows installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/uberAgent_Setup2.png"><img style="max-width:180px;" src="images/uberAgent_Setup2.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br/><i>(uberAgent</i> Windows installer).
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br/><i>(uberAgent</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <div>
   <a href="images/uberAgent_Setup3.png"><img style="max-width:180px;" src="images/uberAgent_Setup3.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination Folder<br/>(<i>uberAgent</i> Windows installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination Folder<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/uberAgent_Setup4.png"><img style="max-width:180px;" src="images/uberAgent_Setup4.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.4 -</b> Receiver Configuration<br/><i>(uberAgent</i> Windows installer).
+  <div style="font-size:70%;"><b>Figure 3.4 -</b> Receiver Configuration<br/><i>(uberAgent</i> installer).
   </div>
 </td>
 </tr>

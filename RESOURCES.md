@@ -25,14 +25,17 @@
   - [Create a Windows Installer "MSI" using WiX part2](https://sorceryforce.net/en/tips/wix-installer-create2), October 2021.
   - [Create a Windows Installer "MSI" using WiX part1](https://sorceryforce.net/en/tips/wix-installer-create1), April 2020.
   - [Set up WiX to create Windows Installer for program distribution](https://sorceryforce.net/en/tips/wix-setup), April 2020.
+- [Blog](https://robmensching.com/blog/) from Rob Mensching :
+  - [The WiX toolset's "Remember Property" pattern][blog_mensching_2010], May 2010.
+  - [How to escape the ampersand in WiX and MSI UI][blog_mensching_2008], April 2008.
 - [Real-World Example: WiX/MSI Application Installer][blog_klein] by Helge Klein, February 2021.
 - [Variables and Conditional Statements in WiX][blog_kumar] by Arun Kumar, June 2014.
+- [L10N/M10N: Localization minimization][blog_arnson] by Bob Arnson, February 2013.
 - [WiX 3 Tutorial: Custom EULA License and MSI localization](https://weblogs.sqlteam.com/mladenp/2010/04/15/wix-3-tutorial-custom-eula-license-and-msi-localization/)  by Mladen Prajdić, April 2010.
 - [WiX 3 Tutorial: Generating file/directory fragments with Heat.exe](https://weblogs.sqlteam.com/mladenp/2010/02/23/wix-3-tutorial-generating-filedirectory-fragments-with-heat.exe/) by Mladen Prajdić, February 2010.
 - [WiX 3 Tutorial: Understanding main WXS and WXI file](https://weblogs.sqlteam.com/mladenp/2010/02/17/wix-3-tutorial-understanding-main-wxs-and-wxi-file/) by Mladen Prajdić, February 2010.
 - [WiX 3 Tutorial: Solution/Project structure and Dev resources](https://weblogs.sqlteam.com/mladenp/2010/02/11/wix-3-tutorial-solutionproject-structure-and-dev-resources/) by Mladen Prajdić, February 2010.
 - [Adding and Customizing Dialogs in WiX 3][blog_dizzy] by Dizzy, 2008.
-- [How to escape the ampersand in WiX and MSI UI][blog_mensching] by Rob Mensching, April 2008.
 - [WiX: A Better TALLOW – PARAFFIN (Part 3 of 3)][blog_robbin3] by John Robbins, October 2007.
 - [WiX: The Pain of WiX (Part 2 of 3)][blog_robbin2] by John Robbins, October 2007.
 - [WiX: Hints for New Users (Part 1 of 3)][blog_robbin1] by John Robbin, October 2007.
@@ -102,9 +105,11 @@ version = "12"
 [article_carlisle3]: https://www.codeproject.com/Articles/103749/Creating-a-Localized-Windows-Installer-Bootstrap-3
 [article_hashimi]: https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/march/automate-releases-with-msbuild-and-windows-installer-xml
 [article_moack]: https://www.codeproject.com/Tips/105638/A-quick-introduction-Create-an-MSI-installer-with
+[blog_arnson]: https://www.joyofsetup.com/2013/02/06/l10nm10n-localization-minimization/
 [blog_dizzy]: http://www.dizzymonkeydesign.com/blog/misc/adding-and-customizing-dlgs-in-wix-3/
 [blog_klein]: (https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/)
-[blog_mensching]: https://robmensching.com/blog/posts/2008/4/21/how-to-escape-the-ampersand-in-wix-and-msi-ui/
+[blog_mensching_2008]: https://robmensching.com/blog/posts/2008/4/21/how-to-escape-the-ampersand-in-wix-and-msi-ui/
+[blog_mensching_2010]: https://robmensching.com/blog/posts/2010/5/2/the-wix-toolsets-remember-property-pattern/
 [blog_robbin1]: https://www.wintellect.com/wix-hints-for-new-users-part-1-of-3/
 [blog_robbin2]: https://www.wintellect.com/wix-the-pain-of-wix-part-2-of-3/
 [blog_robbin3]: https://www.wintellect.com/wix-a-better-tallow-paraffin-part-3-of-3/

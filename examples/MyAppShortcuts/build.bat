@@ -63,13 +63,15 @@ set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 set "_PROJECT_DIR=%_APP_DIR%\HelloWorld
 for %%i in ("%_ROOT_DIR%.") do set "_PROJECT_NAME=%%~ni"
 
+@rem Architecture (candle): x86, x64, or ia64 (default: x86)
+set _APP_ARCH=x64
 set _APP_NAME=MyApp
 set _APP_VERSION=1.0.0
 set "_APP_EXE=%_APP_DIR%\%_APP_NAME%.exe"
 
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
 set "_WIXOBJ_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.wixobj"
-set "_MSI_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.msi"
+set "_MSI_FILE=%_TARGET_DIR%\%_APP_NAME%-%_APP_VERSION%.msi"
 
 if not exist "%WIX%\candle.exe" (
     echo %_ERROR_LABEL% WiX installation directory not found 1>&2
@@ -210,7 +212,7 @@ if %_DEBUG%==1 set _STDOUT_REDIRECT=
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
-    if defined GIT_HOME echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
@@ -343,13 +345,15 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-set __PROPERTIES="-dProductVersion=%_APP_VERSION%"
-echo %__OPT_VERBOSE% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARGET_DIR:\=\\%\\" %__PROPERTIES%> "%__OPTS_FILE%"
+@rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
+set __OPT_EXTENSIONS=
+set __OPT_PROPERTIES="-dProduct_Version=%_APP_VERSION%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_APP_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
-for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wx?" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -388,7 +392,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-set __LIGHT_BINDINGS= -b "pack=%_APP_DIR%"
+set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%"
 echo %__OPT_VERBOSE% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
@@ -477,6 +481,10 @@ if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
+)
+if %_VERBOSE%+%_DEBUG% gtr 0 (
+    set "__INSTALL_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs\%_APP_NAME%"
+    dir /b /s "!__INSTALL_DIR!" 1>&2
 )
 goto :eof
 
