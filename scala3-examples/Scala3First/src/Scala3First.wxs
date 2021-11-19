@@ -17,7 +17,7 @@
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-       <Directory Id='ProgramFilesFolder' Name='PFiles'>
+       <Directory Id='ProgramFiles64Folder' Name='PFiles'>
          <!-- fragments.wxs -->
        </Directory>
        <!-- Step 1: Define the directory structure -->
@@ -45,7 +45,7 @@
         <Shortcut Id="UninstallProduct"       
           Name="Uninstall Scala 3"
           Description="Removes the Scala 3 installation"
-          Target="[SystemFolder]msiexec.exe"
+          Target="[System64Folder]msiexec.exe"
           Arguments="/x [ProductCode]" />
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"

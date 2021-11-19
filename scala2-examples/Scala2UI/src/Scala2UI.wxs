@@ -2,7 +2,7 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <?include Includes.wxi ?>
   <Product Id='YOURGUID-PRODUCT_CODE'
-      UpgradeCode='YOURGUID-UPGRADE_CODE' Name='$(var.Product_Name)'
+      UpgradeCode='YOURGUID-UPGRADE_CODE' Name='$(var.Product_Name) $(var.Product_Version)'
       Version='$(var.Product_Version).0' Manufacturer='$(var.Product_Manufacturer)'
       Language='$(var.Product_Language)' Codepage='1252'>
 
@@ -71,6 +71,9 @@
 
     <DirectoryRef Id='ProgramFiles64Folder'>
       <Component Id="ApplicationEnvironment" Guid="YOURGUID-APPLICATION_ENV" KeyPath="yes">
+        <Environment Id="SCALA_HOME"
+            Action="set" Name="SCALA_HOME" Value="[INSTALLDIR]"
+            Permanent="no" System="yes" />
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
             Action="set" Name="PATH" Value="[bin]" 

@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself for creating a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> of the <a href="https://github.com/lampepfl/dotty">Dotty project</a>.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself for creating a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty">Dotty project</a>.
   </td>
   </tr>
 </table>
@@ -68,7 +68,7 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
   <a href="images/Scala3First.png">
   <img style="max-width:180px;" src="images/Scala3First.png" alt="Scala 3 directory" />
   </a>
-  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3First_Menu.png">
@@ -136,13 +136,13 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   <a href="images/Scala3UI_Setup1.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup1.png" alt="Welcome" />
   </a>
-  <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br/>(<i>Scala 3</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3UI_Setup2.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup2.png" alt="EULA" />
   </a>
-  <div style="font-size:70%;"><b>Figure 2.2 -</b> EULA<br/>(<i>Scala 3</i> Windows installer).
+  <div style="font-size:70%;"><b>Figure 2.2 -</b> EULA<br/>(<i>Scala 3</i> installer).
   </div>
 </td>
 <td style="text-align:center;background-color:#bbeedd;">
@@ -150,13 +150,13 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   <a href="images/Scala3UI_Setup3.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup3.png" alt="Custom Setup" />
   </a>
-  <div style="font-size:70%;"><b>Figure 2.3 -</b> Custom Setup<br/>(<i>Scala 3</i> Windows installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.3 -</b> Custom Setup<br/>(<i>Scala 3</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3UI_Setup5.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup5.png" alt="Completed" />
   </a>
-  <div style="font-size:70%;"><b>Figure 2.4 -</b> Completed installation<br/>(<i>Scala 3</i> Windows installer).
+  <div style="font-size:70%;"><b>Figure 2.4 -</b> Completed installation<br/>(<i>Scala 3</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
@@ -164,7 +164,7 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   <a href="images/Scala3UI.png">
   <img style="max-width:180px;" src="images/Scala3UI.png" alt="Scala 3 directory" />
   </a>
-  <div style="font-size:70%;"><b>Figure 2.5 -</b> <i>Scala 3</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.5 -</b> <i>Scala 3</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3UI_Menu.png">

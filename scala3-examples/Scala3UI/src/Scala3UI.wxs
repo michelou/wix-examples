@@ -2,7 +2,7 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <?include Includes.wxi ?>
   <Product Id='YOURGUID-PRODUCT_CODE'
-      UpgradeCode='YOURGUID-UPGRADE_CODE' Name='$(var.Product_Name)'
+      UpgradeCode='YOURGUID-UPGRADE_CODE' Name='$(var.Product_Name) $(var.Product_Version)'
       Version='$(var.Product_Version).0' Manufacturer='$(var.Product_Manufacturer)'
       Language='$(var.Product_Language)' Codepage='1252'>
 
@@ -15,7 +15,7 @@
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+      <Directory Id='ProgramFiles64Folder' Name='PFiles'>
         <!-- fragments.wxs -->
       </Directory>
       <!-- Step 1: Define the directory structure -->
@@ -42,7 +42,7 @@
         <Shortcut Id="ScalaREPL" 
             Name="$(var.Shortcut_ScalaREPL_Name)" 
             Description="$(var.Shortcut_ScalaREPL_Description)"
-            Target="[SystemFolder]cmd.exe"
+            Target="[System64Folder]cmd.exe"
             Arguments='/k "call ^"[#repl_bat]^""'
             WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
@@ -64,12 +64,12 @@
         <Shortcut Id="UninstallProduct"             
             Name="$(var.Shortcut_UninstallProduct_Name)"
             Description="$(var.Shortcut_UninstallProduct_Description)"
-            Target="[SystemFolder]msiexec.exe"
+            Target="[System64Folder]msiexec.exe"
             Arguments="/x [ProductCode]" />
       </Component>
     </DirectoryRef>
 
-    <DirectoryRef Id='ProgramFilesFolder'>
+    <DirectoryRef Id='ProgramFiles64Folder'>
       <Component Id="ApplicationEnvironment" Guid="YOURGUID-APPLICATION_ENV" KeyPath="yes">
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"

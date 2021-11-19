@@ -18,14 +18,14 @@ The [WiX Toolset][wix_toolset] engine provides many [built-in variables](https:/
 
 For instance, the variables below are defined as follows for a 64-bit Windows system ([CSIDL]=*"constant special item ID list"*) :
 
-| WiX variable          | [CSIDL]                        |
-|:----------------------|:--------------------------------|
-| CommonFilesFolder     | `CSIDL_PROGRAM_FILES_COMMONX86` |
-| CommonFiles64Folder   | `CSIDL_PROGRAM_FILES_COMMON`    |
-| ProgramFilesFolder    | `CSIDL_PROGRAM_FILESX86`        |
-| ProgramFiles64Folder  | `CSIDL_PROGRAM_FILES`           |
-| SystemFolder          | `CSIDL_SYSTEMX86`&nbsp;*(on&nbsp;64-bit&nbsp;Windows)* |
-| System64Folder        | `CSIDL_SYSTEm`  |
+| WiX variable         | [CSIDL]                         | Path |
+|:---------------------|:--------------------------------|:-----|
+| CommonFilesFolder    | `CSIDL_PROGRAM_FILES_COMMONX86` | |
+| CommonFiles64Folder  | `CSIDL_PROGRAM_FILES_COMMON`    | |
+| ProgramFilesFolder   | `CSIDL_PROGRAM_FILESX86`        | |
+| ProgramFiles64Folder | `CSIDL_PROGRAM_FILES`           | |
+| SystemFolder         | `CSIDL_SYSTEMX86`               | |
+| System64Folder       | `CSIDL_SYSTEM`                  | `C:\Windows\SysWOW64` |
 
 The [WiX][wix_toolset] developer has to take care of them when specifying the `candle` option `-arch <name>` :
 

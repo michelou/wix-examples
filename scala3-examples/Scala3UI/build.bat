@@ -69,6 +69,8 @@ set _COPYRIGHT_OWNER=EPFL
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
 set "_WIXOBJ_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.wixobj"
 
+@rem Architecture (candle): x86, x64, or ia64 (default: x86)
+set _PRODUCT_ARCH=x64
 set _PRODUCT_VERSION=3.1.0
 set "_MSI_FILE=%_TARGET_DIR%\scala3-%_PRODUCT_VERSION%.msi"
 
@@ -576,7 +578,7 @@ goto :eof
 :gen_dialog
 set __TEXT_STR1=The Scala 3 Programming Language
 set __TEXT_STR2=Copyright ^(C^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
-set __TEXT_STR3=Version %_APP_VERSION%
+set __TEXT_STR3=Version %_PRODUCT_VERSION%
 
 @rem "Segoe-UI" is Windows 10's default system font but WiX uses "Tahoma"
 @rem https://github.com/wixtoolset/wix3/blob/develop/src/ext/UIExtension/wixlib/WixUI_FeatureTree.wxs
@@ -639,7 +641,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 @rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
 set __OPT_PROPERTIES="-dProduct_Version=%_PRODUCT_VERSION%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% "-I%_GEN_DIR:\=\\%" -nologo -out "%_TARGET_DIR:\=\\%\\" %__OPT_PROPERTIES%> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_PRODUCT_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
