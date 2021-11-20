@@ -64,7 +64,7 @@ Figures **1.1** to **1.4** below illustrate the updated user environment after t
 <td style="text-align:center;">
   <div>
   <a href="images/Scala2First_ProgFiles.png"><img style="max-width:180px;" src="images/Scala2First_ProgFiles.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 2</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 2</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala2First_StartMenu.png"><img style="max-width:180px;" src="images/Scala2First_StartMenu.png" /></a>
@@ -172,13 +172,13 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of the Windows in
   <a href="images/Scala2UI_ProgFiles.png">
   <img style="max-width:180px;" src="images/Scala2UI_ProgFiles.png" alt="Scala 2 directory" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>Scala 2</i> directory<br>(<i>Program Files (x86)</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>Scala 2</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala2UI_StartMenu.png">
   <img style="max-width:180px;" src="images/Scala2UI_StartMenu.png" alt="Scala 2 directory" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.6 -</b> <i>Scala 2</i> directory<br>(<i>Program Files (x86)</i> folder).
+  <div style="font-size:70%;"><b>Figure 3.6 -</b> <i>Scala 2</i> directory<br>(<i>Start Menu</i> folder).
   </div>
 </td>
 </tr>
