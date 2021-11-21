@@ -20,7 +20,7 @@
       </Directory>
       <!-- Step 1: Define the directory structure -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ApplicationProgramsFolder" Name="$(var.Product_Name)" />
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.Product_Directory_Name)" />
       </Directory>
       <Directory Id="DesktopFolder" Name="Desktop">
         <!-- no desktop shortcut -->

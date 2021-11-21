@@ -3,6 +3,7 @@
   <String Id="Product_Language">1033</String>
   <String Id="Product_Manufacturer">MyCompany, Inc.</String>
   <String Id="Product_Name">MyApp</String>
+  <String Id="Product_Directory_Name">MyApp</String>
 
   <String Id="Package_Comments">Sample project with feature trees</String>
   <String Id="Package_Description">MyApp Installer</String>

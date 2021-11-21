@@ -8,7 +8,8 @@
   -->
   <?define Product_Language="1033" ?>
   <?define Product_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
-  <?define Product_Name="Scala 3" ?>
+  <?define Product_Name="Scala" ?>
+  <?define Product_Directory_Name="Scala 3" ?>
 
   <?define Package_Comments="The Scala Programming Language" ?>
   <?define Package_Description="Scala 3 Installer" ?>

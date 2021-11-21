@@ -72,7 +72,12 @@ if not exist "%WIX%\candle.exe" (
 set "_CANDLE_CMD=%WIX%\candle.exe"
 set "_LIGHT_CMD=%WIX%\light.exe"
 
-set "_MSIEXEC_CMD=msiexec.exe"
+if not exist "%WINDIR%\System32\msiexec.exe" (
+    echo %_ERROR_LABEL% Microsoft Windows installer not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
 goto :eof
 
 :env_colors

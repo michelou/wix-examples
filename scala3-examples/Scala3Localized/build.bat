@@ -340,7 +340,8 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameters: _ANTLR_VERSION, _AUTOLINK_VERSION, _FLEXMARK_VERSION, _JLINE_VERSION, _JNA_VERSION, _JSOUP_VERSION
+@rem output parameters: _ANTLR_VERSION, _AUTOLINK_VERSION, _FLEXMARK_VERSION,
+@rem                    _JLINE_VERSION, _JNA_VERSION, _JSOUP_VERSION, _PROTOBUF_VERSION
 @rem NB. we unset variable _PRODUCT_VERSION if download fails
 :gen_app
 set _ANTLR_VERSION=
@@ -349,6 +350,7 @@ set _FLEXMARK_VERSION=
 set _JLINE_VERSION=
 set _JNA_VERSION=
 set _JSOUP_VERSION=
+set _PROTOBUF_VERSION=
 
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
@@ -457,6 +459,15 @@ if not defined _JSOUP_VERSION (
     set _EXITCODE=1
     goto :eof
 )
+for /f "delims=^- tokens=1,2,*" %%i in ('dir /b "%_APP_DIR%\lib\protobuf-java-3*.jar"') do (
+    set "__STR=%%k"
+    set "_PROTOBUF_VERSION=!__STR:.jar=!"
+)
+if not defined _PROTOBUF_VERSION (
+    echo %_ERROR_LABEL% Protobuf version number not found in directory "!_APP_DIR:%_ROOT_DIR%=!\lib" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :gen_src
@@ -499,6 +510,7 @@ set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$FLEXMARK_VERSION', '%_FLEXMARK
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JLINE_VERSION', '%_JLINE_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JNA_VERSION', '%_JNA_VERSION%'
 set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$JSOUP_VERSION', '%_JSOUP_VERSION%'
+set __REPLACE_PAIRS=%__REPLACE_PAIRS% -replace '\$PROTOBUF_VERSION', '%_PROTOBUF_VERSION%'
 for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE PROGRAM_MENU_DIR %__PACK_FILES%) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
@@ -638,7 +650,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-@rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
+@rem set __OPT_EXTENSIONS=-ext WiXUtilExtension
 set __OPT_EXTENSIONS=
 set __OPT_PROPERTIES="-dProduct_Version=%_PRODUCT_VERSION%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_PRODUCT_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
@@ -711,7 +723,7 @@ for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\localizations\*.wxl"') do (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% 1>&2
     ) else if %_VERBOSE%==1 ( echo Create Windows installer "!__MSI_FILE:%_ROOT_DIR%=!" 1>&2
     )
-    call "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES%
+    call "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to create Windows installer "!__MSI_FILE:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1

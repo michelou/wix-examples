@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
-	<DirectoryRef Id='ProgramFilesFolder'>
+	<DirectoryRef Id='ProgramFiles64Folder'>
       <Directory Id='INSTALLDIR' Name='!(loc.Product_Name)'>
         <Component Id="VERSION" Guid="YOURGUID-VERSION">
           <File Id="VERSION" KeyPath="yes" Source="!(bindpath.pack)\VERSION" />
@@ -130,7 +130,7 @@
             <File Id="liqp_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\liqp-0.6.7.jar" />
           </Component>
           <Component Id="protobuf_java_jar" Guid="YOURGUID-PROTOBUF_JAVA_JAR">
-            <File Id="protobuf_java_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\protobuf-java-3.7.0.jar" />
+            <File Id="protobuf_java_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\protobuf-java-$PROTOBUF_VERSION.jar" />
           </Component>
           <Component Id="scala_asm_jar" Guid="YOURGUID-SCALA_ASM_JAR">
             <File Id="scala_asm_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala-asm-9.1.0-scala-1.jar" />

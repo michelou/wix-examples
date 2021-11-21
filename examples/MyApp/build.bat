@@ -344,7 +344,6 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-@rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
 set __OPT_EXTENSIONS=
 set __OPT_PROPERTIES="-dProductVersion=%_APP_VERSION%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_APP_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
@@ -353,7 +352,7 @@ set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
 for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wx?" 2^>NUL') do (
-    echo %%f >> "%__SOURCES_FILE%"
+    echo %%f>> "%__SOURCES_FILE%"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -388,13 +387,13 @@ if not %_EXITCODE%==0 goto end
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
+if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-@rem set __OPT_EXTENSIONS=-ext WixUIExtension
 set __OPT_EXTENSIONS=
+set __OPT_PROPERTIES=
 set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0

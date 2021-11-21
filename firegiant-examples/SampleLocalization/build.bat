@@ -73,7 +73,12 @@ if not exist "%WIX%\candle.exe" (
 set "_CANDLE_CMD=%WIX%\candle.exe"
 set "_LIGHT_CMD=%WIX%\light.exe"
 
-set "_MSIEXEC_CMD=msiexec.exe"
+if not exist "%WINDIR%\System32\msiexec.exe" (
+    echo %_ERROR_LABEL% Microsoft Windows installer not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
 goto :eof
 
 :env_colors
@@ -214,6 +219,7 @@ set "_MSI_FILE=!_MSI_FILE:.msi=_%_CULTURES%.msi!"
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CULTURES=%_CULTURES% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
+    echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
@@ -297,13 +303,15 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-echo %__OPT_VERBOSE% -nologo -out "%_WIXOBJ_FILE:\=\\%"> "%__OPTS_FILE%"
+set __OPT_EXTENSIONS=
+set __OPT_PROPERTIES=
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
 for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
-    echo "%%f">> "%__SOURCES_FILE%"
+    echo %%f>> "%__SOURCES_FILE%"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -340,16 +348,24 @@ if defined _CULTURES (
     set __OPT_LOC=
     set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 )
-if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
+if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-set __LIGHT_BINDINGS= -b "exe=%_APP_DIR%" -b "dll=%_APP_DIR%" -b "pdf=%_APP_DIR%"
-echo %__OPT_VERBOSE% -nologo -ext WixUIExtension %__OPT_LOC:\=\\% -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+set __OPT_EXTENSIONS=-ext WixUIExtension
+set __OPT_PROPERTIES=
+set __LIGHT_BINDINGS=-b "exe=%_APP_DIR%" -b "dll=%_APP_DIR%" -b "pdf=%_APP_DIR%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo %__OPT_LOC:\=\\% -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%_WIXOBJ_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Create Windows installer from file "!_WIXOBJ_FILE:%_ROOT_DIR%=!" 1>&2
+set __WIXOBJ_FILES=
+set __N=0
+for /f %%f in ('dir /s /b "%_TARGET_DIR%\*.wixobj" 2^>NUL') do (
+    set __WIXOBJ_FILES=!__WIXOBJ_FILES! "%%f"
+    set /a __N+=1
 )
-call "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%_WIXOBJ_FILE%" %_STDOUT_REDIRECT%
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+)
+call "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

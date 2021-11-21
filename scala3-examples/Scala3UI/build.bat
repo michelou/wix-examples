@@ -576,36 +576,14 @@ goto :eof
 
 @rem dialog background image has a size of 493x312
 :gen_dialog
-set __TEXT_STR1=The Scala 3 Programming Language
-set __TEXT_STR2=Copyright ^(C^) %_COPYRIGHT_YEAR_RANGE% %_COPYRIGHT_OWNER%
-set __TEXT_STR3=Version %_PRODUCT_VERSION%
-
-@rem "Segoe-UI" is Windows 10's default system font but WiX uses "Tahoma"
-@rem https://github.com/wixtoolset/wix3/blob/develop/src/ext/UIExtension/wixlib/WixUI_FeatureTree.wxs
-set __CONVERT_OPTS=-font "Tahoma"
-set __CONVERT_OPTS=%__CONVERT_OPTS% -fill gray -pointsize 18 -draw "text 180,276 '%__TEXT_STR1%'"
-set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 180,296 '%__TEXT_STR2%'"
-set __CONVERT_OPTS=%__CONVERT_OPTS% -fill black -pointsize 11 -draw "text 406,296 '%__TEXT_STR3%'"
-
 set "__INFILE=%_SOURCE_DIR%\resources\Dialog.bmp"
-set "__TMPFILE=%TEMP%\Dialog.bmp"
+set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 set "__OUTFILE=%_TARGET_DIR%\resources\Dialog.bmp"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" %__CONVERT_OPTS% "%__INFILE%" "%__TMPFILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Add text to the dialog image "!__TMPFILE:%_ROOT_DIR%=!" 1>&2
-)
-call "%_CONVERT_CMD%" %__CONVERT_OPTS% "%__INFILE%" "%__TMPFILE%"
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to add text to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TMPFILE%" "%__LOGO_FILE%" ... 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__INFILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_CONVERT_CMD%" "%__TMPFILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 40 ^) -gravity NorthWest -geometry +106+16 -composite "%__OUTFILE%"
+call "%_CONVERT_CMD%" "%__INFILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 40 ^) -gravity NorthWest -geometry +106+16 -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -780,7 +758,7 @@ if not %ERRORLEVEL%==0 (
 if %_VERBOSE%+%_DEBUG% gtr 0 (
     set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
     set __APP_DIR=
-    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*" 2^>NUL') do set "__APP_DIR=%%f"
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*3*" 2^>NUL') do set "__APP_DIR=%%f"
     if not defined __APP_DIR (
         echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
         set _EXITCODE=1

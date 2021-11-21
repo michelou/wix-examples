@@ -23,6 +23,10 @@ if %_HELP%==1 (
     exit /b !_EXITCODE!
 )
 
+call :winsdk
+@rem optional
+@rem if not %_EXITCODE%==0 goto end
+
 call :wix3
 if not %_EXITCODE%==0 goto end
 
@@ -195,6 +199,22 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
 goto :eof
 
+@rem output parameters: _WINSDK_HOME, _WINSDK_PATH
+:winsdk
+set _WINSDK_HOME=
+set _WINSDK_PATH=
+
+if not exist "%ProgramFiles(x86)%\Windows Kits\10\bin\10*" (
+    echo "%_WARNING_LABEL% Windows Kits 10 installation not found 1>&2
+    goto :eof
+)
+set "_WINSDK_HOME=%ProgramFiles(x86)%\Windows Kits\10"
+for /f "delims=" %%f in ('dir /b "%_WINSDK_HOME%\bin\10*" 2^>NUL') do (
+    set "__BIN_DIR=%_WINSDK_HOME%\bin\%%f"
+)
+set "_WINSDK_PATH=;%__BIN_DIR%\x86"
+goto :eof
+
 @rem output parameters: _WIX_HOME, _WIX_PATH
 :wix3
 set _WIX_HOME=
@@ -224,7 +244,7 @@ if not exist "%_WIX_HOME%\candle.exe" (
 set "_WIX_PATH=%_WIX_HOME%"
 goto :eof
 
-@rem output parameters: _MAGICK_HOME
+@rem output parameter: _MAGICK_HOME
 :magick
 set _MAGICK_HOME=
 
@@ -302,6 +322,18 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-6,*" %%i in ('"%WIX%\light.exe"^|findstr XML^|findstr version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% light %%o,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%WIX%:light.exe"
 )
+set __MSIINFO_CMD=
+for /f "delims=" %%f in ('where /r "%WINSDK_HOME%" msiinfo.exe^|findstr \x86') do set "__MSIINFO_CMD=%%f"
+if defined __MSIINFO_CMD (
+    @rem (!) printing the msiinfo version is tricky
+    @rem (requires a msi file as argument, using option '/?' fails)
+    for /f "delims=" %%f in ('dir /b /s "%WINDIR%\installer\a*.msi"') do (
+        for /f "tokens=1,2,*" %%i in ('call "%__MSIINFO_CMD%" "%%f"^|findstr MsiInfo') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% msiinfo %%k"
+        goto end_for
+    )
+:end_for
+    for %%i in ("%__MSIINFO_CMD%") do set __WHERE_ARGS=%__WHERE_ARGS% "%%~dpi:%%~nxi"
+)
 where /q "%MAGICK_HOME%:magick.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('"%MAGICK_HOME%\magick.exe" --version^|findstr /b Version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% magick %%k,"
@@ -326,6 +358,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     echo Environment variables: 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined MAGICK_HOME echo    "MAGICK_HOME=%MAGICK_HOME%" 1>&2
+    if defined WINSDK_HOME echo    "WINSDK_HOME=%WINSDK_HOME%" 1>&2
     if defined WIX echo    "WIX=%WIX%" 1>&2
 )
 goto :eof
@@ -338,8 +371,9 @@ endlocal & (
     if %_EXITCODE%==0 (
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined MAGICK_HOME set "MAGICK_HOME=%_MAGICK_HOME%"
+        if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
         if not defined WIX set "WIX=%_WIX_HOME%"
-        set "PATH=%PATH%%WIX_PATH%;%_GIT_PATH%;%~dp0bin"
+        set "PATH=%PATH%%_WINSDK_PATH%%WIX_PATH%;%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

@@ -3,7 +3,7 @@
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
   <?include Includes.wxi ?>
   <Product Id="YOURGUID-PRODUCT_CODE"
-      UpgradeCode="YOURGUID-UPGRADE_CODE" Name="!(loc.Product_Name)"
+      UpgradeCode="YOURGUID-UPGRADE_CODE" Name="!(loc.Product_Name) $(var.Product_Version)"
       Version="$(var.Product_Version).0" Manufacturer="!(loc.Product_Manufacturer)"
       Language="$(var.Product_Language)" Codepage="1252">
 
@@ -35,11 +35,11 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFiles64Folder">
-        <Directory Id="INSTALLFOLDER" Name="!(loc.Product_Name)"/>
+        <Directory Id="INSTALLFOLDER" Name="!(loc.Product_Directory_Name)"/>
       </Directory>
       <!-- Step 1: Define the directory structure -->
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="!(loc.Product_Name)"/>
+        <Directory Id="ApplicationProgramsFolder" Name="!(loc.Product_Directory_Name)"/>
       </Directory>
     </Directory>
 

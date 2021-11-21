@@ -15,7 +15,7 @@
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+      <Directory Id='ProgramFiles64Folder' Name='PFiles'>
         <!-- fragments.wxs -->
       </Directory>
       <!-- Step 1: Define the directory structure -->
@@ -42,7 +42,7 @@
         <Shortcut Id="ScalaREPL" 
             Name="!(loc.Shortcut_ScalaREPL_Name)" 
             Description="!(loc.Shortcut_ScalaREPL_Description)"
-            Target="[SystemFolder]cmd.exe"
+            Target="[System64Folder]cmd.exe"
             Arguments='/k "call ^"[#repl_bat]^""'
             WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
@@ -64,12 +64,12 @@
         <Shortcut Id="UninstallProduct"             
             Name="!(loc.Shortcut_UninstallProduct_Name)"
             Description="!(loc.Shortcut_UninstallProduct_Description)"
-            Target="[SystemFolder]msiexec.exe"
+            Target="[System64Folder]msiexec.exe"
             Arguments="/x [ProductCode]" />
       </Component>
     </DirectoryRef>
 
-    <DirectoryRef Id='ProgramFilesFolder'>
+    <DirectoryRef Id='ProgramFiles64Folder'>
       <Component Id="ApplicationEnvironment" Guid="YOURGUID-APPLICATION_ENV" KeyPath="yes">
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
@@ -79,8 +79,8 @@
     </DirectoryRef>
 
     <Feature Id='AppComponents'
-      Title="!(loc.Feature_AppComponents_Title)" Level='1'
-      Description="!(loc.Feature_AppComponents_Description)">
+        Title="!(loc.Feature_AppComponents_Title)" Level='1'
+        Description="!(loc.Feature_AppComponents_Description)">
       <ComponentGroupRef Id='PackFiles' />
       <!-- Step 3: Tell WiX to install the shortcut(s) -->
       <ComponentRef Id="ApplicationShortcuts" />
@@ -93,12 +93,7 @@
     <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.rsrc)\LICENSE.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="!(bindpath.rsrc)\BannerTop.bmp" />  <!-- 493 x 58 -->
     <WixVariable Id="WixUIDialogBmp" Value="!(bindpath.rsrc)\Dialog.bmp" />  <!-- 493 x 312 -->
-    <!--
-    <WixVariable Id="WixUIExclamationIco" Value="resources\exclamation.ico" />  32 × 32
-    <WixVariable Id="WixUIInfoIco" Value="!(bindpath.rsrc)\favicon.ico" />  32 × 32
-    <WixVariable Id="WixUINewIco" Value="!(bindpath.rsrc)\favicon.ico" />  16 x 16
-    <WixVariable Id="WixUIUpIco" Value="!(bindpath.rsrc)\favicon.ico" />  16 x 16
-    -->
+
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <UIRef Id="WixUI_InstallDir" />
   </Product>

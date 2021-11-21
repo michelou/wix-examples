@@ -25,23 +25,23 @@ The project directory is organized as follows :
 Y:\examples\Scala2First
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   <a href="./Scala3First/build.bat">build.bat</a>
+│   <a href="./Scala2First/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://www.scala-lang.org/download/2.13.7.html"><b>scala-2.13.7.zip</b></a>
 └───<b>src</b>
-    │   <a href="./Scala3First/src/Fragments.wxs">Fragments.wxs</a>
-    │   <a href="./Scala3First/src/Scala3First.wxs">Scala2First.wxs</a>
+    │   <a href="./Scala2First/src/Fragments.wxs">Fragments.wxs</a>
+    │   <a href="./Scala2First/src/Scala2First.wxs">Scala2First.wxs</a>
     └───<b>resources</b>
             favicon.ico
-            <a href="./Scala3First/src/resources/repl.bat">repl.bat</a>
+            <a href="./Scala2First/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-Command [`build link`](./Scala3First/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
+Command [`build link`](./Scala2First/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
 
-> **:mag_right:** Command [`build help`](./Scala3First/build.bat) displays the batch file options and subcommands:
+> **:mag_right:** Command [`build help`](./Scala2First/build.bat) displays the batch file options and subcommands:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./Scala3First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+<b>&gt; <a href="./Scala2First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   candle_opts.txt
 │   candle_sources.txt
 │   Fragments.wixobj

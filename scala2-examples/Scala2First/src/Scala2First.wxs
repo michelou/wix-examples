@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Id='YOURGUID-PRODUCT_CODE'
-    UpgradeCode='YOURGUID-UPGRADE_CODE' Name='Scala 2'
-    Version='$PRODUCT_VERSION' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+    UpgradeCode='YOURGUID-UPGRADE_CODE' Name='Scala $PRODUCT_VERSION'
+    Version='$PRODUCT_VERSION.0' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
     Language='1033' Codepage='1252'>
     <!--
     See language codes on
@@ -17,7 +17,7 @@
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-       <Directory Id='ProgramFilesFolder' Name='PFiles'>
+       <Directory Id='ProgramFiles64Folder' Name='PFiles'>
          <!-- fragments.wxs -->
        </Directory>
        <!-- Step 1: Define the directory structure -->
@@ -35,7 +35,7 @@
         <Shortcut Id="ScalaREPL" 
           Name="Scala 2 REPL" 
           Description="Launches the Scala 2 REPL"
-          Target="[SystemFolder]cmd.exe"
+          Target="[System64Folder]cmd.exe"
           Arguments='/k "call ^"[#repl_bat]^""'
           WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
@@ -45,7 +45,7 @@
         <Shortcut Id="UninstallProduct"       
           Name="Uninstall Scala 2"
           Description="Removes the Scala 2 installation"
-          Target="[SystemFolder]msiexec.exe"
+          Target="[System64Folder]msiexec.exe"
           Arguments="/x [ProductCode]" />
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"

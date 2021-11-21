@@ -392,8 +392,10 @@ set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
+set __OPT_EXTENSIONS=
+set __OPT_PROPERTIES=
 set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%"
-echo %__OPT_VERBOSE% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0
