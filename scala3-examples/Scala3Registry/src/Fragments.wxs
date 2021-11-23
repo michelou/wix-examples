@@ -2,172 +2,172 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include Includes.wxi ?>
   <Fragment>
-	<DirectoryRef Id='ProgramFilesFolder'>
-      <Directory Id='INSTALLDIR' Name='$(var.Product_Name)'>
-        <Component Id="VERSION" Guid="YOURGUID-VERSION">
-          <File Id="VERSION" KeyPath="yes" Source="!(bindpath.pack)\VERSION" />
+    <DirectoryRef Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLDIR" Name="$(var.ProductDirectoryName)">
+        <Component Id="VERSION" Guid="PUT-GUID-HERE">
+          <File Id="VERSION" KeyPath="yes" Source="$(var.pack)\VERSION" />
         </Component>
         <Directory Id="bin" Name="bin">
-          <Component Id="common" Guid="YOURGUID-COMMON_SH">
-            <File Id="common" KeyPath="yes" Source="!(bindpath.pack)\bin\common" />
+          <Component Id="common" Guid="PUT-GUID-HERE">
+            <File Id="common" KeyPath="yes" Source="$(var.pack)\bin\common" />
           </Component>
-          <Component Id="common_bat" Guid="YOURGUID-COMMON_BAT">
-            <File Id="common_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\common.bat" />
+          <Component Id="common.bat" Guid="PUT-GUID-HERE">
+            <File Id="common.bat" KeyPath="yes" Source="$(var.pack)\bin\common.bat" />
           </Component>
-          <Component Id="repl_bat" Guid="YOURGUID-REPL_BAT">
-            <File Id="repl_bat" KeyPath="yes" Source="!(bindpath.rsrc)\repl.bat" />
+          <Component Id="repl.bat" Guid="PUT-GUID-HERE">
+            <File Id="repl.bat" KeyPath="yes" Source="!(bindpath.rsrc)\repl.bat" />
           </Component>
-          <Component Id="scala" Guid="YOURGUID-SCALA_SH">
-            <File Id="scala" KeyPath="yes" Source="!(bindpath.pack)\bin\scala" />
+          <Component Id="scala" Guid="PUT-GUID-HERE">
+            <File Id="scala" KeyPath="yes" Source="$(var.pack)\bin\scala" />
           </Component>
-          <Component Id="scala_bat" Guid="YOURGUID-SCALA_BAT">
-            <File Id="scala_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\scala.bat" />
+          <Component Id="scala.bat" Guid="PUT-GUID-HERE">
+            <File Id="scala.bat" KeyPath="yes" Source="$(var.pack)\bin\scala.bat" />
           </Component>
-          <Component Id="scalac" Guid="YOURGUID-SCALAC_SH">
-            <File Id="scalac" KeyPath="yes" Source="!(bindpath.pack)\bin\scalac" />
+          <Component Id="scalac" Guid="PUT-GUID-HERE">
+            <File Id="scalac" KeyPath="yes" Source="$(var.pack)\bin\scalac" />
           </Component>
-          <Component Id="scalac_bat" Guid="YOURGUID-SCALAC_BAT">
-            <File Id="scalac_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\scalac.bat" />
+          <Component Id="scalac.bat" Guid="PUT-GUID-HERE">
+            <File Id="scalac.bat" KeyPath="yes" Source="$(var.pack)\bin\scalac.bat" />
           </Component>
-          <Component Id="scaladoc" Guid="YOURGUID-SCALADOC_SH">
-            <File Id="scaladoc" KeyPath="yes" Source="!(bindpath.pack)\bin\scaladoc" />
+          <Component Id="scaladoc" Guid="PUT-GUID-HERE">
+            <File Id="scaladoc" KeyPath="yes" Source="$(var.pack)\bin\scaladoc" />
           </Component>
-          <Component Id="scaladoc_bat" Guid="YOURGUID-SCALADOC_BAT">
-            <File Id="scaladoc_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\scaladoc.bat" />
+          <Component Id="scaladoc.bat" Guid="PUT-GUID-HERE">
+            <File Id="scaladoc.bat" KeyPath="yes" Source="$(var.pack)\bin\scaladoc.bat" />
           </Component>
         </Directory>
         <Directory Id="lib" Name="lib">
-          <Component Id="antlr_jar" Guid="YOURGUID-ANTLR_JAR">
-            <File Id="antlr_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\antlr-$ANTLR_VERSION.jar" />
+          <Component Id="antlr_3.5.1.jar" Guid="PUT-GUID-HERE">
+            <File Id="antlr_3.5.1.jar" KeyPath="yes" Source="$(var.pack)\lib\antlr-3.5.1.jar" />
           </Component>
-          <Component Id="antlr_runtime_jar" Guid="YOURGUID-ANTLR_RUNTIME_JAR">
-            <File Id="antlr_runtime_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\antlr-runtime-$ANTLR_VERSION.jar" />
+          <Component Id="antlr_runtime_3.5.1.jar" Guid="PUT-GUID-HERE">
+            <File Id="antlr_runtime_3.5.1.jar" KeyPath="yes" Source="$(var.pack)\lib\antlr-runtime-3.5.1.jar" />
           </Component>
-          <Component Id="autolink_jar" Guid="YOURGUID-AUTOLINK_JAR">
-            <File Id="autolink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\autolink-0.6.0.jar" />
+          <Component Id="autolink_0.6.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="autolink_0.6.0.jar" KeyPath="yes" Source="$(var.pack)\lib\autolink-0.6.0.jar" />
           </Component>
-          <Component Id="compiler_interface_jar" Guid="YOURGUID-COMPILER_INTERFACE_JAR">
-            <File Id="compiler_interface_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\compiler-interface-1.3.5.jar" />
+          <Component Id="compiler_interface_1.3.5.jar" Guid="PUT-GUID-HERE">
+            <File Id="compiler_interface_1.3.5.jar" KeyPath="yes" Source="$(var.pack)\lib\compiler-interface-1.3.5.jar" />
           </Component>
-          <Component Id="dist_3_jar" Guid="YOURGUID-DIST_3_JAR">
-            <File Id="dist_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\dist_3-$SCALA3_VERSION.jar" />
+          <Component Id="dist_3_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="dist_3_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\dist_3-3.1.0.jar" />
           </Component>
-          <Component Id="flexmark_jar" Guid="YOURGUID-FLEXMARK_JAR">
-            <File Id="flexmark_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_anchorlink_jar" Guid="YOURGUID-FLEXMARK_EXT_ANCHORLINK_JAR">
-            <File Id="flexmark_ext_anchorlink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-anchorlink-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_anchorlink_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_anchorlink_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-anchorlink-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_autolink_jar" Guid="YOURGUID-FLEXMARK_EXT_AUTOLINK_JAR">
-            <File Id="flexmark_ext_autolink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-autolink-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_autolink_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_autolink_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-autolink-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_emoji_jar" Guid="YOURGUID-FLEXMARK_EXT_EMOJI_JAR">
-            <File Id="flexmark_ext_emoji_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-emoji-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_emoji_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_emoji_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-emoji-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_gfm_strikethrough_jar" Guid="YOURGUID-FLEXMAKR_EXT_GFM_STRIKETHROUGH_JAR">
-            <File Id="flexmark_ext_gfm_strikethrough_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-strikethrough-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_gfm_strikethrough_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_gfm_strikethrough_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-gfm-strikethrough-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_gfm_tables_jar" Guid="YOURGUID-FLEXMARK_EXT_GFM_TABLES_JAR">
-            <File Id="flexmark_ext_gfm_tables_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-tables-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_gfm_tables_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_gfm_tables_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-gfm-tables-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_gfm_tasklist_jar" Guid="YOURGUID-FLEXMARK_EXT_GFM_TASKLIST_JAR">
-            <File Id="flexmark_ext_gfm_tasklist_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-gfm-tasklist-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_gfm_tasklist_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_gfm_tasklist_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-gfm-tasklist-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_ins_jar" Guid="YOURGUID-FLEXMARK_EXT_INS_JAR">
-            <File Id="flexmark_ext_ins_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-ins-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_ins_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_ins_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-ins-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_superscript_jar" Guid="YOURGUID-FLEXMARK_EXT_SUPERSCRIPT_JAR">
-            <File Id="flexmark_ext_superscript_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-superscript-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_superscript_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_superscript_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-superscript-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_tables_jar" Guid="YOURGUID-FLEXMARK_EXT_TABLES_JAR">
-            <File Id="flexmark_ext_tables_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-tables-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_tables_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_tables_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-tables-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_wikilink_jar" Guid="YOURGUID-FLEXMARK_EXT_WIKILINK_JAR">
-            <File Id="flexmark_ext_wikilink_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-wikilink-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_wikilink_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_wikilink_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-wikilink-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_ext_yaml_front_matter_jar" Guid="YOURGUID-FLEXMARK_EXT_YAML_FRONT_MATTER_JAR">
-            <File Id="flexmark_ext_yaml_front_matter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-ext-yaml-front-matter-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_ext_yaml_front_matter_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_ext_yaml_front_matter_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-ext-yaml-front-matter-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_formatter_jar" Guid="YOURGUID-FLEXMARK_FORMATTER_JAR">
-            <File Id="flexmark_formatter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-formatter-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_formatter_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_formatter_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-formatter-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_html_parser_jar" Guid="YOURGUID-FLEXMARK_HTML_PARSER_JAR">
-            <File Id="flexmark_html_parser_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-html-parser-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_html_parser_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_html_parser_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-html-parser-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_jira_converter_jar" Guid="YOURGUID-FLEXMAKR_JIRA_CONVERTER_JAR">
-            <File Id="flexmark_jira_converter_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-jira-converter-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_jira_converter_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_jira_converter_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-jira-converter-0.42.12.jar" />
           </Component>
-          <Component Id="flexmark_util_jar" Guid="YOURGUID-FLEXMARK_UTIL_JAR">
-            <File Id="flexmark_util_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\flexmark-util-$FLEXMARK_VERSION.jar" />
+          <Component Id="flexmark_util_0.42.12.jar" Guid="PUT-GUID-HERE">
+            <File Id="flexmark_util_0.42.12.jar" KeyPath="yes" Source="$(var.pack)\lib\flexmark-util-0.42.12.jar" />
           </Component>
-          <Component Id="jackson_annotations_jar" Guid="YOURGUID-JACKSON_ANNOTATIONS_JAR">
-            <File Id="jackson_annotations_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jackson-annotations-2.2.3.jar" />
+          <Component Id="jackson_annotations_2.2.3.jar" Guid="PUT-GUID-HERE">
+            <File Id="jackson_annotations_2.2.3.jar" KeyPath="yes" Source="$(var.pack)\lib\jackson-annotations-2.2.3.jar" />
           </Component>
-          <Component Id="jackson_core_jar" Guid="YOURGUID-JACKSON_CORE_JAR">
-            <File Id="jackson_core_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jackson-core-2.9.8.jar" />
+          <Component Id="jackson_core_2.9.8.jar" Guid="PUT-GUID-HERE">
+            <File Id="jackson_core_2.9.8.jar" KeyPath="yes" Source="$(var.pack)\lib\jackson-core-2.9.8.jar" />
           </Component>
-          <Component Id="jackson_databind_jar" Guid="YOURGUID-JACKSON_DATABIND_JAR">
-            <File Id="jackson_databind_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jackson-databind-2.2.3.jar" />
+          <Component Id="jackson_databind_2.2.3.jar" Guid="PUT-GUID-HERE">
+            <File Id="jackson_databind_2.2.3.jar" KeyPath="yes" Source="$(var.pack)\lib\jackson-databind-2.2.3.jar" />
           </Component>
-          <Component Id="jackson_dataformat_yaml_jar" Guid="YOURGUID-JACKSON_DATAFORMAT_YAML_JAR">
-            <File Id="jackson_dataformat_yaml_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jackson-dataformat-yaml-2.9.8.jar" />
+          <Component Id="jackson_dataformat_yaml_2.9.8.jar" Guid="PUT-GUID-HERE">
+            <File Id="jackson_dataformat_yaml_2.9.8.jar" KeyPath="yes" Source="$(var.pack)\lib\jackson-dataformat-yaml-2.9.8.jar" />
           </Component>
-          <Component Id="jline_reader_jar" Guid="YOURGUID-JLINE_READER_JAR">
-            <File Id="jline_reader_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-reader-$JLINE_VERSION.jar" />
+          <Component Id="jline_reader_3.19.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="jline_reader_3.19.0.jar" KeyPath="yes" Source="$(var.pack)\lib\jline-reader-3.19.0.jar" />
           </Component>
-          <Component Id="jline_terminal_jar" Guid="YOURGUID-JLINE_TERMINAL_JAR">
-            <File Id="jline_terminal_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-terminal-$JLINE_VERSION.jar" />
+          <Component Id="jline_terminal_3.19.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="jline_terminal_3.19.0.jar" KeyPath="yes" Source="$(var.pack)\lib\jline-terminal-3.19.0.jar" />
           </Component>
-          <Component Id="jline_terminal_jna_jar" Guid="YOURGUID-JLINE_TERMINAL_JNA_JAR">
-            <File Id="jline_terminal_jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-terminal-jna-$JLINE_VERSION.jar" />
+          <Component Id="jline_terminal_jna_3.19.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="jline_terminal_jna_3.19.0.jar" KeyPath="yes" Source="$(var.pack)\lib\jline-terminal-jna-3.19.0.jar" />
           </Component>
-          <Component Id="jna_jar" Guid="YOURGUID-JNA_JAR">
-            <File Id="jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jna-5.3.1.jar" />
+          <Component Id="jna_5.3.1.jar" Guid="PUT-GUID-HERE">
+            <File Id="jna_5.3.1.jar" KeyPath="yes" Source="$(var.pack)\lib\jna-5.3.1.jar" />
           </Component>
-          <Component Id="jsoup_jar" Guid="YOURGUID-JSOUP_JAR">
-            <File Id="jsoup_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jsoup-1.13.1.jar" />
+          <Component Id="jsoup_1.13.1.jar" Guid="PUT-GUID-HERE">
+            <File Id="jsoup_1.13.1.jar" KeyPath="yes" Source="$(var.pack)\lib\jsoup-1.13.1.jar" />
           </Component>
-          <Component Id="liqp_jar" Guid="YOURGUID-LIQP_JAR">
-            <File Id="liqp_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\liqp-0.6.7.jar" />
+          <Component Id="liqp_0.6.7.jar" Guid="PUT-GUID-HERE">
+            <File Id="liqp_0.6.7.jar" KeyPath="yes" Source="$(var.pack)\lib\liqp-0.6.7.jar" />
           </Component>
-          <Component Id="protobuf_java_jar" Guid="YOURGUID-PROTOBUF_JAVA_JAR">
-            <File Id="protobuf_java_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\protobuf-java-3.7.0.jar" />
+          <Component Id="protobuf_java_3.7.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="protobuf_java_3.7.0.jar" KeyPath="yes" Source="$(var.pack)\lib\protobuf-java-3.7.0.jar" />
           </Component>
-          <Component Id="scala_asm_jar" Guid="YOURGUID-SCALA_ASM_JAR">
-            <File Id="scala_asm_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala-asm-9.1.0-scala-1.jar" />
+          <Component Id="scala_asm_9.1.0_scala_1.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala_asm_9.1.0_scala_1.jar" KeyPath="yes" Source="$(var.pack)\lib\scala-asm-9.1.0-scala-1.jar" />
           </Component>
-          <Component Id="scala_library_jar" Guid="YOURGUID-SCALA_LIBRARY_JAR">
-            <File Id="scala_library_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala-library-2.13.6.jar" />
+          <Component Id="scala_library_2.13.6.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala_library_2.13.6.jar" KeyPath="yes" Source="$(var.pack)\lib\scala-library-2.13.6.jar" />
           </Component>
-          <Component Id="scala3_compiler_3_jar" Guid="YOURGUID-SCALA3_COMPILER_JAR">
-            <File Id="scala3_compiler_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala3-compiler_3-$SCALA3_VERSION.jar" />
+          <Component Id="scala3_compiler_3_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala3_compiler_3_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\scala3-compiler_3-3.1.0.jar" />
           </Component>
-          <Component Id="scala3_interfaces_jar" Guid="YOURGUID-SCALA3_INTERFACES_JAR">
-            <File Id="scala3_interfaces_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala3-interfaces-$SCALA3_VERSION.jar" />
+          <Component Id="scala3_interfaces_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala3_interfaces_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\scala3-interfaces-3.1.0.jar" />
           </Component>
-          <Component Id="scala3_library_3_jar" Guid="YOURGUID-SCALA3_LIBRARY_JAR">
-            <File Id="scala3_library_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala3-library_3-$SCALA3_VERSION.jar" />
+          <Component Id="scala3_library_3_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala3_library_3_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\scala3-library_3-3.1.0.jar" />
           </Component>
-          <Component Id="scala3_staging_3_jar" Guid="YOURGUID-SCALA3_STAGING_3_JAR">
-            <File Id="scala3_staging_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala3-staging_3-$SCALA3_VERSION.jar" />
+          <Component Id="scala3_staging_3_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala3_staging_3_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\scala3-staging_3-3.1.0.jar" />
           </Component>
-          <Component Id="scala3_tasty_inspector_3_jar" Guid="YOURGUID-SCALA3_TASTY_INSPECTOR_JAR">
-            <File Id="scala3_tasty_inspector_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala3-tasty-inspector_3-$SCALA3_VERSION.jar" />
+          <Component Id="scala3_tasty_inspector_3_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala3_tasty_inspector_3_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\scala3-tasty-inspector_3-3.1.0.jar" />
           </Component>
-          <Component Id="scaladoc_3_jar" Guid="YOURGUID-SCALADOC_3_JAR">
-            <File Id="scaladoc_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scaladoc_3-$SCALA3_VERSION.jar" />
+          <Component Id="scaladoc_3_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="scaladoc_3_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\scaladoc_3-3.1.0.jar" />
           </Component>
-          <Component Id="snakeyaml_jar" Guid="YOURGUID-SNAKEYAML_JAR">
-            <File Id="snakeyaml_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\snakeyaml-1.23.jar" />
+          <Component Id="snakeyaml_1.23.jar" Guid="PUT-GUID-HERE">
+            <File Id="snakeyaml_1.23.jar" KeyPath="yes" Source="$(var.pack)\lib\snakeyaml-1.23.jar" />
           </Component>
-          <Component Id="ST4_jar" Guid="YOURGUID-ST4_JAR">
-            <File Id="ST4_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\ST4-4.0.7.jar" />
+          <Component Id="ST4_4.0.7.jar" Guid="PUT-GUID-HERE">
+            <File Id="ST4_4.0.7.jar" KeyPath="yes" Source="$(var.pack)\lib\ST4-4.0.7.jar" />
           </Component>
-          <Component Id="tasty_core_3_jar" Guid="YOURGUID-TASTY_CORE_JAR">
-            <File Id="tasty_core_3_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\tasty-core_3-$SCALA3_VERSION.jar" />
+          <Component Id="tasty_core_3_3.1.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="tasty_core_3_3.1.0.jar" KeyPath="yes" Source="$(var.pack)\lib\tasty-core_3-3.1.0.jar" />
           </Component>
-          <Component Id="util_interface_jar" Guid="YOURGUID-UTIL_INTERFACE_JAR">
-            <File Id="util_interface_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\util-interface-1.3.0.jar" />
+          <Component Id="util_interface_1.3.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="util_interface_1.3.0.jar" KeyPath="yes" Source="$(var.pack)\lib\util-interface-1.3.0.jar" />
           </Component>
         </Directory>
       </Directory>
@@ -177,58 +177,58 @@
     <ComponentGroup Id="PackFiles">
       <ComponentRef Id="VERSION" />
       <ComponentRef Id="common" />
-      <ComponentRef Id="common_bat" />
-      <ComponentRef Id="repl_bat" />
+      <ComponentRef Id="common.bat" />
+      <ComponentRef Id="repl.bat" />
       <ComponentRef Id="scala" />
-      <ComponentRef Id="scala_bat" />
+      <ComponentRef Id="scala.bat" />
       <ComponentRef Id="scalac" />
-      <ComponentRef Id="scalac_bat" />
+      <ComponentRef Id="scalac.bat" />
       <ComponentRef Id="scaladoc" />
-      <ComponentRef Id="scaladoc_bat" />
-      <ComponentRef Id="antlr_jar" />
-      <ComponentRef Id="antlr_runtime_jar" />
-      <ComponentRef Id="autolink_jar" />
-      <ComponentRef Id="compiler_interface_jar" />
-      <ComponentRef Id="dist_3_jar" />
-      <ComponentRef Id="flexmark_jar" />
-      <ComponentRef Id="flexmark_ext_anchorlink_jar" />
-      <ComponentRef Id="flexmark_ext_autolink_jar" />
-      <ComponentRef Id="flexmark_ext_emoji_jar" />
-      <ComponentRef Id="flexmark_ext_gfm_strikethrough_jar" />
-      <ComponentRef Id="flexmark_ext_gfm_tables_jar" />
-      <ComponentRef Id="flexmark_ext_gfm_tasklist_jar" />
-      <ComponentRef Id="flexmark_ext_ins_jar" />
-      <ComponentRef Id="flexmark_ext_superscript_jar" />
-      <ComponentRef Id="flexmark_ext_tables_jar" />
-      <ComponentRef Id="flexmark_ext_wikilink_jar" />
-      <ComponentRef Id="flexmark_ext_yaml_front_matter_jar" />
-      <ComponentRef Id="flexmark_formatter_jar" />
-      <ComponentRef Id="flexmark_html_parser_jar" />
-      <ComponentRef Id="flexmark_jira_converter_jar" />
-      <ComponentRef Id="flexmark_util_jar" />
-      <ComponentRef Id="jackson_annotations_jar" />
-      <ComponentRef Id="jackson_core_jar" />
-      <ComponentRef Id="jackson_databind_jar" />
-      <ComponentRef Id="jackson_dataformat_yaml_jar" />
-      <ComponentRef Id="jline_reader_jar" />
-      <ComponentRef Id="jline_terminal_jar" />
-      <ComponentRef Id="jline_terminal_jna_jar" />
-      <ComponentRef Id="jna_jar" />
-      <ComponentRef Id="jsoup_jar" />
-      <ComponentRef Id="liqp_jar" />
-      <ComponentRef Id="protobuf_java_jar" />
-      <ComponentRef Id="scala_asm_jar" />
-      <ComponentRef Id="scala_library_jar" />
-      <ComponentRef Id="scala3_compiler_3_jar" />
-      <ComponentRef Id="scala3_interfaces_jar" />
-      <ComponentRef Id="scala3_library_3_jar" />
-      <ComponentRef Id="scala3_staging_3_jar" />
-      <ComponentRef Id="scala3_tasty_inspector_3_jar" />
-      <ComponentRef Id="scaladoc_3_jar" />
-      <ComponentRef Id="snakeyaml_jar" />
-      <ComponentRef Id="ST4_jar" />
-      <ComponentRef Id="tasty_core_3_jar" />
-      <ComponentRef Id="util_interface_jar" />
+      <ComponentRef Id="scaladoc.bat" />
+      <ComponentRef Id="antlr_3.5.1.jar" />
+      <ComponentRef Id="antlr_runtime_3.5.1.jar" />
+      <ComponentRef Id="autolink_0.6.0.jar" />
+      <ComponentRef Id="compiler_interface_1.3.5.jar" />
+      <ComponentRef Id="dist_3_3.1.0.jar" />
+      <ComponentRef Id="flexmark_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_anchorlink_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_autolink_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_emoji_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_gfm_strikethrough_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_gfm_tables_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_gfm_tasklist_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_ins_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_superscript_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_tables_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_wikilink_0.42.12.jar" />
+      <ComponentRef Id="flexmark_ext_yaml_front_matter_0.42.12.jar" />
+      <ComponentRef Id="flexmark_formatter_0.42.12.jar" />
+      <ComponentRef Id="flexmark_html_parser_0.42.12.jar" />
+      <ComponentRef Id="flexmark_jira_converter_0.42.12.jar" />
+      <ComponentRef Id="flexmark_util_0.42.12.jar" />
+      <ComponentRef Id="jackson_annotations_2.2.3.jar" />
+      <ComponentRef Id="jackson_core_2.9.8.jar" />
+      <ComponentRef Id="jackson_databind_2.2.3.jar" />
+      <ComponentRef Id="jackson_dataformat_yaml_2.9.8.jar" />
+      <ComponentRef Id="jline_reader_3.19.0.jar" />
+      <ComponentRef Id="jline_terminal_3.19.0.jar" />
+      <ComponentRef Id="jline_terminal_jna_3.19.0.jar" />
+      <ComponentRef Id="jna_5.3.1.jar" />
+      <ComponentRef Id="jsoup_1.13.1.jar" />
+      <ComponentRef Id="liqp_0.6.7.jar" />
+      <ComponentRef Id="protobuf_java_3.7.0.jar" />
+      <ComponentRef Id="scala_asm_9.1.0_scala_1.jar" />
+      <ComponentRef Id="scala_library_2.13.6.jar" />
+      <ComponentRef Id="scala3_compiler_3_3.1.0.jar" />
+      <ComponentRef Id="scala3_interfaces_3.1.0.jar" />
+      <ComponentRef Id="scala3_library_3_3.1.0.jar" />
+      <ComponentRef Id="scala3_staging_3_3.1.0.jar" />
+      <ComponentRef Id="scala3_tasty_inspector_3_3.1.0.jar" />
+      <ComponentRef Id="scaladoc_3_3.1.0.jar" />
+      <ComponentRef Id="snakeyaml_1.23.jar" />
+      <ComponentRef Id="ST4_4.0.7.jar" />
+      <ComponentRef Id="tasty_core_3_3.1.0.jar" />
+      <ComponentRef Id="util_interface_1.3.0.jar" />
     </ComponentGroup>
   </Fragment>
 </Wix>

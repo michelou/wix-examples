@@ -54,11 +54,11 @@ Command [`build link`](./Scala3First/build.bat) generates the Windows installer 
 └───<b>src_gen</b>
         Fragments.cid.txt   <i>(component identifier list)</i>
         Fragments.wxs
-        Fragments.wxs.txt   <i>(raw output from <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat</a>)
+        Fragments.wxs.txt   <i>(raw output from <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat</a>)</i>
         Scala3First.wxs
 </pre>
 
-> **:mag_right:** File `target\src_gen\Scala3First.wxs` in the above listing contains the real GUIDs instead of the symbol names defined in source file [`src\Scala3First.wxs`](./Scala3First/src/Scala3.wxs).
+> **:mag_right:** The above file `target\src_gen\Scala3First.wxs` contains the real GUIDs instead of the symbol names defined in source file [`src\Scala3First.wxs`](./Scala3First/src/Scala3.wxs).
 
 Figures **1.1** to **1.5** below illustrate the updated user environment after the successful execution of the Windows installer.
 
@@ -103,7 +103,7 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 
 ## <span id="scala3_ui">Scala3UI</span>
 
-Project `Scala3UI` adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer.
+Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -179,7 +179,7 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 
 ## <span id="scala3_localized">Scala3Localized</span>
 
-Project `Scala3Localized` adds language localization to the [WiX][wix_toolset] source files of the [Scala 3][scala3] Windows installer.
+Project `Scala3Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 3][scala3] Windows installer.
 
 This project contains the additional directory [`src\localizations\`](./Scala3Localized/src/localizations/) with 4 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
 <pre style="font-size:80%;">
@@ -217,15 +217,15 @@ candle_opts.txt
 candle_sources.txt
 Fragments.wixobj
 light_opts.txt
-<b>scala3-3.1.0-de-DE.msi</b>
-scala3-3.1.0-de-DE.wixpdb
-<b>scala3-3.1.0-fr-FR.msi</b>
-scala3-3.1.0-fr-FR.wixpdb
-<b>scala3-3.1.0-sv-SE.msi</b>
-scala3-3.1.0-sv-SE.wixpdb
 <b>scala3-3.1.0.msi</b>
-scala3-3.1.0.wixobj
 scala3-3.1.0.wixpdb
+<b>scala3-3.1.0_de-DE.msi</b>
+scala3-3.1.0_de-DE.wixpdb
+<b>scala3-3.1.0_fr-FR.msi</b>
+scala3-3.1.0_fr-FR.wixpdb
+<b>scala3-3.1.0_sv-SE.msi</b>
+scala3-3.1.0_sv-SE.wixpdb
+Scala3Localized.wixobj
 </pre>
 
 Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of the [Scala 3][scala3] Windows installer in english, german, french and swedish.
@@ -254,8 +254,8 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
   <div style="font-size:70%;"><b>Figure 3.3 -</b> Bienvenue<br/>(<i>french</i> version).<br/>&nbsp;
   </div>
   <div>
-  <a href="images/Scala3Localized_Setup1_se.png">
-  <img style="max-width:180px;" src="images/Scala3Localized_Setup1_se.png" alt="Välkommen" />
+  <a href="images/Scala3Localized_Setup1_sv.png">
+  <img style="max-width:180px;" src="images/Scala3Localized_Setup1_sv.png" alt="Välkommen" />
   </a>
   <div style="font-size:70%;"><b>Figure 3.4 -</b> Välkommen<br/>(<i>swedish</i> version).
   </div>
@@ -265,19 +265,19 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
 
 ## <span id="scala3_features">Scala3Features</span>
 
-The `Scala3Features` project adds feature customization to the [Scala 3][scala3] Windows installer.
+The `Scala3Features` project <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 3][scala3] Windows installer.
 
 *wip*
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Default OpenJDK Location*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> ***Default Java Location*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-The different implementations of OpenJDK are available either as Zip archive files or as Windows installers.
+OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
 </p>
 <p style="margin:0 0 1em 20px;">
-Not surprisingly, each Windows installer suggests a <i>different</i> default installation location <b>and</b> <i>inconsistent</i> naming conventions:
+Unfortunately each Windows installer suggests a <i>different</i> default installation location <b>and</b> follows <i>inconsistent</i> naming conventions:
 </p>
 <table style="margin:0 0 1em 20px;font-size:80%;">
 <tr>
@@ -325,6 +325,20 @@ Not surprisingly, each Windows installer suggests a <i>different</i> default ins
   <td style="padding:6px;"><code>SapMachine\JDK\11\</code></td>
 </tr>
 </table>
+
+<b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;">
+Unlike the first project <code>Scala3First</code> the following projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> also update the user environment as follows :
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
+SCALA3_HOME=C:\Program Files\Scala 3\
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> scala</b>
+C:\Program Files\Scala 3\bin\scala
+C:\Program Files\Scala 3\bin\scala.bat
+</pre>
 
 ***
 

@@ -3,8 +3,8 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./docs/wixtoolset.png" width="100" alt="WiX project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">WiX</a> code examples coming from various websites and books.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with <a href="https://wixtoolset.org/" rel="external">WiX</a> on the <b>Microsoft Windows</b> platform.
+  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">WiX</a> examples coming from various websites and books.<br/>
+  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX toolset</a> on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -60,7 +60,7 @@ README.md
 where
 
 - directory [**`docs\`**](docs/) contains [WiX] related papers/articles.
-- directory [**`examples\`**](examples/) contains [WiX] code examples (see [`README.md`](examples/README.md) file).
+- directory [**`examples\`**](examples/) contains [WiX] examples (see [`README.md`](examples/README.md) file).
 - directory [**`firegiant-examples\`**](firegiant-examples/) contains [WiX] examples from [FireGiant] (see [`README.md`](firegiant-examples/README.md) file).
 - directory [**`scala2-examples\`**](scala2-examples/) contains [WiX] examples for creating [Scala 2][scala2] installers (see [`README.md`](scala2-examples/README.md) file).
 - directory [**`scala3-examples\`**](scala3-examples/) contains [WiX] examples for createing [Scala 3][scala3] installers (see [`README.md`](scala3-examples/README.md) file).

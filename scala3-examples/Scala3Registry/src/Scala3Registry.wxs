@@ -1,26 +1,26 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include Includes.wxi ?>
-  <Product Id='YOURGUID-PRODUCT_CODE'
-      UpgradeCode='YOURGUID-UPGRADE_CODE' Name='$(var.Product_Name)'
-      Version='$(var.Product_Version).0' Manufacturer='$(var.Product_Manufacturer)'
-      Language='$(var.Product_Language)' Codepage='1252'>
+  <Product Id='$(var.ProductId)'
+      UpgradeCode='$(var.ProductUpgradeCode)' Name='$(var.ProductName) $(var.ProductVersion)'
+      Version='$(var.ProductVersion).0' Manufacturer='$(var.ProductManufacturer)'
+      Language='$(var.ProductLanguage)' Codepage='1252'>
 
     <Package Id='*'
-        Description="$(var.Package_Description)" Keywords='$(var.Package_Keywords)'
-        Comments='$(var.Package_Comments)' Manufacturer='$(var.Package_Manufacturer)'
+        Description="$(var.PackageDescription)" Keywords='$(var.PackageKeywords)'
+        Comments='$(var.PackageComments)' Manufacturer='$(var.PackageManufacturer)'
         InstallerVersion='200' InstallScope="perMachine"
-        Languages='$(var.Package_Languages)' Compressed='yes' SummaryCodepage='1252' />
+        Languages='$(var.PackageLanguages)' Compressed='yes' SummaryCodepage='1252' />
 
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+      <Directory Id='ProgramFiles64Folder' Name='PFiles'>
         <!-- fragments.wxs -->
       </Directory>
       <!-- Step 1: Define the directory structure -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
-         <Directory Id="ApplicationProgramsFolder" Name="$(var.Product_Name)" />
+         <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductDirectoryName)" />
       </Directory>
       <Directory Id="DesktopFolder" Name="Desktop">
         <!-- no desktop shortcut -->
@@ -38,39 +38,42 @@
 
     <!-- Step 2: Add the shortcut(s) to our installer package -->
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationShortcuts" Guid="YOURGUID-APPLICATION_SHORTCUT">
+      <Component Id="ApplicationShortcuts" Guid="$(var.ApplicationShortcuts)">
         <Shortcut Id="ScalaREPL" 
-          Name="$(var.Shortcut_ScalaREPL_Name)" 
-          Description="$(var.Shortcut_ScalaREPL_Description)"
-          Target="[SystemFolder]cmd.exe"
-          Arguments='/k "call ^"[#repl_bat]^""'
-          WorkingDirectory="PersonalFolder">
+            Name="$(var.ShortcutScalaREPLName)" 
+            Description="$(var.ShortcutScalaREPLDescription)"
+            Target="[System64Folder]cmd.exe"
+            Arguments='/k "call ^"[#repl.bat]^""'
+            WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
         </Shortcut>
         <Shortcut Id="ScalaAPI"
-          Name="$(var.Shortcut_ScalaAPI_Name)"
-          Description="$(var.Shortcut_ScalaAPI_Description)"
-          Target="[APIURL]">
+            Name="$(var.ShortcutScalaAPIName)"
+            Description="$(var.ShortcutScalaAPIDescription)"
+            Target="[APIURL]">
           <Icon Id="APIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
         <Shortcut Id="ScalaLicense"
-          Name="$(var.Shortcut_ScalaLicense_Name)"
-          Description="$(var.Shortcut_ScalaLicense_Description)"
-          Target="[LicenseURL]">
+            Name="$(var.ShortcutScalaLicenseName)"
+            Description="$(var.ShortcutScalaLicenseDescription)"
+            Target="[LicenseURL]">
           <Icon Id="LicenseIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
         <Shortcut Id="UninstallProduct"             
-          Name="$(var.Shortcut_UninstallProduct_Name)"
-          Description="$(var.Shortcut_UninstallProduct_Description)"
-          Target="[SystemFolder]msiexec.exe"
-          Arguments="/x [ProductCode]" />
+            Name="$(var.ShortcutUninstallProductName)"
+            Description="$(var.ShortcutUninstallProductDescription)"
+            Target="[System64Folder]msiexec.exe"
+            Arguments="/x [ProductCode]" />
       </Component>
     </DirectoryRef>
 
-    <DirectoryRef Id='ProgramFilesFolder'>
-      <Component Id="ApplicationEnvironment" Guid="YOURGUID-APPLICATION_ENV" KeyPath="yes">
+    <DirectoryRef Id='ProgramFiles64Folder'>
+      <Component Id="ApplicationEnvironment" Guid="$(var.ApplicationEnv)" KeyPath="yes">
+        <Environment Id="SCALA3_HOME"
+            Action="set" Name="SCALA3_HOME" Value="[INSTALLDIR]"
+            Permanent="no" System="yes" />
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
           Name="PATH" Value="[bin]" 
@@ -79,8 +82,8 @@
     </DirectoryRef>
 
     <Feature Id='AppComponents'
-      Title="$(var.Feature_AppComponents_Title)" Level='1'
-      Description="$(var.Feature_AppComponents_Description)">
+        Title="$(var.FeatureAppComponentsTitle)" Level='1'
+        Description="$(var.FeatureAppComponentsDescription)">
       <ComponentGroupRef Id='PackFiles' />
       <!-- Step 3: Tell WiX to install the shortcut(s) -->
       <ComponentRef Id="ApplicationShortcuts" />

@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WixLocalization Culture="sv-SE" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="Product_Language">1053</String>
-  <String Id="Product_Manufacturer">EPFL/LAMP and Lightbend, Inc.</String>
-  <String Id="Product_Name">Scala 3</String>
+  <String Id="ProductLanguage">1053</String>
+  <String Id="ProductManufacturer">EPFL/LAMP and Lightbend, Inc.</String>
 
-  <String Id="Package_Comments">(C) Copyright 2002-2021 EPFL</String>
-  <String Id="Package_Description">Scala 3 Installatör</String>
-  <String Id="Package_Keywords">Scala, kompilator, JVM, EPFL</String>
-  <String Id="Package_Manufacturer">EPFL/LAMP and Lightbend, Inc.</String>
+  <String Id="PackageComments">(C) Copyright 2002-2021 EPFL</String>
+  <String Id="PackageDescription">Scala 3 Installatör</String>
+  <String Id="PackageKeywords">Scala, programmeringsspråk, kompilator, Java, JVM, EPFL</String>
+  <String Id="PackageManufacturer">EPFL/LAMP and Lightbend, Inc.</String>
 
-  <String Id="Shortcut_ScalaAPI_Description">Scala 3 API Dokumentation</String>
-  <String Id="Shortcut_ScalaAPI_Name">Scala 3 API Dokumentation</String>
+  <String Id="ShortcutScalaAPIDescription">Visar Scala 3 API Dokumentation</String>
+  <String Id="ShortcutScalaAPIName">Scala 3 API Dokumentation</String>
 
-  <String Id="Shortcut_ScalaLicense_Description">Scala 3 Licens</String>
-  <String Id="Shortcut_ScalaLicense_Name">Scala Licens</String>
+  <String Id="ShortcutScalaLicenseDescription">Scala 3 Licens</String>
+  <String Id="ShortcutScalaLicenseName">Scala Licens</String>
 
-  <String Id="Shortcut_ScalaREPL_Description">Scala 3 Interaktivt Skal</String>
-  <String Id="Shortcut_ScalaREPL_Name">Scala 3 REPL</String>
+  <String Id="ShortcutScalaREPLDescription">Scala 3 Interaktivt Skal</String>
+  <String Id="ShortcutScalaREPLName">Scala 3 REPL</String>
 
-  <String Id="Shortcut_UninstallProduct_Description">Avinstallerar Scala 3</String>
-  <String Id="Shortcut_UninstallProduct_Name">Scala 3 Avinstallation</String>
+  <String Id="ShortcutUninstallProductDescription">Avinstallerar Scala 3</String>
+  <String Id="ShortcutUninstallProductName">Scala 3 Avinstallation</String>
 
-  <String Id="Feature_AppComponents_Description">Scala 3 komponenter</String>
-  <String Id="Feature_AppComponents_Title">Scala 3</String>
+  <String Id="FeatureAppComponentsDescription">Installerar Scala 3 komponenter</String>
+  <String Id="FeatureAppComponentsTitle">Scala 3</String>
 </WixLocalization>
-

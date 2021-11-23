@@ -5,7 +5,9 @@
   e.g. de-DE=1031, en-US=1033, fr-Fr=1036, it-IT=1040.
   See https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
   -->
-  <?define Product_Language="1033" ?>
+  <?define ProductLanguage="1033" ?>
+  <?define ProductDirectoryName="Scala 3" ?>
+  <?define ProductName="Scala" ?>
 
-  <?define Package_Languages="1033" ?>
+  <?define PackageLanguages="1033" ?>
 </Include>

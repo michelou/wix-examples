@@ -59,7 +59,7 @@ Command [`build link`](./Scala2First/build.bat) generates the [Scala 2][scala2] 
         Scala2First.wxs
 </pre>
 
-> **:mag_right:** File `target\src_gen\Scala2First.wxs` in the above listing contains the real GUIDs instead of the symbol names defined in source file [`src\Scala2First.wxs`](./Scala2First/src/Scala2First.wxs).
+> **:mag_right:** The above file `target\src_gen\Scala2First.wxs` contains the real GUIDs instead of the symbol names defined in source file [`src\Scala2First.wxs`](./Scala2First/src/Scala2First.wxs).
 
 Figures **1.1** to **1.4** below illustrate the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 
@@ -90,7 +90,7 @@ Figures **1.1** to **1.4** below illustrate the updated user environment after t
 
 ## <span id="scala2_sbt">Scala2Sbt</span>
 
-In this example we rely on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
+Project `Scala2Sbt` <sup id="anchor_01">[1](#footnote_01)</sup> relies on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
 
 Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows installer while Figure **2.5** shows the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 
@@ -137,6 +137,8 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 
 ## <span id="scala2_ui">Scala2UI</span>
 
+Project `Scala2UI` <sup id="anchor_01">[1](#footnote_01)</sup> ...
+
 *wip*
 
 Figures **3.1** to **3.4** below illustrate the dialog windows of the Windows installer while Figures **3.5** and **3.6** show the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
@@ -162,7 +164,7 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of the Windows in
   <a href="images/Scala2UI_Setup3.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup3.png" alt="Custom Setup" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.3 -</b> Custom Setup<br>(<i>Scala 2</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination folder<br>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala2UI_Setup4.png">
@@ -188,15 +190,28 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of the Windows in
 </tr>
 </table>
 
-<!--
+## <span id="scala2_localized">Scala2Localized</span>
+
+Project `Scala2Localized` <sup id="anchor_01">[1](#footnote_01)</sup> ...
+
+*wip*
+
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Default OpenJDK Location*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> ***Environment variables*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-
+Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code> and <code>Scala2Localized</code> also update the user environment as follows :
 </p>
--->
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
+SCALA_HOME=C:\Program Files\Scala 2\
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> scala</b>
+C:\Program Files\Scala 2\bin\scala
+C:\Program Files\Scala 2\bin\scala.bat
+</pre>
+
 
 ***
 
