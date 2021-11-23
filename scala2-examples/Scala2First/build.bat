@@ -278,7 +278,6 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem output parameters: _JLINE_VERSION, _JNA_VERSION, _SCALAP_VERSION
 @rem NB. we unset variable _PRODUCT_VERSION if download fails
 :gen_app
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
@@ -288,7 +287,7 @@ if not exist "%_LICENSE_FILE%" (
     set "__RELEASE=%_PRODUCT_VERSION%"
     set _PRODUCT_VERSION=
 
-    set "__ARCHIVE_FILE=scala-!__RELEASE!.zip"
+    set "__ARCHIVE_FILE=%_PRODUCT_SKU%-!__RELEASE!.zip"
     set "__ARCHIVE_URL=https://downloads.lightbend.com/scala/!__RELEASE!/!__ARCHIVE_FILE!"
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
@@ -331,7 +330,8 @@ goto :eof
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 @rem https://wixtoolset.org/documentation/manual/v3/overview/heat.html
-set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -dr ProgramFiles64Folder -suid -sfrag -out "%_FRAGMENTS_FILE%" -var var.pack
+set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -dr ProgramFiles64Folder
+set __HEAT_OPTS=%__HEAT_OPTS% -var var.pack -suid -sfrag -out "%_FRAGMENTS_FILE%"
 if %_VERBOSE%==1 set __HEAT_OPTS=-v %__HEAT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2

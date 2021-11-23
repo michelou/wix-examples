@@ -338,7 +338,8 @@ goto :eof
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 @rem https://wixtoolset.org/documentation/manual/v3/overview/heat.html
-set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -dr ProgramFiles64Folder -suid -sfrag -out "%_FRAGMENTS_FILE%" -var var.pack
+set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -dr ProgramFiles64Folder
+set __HEAT_OPTS=%__HEAT_OPTS% -var var.pack -suid -sfrag -out "%_FRAGMENTS_FILE%"
 if %_VERBOSE%==1 set __HEAT_OPTS=-v %__HEAT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2

@@ -52,8 +52,9 @@ Command [`build link`](./Scala3First/build.bat) generates the Windows installer 
 │   scala3-3.1.0.wixpdb
 │   Scala3First.wixobj
 └───<b>src_gen</b>
+        Fragments.cid.txt   <i>(component identifier list)</i>
         Fragments.wxs
-        Fragments.wxs.txt
+        Fragments.wxs.txt   <i>(raw output from <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat</a>)
         Scala3First.wxs
 </pre>
 
@@ -150,7 +151,7 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   <a href="images/Scala3UI_Setup3.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup3.png" alt="Custom Setup" />
   </a>
-  <div style="font-size:70%;"><b>Figure 2.3 -</b> Custom Setup<br/>(<i>Scala 3</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.3 -</b> Destination folder<br/>(<i>Scala 3</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/Scala3UI_Setup5.png">
