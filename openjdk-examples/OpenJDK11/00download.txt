@@ -1,0 +1,1 @@
+Source: https://github.com/adoptium/installer/blob/master/wix/Main.wxs.template

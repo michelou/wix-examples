@@ -329,7 +329,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 <b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Unlike the first project <code>Scala3First</code> the following projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> also update the user environment as follows :
+Unlike the first project <code>Scala3First</code> the following projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> generate a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer which will <i>update</i> the user environment as follows :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>

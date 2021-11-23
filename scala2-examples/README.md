@@ -141,7 +141,7 @@ Project `Scala2UI` <sup id="anchor_01">[1](#footnote_01)</sup> ...
 
 *wip*
 
-Figures **3.1** to **3.4** below illustrate the dialog windows of the Windows installer while Figures **3.5** and **3.6** show the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
+Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows installer while Figures **3.5** and **3.6** show the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 
 <table>
 <tr>
@@ -201,7 +201,7 @@ Project `Scala2Localized` <sup id="anchor_01">[1](#footnote_01)</sup> ...
 <b name="footnote_01">[1]</b> ***Environment variables*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code> and <code>Scala2Localized</code> also update the user environment as follows :
+Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code> and <code>Scala2Localized</code> generate a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer which will <i>update</i> the user environment as follows :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>

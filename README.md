@@ -48,6 +48,7 @@ This project is organized as follows:
 docs\
 examples\{<a href="./examples/MyApp">MyApp</a>, etc.}
 firegiant-examples\{<a href="./firegiant-examples/SampleFirst">SampleFirst</a>, etc.}
+openjdk-examples\{<a href="./openjdk-examples/OpenJDK11">OpenJDK11</a>, etc.}
 scala2-examples\{<a href="./scala2-examples/Scala2First">Scala2First</a>, etc.}
 scala3-examples\{<a href="./scala3-examples/Scala3First">Scala3First</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
@@ -62,6 +63,7 @@ where
 - directory [**`docs\`**](docs/) contains [WiX] related papers/articles.
 - directory [**`examples\`**](examples/) contains [WiX] examples (see [`README.md`](examples/README.md) file).
 - directory [**`firegiant-examples\`**](firegiant-examples/) contains [WiX] examples from [FireGiant] (see [`README.md`](firegiant-examples/README.md) file).
+- directory [**`openjdk-examples\`**](openjdk-examples/) contains [WiX] examples for creating [OpenJDK]() installers (see [`README.md`](openjdk-examples/README.md) file).
 - directory [**`scala2-examples\`**](scala2-examples/) contains [WiX] examples for creating [Scala 2][scala2] installers (see [`README.md`](scala2-examples/README.md) file).
 - directory [**`scala3-examples\`**](scala3-examples/) contains [WiX] examples for createing [Scala 3][scala3] installers (see [`README.md`](scala3-examples/README.md) file).
 - file [**`QUICKREF.md`**](QUICKREF.md) is our [WiX] quick reference.
