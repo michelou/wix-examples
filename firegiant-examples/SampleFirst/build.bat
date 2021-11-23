@@ -286,7 +286,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-echo %__OPT_VERBOSE% -nologo -out "%_WIXOBJ_FILE:\=\\%"> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"

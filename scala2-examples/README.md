@@ -49,7 +49,11 @@ Command [`build link`](./Scala2First/build.bat) generates the [Scala 2][scala2] 
 │   scala-2.13.7.msi
 │   scala-2.13.7.wixpdb
 │   Scala2First.wixobj
+├───<b>resources</b>
+│       favicon.ico
+│       repl.bat
 └───<b>src_gen</b>
+        Fragments.cid.txt  <i>(component identifier list)</i>
         Fragments.wxs
         Fragments.wxs.txt  <i>(raw output from <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat</a>)</i>
         Scala2First.wxs

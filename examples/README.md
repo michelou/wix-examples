@@ -13,8 +13,8 @@
 
 The [WiX][wix_toolset] examples presented in the following sections have several characteristics in common, i.e.
 1) each project includes
-   - an `app\` directory with the application files
-   - a `src\` directory with the [WiX][wix_toolset] source files and resource files
+   - a directory `app\` with the application files
+   - a directory `src\` with the [WiX][wix_toolset] source files and resource files
    - a batch file `build.bat` to create the Windows installer from the two input directories.
 2) each [WiX][wix_toolset] source file contains just GUID <sup id="anchor_01"><a href="#footnote_01">1</a></sup> names instead of GUID values; GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed. For instance:
 

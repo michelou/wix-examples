@@ -311,6 +311,7 @@ goto :eof
 set __VERBOSE=%1
 set "__VERSIONS_LINE1=  "
 set "__VERSIONS_LINE2=  "
+set "__VERSIONS_LINE3=  "
 set __WHERE_ARGS=
 where /q "%WIX%:candle.exe"
 if %ERRORLEVEL%==0 (
@@ -322,36 +323,43 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-6,*" %%i in ('"%WIX%\light.exe"^|findstr XML^|findstr version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% light %%o,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%WIX%:light.exe"
 )
-set __MSIINFO_CMD=
-for /f "delims=" %%f in ('where /r "%WINSDK_HOME%" msiinfo.exe^|findstr \x86') do set "__MSIINFO_CMD=%%f"
-if defined __MSIINFO_CMD (
+set __WINSDK_BIN_DIR=
+for /f "delims=" %%f in ('where /r "%WINSDK_HOME%" msiinfo.exe^|findstr \x86') do set "__WINSDK_BIN_DIR=%%~dpf"
+where /q "%__WINSDK_BIN_DIR%:msiinfo.exe"
+if %ERRORLEVEL%==0 (
     @rem (!) printing the msiinfo version is tricky
-    @rem (requires a msi file as argument, using option '/?' fails)
+    @rem (it requires a msi file as argument, using option '/?' fails)
     for /f "delims=" %%f in ('dir /b /s "%WINDIR%\installer\a*.msi"') do (
-        for /f "tokens=1,2,*" %%i in ('call "%__MSIINFO_CMD%" "%%f"^|findstr MsiInfo') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% msiinfo %%k"
+        for /f "tokens=1,2,*" %%i in ('call "%__WINSDK_BIN_DIR%\msiinfo.exe" "%%f"^|findstr MsiInfo') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% msiinfo %%k,"
         goto end_for
     )
 :end_for
-    for %%i in ("%__MSIINFO_CMD%") do set __WHERE_ARGS=%__WHERE_ARGS% "%%~dpi:%%~nxi"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%__WINSDK_BIN_DIR%:msiinfo.exe"
+)
+where /q "%__WINSDK_BIN_DIR%:uuidgen.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,4,*" %%i in ('"%__WINSDK_BIN_DIR%\uuidgen.exe" -v^|findstr UUID') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% uuidgen %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%__WINSDK_BIN_DIR%:uuidgen.exe"
 )
 where /q "%MAGICK_HOME%:magick.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('"%MAGICK_HOME%\magick.exe" --version^|findstr /b Version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% magick %%k,"
+    for /f "tokens=1,2,3,*" %%i in ('call "%MAGICK_HOME%\magick.exe" --version^|findstr /b Version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% magick %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MAGICK_HOME%:magick.exe"
 )
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k,"
+    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% diff %%l"
+   for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\usr\bin:diff.exe"
 )
 echo Tool versions:
 echo %__VERSIONS_LINE1%
 echo %__VERSIONS_LINE2%
+echo %__VERSIONS_LINE3%
 if %__VERBOSE%==1 if defined __WHERE_ARGS (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2

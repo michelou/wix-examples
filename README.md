@@ -73,12 +73,14 @@ where
 <pre style="font-size:80%;">
 <b>&gt; <a href="./setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   candle 3.11.2.4516, light 3.11.2.4516, msiinfo 5.0
+   candle 3.11.2.4516, light 3.11.2.4516,
+   msiinfo 5.0, uuidgen v1.01
    magick 7.1.0-7, git 2.33.1.windows.1, diff 3.8
 Tool paths:
    C:\opt\Wix-3.11.2\candle.exe
    C:\opt\WiX-3.11.2\light.exe
    C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\MsiInfo.exe
+   C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\uuidgen.exe
    C:\opt\ImageMagick-7.1.0-Q16\magick.exe
    C:\opt\Git-2.33.1\bin\git.exe
    C:\opt\Git-2.33.1\usr\bin\diff.exe

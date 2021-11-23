@@ -2,148 +2,148 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include Includes.wxi ?>
   <Fragment>
-    <DirectoryRef Id='ProgramFiles64Folder'>
-      <Directory Id='INSTALLDIR' Name='$(var.Product_Directory_Name)'>
-        <Component Id="LICENSE" Guid="YOURGUID-LICENSE">
-          <File Id="LICENSE" KeyPath="yes" Source="!(bindpath.pack)\LICENSE" />
+    <DirectoryRef Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLDIR" Name="$(var.ProductDirectoryName)">
+        <Component Id="LICENSE" Guid="PUT-GUID-HERE">
+          <File Id="LICENSE" KeyPath="yes" Source="$(var.pack)\LICENSE" />
         </Component>
-        <Component Id="NOTICE" Guid="YOURGUID-NOTICE">
-          <File Id="NOTICE" KeyPath="yes" Source="!(bindpath.pack)\NOTICE" />
+        <Component Id="NOTICE" Guid="PUT-GUID-HERE">
+          <File Id="NOTICE" KeyPath="yes" Source="$(var.pack)\NOTICE" />
         </Component>
         <Directory Id="bin" Name="bin">
-          <Component Id="fsc" Guid="YOURGUID-FSC_SH">
-            <File Id="fsc" KeyPath="yes" Source="!(bindpath.pack)\bin\fsc" />
+          <Component Id="fsc" Guid="PUT-GUID-HERE">
+            <File Id="fsc" KeyPath="yes" Source="$(var.pack)\bin\fsc" />
           </Component>
-          <Component Id="fsc_bat" Guid="YOURGUID-FSC_BAT">
-            <File Id="fsc_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\fsc.bat" />
+          <Component Id="fsc.bat" Guid="PUT-GUID-HERE">
+            <File Id="fsc.bat" KeyPath="yes" Source="$(var.pack)\bin\fsc.bat" />
           </Component>
-          <Component Id="repl_bat" Guid="YOURGUID-REPL_BAT">
-            <File Id="repl_bat" KeyPath="yes" Source="!(bindpath.rsrc)\repl.bat" />
+          <Component Id="repl.bat" Guid="PUT-GUID-HERE">
+            <File Id="repl.bat" KeyPath="yes" Source="!(bindpath.rsrc)\repl.bat" />
           </Component>
-          <Component Id="scala" Guid="YOURGUID-SCALA_SH">
-            <File Id="scala" KeyPath="yes" Source="!(bindpath.pack)\bin\scala" />
+          <Component Id="scala" Guid="PUT-GUID-HERE">
+            <File Id="scala" KeyPath="yes" Source="$(var.pack)\bin\scala" />
           </Component>
-          <Component Id="scala_bat" Guid="YOURGUID-SCALA_BAT">
-            <File Id="scala_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\scala.bat" />
+          <Component Id="scala.bat" Guid="PUT-GUID-HERE">
+            <File Id="scala.bat" KeyPath="yes" Source="$(var.pack)\bin\scala.bat" />
           </Component>
-          <Component Id="scalac" Guid="YOURGUID-SCALAC_SH">
-            <File Id="scalac" KeyPath="yes" Source="!(bindpath.pack)\bin\scalac" />
+          <Component Id="scalac" Guid="PUT-GUID-HERE">
+            <File Id="scalac" KeyPath="yes" Source="$(var.pack)\bin\scalac" />
           </Component>
-          <Component Id="scalac_bat" Guid="YOURGUID-SCALAC_BAT">
-            <File Id="scalac_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\scalac.bat" />
+          <Component Id="scalac.bat" Guid="PUT-GUID-HERE">
+            <File Id="scalac.bat" KeyPath="yes" Source="$(var.pack)\bin\scalac.bat" />
           </Component>
-          <Component Id="scaladoc" Guid="YOURGUID-SCALADOC_SH">
-            <File Id="scaladoc" KeyPath="yes" Source="!(bindpath.pack)\bin\scaladoc" />
+          <Component Id="scaladoc" Guid="PUT-GUID-HERE">
+            <File Id="scaladoc" KeyPath="yes" Source="$(var.pack)\bin\scaladoc" />
           </Component>
-          <Component Id="scaladoc_bat" Guid="YOURGUID-SCALADOC_BAT">
-            <File Id="scaladoc_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\scaladoc.bat" />
+          <Component Id="scaladoc.bat" Guid="PUT-GUID-HERE">
+            <File Id="scaladoc.bat" KeyPath="yes" Source="$(var.pack)\bin\scaladoc.bat" />
           </Component>
-          <Component Id="scalap" Guid="YOURGUID-SCALAP_SH">
-            <File Id="scalap" KeyPath="yes" Source="!(bindpath.pack)\bin\scalap" />
+          <Component Id="scalap" Guid="PUT-GUID-HERE">
+            <File Id="scalap" KeyPath="yes" Source="$(var.pack)\bin\scalap" />
           </Component>
-          <Component Id="scalap_bat" Guid="YOURGUID-SCALAP_BAT">
-            <File Id="scalap_bat" KeyPath="yes" Source="!(bindpath.pack)\bin\scalap.bat" />
+          <Component Id="scalap.bat" Guid="PUT-GUID-HERE">
+            <File Id="scalap.bat" KeyPath="yes" Source="$(var.pack)\bin\scalap.bat" />
           </Component>
         </Directory>
         <Directory Id="doc" Name="doc">
-          <Component Id="LICENSE_md" Guid="YOURGUID-DOC_LICENSE_MD">
-            <File Id="LICENSE_md" KeyPath="yes" Source="!(bindpath.pack)\doc\LICENSE.md" />
+          <Component Id="LICENSE.md" Guid="PUT-GUID-HERE">
+            <File Id="LICENSE.md" KeyPath="yes" Source="$(var.pack)\doc\LICENSE.md" />
           </Component>
-          <Component Id="License_rtf" Guid="YOURGUID-DOC_LICENSE_RTF">
-            <File Id="License_rtf" KeyPath="yes" Source="!(bindpath.pack)\doc\License.rtf" />
+          <Component Id="License.rtf" Guid="PUT-GUID-HERE">
+            <File Id="License.rtf" KeyPath="yes" Source="$(var.pack)\doc\License.rtf" />
           </Component>
-          <Component Id="README" Guid="YOURGUID-DOC_README">
-            <File Id="README" KeyPath="yes" Source="!(bindpath.pack)\doc\README" />
+          <Component Id="README" Guid="PUT-GUID-HERE">
+            <File Id="README" KeyPath="yes" Source="$(var.pack)\doc\README" />
           </Component>
           <Directory Id="internal" Name="internal">
-            <Component Id="tastyreader_md" Guid="YOURGUID-DOC_TASTYREAD_MD">
-              <File Id="tastyreader_md" KeyPath="yes" Source="!(bindpath.pack)\doc\internal\tastyreader.md" />
+            <Component Id="tastyreader.md" Guid="PUT-GUID-HERE">
+              <File Id="tastyreader.md" KeyPath="yes" Source="$(var.pack)\doc\internal\tastyreader.md" />
             </Component>
           </Directory>
           <Directory Id="licenses" Name="licenses">
-            <Component Id="apache_jna_txt" Guid="YOURGUID-DOC_JNA_TXT">
-              <File Id="apache_jna_txt" KeyPath="yes" Source="!(bindpath.pack)\doc\licenses\apache_jna.txt" />
+            <Component Id="apache_jna.txt" Guid="PUT-GUID-HERE">
+              <File Id="apache_jna.txt" KeyPath="yes" Source="$(var.pack)\doc\licenses\apache_jna.txt" />
             </Component>
-            <Component Id="bsd_asm_txt" Guid="YOURGUID-DOC_ASM_TXT">
-              <File Id="bsd_asm_txt" KeyPath="yes" Source="!(bindpath.pack)\doc\licenses\bsd_asm.txt" />
+            <Component Id="bsd_asm.txt" Guid="PUT-GUID-HERE">
+              <File Id="bsd_asm.txt" KeyPath="yes" Source="$(var.pack)\doc\licenses\bsd_asm.txt" />
             </Component>
-            <Component Id="bsd_jline_txt" Guid="YOURGUID-DOC_JLINE_TXT">
-              <File Id="bsd_jline_txt" KeyPath="yes" Source="!(bindpath.pack)\doc\licenses\bsd_jline.txt" />
+            <Component Id="bsd_jline.txt" Guid="PUT-GUID-HERE">
+              <File Id="bsd_jline.txt" KeyPath="yes" Source="$(var.pack)\doc\licenses\bsd_jline.txt" />
             </Component>
-            <Component Id="mit_jquery_txt" Guid="YOURGUID-DOC_JQUERY_TXT">
-              <File Id="mit_jquery_txt" KeyPath="yes" Source="!(bindpath.pack)\doc\licenses\mit_jquery.txt" />
+            <Component Id="mit_jquery.txt" Guid="PUT-GUID-HERE">
+              <File Id="mit_jquery.txt" KeyPath="yes" Source="$(var.pack)\doc\licenses\mit_jquery.txt" />
             </Component>
           </Directory>
           <Directory Id="tools" Name="tools">
-            <Component Id="fsc_html" Guid="YOURGUID-DOC_FSC_HTML">
-              <File Id="fsc_html" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\fsc.html" />
+            <Component Id="fsc.html" Guid="PUT-GUID-HERE">
+              <File Id="fsc.html" KeyPath="yes" Source="$(var.pack)\doc\tools\fsc.html" />
             </Component>
-            <Component Id="index_html" Guid="YOURGUID-DOC_INDEX_HTML">
-              <File Id="index_html" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\index.html" />
+            <Component Id="index.html" Guid="PUT-GUID-HERE">
+              <File Id="index.html" KeyPath="yes" Source="$(var.pack)\doc\tools\index.html" />
             </Component>
-            <Component Id="scala_html" Guid="YOURGUID-DOC_SCALA_HTML">
-              <File Id="scala_html" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\scala.html" />
+            <Component Id="scala.html" Guid="PUT-GUID-HERE">
+              <File Id="scala.html" KeyPath="yes" Source="$(var.pack)\doc\tools\scala.html" />
             </Component>
-            <Component Id="scalac_html" Guid="YOURGUID-DOC_SCALAC_HTML">
-              <File Id="scalac_html" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\scalac.html" />
+            <Component Id="scalac.html" Guid="PUT-GUID-HERE">
+              <File Id="scalac.html" KeyPath="yes" Source="$(var.pack)\doc\tools\scalac.html" />
             </Component>
-            <Component Id="scaladoc_html" Guid="YOURGUID-DOC_SCALADOC_HTML">
-              <File Id="scaladoc_html" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\scaladoc.html" />
+            <Component Id="scaladoc.html" Guid="PUT-GUID-HERE">
+              <File Id="scaladoc.html" KeyPath="yes" Source="$(var.pack)\doc\tools\scaladoc.html" />
             </Component>
-            <Component Id="scalap_html" Guid="YOURGUID-DOC_SCALAP_HTML">
-              <File Id="scalap_html" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\scalap.html" />
+            <Component Id="scalap.html" Guid="PUT-GUID-HERE">
+              <File Id="scalap.html" KeyPath="yes" Source="$(var.pack)\doc\tools\scalap.html" />
             </Component>
             <Directory Id="css" Name="css">
-              <Component Id="style_css" Guid="YOURGUID-DOC_STYLE_CSS">
-                <File Id="style_css" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\css\style.css" />
+              <Component Id="style.css" Guid="PUT-GUID-HERE">
+                <File Id="style.css" KeyPath="yes" Source="$(var.pack)\doc\tools\css\style.css" />
               </Component>
             </Directory>
             <Directory Id="images" Name="images">
-              <Component Id="external_gif" Guid="YOURGUID-DOC_EXTERNAL_GIF">
-                <File Id="external_gif" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\images\external.gif" />
+              <Component Id="external.gif" Guid="PUT-GUID-HERE">
+                <File Id="external.gif" KeyPath="yes" Source="$(var.pack)\doc\tools\images\external.gif" />
               </Component>
-              <Component Id="scala_logo_png" Guid="YOURGUID-DOC_SCALA_LOGO_PNG">
-                <File Id="scala_logo_png" KeyPath="yes" Source="!(bindpath.pack)\doc\tools\images\scala_logo.png" />
+              <Component Id="scala_logo.png" Guid="PUT-GUID-HERE">
+                <File Id="scala_logo.png" KeyPath="yes" Source="$(var.pack)\doc\tools\images\scala_logo.png" />
               </Component>
             </Directory>
           </Directory>
         </Directory>
         <Directory Id="lib" Name="lib">
-          <Component Id="jline_jar" Guid="YOURGUID-JLINE_JAR">
-            <File Id="jline_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jline-$JLINE_VERSION.jar" />
+          <Component Id="jline_3.20.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="jline_3.20.0.jar" KeyPath="yes" Source="$(var.pack)\lib\jline-3.20.0.jar" />
           </Component>
-          <Component Id="jna_jar" Guid="YOURGUID-JNA_JAR">
-            <File Id="jna_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\jna-$JNA_VERSION.jar" />
+          <Component Id="jna_5.8.0.jar" Guid="PUT-GUID-HERE">
+            <File Id="jna_5.8.0.jar" KeyPath="yes" Source="$(var.pack)\lib\jna-5.8.0.jar" />
           </Component>
-          <Component Id="scala_compiler_jar" Guid="YOURGUID-SCALA_COMPILER_JAR">
-            <File Id="scala_compiler_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala-compiler.jar" />
+          <Component Id="scala_compiler.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala_compiler.jar" KeyPath="yes" Source="$(var.pack)\lib\scala-compiler.jar" />
           </Component>
-          <Component Id="scala_library_jar" Guid="YOURGUID-SCALA_LIBRARY_JAR">
-            <File Id="scala_library_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala-library.jar" />
+          <Component Id="scala_library.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala_library.jar" KeyPath="yes" Source="$(var.pack)\lib\scala-library.jar" />
           </Component>
-          <Component Id="scala_reflect_jar" Guid="YOURGUID-SCALA_REFLECT_JAR">
-            <File Id="scala_reflect_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scala-reflect.jar" />
+          <Component Id="scala_reflect.jar" Guid="PUT-GUID-HERE">
+            <File Id="scala_reflect.jar" KeyPath="yes" Source="$(var.pack)\lib\scala-reflect.jar" />
           </Component>
-          <Component Id="scalap_jar" Guid="YOURGUID-SCALAP_JAR">
-            <File Id="scalap_jar" KeyPath="yes" Source="!(bindpath.pack)\lib\scalap-$SCALAP_VERSION.jar" />
+          <Component Id="scalap_2.13.7.jar" Guid="PUT-GUID-HERE">
+            <File Id="scalap_2.13.7.jar" KeyPath="yes" Source="$(var.pack)\lib\scalap-2.13.7.jar" />
           </Component>
         </Directory>
         <Directory Id="man" Name="man">
           <Directory Id="man1" Name="man1">
-            <Component Id="fsc_man" Guid="YOURGUID-FSC_MAN">
-              <File Id="fsc_man" KeyPath="yes" Source="!(bindpath.pack)\man\man1\fsc.1" />
+            <Component Id="fsc.1" Guid="PUT-GUID-HERE">
+              <File Id="fsc.1" KeyPath="yes" Source="$(var.pack)\man\man1\fsc.1" />
             </Component>
-            <Component Id="scala_man" Guid="YOURGUID-SCALA_MAN">
-              <File Id="scala_man" KeyPath="yes" Source="!(bindpath.pack)\man\man1\scala.1" />
+            <Component Id="scala.1" Guid="PUT-GUID-HERE">
+              <File Id="scala.1" KeyPath="yes" Source="$(var.pack)\man\man1\scala.1" />
             </Component>
-            <Component Id="scalac_man" Guid="YOURGUID-SCALAC_MAN">
-              <File Id="scalac_man" KeyPath="yes" Source="!(bindpath.pack)\man\man1\scalac.1" />
+            <Component Id="scalac.1" Guid="PUT-GUID-HERE">
+              <File Id="scalac.1" KeyPath="yes" Source="$(var.pack)\man\man1\scalac.1" />
             </Component>
-            <Component Id="scaladoc_man" Guid="YOURGUID-SCALADOC_MAN">
-              <File Id="scaladoc_man" KeyPath="yes" Source="!(bindpath.pack)\man\man1\scaladoc.1" />
+            <Component Id="scaladoc.1" Guid="PUT-GUID-HERE">
+              <File Id="scaladoc.1" KeyPath="yes" Source="$(var.pack)\man\man1\scaladoc.1" />
             </Component>
-            <Component Id="scalap_man" Guid="YOURGUID-SCALAP_MAN">
-              <File Id="scalap_man" KeyPath="yes" Source="!(bindpath.pack)\man\man1\scalap.1" />
+            <Component Id="scalap.1" Guid="PUT-GUID-HERE">
+              <File Id="scalap.1" KeyPath="yes" Source="$(var.pack)\man\man1\scalap.1" />
             </Component>
           </Directory>
         </Directory>
@@ -155,44 +155,44 @@
       <ComponentRef Id="LICENSE" />
       <ComponentRef Id="NOTICE" />
       <ComponentRef Id="fsc" />
-      <ComponentRef Id="fsc_bat" />
-      <ComponentRef Id="repl_bat" />
+      <ComponentRef Id="fsc.bat" />
+      <ComponentRef Id="repl.bat" />
       <ComponentRef Id="scala" />
-      <ComponentRef Id="scala_bat" />
+      <ComponentRef Id="scala.bat" />
       <ComponentRef Id="scalac" />
-      <ComponentRef Id="scalac_bat" />
+      <ComponentRef Id="scalac.bat" />
       <ComponentRef Id="scaladoc" />
-      <ComponentRef Id="scaladoc_bat" />
+      <ComponentRef Id="scaladoc.bat" />
       <ComponentRef Id="scalap" />
-      <ComponentRef Id="scalap_bat" />
-      <ComponentRef Id="LICENSE_md" />
-      <ComponentRef Id="License_rtf" />
+      <ComponentRef Id="scalap.bat" />
+      <ComponentRef Id="LICENSE.md" />
+      <ComponentRef Id="License.rtf" />
       <ComponentRef Id="README" />
-      <ComponentRef Id="tastyreader_md" />
-      <ComponentRef Id="apache_jna_txt" />
-      <ComponentRef Id="bsd_asm_txt" />
-      <ComponentRef Id="bsd_jline_txt" />
-      <ComponentRef Id="mit_jquery_txt" />
-      <ComponentRef Id="fsc_html" />
-      <ComponentRef Id="index_html" />
-      <ComponentRef Id="scala_html" />
-      <ComponentRef Id="scalac_html" />
-      <ComponentRef Id="scaladoc_html" />
-      <ComponentRef Id="scalap_html" />
-      <ComponentRef Id="style_css" />
-      <ComponentRef Id="external_gif" />
-      <ComponentRef Id="scala_logo_png" />
-      <ComponentRef Id="jline_jar" />
-      <ComponentRef Id="jna_jar" />
-      <ComponentRef Id="scala_compiler_jar" />
-      <ComponentRef Id="scala_library_jar" />
-      <ComponentRef Id="scala_reflect_jar" />
-      <ComponentRef Id="scalap_jar" />
-      <ComponentRef Id="fsc_man" />
-      <ComponentRef Id="scala_man" />
-      <ComponentRef Id="scalac_man" />
-      <ComponentRef Id="scaladoc_man" />
-      <ComponentRef Id="scalap_man" />
+      <ComponentRef Id="tastyreader.md" />
+      <ComponentRef Id="apache_jna.txt" />
+      <ComponentRef Id="bsd_asm.txt" />
+      <ComponentRef Id="bsd_jline.txt" />
+      <ComponentRef Id="mit_jquery.txt" />
+      <ComponentRef Id="fsc.html" />
+      <ComponentRef Id="index.html" />
+      <ComponentRef Id="scala.html" />
+      <ComponentRef Id="scalac.html" />
+      <ComponentRef Id="scaladoc.html" />
+      <ComponentRef Id="scalap.html" />
+      <ComponentRef Id="style.css" />
+      <ComponentRef Id="external.gif" />
+      <ComponentRef Id="scala_logo.png" />
+      <ComponentRef Id="jline_3.20.0.jar" />
+      <ComponentRef Id="jna_5.8.0.jar" />
+      <ComponentRef Id="scala_compiler.jar" />
+      <ComponentRef Id="scala_library.jar" />
+      <ComponentRef Id="scala_reflect.jar" />
+      <ComponentRef Id="scalap_2.13.7.jar" />
+      <ComponentRef Id="fsc.1" />
+      <ComponentRef Id="scala.1" />
+      <ComponentRef Id="scalac.1" />
+      <ComponentRef Id="scaladoc.1" />
+      <ComponentRef Id="scalap.1" />
     </ComponentGroup>
   </Fragment>
 </Wix>

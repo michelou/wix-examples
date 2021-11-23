@@ -1,7 +1,9 @@
+app/
 Debug/
 Release/
 target/
 *_LOCAL
+guids.txt
 *.exe
 *.properties
 *.user

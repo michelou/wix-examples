@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <?define CompanyName="EPFL/LAMP" ?>  <!-- UKCU registry key -->
+  <?define CompanyName="EPFL/LAMP" ?>  <!-- HKCU registry key -->
 
   <!--
   e.g. de-DE=1031, en-US=1033, fr-Fr=1036, it-IT=1040.
   See https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
   -->
-  <?define Product_Language="1033" ?>
-  <?define Product_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
-  <?define Product_Name="Scala" ?>
-  <?define Product_Directory_Name="Scala 2" ?>
+  <?define ProductLanguage="1033" ?>
+  <?define ProductManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define ProductName="Scala" ?>
+  <?define ProductDirectoryName="Scala 2" ?>
 
-  <?define Package_Comments="The Scala Programming Language" ?>
-  <?define Package_Description="Scala 2 Installer" ?>
-  <?define Package_Keywords="Scala, Compiler, Java, JVM" ?>
-  <?define Package_Languages="1033" ?>  <!-- 1033 = en-us -->
-  <?define Package_Manufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define PackageComments="The Scala Programming Language" ?>
+  <?define PackageDescription="Scala 2 Installer" ?>
+  <?define PackageKeywords="Scala, Compiler, Java, JVM" ?>
+  <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
+  <?define PackageManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
 
-  <?define Shortcut_ScalaAPI_Description="Displays the Scala 2 API Documentation" ?>
-  <?define Shortcut_ScalaAPI_Name="API Documentation" ?>
+  <?define ShortcutScalaAPIDescription="Displays the Scala 2 API Documentation" ?>
+  <?define ShortcutScalaAPIName="API Documentation" ?>
 
-  <?define Shortcut_ScalaLicense_Description="Displays the Scala 2 License" ?>
-  <?define Shortcut_ScalaLicense_Name="License" ?>
+  <?define ShortcutScalaLicenseDescription="Displays the Scala 2 License" ?>
+  <?define ShortcutScalaLicenseName="License" ?>
 
-  <?define Shortcut_ScalaREPL_Description="Launches the Scala 2 REPL" ?>
-  <?define Shortcut_ScalaREPL_Name="Scala 2 REPL" ?>
+  <?define ShortcutScalaREPLDescription="Launches the Scala 2 REPL" ?>
+  <?define ShortcutScalaREPLName="Scala 2 REPL" ?>
 
-  <?define Shortcut_UninstallProduct_Description="Removes the Scala 2 installation" ?>
-  <?define Shortcut_UninstallProduct_Name="Uninstall Scala 2" ?>
+  <?define ShortcutUninstallProductDescription="Removes the Scala 2 installation" ?>
+  <?define ShortcutUninstallProductName="Uninstall Scala 2" ?>
 
-  <?define Feature_AppComponents_Description="Scala 2 application, shortcuts and environment settings" ?>
-  <?define Feature_AppComponents_Title="Scala 2 Components" ?>
+  <?define FeatureAppComponentsDescription="Scala 2 application, shortcuts and environment settings" ?>
+  <?define FeatureAppComponentsTitle="Scala 2 Components" ?>
 </Include>

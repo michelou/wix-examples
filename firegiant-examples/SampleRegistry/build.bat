@@ -281,7 +281,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
-echo %__OPT_VERBOSE% -nologo -out "%_WIXOBJ_FILE:\=\\%"> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -319,16 +319,22 @@ if not %_EXITCODE%==0 goto end
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
+if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 ) else ( set __OPT_VERBOSE=
 )
 set __LIGHT_BINDINGS= -b "exe=%_APP_DIR%" -b "dll=%_APP_DIR%" -b "pdf=%_APP_DIR%"
 echo %__OPT_VERBOSE% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%_WIXOBJ_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Create Windows installer from file "!_WIXOBJ_FILE:%_ROOT_DIR%=!" 1>&2
+set __WIXOBJ_FILES=
+set __N=0
+for /f %%f in ('dir /s /b "%_TARGET_DIR%\*.wixobj" 2^>NUL') do (
+    set __WIXOBJ_FILES=!__WIXOBJ_FILES! "%%f"
+    set /a __N+=1
 )
-call "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%_WIXOBJ_FILE%" %_STDOUT_REDIRECT%
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+)
+call "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
