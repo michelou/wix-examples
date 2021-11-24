@@ -27,7 +27,7 @@ The [WiX][wix_toolset] examples presented in the following sections have several
 </div>
 <b>+</b>
 <div>
-<a href="./MyApp/build.properties"><code>build.properties</code></a><br/>
+<code>build.properties</code><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<code>PRODUCT_CODE=80dd48f1-ea75-4a81-bd56-a06f600fdc99</code>
 </div>
 <b>⇩</b>

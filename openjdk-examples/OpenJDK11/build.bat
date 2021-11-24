@@ -149,7 +149,7 @@ set _PRODUCT_MINOR_VERSION=0
 set _PRODUCT_MAINTENANCE_VERSION=0
 set _PRODUCT_PATCH_VERSION=0
 set _PRODUCT_BUILD_NUMBER=28
-set _MSI_PRODUCT_VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%.%_PRODUCT_BUILD_NUMBER%
+set _MSI_PRODUCT_VERSION=
 set _ARCH=x64
 set _JVM=hotspot
 set _PRODUCT_CATEGORY=jdk
@@ -205,6 +205,16 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
 )
 @rem Postcondition: _ARCH = {x64, x86-32, arm64}
+if not "%_ARCH%"=="x64" if not "%_ARCH%"=="x86-32" if not "%_ARCH%"=="arm64" (
+    echo %_ERROR_LABEL% Invalid target architecture "%_ARCH%" ^(error 7^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if not "%_JVM%"=="hotspot" if not "%_JVM%"=="openj9" if not "%_JVM%"=="dragonwell" (
+    echo %_ERROR_LABEL% Invalid JVM variant "%_JVM%" ^(error 8^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 if not "%_PRODUCT_CATEGORY%"=="jdk" if not "%_PRODUCT_CATEGORY%"=="jre" (
     echo %_ERROR_LABEL% Invalid product category "%_PRODUCT_CATEGORY%" ^(error 9^) 1>&2
     set _EXITCODE=1
@@ -265,26 +275,34 @@ set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
 set _PRODUCT_SKU=OpenJDK
-set _PRODUCT_FULL_VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%.%_PRODUCT_PATCH_VERSION%.%_PRODUCT_BUILD_NUMBER%
+set _PRODUCT_FULL_VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%.%_PRODUCT_BUILD_NUMBER%
 IF %_PRODUCT_MAJOR_VERSION% geq 10 (
-    set _PRODUCT_SHORT_VERSION=%_PRODUCT_MAJOR_VERSION%
-    if %_PRODUCT_MINOR_VERSION% neq 0 set _PRODUCT_SHORT_VERSION=!_PRODUCT_SHORT_VERSION!.%_PRODUCT_MINOR_VERSION%
-    IF %_PRODUCT_MAINTENANCE_VERSION% neq 0 set _PRODUCT_SHORT_VERSION=!_PRODUCT_SHORT_VERSION!.%_PRODUCT_MAINTENANCE_VERSION%
-    IF %_PRODUCT_PATCH_VERSION% neq 0 set _PRODUCT_SHORT_VERSION=!_PRODUCT_SHORT_VERSION!.%_PRODUCT_PATCH_VERSION%
-    if defined _PRODUCT_BUILD_NUMBER set _PRODUCT_SHORT_VERSION=!_PRODUCT_SHORT_VERSION!+%_PRODUCT_BUILD_NUMBER%
+    @rem eg. directory => 11.0.13+8, file => 11.0.13_8
+    set __VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%
+    if defined _PRODUCT_BUILD_NUMBER (
+        set _PRODUCT_SHORT_VERSION=!__VERSION!+%_PRODUCT_BUILD_NUMBER%
+        set _PRODUCT_FILE_VERSION=!__VERSION!_%_PRODUCT_BUILD_NUMBER%
+    ) else (
+        set _PRODUCT_SHORT_VERSION=!__VERSION!
+        set _PRODUCT_FILE_VERSION=!__VERSION!
+    )
 ) else (
+    @rem eg. directory => 8u312-b07, file => 8u312b07
     set _PRODUCT_SHORT_VERSION=%_PRODUCT_MAJOR_VERSION%u%_PRODUCT_MAINTENANCE_VERSION%-b%_PRODUCT_BUILD_NUMBER%
+    set _PRODUCT_FILE_VERSION=%_PRODUCT_MAJOR_VERSION%u%_PRODUCT_MAINTENANCE_VERSION%b%_PRODUCT_BUILD_NUMBER%
 )
-@rem Naming of Zip file: OpenJDK11U-jre_x64_windows_11.0.13_8.zip
-set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%-%_JVM%_%_ARCH%_windows_%_MSI_PRODUCT_VERSION%.msi"
+@rem Naming of Zip file: OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
+if not defined _MSI_PRODUCT_VERSION set "_MSI_PRODUCT_VERSION=%_PRODUCT_FULL_VERSION%
+set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%U-%_ARCH%_windows_%_JVM%_%_PRODUCT_FILE_VERSION%.msi"
 
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Properties : _PRODUCT_FULL_VERSION=%_PRODUCT_FULL_VERSION% 1>&2
-    echo %_DEBUG_LABEL% Properties : _PRODUCT_SHORT_VERSION=%_PRODUCT_SHORT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_FILE_VERSION=%_PRODUCT_FILE_VERSION% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_FULL_VERSION=%_PRODUCT_FULL_VERSION% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_SHORT_VERSION=%_PRODUCT_SHORT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_SKU=%_PRODUCT_SKU% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
@@ -340,15 +358,23 @@ goto :eof
 :gen_app
 if exist "%_RELEASE_FILE%" goto :eof
 
-if not exist "%_RELEASE_FILE%" (
-    @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
-    set "__RELEASE=11.0.13+8"
-    set _PRODUCT_VERSION=
-    @rem e.g. OpenJDK11U-jdk_x64_windows_11.0.13_8.zip
-    set "__ARCHIVE_FILE=%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%U-%_PRODUCT_CATEGORY%_%_ARCH%_windows_!__RELEASE:+=_!.zip"
-    set "__ARCHIVE_URL=https://github.com/AdoptOpenJDK/openjdk11-upstream-binaries/releases/download/%_PRODUCT_CATEGORY%-!__RELEASE!/!__ARCHIVE_FILE!"
-    set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
+@rem Java 8
+@rem https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip
+@rem Java 11
+@rem https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip
+@rem Java 17
+@rem https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.1%2B12/OpenJDK17U-jdk_x64_windows_hotspot_17.0.1_12.zip
 
+if not exist "%_RELEASE_FILE%" (
+    set "__BASE_URL=https://github.com/adoptium/temurin%_PRODUCT_MAJOR_VERSION%-binaries/releases/download"
+    if %_PRODUCT_MAJOR_VERSION% geq 10 ( set "__BASE_URL=!__BASE_URL!/%_PRODUCT_CATEGORY%-%_PRODUCT_SHORT_VERSION%"
+    ) else ( set "__BASE_URL=!__BASE_URL!/%_PRODUCT_CATEGORY%%_PRODUCT_SHORT_VERSION%"
+    )
+    set _PRODUCT_VERSION=
+    @rem e.g. OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip
+    set "__ARCHIVE_FILE=%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%U-%_PRODUCT_CATEGORY%_%_ARCH%_windows_%_JVM%_%_PRODUCT_FILE_VERSION%.zip"
+    set "__ARCHIVE_URL=!__BASE_URL!/!__ARCHIVE_FILE!"
+    set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
     if not exist "!__OUTPUT_FILE!" (
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTPUT_FILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
@@ -370,17 +396,17 @@ if not exist "%_RELEASE_FILE%" (
         set _EXITCODE=1
         goto :eof
     )
-    set "__TEMP_DIR=%TEMP%\%_PRODUCT_SKU%-!__RELEASE:+=_!"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" 1>&2
+    set "__TEMP_DIR=%TEMP%\%_PRODUCT_CATEGORY%-%_PRODUCT_SHORT_VERSION%!"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%\" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" %_STDOUT_REDIRECT%
+    xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%\" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
-    set "_PRODUCT_VERSION=!__RELEASE!"
+    set "_PRODUCT_VERSION=%_PRODUCT_SHORT_VERSION%"
 )
 goto :eof
 
@@ -515,12 +541,12 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CANDLE_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 setlocal
 @rem file Includes.wxi depends on several environment variables,
 @rem e.g. PLATFORM, PRODUCT_CATEGORY, PRODUCT_MAJOR_VERSION
-set PLATFORM=%_ARCH%
+set "PLATFORM=%_ARCH%"
 set "PRODUCT_CATEGORY=%_PRODUCT_CATEGORY%"
 set "PRODUCT_MAJOR_VERSION=%_PRODUCT_MAJOR_VERSION%"
-set "VENDOR=%_VENDOR%"
-set "VENDOR_BRANDING_BANNER=%_VENDOR_BRANDING_BANNER%"
-set "VENDOR_BRANDING_LOGO=%_VENDOR_BRANDING_LOGO%"
+@rem set "VENDOR=%_VENDOR%"
+@rem set "VENDOR_BRANDING_BANNER=%_VENDOR_BRANDING_BANNER%"
+@rem set "VENDOR_BRANDING_LOGO=%_VENDOR_BRANDING_LOGO%"
 call "%_CANDLE_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     endlocal
@@ -532,12 +558,12 @@ endlocal
 goto :eof
 
 :link
-call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_RELEASE_FILE%"
-if %_ACTION_REQUIRED%==0 goto :eof
-
 @rem ensure directory "%_APP_DIR%" contains the OpenJDK distribution
 call :gen_app
 if not %_EXITCODE%==0 goto :eof
+
+call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_RELEASE_FILE%"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 call :gen_src
 if not %_EXITCODE%==0 goto :eof

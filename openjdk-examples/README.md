@@ -26,7 +26,7 @@ Y:\openjdk-examples\OpenJDK11
 │   <a href="./OpenJDK11/00download.txt">00download.txt</a>
 │   <a href="./OpenJDK11/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_11.0.13_8.zip</a>
+│   └───<i>files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>
 └───<b>src</b>
     │   <a href="./OpenJDK11/src/Fragments.wxs">Fragments.wxs</a>
     │   <a href="./OpenJDK11/src/Includes.wxi">Includes.wxi</a>
@@ -44,7 +44,7 @@ Y:\openjdk-examples\OpenJDK11
             <a href="./OpenJDK11/src/resources/wix-dialog.bmp">wix-dialog.bmp</a>
 </pre>
 
-Command [`build link`](./OpenJDK11/build.bat) generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11-hotspot_x64_windows_11.0.13.8.msi`.
+Command [`build link`](./OpenJDK11/build.bat) generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13.8.msi` <sup id="anchor_01">[1](#footnote_01)</sup>.
 
 > **:mag_right:** Command [`build help`](./OpenJDK11/build.bat) displays the batch file options and subcommands:
 
@@ -55,8 +55,8 @@ Command [`build link`](./OpenJDK11/build.bat) generates the [OpenJDK 11][adoptiu
 │   Fragments.wixobj
 │   light_opts.txt
 │   Main.wixobj
-│   OpenJDK11-hotspot_x64_windows_11.0.13.8.msi
-│   OpenJDK11-hotspot_x64_windows_11.0.13.8.wixpdb
+│   OpenJDK11U-jdk_x64_windows_hotspot_11.0.13.8.msi
+│   OpenJDK11U-jdk_x64_windows_hotspot_11.0.13.8.wixpdb
 │   replace.ps1
 └───<b>src_gen</b>
         Fragments.cid.txt  <i>(component identifier list)</i>
@@ -98,10 +98,70 @@ Figures **1.1** to **1.4** below illustrate illustrate the dialog windows of our
 <td>
   <a href="images/Temurin_OpenJDK11_ProgFiles.png"><img style="max-width:180px;" src="images/Temurin_OpenJDK11_ProgFiles.png" /></a>
   <div style="font-size:70%;">
-  <b>Figure 1.5 -</b> <i>OpenJDK 11</i> directory<br/>(<i>Program&nbsp;Files1</i> folder).<br/>&nbsp;
+  <b>Figure 1.5 -</b> <i>OpenJDK 11</i> directory<br/>(<i>Program&nbsp;Files</i> folder).<br/>&nbsp;
   </div>
   <!-- to be added -->
 </td>
+</tr>
+</table>
+
+## <span id="footnotes">Footnotes</span>
+
+<b name="footnote_01">[1]</b> ***File naming conventions*** [↩](#anchor_01)
+
+<p style="margin:0 0 1em 20px;">
+For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> can be decomponsed as follows :
+</p>
+<table style="margin:0 0 1em 20px;">
+<tr>
+   <th>Name&nbsp;part</th>
+   <th>Description</th>
+   <th>Values</th>
+</tr>
+<tr>
+  <td><code>OpenJDK</code></td>
+  <td>Product SKU</td>
+  <td><code>OpenJDK</code></td>
+</tr>
+<tr>
+  <td><code>11</code></td>
+  <td>Product major version</td>
+  <td><code>8</code>, <code>11</code>, <code>17</code></td>
+</tr>
+<tr>
+  <td><code>U</code></td>
+  <td>Update release</td>
+  <td><code>U</code></td>
+</tr>
+<tr>
+  <td><code>jdk</code></td>
+  <td>Product category</td>
+  <td><code>jdk</code>, <code>jre</code></td>
+</tr>
+<tr>
+  <td><code>x64</code></td>
+  <td>Target architecture</td>
+  <td><code>aarch64</code>, <code>arm64</code>, <code>ppc64</code>, <code>s390x</code>, <code>x64</code>, <code>x86_32</code></td>
+</tr>
+<tr>
+  <td><code>windows</code></td>
+  <td>Target platform</td>
+  <td><code>aix</code>, <code>alpine-linux</code>,<code>arm_linux</code>, <code>linux</code>, <code>mac</code>, <code>windows</code></td>
+</tr>
+<tr>
+  <td><code>hotspot</code></td>
+  <td>JVM variant</td>
+  <td><code>hotspot</code>, <code>openj9</code>, <code>dragonwell</code></td>
+</tr>
+<tr>
+  <td><code>11.0.13_8</code><br/>&nbsp;<br/><code>8u312b07</code></td>
+  <td>Product&nbsp;version</td>
+  <td><code>&lt;major&gt;.&lt;minor&gt;.&lt;maintenance&gt;_&lt;build&gt;</code><br/><b>NB.</b> prior to Java 10 written :<br/><code>&lt;major&gt;u&lt;maintenance&gt;b&lt;build&gt;</code></td>
+</tr>
+<tr>
+  <td><code>msi</code></td>
+  <td>File extension</td>
+  <td><code>msi</code>, <code>zip</code></td>
 </tr>
 </table>
 

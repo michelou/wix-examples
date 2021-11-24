@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself for creating a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty">Dotty project</a>.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty">Dotty project</a>.
   </td>
   </tr>
 </table>
@@ -66,8 +66,8 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 <tr>
 <td style="text-align:center;">
   <div>
-  <a href="images/Scala3First.png">
-  <img style="max-width:180px;" src="images/Scala3First.png" alt="Scala 3 directory" />
+  <a href="images/Scala3First_ProgFiles.png">
+  <img style="max-width:180px;" src="images/Scala3First_ProgFiles.png" alt="Scala 3 directory" />
   </a>
   <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>

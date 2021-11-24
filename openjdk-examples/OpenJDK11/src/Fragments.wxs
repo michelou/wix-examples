@@ -3,6 +3,9 @@
   <?include Includes.wxi ?>
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
+        <Component Id="NOTICE" Guid="PUT-GUID-HERE">
+          <File Id="NOTICE" KeyPath="yes" Source="$(var.pack)\NOTICE" />
+        </Component>
         <Component Id="release" Guid="PUT-GUID-HERE">
           <File Id="release" KeyPath="yes" Source="$(var.pack)\release" />
         </Component>
@@ -373,9 +376,14 @@
           <Component Id="zip.dll" Guid="PUT-GUID-HERE">
             <File Id="zip.dll" KeyPath="yes" Source="$(var.pack)\bin\zip.dll" />
           </Component>
-          <Directory Id="server" Name="server">
+          <Directory Id="client" Name="client">
             <Component Id="jvm.dll" Guid="PUT-GUID-HERE">
-              <File Id="jvm.dll" KeyPath="yes" Source="$(var.pack)\bin\server\jvm.dll" />
+              <File Id="jvm.dll" KeyPath="yes" Source="$(var.pack)\bin\client\jvm.dll" />
+            </Component>
+          </Directory>
+          <Directory Id="server" Name="server">
+            <Component Id="jvm.dll_1" Guid="PUT-GUID-HERE">
+              <File Id="jvm.dll_1" KeyPath="yes" Source="$(var.pack)\bin\server\jvm.dll" />
             </Component>
           </Directory>
         </Directory>
@@ -429,446 +437,6 @@
                 <Component Id="default_US_export.policy_1" Guid="PUT-GUID-HERE">
                   <File Id="default_US_export.policy_1" KeyPath="yes" Source="$(var.pack)\conf\security\policy\unlimited\default_US_export.policy" />
                 </Component>
-              </Directory>
-            </Directory>
-          </Directory>
-        </Directory>
-        <Directory Id="demo" Name="demo">
-          <Component Id="README" Guid="PUT-GUID-HERE">
-            <File Id="README" KeyPath="yes" Source="$(var.pack)\demo\README" />
-          </Component>
-          <Directory Id="jfc" Name="jfc">
-            <Directory Id="CodePointIM" Name="CodePointIM">
-              <Component Id="CodePointIM.jar" Guid="PUT-GUID-HERE">
-                <File Id="CodePointIM.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\CodePointIM\CodePointIM.jar" />
-              </Component>
-              <Component Id="README.html" Guid="PUT-GUID-HERE">
-                <File Id="README.html" KeyPath="yes" Source="$(var.pack)\demo\jfc\CodePointIM\README.html" />
-              </Component>
-              <Component Id="README_ja.html" Guid="PUT-GUID-HERE">
-                <File Id="README_ja.html" KeyPath="yes" Source="$(var.pack)\demo\jfc\CodePointIM\README_ja.html" />
-              </Component>
-              <Component Id="README_zh_CN.html" Guid="PUT-GUID-HERE">
-                <File Id="README_zh_CN.html" KeyPath="yes" Source="$(var.pack)\demo\jfc\CodePointIM\README_zh_CN.html" />
-              </Component>
-              <Component Id="src.zip" Guid="PUT-GUID-HERE">
-                <File Id="src.zip" KeyPath="yes" Source="$(var.pack)\demo\jfc\CodePointIM\src.zip" />
-              </Component>
-            </Directory>
-            <Directory Id="FileChooserDemo" Name="FileChooserDemo">
-              <Component Id="FileChooserDemo.jar" Guid="PUT-GUID-HERE">
-                <File Id="FileChooserDemo.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\FileChooserDemo\FileChooserDemo.jar" />
-              </Component>
-              <Component Id="README.txt_1" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_1" KeyPath="yes" Source="$(var.pack)\demo\jfc\FileChooserDemo\README.txt" />
-              </Component>
-              <Component Id="src.zip_1" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_1" KeyPath="yes" Source="$(var.pack)\demo\jfc\FileChooserDemo\src.zip" />
-              </Component>
-            </Directory>
-            <Directory Id="Font2DTest" Name="Font2DTest">
-              <Component Id="Font2DTest.html" Guid="PUT-GUID-HERE">
-                <File Id="Font2DTest.html" KeyPath="yes" Source="$(var.pack)\demo\jfc\Font2DTest\Font2DTest.html" />
-              </Component>
-              <Component Id="Font2DTest.jar" Guid="PUT-GUID-HERE">
-                <File Id="Font2DTest.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\Font2DTest\Font2DTest.jar" />
-              </Component>
-              <Component Id="README.txt_2" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_2" KeyPath="yes" Source="$(var.pack)\demo\jfc\Font2DTest\README.txt" />
-              </Component>
-              <Component Id="src.zip_2" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_2" KeyPath="yes" Source="$(var.pack)\demo\jfc\Font2DTest\src.zip" />
-              </Component>
-            </Directory>
-            <Directory Id="J2Ddemo" Name="J2Ddemo">
-              <Component Id="J2Ddemo.jar" Guid="PUT-GUID-HERE">
-                <File Id="J2Ddemo.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\J2Ddemo\J2Ddemo.jar" />
-              </Component>
-              <Component Id="README.txt_3" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_3" KeyPath="yes" Source="$(var.pack)\demo\jfc\J2Ddemo\README.txt" />
-              </Component>
-              <Component Id="src.zip_3" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_3" KeyPath="yes" Source="$(var.pack)\demo\jfc\J2Ddemo\src.zip" />
-              </Component>
-            </Directory>
-            <Directory Id="Metalworks" Name="Metalworks">
-              <Component Id="Metalworks.jar" Guid="PUT-GUID-HERE">
-                <File Id="Metalworks.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\Metalworks\Metalworks.jar" />
-              </Component>
-              <Component Id="README.txt_4" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_4" KeyPath="yes" Source="$(var.pack)\demo\jfc\Metalworks\README.txt" />
-              </Component>
-              <Component Id="src.zip_4" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_4" KeyPath="yes" Source="$(var.pack)\demo\jfc\Metalworks\src.zip" />
-              </Component>
-            </Directory>
-            <Directory Id="Notepad" Name="Notepad">
-              <Component Id="Notepad.jar" Guid="PUT-GUID-HERE">
-                <File Id="Notepad.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\Notepad\Notepad.jar" />
-              </Component>
-              <Component Id="README.txt_5" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_5" KeyPath="yes" Source="$(var.pack)\demo\jfc\Notepad\README.txt" />
-              </Component>
-              <Component Id="src.zip_5" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_5" KeyPath="yes" Source="$(var.pack)\demo\jfc\Notepad\src.zip" />
-              </Component>
-            </Directory>
-            <Directory Id="SampleTree" Name="SampleTree">
-              <Component Id="README.txt_6" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_6" KeyPath="yes" Source="$(var.pack)\demo\jfc\SampleTree\README.txt" />
-              </Component>
-              <Component Id="SampleTree.jar" Guid="PUT-GUID-HERE">
-                <File Id="SampleTree.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\SampleTree\SampleTree.jar" />
-              </Component>
-              <Component Id="src.zip_6" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_6" KeyPath="yes" Source="$(var.pack)\demo\jfc\SampleTree\src.zip" />
-              </Component>
-            </Directory>
-            <Directory Id="Stylepad" Name="Stylepad">
-              <Component Id="README.txt_7" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_7" KeyPath="yes" Source="$(var.pack)\demo\jfc\Stylepad\README.txt" />
-              </Component>
-              <Component Id="src.zip_7" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_7" KeyPath="yes" Source="$(var.pack)\demo\jfc\Stylepad\src.zip" />
-              </Component>
-              <Component Id="Stylepad.jar" Guid="PUT-GUID-HERE">
-                <File Id="Stylepad.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\Stylepad\Stylepad.jar" />
-              </Component>
-            </Directory>
-            <Directory Id="SwingSet2" Name="SwingSet2">
-              <Component Id="README.txt_8" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_8" KeyPath="yes" Source="$(var.pack)\demo\jfc\SwingSet2\README.txt" />
-              </Component>
-              <Component Id="src.zip_8" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_8" KeyPath="yes" Source="$(var.pack)\demo\jfc\SwingSet2\src.zip" />
-              </Component>
-              <Component Id="SwingSet2.html" Guid="PUT-GUID-HERE">
-                <File Id="SwingSet2.html" KeyPath="yes" Source="$(var.pack)\demo\jfc\SwingSet2\SwingSet2.html" />
-              </Component>
-              <Component Id="SwingSet2.jar" Guid="PUT-GUID-HERE">
-                <File Id="SwingSet2.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\SwingSet2\SwingSet2.jar" />
-              </Component>
-            </Directory>
-            <Directory Id="TableExample" Name="TableExample">
-              <Component Id="README.txt_9" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_9" KeyPath="yes" Source="$(var.pack)\demo\jfc\TableExample\README.txt" />
-              </Component>
-              <Component Id="src.zip_9" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_9" KeyPath="yes" Source="$(var.pack)\demo\jfc\TableExample\src.zip" />
-              </Component>
-              <Component Id="TableExample.jar" Guid="PUT-GUID-HERE">
-                <File Id="TableExample.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\TableExample\TableExample.jar" />
-              </Component>
-            </Directory>
-            <Directory Id="TransparentRuler" Name="TransparentRuler">
-              <Component Id="README.txt_10" Guid="PUT-GUID-HERE">
-                <File Id="README.txt_10" KeyPath="yes" Source="$(var.pack)\demo\jfc\TransparentRuler\README.txt" />
-              </Component>
-              <Component Id="src.zip_10" Guid="PUT-GUID-HERE">
-                <File Id="src.zip_10" KeyPath="yes" Source="$(var.pack)\demo\jfc\TransparentRuler\src.zip" />
-              </Component>
-              <Component Id="TransparentRuler.jar" Guid="PUT-GUID-HERE">
-                <File Id="TransparentRuler.jar" KeyPath="yes" Source="$(var.pack)\demo\jfc\TransparentRuler\TransparentRuler.jar" />
-              </Component>
-            </Directory>
-          </Directory>
-          <Directory Id="nbproject" Name="nbproject">
-            <Component Id="project.xml" Guid="PUT-GUID-HERE">
-              <File Id="project.xml" KeyPath="yes" Source="$(var.pack)\demo\nbproject\project.xml" />
-            </Component>
-            <Component Id="README.txt_11" Guid="PUT-GUID-HERE">
-              <File Id="README.txt_11" KeyPath="yes" Source="$(var.pack)\demo\nbproject\README.txt" />
-            </Component>
-            <Directory Id="jfc_1" Name="jfc">
-              <Directory Id="FileChooserDemo_1" Name="FileChooserDemo">
-                <Component Id="build.properties" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\FileChooserDemo\build.properties" />
-                </Component>
-                <Component Id="build.xml" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\FileChooserDemo\build.xml" />
-                </Component>
-                <Directory Id="nbproject_1" Name="nbproject">
-                  <Component Id="file_targets.xml" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\FileChooserDemo\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\FileChooserDemo\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\FileChooserDemo\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_1" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_1" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\FileChooserDemo\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="Font2DTest_1" Name="Font2DTest">
-                <Component Id="build.properties_1" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_1" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Font2DTest\build.properties" />
-                </Component>
-                <Component Id="build.xml_1" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_1" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Font2DTest\build.xml" />
-                </Component>
-                <Directory Id="nbproject_2" Name="nbproject">
-                  <Component Id="file_targets.xml_1" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_1" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Font2DTest\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_1" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_1" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Font2DTest\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_1" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_1" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Font2DTest\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_2" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_2" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Font2DTest\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="Metalworks_1" Name="Metalworks">
-                <Component Id="build.properties_2" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_2" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Metalworks\build.properties" />
-                </Component>
-                <Component Id="build.xml_2" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_2" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Metalworks\build.xml" />
-                </Component>
-                <Directory Id="nbproject_3" Name="nbproject">
-                  <Component Id="file_targets.xml_2" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_2" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Metalworks\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_2" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_2" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Metalworks\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_2" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_2" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Metalworks\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_3" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_3" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Metalworks\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="Notepad_1" Name="Notepad">
-                <Component Id="build.properties_3" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_3" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Notepad\build.properties" />
-                </Component>
-                <Component Id="build.xml_3" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_3" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Notepad\build.xml" />
-                </Component>
-                <Directory Id="nbproject_4" Name="nbproject">
-                  <Component Id="file_targets.xml_3" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_3" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Notepad\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_3" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_3" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Notepad\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_3" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_3" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Notepad\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_4" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_4" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\Notepad\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="SampleTree_1" Name="SampleTree">
-                <Component Id="build.properties_4" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_4" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SampleTree\build.properties" />
-                </Component>
-                <Component Id="build.xml_4" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_4" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SampleTree\build.xml" />
-                </Component>
-                <Directory Id="nbproject_5" Name="nbproject">
-                  <Component Id="file_targets.xml_4" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_4" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SampleTree\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_4" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_4" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SampleTree\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_4" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_4" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SampleTree\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_5" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_5" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SampleTree\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="SwingApplet" Name="SwingApplet">
-                <Component Id="build.properties_5" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_5" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SwingApplet\build.properties" />
-                </Component>
-                <Component Id="build.xml_5" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_5" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SwingApplet\build.xml" />
-                </Component>
-                <Directory Id="nbproject_6" Name="nbproject">
-                  <Component Id="file_targets.xml_5" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_5" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SwingApplet\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_5" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_5" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SwingApplet\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_5" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_5" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SwingApplet\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_6" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_6" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\SwingApplet\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="TableExample_1" Name="TableExample">
-                <Component Id="build.properties_6" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_6" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TableExample\build.properties" />
-                </Component>
-                <Component Id="build.xml_6" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_6" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TableExample\build.xml" />
-                </Component>
-                <Directory Id="nbproject_7" Name="nbproject">
-                  <Component Id="file_targets.xml_6" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_6" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TableExample\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_6" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_6" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TableExample\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_6" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_6" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TableExample\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_7" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_7" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TableExample\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="TransparentRuler_1" Name="TransparentRuler">
-                <Component Id="build.properties_7" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_7" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TransparentRuler\build.properties" />
-                </Component>
-                <Component Id="build.xml_7" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_7" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TransparentRuler\build.xml" />
-                </Component>
-                <Directory Id="nbproject_8" Name="nbproject">
-                  <Component Id="file_targets.xml_7" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_7" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TransparentRuler\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_7" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_7" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TransparentRuler\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_7" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_7" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TransparentRuler\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_8" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_8" KeyPath="yes" Source="$(var.pack)\demo\nbproject\jfc\TransparentRuler\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-            </Directory>
-            <Directory Id="management_1" Name="management">
-              <Directory Id="FullThreadDump" Name="FullThreadDump">
-                <Component Id="build.properties_8" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_8" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\FullThreadDump\build.properties" />
-                </Component>
-                <Component Id="build.xml_8" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_8" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\FullThreadDump\build.xml" />
-                </Component>
-                <Directory Id="nbproject_9" Name="nbproject">
-                  <Component Id="file_targets.xml_8" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_8" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\FullThreadDump\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_8" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_8" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\FullThreadDump\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_8" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_8" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\FullThreadDump\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_9" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_9" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\FullThreadDump\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="JTop" Name="JTop">
-                <Component Id="build.properties_9" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_9" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\JTop\build.properties" />
-                </Component>
-                <Component Id="build.xml_9" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_9" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\JTop\build.xml" />
-                </Component>
-                <Directory Id="nbproject_10" Name="nbproject">
-                  <Component Id="file_targets.xml_9" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_9" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\JTop\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_9" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_9" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\JTop\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_9" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_9" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\JTop\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_10" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_10" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\JTop\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="MemoryMonitor" Name="MemoryMonitor">
-                <Component Id="build.properties_10" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_10" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\MemoryMonitor\build.properties" />
-                </Component>
-                <Component Id="build.xml_10" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_10" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\MemoryMonitor\build.xml" />
-                </Component>
-                <Directory Id="nbproject_11" Name="nbproject">
-                  <Component Id="file_targets.xml_10" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_10" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\MemoryMonitor\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_10" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_10" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\MemoryMonitor\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_10" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_10" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\MemoryMonitor\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_11" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_11" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\MemoryMonitor\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-              <Directory Id="VerboseGC" Name="VerboseGC">
-                <Component Id="build.properties_11" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_11" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\VerboseGC\build.properties" />
-                </Component>
-                <Component Id="build.xml_11" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_11" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\VerboseGC\build.xml" />
-                </Component>
-                <Directory Id="nbproject_12" Name="nbproject">
-                  <Component Id="file_targets.xml_11" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_11" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\VerboseGC\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_11" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_11" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\VerboseGC\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_11" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_11" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\VerboseGC\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_12" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_12" KeyPath="yes" Source="$(var.pack)\demo\nbproject\management\VerboseGC\nbproject\project.xml" />
-                  </Component>
-                </Directory>
-              </Directory>
-            </Directory>
-            <Directory Id="scripting" Name="scripting">
-              <Directory Id="jconsole_plugin" Name="jconsole-plugin">
-                <Component Id="build.properties_12" Guid="PUT-GUID-HERE">
-                  <File Id="build.properties_12" KeyPath="yes" Source="$(var.pack)\demo\nbproject\scripting\jconsole-plugin\build.properties" />
-                </Component>
-                <Component Id="build.xml_12" Guid="PUT-GUID-HERE">
-                  <File Id="build.xml_12" KeyPath="yes" Source="$(var.pack)\demo\nbproject\scripting\jconsole-plugin\build.xml" />
-                </Component>
-                <Directory Id="nbproject_13" Name="nbproject">
-                  <Component Id="file_targets.xml_12" Guid="PUT-GUID-HERE">
-                    <File Id="file_targets.xml_12" KeyPath="yes" Source="$(var.pack)\demo\nbproject\scripting\jconsole-plugin\nbproject\file-targets.xml" />
-                  </Component>
-                  <Component Id="jdk.xml_12" Guid="PUT-GUID-HERE">
-                    <File Id="jdk.xml_12" KeyPath="yes" Source="$(var.pack)\demo\nbproject\scripting\jconsole-plugin\nbproject\jdk.xml" />
-                  </Component>
-                  <Component Id="netbeans_targets.xml_12" Guid="PUT-GUID-HERE">
-                    <File Id="netbeans_targets.xml_12" KeyPath="yes" Source="$(var.pack)\demo\nbproject\scripting\jconsole-plugin\nbproject\netbeans-targets.xml" />
-                  </Component>
-                  <Component Id="project.xml_13" Guid="PUT-GUID-HERE">
-                    <File Id="project.xml_13" KeyPath="yes" Source="$(var.pack)\demo\nbproject\scripting\jconsole-plugin\nbproject\project.xml" />
-                  </Component>
-                </Directory>
               </Directory>
             </Directory>
           </Directory>
@@ -2066,8 +1634,8 @@
           <Component Id="psfontj2d.properties" Guid="PUT-GUID-HERE">
             <File Id="psfontj2d.properties" KeyPath="yes" Source="$(var.pack)\lib\psfontj2d.properties" />
           </Component>
-          <Component Id="src.zip_11" Guid="PUT-GUID-HERE">
-            <File Id="src.zip_11" KeyPath="yes" Source="$(var.pack)\lib\src.zip" />
+          <Component Id="src.zip" Guid="PUT-GUID-HERE">
+            <File Id="src.zip" KeyPath="yes" Source="$(var.pack)\lib\src.zip" />
           </Component>
           <Component Id="tzdb.dat" Guid="PUT-GUID-HERE">
             <File Id="tzdb.dat" KeyPath="yes" Source="$(var.pack)\lib\tzdb.dat" />
@@ -2075,6 +1643,11 @@
           <Component Id="tzmappings" Guid="PUT-GUID-HERE">
             <File Id="tzmappings" KeyPath="yes" Source="$(var.pack)\lib\tzmappings" />
           </Component>
+          <Directory Id="client_1" Name="client">
+            <Component Id="Xusage.txt" Guid="PUT-GUID-HERE">
+              <File Id="Xusage.txt" KeyPath="yes" Source="$(var.pack)\lib\client\Xusage.txt" />
+            </Component>
+          </Directory>
           <Directory Id="jfr" Name="jfr">
             <Component Id="default.jfc" Guid="PUT-GUID-HERE">
               <File Id="default.jfc" KeyPath="yes" Source="$(var.pack)\lib\jfr\default.jfc" />
@@ -2098,8 +1671,8 @@
             </Component>
           </Directory>
           <Directory Id="server_1" Name="server">
-            <Component Id="Xusage.txt" Guid="PUT-GUID-HERE">
-              <File Id="Xusage.txt" KeyPath="yes" Source="$(var.pack)\lib\server\Xusage.txt" />
+            <Component Id="Xusage.txt_1" Guid="PUT-GUID-HERE">
+              <File Id="Xusage.txt_1" KeyPath="yes" Source="$(var.pack)\lib\server\Xusage.txt" />
             </Component>
           </Directory>
         </Directory>
@@ -2107,6 +1680,7 @@
   </Fragment>
   <Fragment>
     <ComponentGroup Id="AppFiles">
+      <ComponentRef Id="NOTICE" />
       <ComponentRef Id="release" />
       <ComponentRef Id="api_ms_win_core_console_l1_1_0.dll" />
       <ComponentRef Id="api_ms_win_core_datetime_l1_1_0.dll" />
@@ -2231,6 +1805,7 @@
       <ComponentRef Id="windowsaccessbridge_64.dll" />
       <ComponentRef Id="zip.dll" />
       <ComponentRef Id="jvm.dll" />
+      <ComponentRef Id="jvm.dll_1" />
       <ComponentRef Id="logging.properties" />
       <ComponentRef Id="net.properties" />
       <ComponentRef Id="sound.properties" />
@@ -2245,124 +1820,6 @@
       <ComponentRef Id="exempt_local.policy" />
       <ComponentRef Id="default_local.policy_1" />
       <ComponentRef Id="default_US_export.policy_1" />
-      <ComponentRef Id="README" />
-      <ComponentRef Id="CodePointIM.jar" />
-      <ComponentRef Id="README.html" />
-      <ComponentRef Id="README_ja.html" />
-      <ComponentRef Id="README_zh_CN.html" />
-      <ComponentRef Id="src.zip" />
-      <ComponentRef Id="FileChooserDemo.jar" />
-      <ComponentRef Id="README.txt_1" />
-      <ComponentRef Id="src.zip_1" />
-      <ComponentRef Id="Font2DTest.html" />
-      <ComponentRef Id="Font2DTest.jar" />
-      <ComponentRef Id="README.txt_2" />
-      <ComponentRef Id="src.zip_2" />
-      <ComponentRef Id="J2Ddemo.jar" />
-      <ComponentRef Id="README.txt_3" />
-      <ComponentRef Id="src.zip_3" />
-      <ComponentRef Id="Metalworks.jar" />
-      <ComponentRef Id="README.txt_4" />
-      <ComponentRef Id="src.zip_4" />
-      <ComponentRef Id="Notepad.jar" />
-      <ComponentRef Id="README.txt_5" />
-      <ComponentRef Id="src.zip_5" />
-      <ComponentRef Id="README.txt_6" />
-      <ComponentRef Id="SampleTree.jar" />
-      <ComponentRef Id="src.zip_6" />
-      <ComponentRef Id="README.txt_7" />
-      <ComponentRef Id="src.zip_7" />
-      <ComponentRef Id="Stylepad.jar" />
-      <ComponentRef Id="README.txt_8" />
-      <ComponentRef Id="src.zip_8" />
-      <ComponentRef Id="SwingSet2.html" />
-      <ComponentRef Id="SwingSet2.jar" />
-      <ComponentRef Id="README.txt_9" />
-      <ComponentRef Id="src.zip_9" />
-      <ComponentRef Id="TableExample.jar" />
-      <ComponentRef Id="README.txt_10" />
-      <ComponentRef Id="src.zip_10" />
-      <ComponentRef Id="TransparentRuler.jar" />
-      <ComponentRef Id="project.xml" />
-      <ComponentRef Id="README.txt_11" />
-      <ComponentRef Id="build.properties" />
-      <ComponentRef Id="build.xml" />
-      <ComponentRef Id="file_targets.xml" />
-      <ComponentRef Id="jdk.xml" />
-      <ComponentRef Id="netbeans_targets.xml" />
-      <ComponentRef Id="project.xml_1" />
-      <ComponentRef Id="build.properties_1" />
-      <ComponentRef Id="build.xml_1" />
-      <ComponentRef Id="file_targets.xml_1" />
-      <ComponentRef Id="jdk.xml_1" />
-      <ComponentRef Id="netbeans_targets.xml_1" />
-      <ComponentRef Id="project.xml_2" />
-      <ComponentRef Id="build.properties_2" />
-      <ComponentRef Id="build.xml_2" />
-      <ComponentRef Id="file_targets.xml_2" />
-      <ComponentRef Id="jdk.xml_2" />
-      <ComponentRef Id="netbeans_targets.xml_2" />
-      <ComponentRef Id="project.xml_3" />
-      <ComponentRef Id="build.properties_3" />
-      <ComponentRef Id="build.xml_3" />
-      <ComponentRef Id="file_targets.xml_3" />
-      <ComponentRef Id="jdk.xml_3" />
-      <ComponentRef Id="netbeans_targets.xml_3" />
-      <ComponentRef Id="project.xml_4" />
-      <ComponentRef Id="build.properties_4" />
-      <ComponentRef Id="build.xml_4" />
-      <ComponentRef Id="file_targets.xml_4" />
-      <ComponentRef Id="jdk.xml_4" />
-      <ComponentRef Id="netbeans_targets.xml_4" />
-      <ComponentRef Id="project.xml_5" />
-      <ComponentRef Id="build.properties_5" />
-      <ComponentRef Id="build.xml_5" />
-      <ComponentRef Id="file_targets.xml_5" />
-      <ComponentRef Id="jdk.xml_5" />
-      <ComponentRef Id="netbeans_targets.xml_5" />
-      <ComponentRef Id="project.xml_6" />
-      <ComponentRef Id="build.properties_6" />
-      <ComponentRef Id="build.xml_6" />
-      <ComponentRef Id="file_targets.xml_6" />
-      <ComponentRef Id="jdk.xml_6" />
-      <ComponentRef Id="netbeans_targets.xml_6" />
-      <ComponentRef Id="project.xml_7" />
-      <ComponentRef Id="build.properties_7" />
-      <ComponentRef Id="build.xml_7" />
-      <ComponentRef Id="file_targets.xml_7" />
-      <ComponentRef Id="jdk.xml_7" />
-      <ComponentRef Id="netbeans_targets.xml_7" />
-      <ComponentRef Id="project.xml_8" />
-      <ComponentRef Id="build.properties_8" />
-      <ComponentRef Id="build.xml_8" />
-      <ComponentRef Id="file_targets.xml_8" />
-      <ComponentRef Id="jdk.xml_8" />
-      <ComponentRef Id="netbeans_targets.xml_8" />
-      <ComponentRef Id="project.xml_9" />
-      <ComponentRef Id="build.properties_9" />
-      <ComponentRef Id="build.xml_9" />
-      <ComponentRef Id="file_targets.xml_9" />
-      <ComponentRef Id="jdk.xml_9" />
-      <ComponentRef Id="netbeans_targets.xml_9" />
-      <ComponentRef Id="project.xml_10" />
-      <ComponentRef Id="build.properties_10" />
-      <ComponentRef Id="build.xml_10" />
-      <ComponentRef Id="file_targets.xml_10" />
-      <ComponentRef Id="jdk.xml_10" />
-      <ComponentRef Id="netbeans_targets.xml_10" />
-      <ComponentRef Id="project.xml_11" />
-      <ComponentRef Id="build.properties_11" />
-      <ComponentRef Id="build.xml_11" />
-      <ComponentRef Id="file_targets.xml_11" />
-      <ComponentRef Id="jdk.xml_11" />
-      <ComponentRef Id="netbeans_targets.xml_11" />
-      <ComponentRef Id="project.xml_12" />
-      <ComponentRef Id="build.properties_12" />
-      <ComponentRef Id="build.xml_12" />
-      <ComponentRef Id="file_targets.xml_12" />
-      <ComponentRef Id="jdk.xml_12" />
-      <ComponentRef Id="netbeans_targets.xml_12" />
-      <ComponentRef Id="project.xml_13" />
       <ComponentRef Id="classfile_constants.h" />
       <ComponentRef Id="jawt.h" />
       <ComponentRef Id="jdwpTransport.h" />
@@ -2709,16 +2166,17 @@
       <ComponentRef Id="modules" />
       <ComponentRef Id="psfont.properties.ja" />
       <ComponentRef Id="psfontj2d.properties" />
-      <ComponentRef Id="src.zip_11" />
+      <ComponentRef Id="src.zip" />
       <ComponentRef Id="tzdb.dat" />
       <ComponentRef Id="tzmappings" />
+      <ComponentRef Id="Xusage.txt" />
       <ComponentRef Id="default.jfc" />
       <ComponentRef Id="profile.jfc" />
       <ComponentRef Id="blacklisted.certs" />
       <ComponentRef Id="cacerts" />
       <ComponentRef Id="default.policy" />
       <ComponentRef Id="public_suffix_list.dat" />
-      <ComponentRef Id="Xusage.txt" />
+      <ComponentRef Id="Xusage.txt_1" />
     </ComponentGroup>
   </Fragment>
 </Wix>
