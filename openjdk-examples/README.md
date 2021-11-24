@@ -6,16 +6,18 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>openjdk-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself for creating a <a href="https://www.scala-lang.org/">OpenJDK</a> Windows installer.
+    Directory <strong><code>openjdk-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/">OpenJDK</a> Windows installer.
   </td>
   </tr>
 </table>
 
-<i>tdb</i>
+[Eclipse Adoptium](https://projects.eclipse.org/projects/adoptium) is a top-level project whose mission is to provide an open and reproducible build and test system for OpenJDK source across multiple platforms.
+
+This includes the development of a [WiX installer](https://github.com/adoptium/installer/tree/master/wix) (see GitHub project [`adoptium/installer`][adoptium_installer]) configurable for various OpenJDK implementations.
 
 ## <span id="openjdk11">OpenJDK11</span>
 
-Project `OpenJDK11` is derived from works on a [Wix installer](https://github.com/adoptium/installer/tree/master/wix) configurable for various OpenJDK implementations in the context of the GitHub project [`adoptium/installer`][adoptium_installer].
+Project `OpenJDK11` is based on the [WiX][wix_toolset] source files developed in the project [`adoptium/installer`][adoptium_installer].
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -36,6 +38,8 @@ Y:\openjdk-examples\OpenJDK11
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.Base.fr-fr.wxl">OpenJDK.Base.fr-fr.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.hotspot.en-us.wxl">OpenJDK.hotspot.en-us.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.hotspot.fr-fr.wxl">OpenJDK.hotspot.fr-fr.wxl</a>
+    │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.en-us.wxl">OpenJDK.openj9.en-us.wxl</a>
+    │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.fr-fr.wxl">OpenJDK.openj9.fr-fr.wxl</a>
     └───<b>resources</b>
             license-GPLv2+CE.en-us.rtf
             license-OpenJ9.en-us.rtf
@@ -44,35 +48,34 @@ Y:\openjdk-examples\OpenJDK11
             <a href="./OpenJDK11/src/resources/wix-dialog.bmp">wix-dialog.bmp</a>
 </pre>
 
-Command [`build link`](./OpenJDK11/build.bat) generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13.8.msi` <sup id="anchor_01">[1](#footnote_01)</sup>.
-
-> **:mag_right:** Command [`build help`](./OpenJDK11/build.bat) displays the batch file options and subcommands:
+Command [`build link`](./OpenJDK11/build.bat) <sup id="anchor_01">[1](#footnote_01)</sup> generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi` <sup id="anchor_02">[2](#footnote_02)</sup>.
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./Scala2First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   candle_opts.txt
-│   candle_sources.txt
-│   Fragments.wixobj
-│   light_opts.txt
-│   Main.wixobj
-│   OpenJDK11U-jdk_x64_windows_hotspot_11.0.13.8.msi
-│   OpenJDK11U-jdk_x64_windows_hotspot_11.0.13.8.wixpdb
-│   replace.ps1
-└───<b>src_gen</b>
-        Fragments.cid.txt  <i>(component identifier list)</i>
-        Fragments.wxs
-        Fragments.wxs.txt  <i>(raw output from <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat</a>)</i>
-        Includes.wxi
-        Main.wxs
-        OpenJDK.Base.en-us.wxl
-        OpenJDK.Base.fr-fr.wxl
-        OpenJDK.hotspot.en-us.wxl
-        OpenJDK.hotspot.fr-fr.wxl
+<b>&gt; <a href="./OpenJDK11/build.bat">build</a> -verbose clean link</b>
+Delete directory "target"
+Generate auxiliary file "target\src_gen\Fragments.wxs.txt"
+Saved 497 component identifiers to file "target\src_gen\Fragments.cid.txt"
+ECHO is off.
+Execute PS1 script "target\replace.ps1"
+Compiling 2 WiX source files to directory "target"
+Create Windows installer "target\OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi"
 </pre>
 
-> **:mag_right:** The above file `target\src_gen\Main.wxs` contains the real GUIDs instead of the symbol names defined in source file [`src\Main.wxs`](./OpenJDK11/src/Main.wxs).
+The output directory `target\` looks as follows :
 
-Figures **1.1** to **1.4** below illustrate illustrate the dialog windows of our [OpenJDK 11][adoptium_openjdk11] Windows installer.
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b target</b>
+candle_opts.txt
+candle_sources.txt
+Fragments.wixobj
+light_opts.txt
+Main.wixobj
+OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi
+OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.wixpdb
+replace.ps1
+</pre>
+
+Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 11][adoptium_openjdk11] Windows installer while figure **1.5** shows the updated user environment after the successful execution of the Windows installer.
 
 <table>
 <tr>
@@ -107,10 +110,34 @@ Figures **1.1** to **1.4** below illustrate illustrate the dialog windows of our
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***File naming conventions*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> ***Batch file* `build.bat`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> can be decomponsed as follows :
+Command <a href="./OpenJDK11/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
+</p>
+
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; build help</b>
+Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+&nbsp;
+  Options:
+    -debug       show commands executed by this script
+    -timer       display total execution time
+    -verbose     display progress messages
+&nbsp;
+  Subcommands:
+    clean        delete generated files
+    help         display this help message
+    install      execute Windows installer OpenJDK
+    link         create Windows installer from WXS/WXI/WXL files
+    remove       remove installed program (same as uninstall)
+    uninstall    remove installed program
+</pre>
+
+<b name="footnote_02">[2]</b> ***File naming conventions*** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;">
+For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> can be decomposed as follows (see also the Swagger descriptions of the <a href="https://api.adoptium.net/q/swagger-ui/#/Installer">OpenAPI UI</a>):
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr>

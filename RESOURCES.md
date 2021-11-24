@@ -110,7 +110,7 @@ version = "12"
 [article_moack]: https://www.codeproject.com/Tips/105638/A-quick-introduction-Create-an-MSI-installer-with
 [blog_arnson]: https://www.joyofsetup.com/2013/02/06/l10nm10n-localization-minimization/
 [blog_dizzy]: http://www.dizzymonkeydesign.com/blog/misc/adding-and-customizing-dlgs-in-wix-3/
-[blog_klein]: (https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/)
+[blog_klein]: https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/
 [blog_mensching_2008]: https://robmensching.com/blog/posts/2008/4/21/how-to-escape-the-ampersand-in-wix-and-msi-ui/
 [blog_mensching_2010]: https://robmensching.com/blog/posts/2010/5/2/the-wix-toolsets-remember-property-pattern/
 [blog_robbin1]: https://www.wintellect.com/wix-hints-for-new-users-part-1-of-3/
