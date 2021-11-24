@@ -355,7 +355,7 @@ for /f %%i in (%_FRAGMENTS_CID_FILE%) do (
         echo %%i=!__GUID!>> "%_GUIDS_FILE%"
     )
     @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %%i=!__GUID! 1>&2
-	set /a __M+=1
+    set /a __M+=1
     set __REPLACE[!__M!]=-replace '^Id="%%i" Guid="PUT-GUID-HERE"', 'Id="%%i" Guid="!__GUID!"'
 )
 set "__PS1_FILE=%_TARGET_DIR%\replace.ps1"
@@ -366,12 +366,12 @@ set __N=0
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
-	echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
+    echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
     for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
     echo ^(Get-Content !__VAR_IN!^) `>> "%__PS1_FILE%"
     for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
     echo    ^| Out-File -encoding ASCII !__VAR_OUT!>> "%__PS1_FILE%"
-	echo.>> "%__PS1_FILE%"
+    echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -nologo -file "%__PS1_FILE%" 1>&2

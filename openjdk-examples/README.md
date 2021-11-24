@@ -77,22 +77,30 @@ Figures **1.1** to **1.4** below illustrate illustrate the dialog windows of our
 <table>
 <tr>
 <td style="text-align:center;">
-  <div>
-  <a href="images/Adoptium_OpenJDK_Setup1.png"><img style="max-width:180px;" src="images/Adoptium_OpenJDK_Setup1.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.1 -</b> Welcome<br>(<i>OpenJDK 11</i> installer).<br/>&nbsp;
+  <a href="images/Temurin_OpenJDK11_Welcome.png"><img style="max-width:180px;" src="images/Temurin_OpenJDK11_Welcome.png" /></a>
+  <div style="font-size:70%;">
+  <b>Figure 1.1 -</b> Welcome<br>(<i>OpenJDK 11</i> installer).<br/>&nbsp;
   </div>
-  <div>
-  <a href="images/Adoptium_OpenJDK_Setup2.png"><img style="max-width:180px;" src="images/Adoptium_OpenJDK_Setup2.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.2 -</b> Custom setup<br>(<i>OpenJDK 11</i> installer).
+  <a href="images/Temurin_OpenJDK11_CustomSetup.png"><img style="max-width:180px;" src="images/Temurin_OpenJDK11_CustomSetup.png" /></a>
+  <div style="font-size:70%;">
+  <b>Figure 1.2 -</b> Custom setup<br>(<i>OpenJDK 11</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
-  <a href="images/Adoptium_OpenJDK_Setup3.png"><img style="max-width:180px;" src="images/Adoptium_OpenJDK_Setup3.png" /></a>
+  <a href="images/Temurin_OpenJDK11_Ready.png"><img style="max-width:180px;" src="images/Temurin_OpenJDK11_Ready.png" /></a>
   <div style="font-size:70%;"><b>Figure 1.3 -</b> Ready<br>(<i>OpenJDK 11</i> installer).<br/>&nbsp;
   </div>
-  <a href="images/Adoptium_OpenJDK_Setup4.png"><img style="max-width:180px;" src="images/Adoptium_OpenJDK_Setup4.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.4 -</b> Completed installation<br/>(<i>OpenJDK 11</i> installer).
+  <a href="images/Temurin_OpenJDK11_Completed.png"><img style="max-width:180px;" src="images/Temurin_OpenJDK11_Completed.png" /></a>
+  <div style="font-size:70%;">
+  <b>Figure 1.4 -</b> Completed installation<br/>(<i>OpenJDK 11</i> installer).
+  </div>
+</td>
+<td>
+  <a href="images/Temurin_OpenJDK11_ProgFiles.png"><img style="max-width:180px;" src="images/Temurin_OpenJDK11_ProgFiles.png" /></a>
+  <div style="font-size:70%;">
+  <b>Figure 1.5 -</b> <i>OpenJDK 11</i> directory<br/>(<i>Program&nbsp;Files1</i> folder).<br/>&nbsp;
+  </div>
+  <!-- to be added -->
 </td>
 </tr>
 </table>

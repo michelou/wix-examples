@@ -15,7 +15,7 @@
 
 This project depends on two external software for the **Microsoft Windows** plaform:
 
-- [Git 2.33][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.34][git_downloads] ([*release notes*][git_relnotes])
 - [WiX 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
 
 Optionally one may also install the following software:
@@ -31,7 +31,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*November 2021*) <sup id="anchor_04"><a href="#footnote_04">4</a></sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.33.1\             <i>(279 MB)</i>
+C:\opt\Git-2.34.0\             <i>(279 MB)</i>
 C:\opt\ImageMagick-7.1.0-Q16\  <i>(300 MB)</i>
 C:\opt\WiX-3.11.2\             <i>( 99 MB)</i>
 C:\Program Files (x86)\instedit.com\InstEd\  <i>(  7 MB)</i>
@@ -77,17 +77,17 @@ where
 Tool versions:
    candle 3.11.2.4516, light 3.11.2.4516,
    msiinfo 5.0, uuidgen v1.01
-   magick 7.1.0-7, git 2.33.1.windows.1, diff 3.8
+   magick 7.1.0-7, git 2.34.0.windows.1, diff 3.8
 Tool paths:
    C:\opt\Wix-3.11.2\candle.exe
    C:\opt\WiX-3.11.2\light.exe
    C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\MsiInfo.exe
    C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\uuidgen.exe
    C:\opt\ImageMagick-7.1.0-Q16\magick.exe
-   C:\opt\Git-2.33.1\bin\git.exe
-   C:\opt\Git-2.33.1\usr\bin\diff.exe
+   C:\opt\Git-2.34.0\bin\git.exe
+   C:\opt\Git-2.34.0\usr\bin\diff.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.33.1"
+   "GIT_HOME=C:\opt\Git-2.34.0"
    "MAGICK_HOME=C:\opt\ImageMagick-7.1.0-Q16"
    "WINSDK_HOME=C:\Program Files (x86)\Windows Kits\10"
    "WIX=C:\opt\WiX-3.11.2"
@@ -98,7 +98,7 @@ Environment variables:
 <b name="footnote_01">[1]</b> ***ImageMagick*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-<a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize dialog windows in the generated Windows installer.
+<a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize two dialog windows in the generated Windows installer.
 </p>
 
 <b name="footnote_02">[2]</b> ***InstEd*** [↩](#anchor_02)
@@ -125,7 +125,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://imagemagick.org/script/download.php#windows">ImageMagick-7.1.0-portable-Q16-x64.zip</a>  <i>(111 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.33.1-64-bit.7z.exe</a>        <i>( 42 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.34.0-64-bit.7z.exe</a>        <i>( 44 MB)</i>
 vs_2019_community.exe                   <i>(1.7 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                         <i>(  1 MB)</i>
 <a href="https://github.com/wixtoolset/wix3/releases">wix311-binaries.zip</a>                     <i>( 33 MB)</i>
@@ -147,7 +147,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.0.txt
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gui]: https://en.wikipedia.org/wiki/Graphical_user_interface
 [haskell_examples]: https://github.com/michelou/haskell-examples

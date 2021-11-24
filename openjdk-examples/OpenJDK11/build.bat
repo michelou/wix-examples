@@ -149,11 +149,12 @@ set _PRODUCT_MINOR_VERSION=0
 set _PRODUCT_MAINTENANCE_VERSION=0
 set _PRODUCT_PATCH_VERSION=0
 set _PRODUCT_BUILD_NUMBER=28
-set _MSI_PRODUCT_VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.0.%_PRODUCT_BUILD_NUMBER%
+set _MSI_PRODUCT_VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%.%_PRODUCT_BUILD_NUMBER%
 set _ARCH=x64
 set _JVM=hotspot
 set _PRODUCT_CATEGORY=jdk
 set _SKIP_MSI_VALIDATION=
+set _UPGRADE_CODE_SEED=
 
 @rem default vendor information
 set "_VENDOR=Eclipse Adoptium"
@@ -178,17 +179,26 @@ if exist "%__PROPS_FILE%" (
             set "__!__NAME!=!__VALUE!"
         )
     )
-    @rem Adoptium variables
+    @rem product information
     if defined __PRODUCT_MAJOR_VERSION set "_PRODUCT_MAJOR_VERSION=!__PRODUCT_MAJOR_VERSION!"
     if defined __PRODUCT_MINOR_VERSION set "_PRODUCT_MINOR_VERSION=!__PRODUCT_MINOR_VERSION!"
+    if defined __PRODUCT_MAINTENANCE_VERSION set "_PRODUCT_MAINTENANCE_VERSION=!__PRODUCT_MAINTENANCE_VERSION!"
+    if defined __PRODUCT_PATCH_VERSION set "_PRODUCT_PATCH_VERSION=!__PRODUCT_PATCH_VERSION!"
+    if defined __PRODUCT_BUILD_NUMBER set "_PRODUCT_BUILD_NUMBER=!__PRODUCT_BUILD_NUMBER!"
     if defined __MSI_PRODUCT_VERSION set "_MSI_PRODUCT_VERSION=!__MSI_PRODUCT_VERSION!"
     if defined __ARCH set "_ARCH=!__ARCH!"
     if defined __JVM set "_JVM=!__JVM!"
-    if defined __PRODUCT_CATEGORY set _PRODUCT_CATEGORY=!__PRODUCT_CATEGORY!
-    if defined __SKIP_MSI_VALIDATION set _SKIP_MSI_VALIDATION=!__SKIP_MSI_VALIDATION!
+    if defined __PRODUCT_CATEGORY set "_PRODUCT_CATEGORY=!__PRODUCT_CATEGORY!"
+    if defined __SKIP_MSI_VALIDATION set "_SKIP_MSI_VALIDATION=!__SKIP_MSI_VALIDATION!"
+    if defined __UPGRADE_CODE_SEED set "_UPGRADE_CODE_SEED=!__UPGRADE_CODE_SEED!"
     @rem vendor information
     if defined __VENDOR set "_VENDOR=!__VENDOR!"
     if defined __VENDOR_BRANDING set "_VENDOR_BRANDING=!__VENDOR_BRANDING!"
+    if defined __VENDOR_BRANDING_LOGO set "_VENDOR_BRANDING_LOGO=!__VENDOR_BRANDING_LOGO!"
+    if defined __VENDOR_BRANDING_BANNER set "_VENDOR_BRANDING_BANNER=!__VENDOR_BRANDING_BANNER!"
+    if defined __VENDOR_BRANDING_DIALOG set "_VENDOR_BRANDING_DIALOG=!__VENDOR_BRANDING_DIALOG!"
+    if defined __PRODUCT_HELP_LINK set "_PRODUCT_HELP_LINK=!__PRODUCT_HELP_LINK!"
+    if defined __PRODUCT_SUPPORT_LINK set "_PRODUCT_SUPPORT_LINK=!__PRODUCT_SUPPORT_LINK!"
     if defined __PRODUCT_UPDATE_INFO_LINK set "_PRODUCT_UPDATE_INFO_LINK=!__PRODUCT_UPDATE_INFO_LINK!"
     @rem WiX information
     if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
@@ -330,7 +340,7 @@ goto :eof
 :gen_app
 if exist "%_RELEASE_FILE%" goto :eof
 
-if not exist "%_APP_DIR%\release" (
+if not exist "%_RELEASE_FILE%" (
     @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
     set "__RELEASE=11.0.13+8"
     set _PRODUCT_VERSION=
@@ -396,9 +406,8 @@ if not %_EXITCODE%==0 goto :eof
 
 set __REPLACE=
 set __M=0
-@rem Temporary workaround (no idea how {vendor_..}/{product_..} names are substituted)
-@rem set __REPLACE[%__M%]=-replace '{vendor}', '%_VENDOR%'
-@rem set /a __M+=1
+set __REPLACE[%__M%]=-replace '{vendor}', '%_VENDOR%'
+set /a __M+=1
 set __REPLACE[%__M%]=-replace '{vendor_branding}', '%_VENDOR_BRANDING%'
 set /a __M+=1
 set __REPLACE[%__M%]=-replace '{vendor_branding_banner}', '%_VENDOR_BRANDING_BANNER%'
@@ -419,8 +428,7 @@ for /f %%i in (%_FRAGMENTS_CID_FILE%) do (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
         echo %%i=!__GUID!>> "%_GUIDS_FILE%"
     )
-    @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %%i=!__GUID! 1>&2
-	set /a __M+=1
+    set /a __M+=1
     set __REPLACE[!__M!]=-replace '^Id="%%i" Guid="PUT-GUID-HERE"', 'Id="%%i" Guid="!__GUID!"'
 )
 set "__PS1_FILE=%_TARGET_DIR%\replace.ps1"
@@ -431,12 +439,12 @@ set __N=0
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
-	echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
+    echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
     for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
-    echo ^(Get-Content !__VAR_IN!^) `>> "%__PS1_FILE%"
+    echo ^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
     for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
-    echo    ^| Out-File -encoding ASCII !__VAR_OUT!>> "%__PS1_FILE%"
-	echo.>> "%__PS1_FILE%"
+    echo    ^| Out-File -Encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
+    echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
 echo 
@@ -479,13 +487,13 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 set __OPT_EXTENSIONS=-ext wixUtilExtension
 set __OPT_PROPERTIES="-dpack=%_APP_DIR%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dMSIProductVersion=%_MSI_PRODUCT_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersionString=11.0.13.8"
+set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersionString=%_PRODUCT_SHORT_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dJVM=%_JVM%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMajorVersion=%_PRODUCT_MAJOR_VERSION%"
+set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMinorVersion=%_PRODUCT_MINOR_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductId=%_PRODUCT_ID%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dSetupResourcesDir=%_RESOURCES_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-d{vendor}=%_VENDOR%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
@@ -544,7 +552,7 @@ if %_DEBUG%==1 ( set __OPT_COMMON=-v -sval
 )
 set __CULTURE=en-us
 set __OPT_LOCALIZED="-cultures:%__CULTURE%"
-for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*Base.%__CULTURE%.wxl" "%_LOCALIZATIONS_DIR%\*%_JVM%.%__CULTURE%.wxl"') do (
+for /f "delims=" %%f in ('dir /b /s "%_GEN_DIR%\*Base.%__CULTURE%.wxl" "%_GEN_DIR%\*%_JVM%.%__CULTURE%.wxl"') do (
     set __OPT_LOCALIZED=!__OPT_LOCALIZED! -loc "%%f"
 )
 set __OPT_EXTENSIONS=-ext wixUIExtension -ext wixUtilExtension
@@ -642,19 +650,18 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :remove
-if not defined _GUID[PRODUCT_ID] (
+if not defined _PRODUCT_ID (
     echo %_ERROR_LABEL% Product code not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
-set "__PRODUCT_ID=%_GUID[PRODUCT_ID]%"
 
-@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_ID%" 1>&2
+@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%_PRODUCT_ID%" 1>&2
 @rem ) else if %_VERBOSE%==1 ( echo Check if product if already installed 1>&2
 @rem )
 @rem set __INSTALLED=0
-@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%__PRODUCT_ID%" && set __INSTALLED=1
+@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%_PRODUCT_ID%" && set __INSTALLED=1
 @rem if %__INSTALLED%==0 (
 @rem     echo %_WARNING_LABEL% Product "%PRODUCT_SKU%" is not installed 1>&2
 @rem     goto :eof

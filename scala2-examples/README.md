@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself for creating a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer.
+    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer.
   </td>
   </tr>
 </table>
@@ -17,7 +17,7 @@ The [WiX][wix_toolset] examples presented in the following sections
 
 ## <span id="scala2_first">Scala2First</span>
 
-Project `Scala2First` is our first iteration to create a Windows installer (aka. MSI file) for the [Scala 2][scala2_releases] software distribution.
+Project `Scala2First` is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 2][scala2_releases] software distribution.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -140,6 +140,42 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 Project `Scala2UI` <sup id="anchor_01">[1](#footnote_01)</sup> ...
 
 *wip*
+
+Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./Scala2UI/build.bat">build</a> -verbose link && tree /f target | findstr /v /b [a-z]</b>
+Generate auxiliary file "target\src_gen\Fragments.wxs.txt"
+Saved 40 component identifiers to file "target\src_gen\Fragments.cid.txt"
+Execute PS1 script "target\replace.ps1"
+Copy .bat files to directory "target\resources"
+Copy .ico files to directory "target\resources"
+Use banner image found in directory "src\resources"
+Add logo to top banner image "target\resources\BannerTop.bmp"
+Add logo to dialog image "target\resources\Dialog.bmp"
+Compiling 2 WiX source files to directory "target"
+Create Windows installer "target\scala-2.13.7.msi"
+│   candle_opts.txt
+│   candle_sources.txt
+│   Fragments.wixobj
+│   light_opts.txt
+│   replace.ps1
+│   scala-2.13.7.msi
+│   scala-2.13.7.wixpdb
+│   Scala2UI.wixobj
+├───<b>resources</b>
+│       BannerTop.bmp
+│       Dialog.bmp
+│       favicon.ico
+│       network.ico
+│       repl.bat
+└───<b>src_gen</b>
+        Fragments.cid.txt
+        Fragments.wxs
+        Fragments.wxs.txt
+        Includes.wxi
+        Scala2UI.wxs
+</pre>
 
 Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows installer while Figures **3.5** and **3.6** show the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 

@@ -391,14 +391,17 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" 1>&2
-) else if %_VERBOSE%==1 ( echo Copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
-)
-xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
-    set _EXITCODE=1
-    goto :eof
+@rem image files are handled separately (see :gen_banner)
+for %%e in (bat ico) do (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    )
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 call :gen_banner
 if not %_EXITCODE%==0 goto :eof
@@ -426,21 +429,21 @@ if exist "%__INFILE%" (
     copy /y "%__INFILE%" "%__TMPFILE%" %_STDOUT_REDIRECT%
 ) else (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Create top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     )
     call "%_CONVERT_CMD%" -size 493x58 "%__TMPFILE%"
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to create the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+        echo %_ERROR_LABEL% Failed to create top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__TMPFILE%" "%__LOGO_FILE%" ... 1>&2
-) else if %_VERBOSE%==1 ( echo Add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Add logo to top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CONVERT_CMD%" "%__TMPFILE%" ^( "%__LOGO_FILE%" -resize 28 -transparent "#ffffff" ^) -gravity NorthEast -geometry +18+6 -compose over -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to add logo to the top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to add logo to top banner image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -453,11 +456,11 @@ set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 set "__OUTFILE=%_TARGET_DIR%\resources\Dialog.bmp"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__INFILE%" "%__LOGO_FILE%" ... 1>&2
-) else if %_VERBOSE%==1 ( echo Add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Add logo to dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CONVERT_CMD%" "%__INFILE%" ^( "%__LOGO_FILE%" -fuzz 6000 -transparent "#ffffff" -resize 40 ^) -gravity NorthWest -geometry +106+16 -composite "%__OUTFILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to add logo to the dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to add logo to dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
