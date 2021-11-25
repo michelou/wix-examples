@@ -17,7 +17,7 @@ The [WiX][wix_toolset] examples presented in the following sections
 
 ## <span id="scala3_first">Scala3First</span>
 
-Project `Scala3First` is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 3][scala3_releases] software distribution.
+Project `Scala3First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 3][scala3_releases] software distribution.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -35,11 +35,9 @@ Y:\examples\Scala3First
             <a href="./Scala3First/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-> **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala3First/src/resources/repl.bat) is added to the `bin\` directory; the goal of that wrapper script is to look for a Java installation <sup id="anchor_01">[1](#footnote_01)</sup> before starting the Scala 3 REPL (Scala commands require either variable **`JAVA_HOME`** or variable **`JAVACMD`** to be defined).
+> **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala3First/src/resources/repl.bat) is added to the `bin\` directory; the goal of that wrapper script is to look for a Java installation <sup id="anchor_03">[3](#footnote_03)</sup> before starting the Scala 3 REPL (Scala commands require either variable **`JAVA_HOME`** or variable **`JAVACMD`** to be defined).
 
-Command [`build link`](./Scala3First/build.bat) generates the [Scala 3][scala3] Windows installer with file name `Scala3First.msi`.
-
-> **:mag_right:** Command [`build help`](./Scala3First/build.bat) displays the batch file options and subcommands:
+Command [`build link`](./Scala3First/build.bat) <sup id="anchor_04">[4](#footnote_04)</sup> generates the [Scala 3][scala3] Windows installer with file name `scala3-3.1.0.msi`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
@@ -205,7 +203,7 @@ Y:\examples\Scala3Localized
             <a href="./Scala3Localized/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-Command [`build link`](./Scala3Localized/build.bat) generates a separate MSI file for each language localization, e.g. `scala3-3.1.0-sv-SE.msi` is the swedish version of the Windows installer.
+Command [`build link`](./Scala3Localized/build.bat) generates a separate MSI file for each language localization, e.g. `scala3-3.1.0-sv-SE.msi` is the swedish version of the [Scala 3][scala3] Windows installer.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3Localized/build.bat">build</a> clean link && <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /a-d target</b>
@@ -267,7 +265,28 @@ The `Scala3Features` project <sup id="anchor_02">[2](#footnote_02)</sup> adds fe
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Default Java Location*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
+
+<p style="margin:0 0 1em 20px;">
+In the above projects we not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code>, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
+</p>
+
+<b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;">
+Unlike the first project <code>Scala3First</code> the following projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> generate a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer which will <i>update</i> the system environment as follows :
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
+SCALA3_HOME=C:\Program Files\Scala 3\
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> scala</b>
+C:\Program Files\Scala 3\bin\scala
+C:\Program Files\Scala 3\bin\scala.bat
+</pre>
+
+
+<b name="footnote_03">[3]</b> ***Default Java Location*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
@@ -322,18 +341,28 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 </tr>
 </table>
 
-<b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
+<b name="footnote_04">[4]</b> ***Batch file* `build.bat`** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
-Unlike the first project <code>Scala3First</code> the following projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> generate a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer which will <i>update</i> the user environment as follows :
+Command <a href="./Scala3First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
 </p>
+
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
-SCALA3_HOME=C:\Program Files\Scala 3\
+<b>&gt; <a href="./Scala3First/build.bat">build</a> help</b>
+Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> scala</b>
-C:\Program Files\Scala 3\bin\scala
-C:\Program Files\Scala 3\bin\scala.bat
+  Options:
+    -debug       show commands executed by this script
+    -timer       display total execution time
+    -verbose     display progress messages
+&nbsp;
+  Subcommands:
+    clean        delete generated files
+    help         display this help message
+    install      execute Windows installer scala3
+    link         create Windows installer from WXS/WXI/WXL files
+    remove       remove installed program (same as uninstall)
+    uninstall    remove installed program
 </pre>
 
 ***

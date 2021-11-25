@@ -1,4 +1,4 @@
-# <span id="top">WiX code examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -11,33 +11,10 @@
   </tr>
 </table>
 
-The [WiX][wix_toolset] examples presented in the following sections have several characteristics in common, i.e.
-1) each project includes
-   - a directory `app\` with the application files
-   - a directory `src\` with the [WiX][wix_toolset] source files and resource files
-   - a batch file `build.bat` to create the Windows installer from the two input directories.
-2) each [WiX][wix_toolset] source file contains just GUID <sup id="anchor_01"><a href="#footnote_01">1</a></sup> names instead of GUID values; GUID values are externalized into the configuration file `build.properties`. The substitution is performed before the [WiX][wix_toolset] tools are executed. For instance:
-
-<table style="font-size:80%;width:70%;border:solid lightgray 2px;margin:0 0 0 40px;">
-<tr>
-<td>
-<div>
-<a href="./MyApp/src/MyApp.wxs"><code>src\MyApp.wxs</code></a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;product&nbsp;id="YOURGUID-PRODUCT_CODE"&gt;</code>
-</div>
-<b>+</b>
-<div>
-<code>build.properties</code><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<code>PRODUCT_CODE=80dd48f1-ea75-4a81-bd56-a06f600fdc99</code>
-</div>
-<b>⇩</b>
-<div>
-<code>target\src_gen\MyApp.wxs</code><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;product&nbsp;id="80dd48f1-ea75-4a81-bd56-a06f600fdc99"&gt;</code>
-</div>
-</td>
-</tr>
-</table>
+The [WiX][wix_toolset] examples presented in the following sections share the same project organization, i.e.
+- a directory `app\` with the application files
+- a directory `src\` with the [WiX][wix_toolset] source files and resource files
+- a batch file `build.bat` to create the Windows installer from the two input directories.
 
 ## <span id="myapp">`MyApp`</span>
 

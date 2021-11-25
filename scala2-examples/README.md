@@ -17,7 +17,7 @@ The [WiX][wix_toolset] examples presented in the following sections
 
 ## <span id="scala2_first">Scala2First</span>
 
-Project `Scala2First` is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 2][scala2_releases] software distribution.
+Project `Scala2First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 2][scala2_releases] software distribution.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -35,11 +35,9 @@ Y:\examples\Scala2First
             <a href="./Scala2First/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-> **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala2First/src/resources/repl.bat) is added to the `bin\` directory; the goal of that wrapper script is to look for a Java installation <sup id="anchor_01">[1](#footnote_01)</sup> before starting the Scala 2 REPL (Scala commands require either variable **`JAVA_HOME`** or variable **`JAVACMD`** to be defined).
+> **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala2First/src/resources/repl.bat) is added to the `bin\` directory; the goal of that wrapper script is to look for a Java installation <sup id="anchor_03">[3](#footnote_03)</sup> before starting the Scala 2 REPL (Scala commands require either variable **`JAVA_HOME`** or variable **`JAVACMD`** to be defined).
 
-Command [`build link`](./Scala2First/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
-
-> **:mag_right:** Command [`build help`](./Scala2First/build.bat) displays the batch file options and subcommands:
+Command [`build link`](./Scala2First/build.bat) <sup id="anchor_04">[4](#footnote_04)</sup> generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala2First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
@@ -144,7 +142,7 @@ Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> ...
 Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./Scala2UI/build.bat">build</a> -verbose link && tree /f target | findstr /v /b [a-z]</b>
+<b>&gt; <a href="./Scala2UI/build.bat">build</a> -verbose link && <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 Generate auxiliary file "target\src_gen\Fragments.wxs.txt"
 Saved 40 component identifiers to file "target\src_gen\Fragments-cid.txt"
 Execute PS1 script "target\replace.ps1"
@@ -234,13 +232,13 @@ Project `Scala2Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds langu
 <b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-In the above projects we not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code>, we also specify the option <code>-t <a href="./Scala2UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file.
+In the above projects we not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code>, we also specify the option <code>-t <a href="./Scala2UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
 </p>
 
 <b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code> and <code>Scala2Localized</code> generate a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer which will <i>update</i> the user environment as follows :
+Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code> and <code>Scala2Localized</code> generate a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer which will <i>update</i> the system environment as follows :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
@@ -251,6 +249,84 @@ C:\Program Files\Scala 2\bin\scala
 C:\Program Files\Scala 2\bin\scala.bat
 </pre>
 
+<b name="footnote_03">[3]</b> ***Default Java Location*** [↩](#anchor_03)
+
+<p style="margin:0 0 1em 20px;">
+OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
+</p>
+<p style="margin:0 0 1em 20px;">
+Unfortunately each Windows installer suggests a <i>different</i> default installation location <b>and</b> follows <i>inconsistent</i> naming conventions:
+</p>
+<table style="margin:0 0 1em 20px;font-size:80%;">
+<tr>
+  <th style="padding:6px;">OpenJDK<br/>Implementation</th>
+  <th style="padding:6px;">Default location<br/>in directory <code>%ProgramFiles%</code></th>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://github.com/corretto/corretto-11/releases">Amazon Corretto 11</a></td>
+  <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.13_8\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">Azul Zulu 8</a></td>
+  <td style="padding:6px;"><code>Zulu\zulu-8\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">Azul Zulu 11</a></td>
+  <td style="padding:6px;"><code>Zulu\zulu-11\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk8&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;8</a></td>
+  <td style="padding:6px;"><code>Eclipse Adoptium\jdk-8.0.312.7-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;11</a></td>
+  <td style="padding:6px;"><code>Eclipse Adoptium\jdk-11.0.13.8-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;17</a></td>
+  <td style="padding:6px;"><code>Eclipse Adoptium\jdk-17.0.1.12-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11">Microsoft 11</a></td>
+  <td style="padding:6px;"><code>Microsoft\jdk-11.0.13.8-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 8</a></td>
+  <td style="padding:6px;"><code>RedHat\java-1.8.0-openjdk-1.8.0.312.2\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 11</a></td>
+  <td style="padding:6px;"><code>RedHat\java-11-openjdk-11.0.13-1\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://sap.github.io/SapMachine/">SapMachine 11</a></td>
+  <td style="padding:6px;"><code>SapMachine\JDK\11\</code></td>
+</tr>
+</table>
+
+<b name="footnote_04">[4]</b> ***Batch file* `build.bat`** [↩](#anchor_04)
+
+<p style="margin:0 0 1em 20px;">
+Command <a href="./Scala2First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
+</p>
+
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; <a href="./Scala2First/build.bat">build</a> help</b>
+Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+&nbsp;
+  Options:
+    -debug       show commands executed by this script
+    -timer       display total execution time
+    -verbose     display progress messages
+&nbsp;
+  Subcommands:
+    clean        delete generated files
+    help         display this help message
+    install      execute Windows installer scala
+    link         create Windows installer from WXS/WXI/WXL files
+    remove       remove installed program (same as uninstall)
+    uninstall    remove installed program
+</pre>
 
 ***
 
