@@ -13,14 +13,14 @@
 
   <?define PackageComments="The Scala Programming Language" ?>
   <?define PackageDescription="Scala 2 Installer" ?>
-  <?define PackageKeywords="Scala, Compiler, Java, JVM" ?>
+  <?define PackageKeywords="Scala, Compiler, Java, JVM, EPFL" ?>
   <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
   <?define PackageManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
 
-  <?define ShortcutScalaAPIDescription="Displays the Scala 2 API Documentation" ?>
+  <?define ShortcutScalaAPIDescription="Displays the Scala 2 API documentation" ?>
   <?define ShortcutScalaAPIName="API Documentation" ?>
 
-  <?define ShortcutScalaLicenseDescription="Displays the Scala 2 License" ?>
+  <?define ShortcutScalaLicenseDescription="Displays the Scala 2 license" ?>
   <?define ShortcutScalaLicenseName="License" ?>
 
   <?define ShortcutScalaREPLDescription="Launches the Scala 2 REPL" ?>

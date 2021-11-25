@@ -13,11 +13,11 @@
 
 The [WiX][wix_toolset] examples presented in the following sections
 - share the same characteristics as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
-- add the source file `Fragments.wxs` (generated *once* with the [`heat`][wix_heat] tool) which contains all references to the application files. 
+- generate the file `target\src_gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> which basically contains a *list of links* to the application files. 
 
 ## <span id="scala3_first">Scala3First</span>
 
-Project `Scala3First` is our first iteration to create a Windows installer (aka. MSI file) for the [Scala 3][scala3_releases] software distribution.
+Project `Scala3First` is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 3][scala3_releases] software distribution.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -29,7 +29,6 @@ Y:\examples\Scala3First
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
 └───<b>src</b>
-    │   <a href="./Scala3First/src/Fragments.wxs">Fragments.wxs</a>
     │   <a href="./Scala3First/src/Scala3First.wxs">Scala3First.wxs</a>
     └───<b>resources</b>
             favicon.ico
@@ -38,7 +37,7 @@ Y:\examples\Scala3First
 
 > **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala3First/src/resources/repl.bat) is added to the `bin\` directory; the goal of that wrapper script is to look for a Java installation <sup id="anchor_01">[1](#footnote_01)</sup> before starting the Scala 3 REPL (Scala commands require either variable **`JAVA_HOME`** or variable **`JAVACMD`** to be defined).
 
-Command [`build link`](./Scala3First/build.bat) generates the Windows installer with file name `Scala3First.msi`.
+Command [`build link`](./Scala3First/build.bat) generates the [Scala 3][scala3] Windows installer with file name `Scala3First.msi`.
 
 > **:mag_right:** Command [`build help`](./Scala3First/build.bat) displays the batch file options and subcommands:
 
@@ -52,9 +51,8 @@ Command [`build link`](./Scala3First/build.bat) generates the Windows installer 
 │   scala3-3.1.0.wixpdb
 │   Scala3First.wixobj
 └───<b>src_gen</b>
-        Fragments.cid.txt   <i>(component identifier list)</i>
+        Fragments-cid.txt   <i>(component identifier list)</i>
         Fragments.wxs
-        Fragments.wxs.txt   <i>(raw output from <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat</a>)</i>
         Scala3First.wxs
 </pre>
 
@@ -115,7 +113,6 @@ Y:\examples\Scala3UI
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
 └───<b>src</b>
-    │   <a href="./Scala3UI/src/Fragments.wxs">Fragments.wxs</a>
     │   <a href="./Scala3UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3UI/src/Scala3UI.wxs">Scala3UI.wxs</a>
     └───<b>resources</b>
@@ -191,7 +188,6 @@ Y:\examples\Scala3Localized
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
 └───<b>src</b>
-    │   <a href="./Scala3Localized/src/Fragments.wxs">Fragments.wxs</a>
     │   <a href="./Scala3Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3Localized/src/Scala3Localizedwxs">Scala3Localized.wxs</a>
     ├───<b>localizations</b>

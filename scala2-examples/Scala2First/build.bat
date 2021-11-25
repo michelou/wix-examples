@@ -62,10 +62,7 @@ set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
 set "_LICENSE_FILE=%_APP_DIR%\LICENSE"
-set "_GUIDS_FILE=%_ROOT_DIR%guids.txt"
-
-set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
-set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments.cid.txt"
+set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -139,8 +136,13 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 :props
-@rem associative array to store <name,guid> pairs
-set _GUID=
+@rem Architecture (candle): x86, x64, or ia64 (default: x86)
+set _ARCH=x64
+
+set _PRODUCT_ID=
+set _PRODUCT_SKU=scala
+set _PRODUCT_UPGRADE_CODE=
+set _PRODUCT_VERSION=2.13.7
 
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
@@ -157,11 +159,36 @@ if exist "%__PROPS_FILE%" (
     )
     @rem WiX information
     if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
+    if defined __PRODUCT_VERSION set "_PRODUCT_VERSION=!__PRODUCT_VERSION!"
     if defined __MAIN_EXECUTABLE set "_MAIN_EXECUTABLE=!__MAIN_EXECUTABLE!"
     if defined __PROGRAM_MENU_DIR set "_PROGRAM_MENU_DIR=!__PROGRAM_MENU_DIR!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
 )
+if not defined _PRODUCT_ID (
+    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if not defined _PRODUCT_UPGRADE_CODE (
+    echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+@rem the MSI file version format is: <major>.<minor>.<build>.<update>
+set __PS1_SCRIPT=$res^='%_PRODUCT_VERSION%' -match '^(?^<major^>\d^+^).^(?^<minor^>\d^+^).^(?^<build^>\d^+^)^(-RC^(?^<update^>\d^+^)^)?'; ^
+$u=if($matches.update){$matches.update}else{'0'}; ^
+$matches.major+'.'+$matches.minor+'.'+$matches.build+'.'+$u
+set _PRODUCT_MSI_VERSION=
+for /f "usebackq" %%v in (`powershell -nologo -c "%__PS1_SCRIPT%" 2^>NUL`) do set "_PRODUCT_MSI_VERSION=%%v"
+if not defined _PRODUCT_MSI_VERSION (
+    echo %_ERROR_LABEL% Failed to extract file version from "%_PRODUCT_VERSION%" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+@rem associative array to store <name,guid> pairs
+set _GUID=
 if exist "%_GUIDS_FILE%" (
     for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
         if not "%%j"=="" set "_GUID[%%i]=%%j"
@@ -216,10 +243,11 @@ goto args_loop
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
-set _PRODUCT_SKU=scala
-@rem Architecture (candle): x86, x64, or ia64 (default: x86)
-set _PRODUCT_ARCH=x64
-set _PRODUCT_VERSION=2.13.7
+set "_GUIDS_FILE=%_ROOT_DIR%guids-%_PRODUCT_VERSION%.txt"
+
+set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
+set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
+
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.msi"
 
 if %_DEBUG%==1 (
@@ -227,7 +255,9 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_MSI_VERSION=%_PRODUCT_MSI_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_SKU=%_PRODUCT_SKU% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_VERSION=%_PRODUCT_VERSION% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -331,6 +361,7 @@ if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 @rem https://wixtoolset.org/documentation/manual/v3/overview/heat.html
 set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -dr ProgramFiles64Folder
+set __HEAT_OPTS=%__HEAT_OPTS% -t "%_XSLT_FILE%"
 set __HEAT_OPTS=%__HEAT_OPTS% -var var.pack -suid -sfrag -out "%_FRAGMENTS_FILE%"
 if %_VERBOSE%==1 set __HEAT_OPTS=-v %__HEAT_OPTS%
 
@@ -354,23 +385,22 @@ for /f %%i in (%_FRAGMENTS_CID_FILE%) do (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
         echo %%i=!__GUID!>> "%_GUIDS_FILE%"
     )
-    @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %%i=!__GUID! 1>&2
     set /a __M+=1
-    set __REPLACE[!__M!]=-replace '^Id="%%i" Guid="PUT-GUID-HERE"', 'Id="%%i" Guid="!__GUID!"'
+    set __REPLACE[!__M!]=-replace 'Id="%%i" Guid="PUT-GUID-HERE"', 'Id="%%i" Guid="!__GUID!"'
 )
 set "__PS1_FILE=%_TARGET_DIR%\replace.ps1"
 if exist "%__PS1_FILE%" del "%__PS1_FILE%"
 
 @rem replace GUID placeholders found in .wx? files by their GUID values
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
     echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
     for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
-    echo ^(Get-Content !__VAR_IN!^) `>> "%__PS1_FILE%"
+    echo ^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
     for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
-    echo    ^| Out-File -encoding ASCII !__VAR_OUT!>> "%__PS1_FILE%"
+    echo    ^| Out-File -encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
     echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
@@ -383,14 +413,17 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" 1>&2
-) else if %_VERBOSE%==1 ( echo Copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
-)
-xcopy /i /q /y "%_RESOURCES_DIR%" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to copy resource files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
-    set _EXITCODE=1
-    goto :eof
+@rem image files are handled separately (see :gen_banner)
+for %%e in (bat ico) do (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    )
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 goto :eof
 
@@ -422,11 +455,12 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 set __OPT_EXTENSIONS=
 set __OPT_PROPERTIES="-dpack=%_APP_DIR%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductId=%_PRODUCT_ID%"
+set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersion=%_PRODUCT_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProgramMenuDir=%_PROGRAM_MENU_DIR%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_PRODUCT_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -453,12 +487,12 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :link
-call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_LICENSE_FILE%"
-if %_ACTION_REQUIRED%==0 goto :eof
-
 @rem ensure directory "%_APP_DIR%" contains the Scala 2 distribution
 call :gen_app
 if not %_EXITCODE%==0 goto :eof
+
+call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_LICENSE_FILE%"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 call :gen_src
 if not %_EXITCODE%==0 goto :eof
@@ -487,7 +521,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_F
 )
 call "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" ^(error %ERRORLEVEL%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

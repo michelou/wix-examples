@@ -1,9 +1,9 @@
-app/
+app*/
 Debug/
 Release/
 target/
 *_LOCAL
-guids.txt
+guids*.txt
 *.exe
 *.properties
 *.user

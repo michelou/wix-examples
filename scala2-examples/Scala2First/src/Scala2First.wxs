@@ -2,7 +2,7 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Id='$(var.ProductId)'
     UpgradeCode='$(var.ProductUpgradeCode)' Name='Scala $(var.ProductVersion)'
-    Version='$(var.ProductVersion).0' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+    Version='$(var.ProductMsiVersion)' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
     Language='1033' Codepage='1252'>
     <!--
     See language codes on

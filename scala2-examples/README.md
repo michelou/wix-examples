@@ -13,7 +13,7 @@
 
 The [WiX][wix_toolset] examples presented in the following sections
 - share the same characteristics as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
-- add the source file `Fragments.wxs` (generated *once* with the [`heat`][wix_heat] tool) which contains all references to the application files. 
+- generate the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> which basically contains a *list of links* to the application files. 
 
 ## <span id="scala2_first">Scala2First</span>
 
@@ -29,12 +29,13 @@ Y:\examples\Scala2First
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://www.scala-lang.org/download/2.13.7.html"><b>scala-2.13.7.zip</b></a>
 └───<b>src</b>
-    │   <a href="./Scala2First/src/Fragments.wxs">Fragments.wxs</a>
     │   <a href="./Scala2First/src/Scala2First.wxs">Scala2First.wxs</a>
     └───<b>resources</b>
             favicon.ico
             <a href="./Scala2First/src/resources/repl.bat">repl.bat</a>
 </pre>
+
+> **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala2First/src/resources/repl.bat) is added to the `bin\` directory; the goal of that wrapper script is to look for a Java installation <sup id="anchor_01">[1](#footnote_01)</sup> before starting the Scala 2 REPL (Scala commands require either variable **`JAVA_HOME`** or variable **`JAVACMD`** to be defined).
 
 Command [`build link`](./Scala2First/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
 
@@ -53,9 +54,8 @@ Command [`build link`](./Scala2First/build.bat) generates the [Scala 2][scala2] 
 │       favicon.ico
 │       repl.bat
 └───<b>src_gen</b>
-        Fragments.cid.txt  <i>(component identifier list)</i>
+        Fragments-cid.txt  <i>(component identifier list)</i>
         Fragments.wxs
-        Fragments.wxs.txt  <i>(raw output from <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat</a>)</i>
         Scala2First.wxs
 </pre>
 
@@ -90,7 +90,7 @@ Figures **1.1** to **1.4** below illustrate the updated user environment after t
 
 ## <span id="scala2_sbt">Scala2Sbt</span>
 
-Project `Scala2Sbt` <sup id="anchor_01">[1](#footnote_01)</sup> relies on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
+Project `Scala2Sbt` <sup id="anchor_02">[2](#footnote_02)</sup> relies on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
 
 Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows installer while Figure **2.5** shows the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 
@@ -137,7 +137,7 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 
 ## <span id="scala2_ui">Scala2UI</span>
 
-Project `Scala2UI` <sup id="anchor_01">[1](#footnote_01)</sup> ...
+Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> ...
 
 *wip*
 
@@ -146,7 +146,7 @@ Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Win
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala2UI/build.bat">build</a> -verbose link && tree /f target | findstr /v /b [a-z]</b>
 Generate auxiliary file "target\src_gen\Fragments.wxs.txt"
-Saved 40 component identifiers to file "target\src_gen\Fragments.cid.txt"
+Saved 40 component identifiers to file "target\src_gen\Fragments-cid.txt"
 Execute PS1 script "target\replace.ps1"
 Copy .bat files to directory "target\resources"
 Copy .ico files to directory "target\resources"
@@ -170,9 +170,8 @@ Create Windows installer "target\scala-2.13.7.msi"
 │       network.ico
 │       repl.bat
 └───<b>src_gen</b>
-        Fragments.cid.txt
+        Fragments-cid.txt
         Fragments.wxs
-        Fragments.wxs.txt
         Includes.wxi
         Scala2UI.wxs
 </pre>
@@ -228,13 +227,17 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
 
 ## <span id="scala2_localized">Scala2Localized</span>
 
-Project `Scala2Localized` <sup id="anchor_01">[1](#footnote_01)</sup> ...
-
-*wip*
+Project `Scala2Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 2][scala2] Windows installer.
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Environment variables*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
+
+<p style="margin:0 0 1em 20px;">
+In the above projects we not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code>, we also specify the option <code>-t <a href="./Scala2UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file.
+</p>
+
+<b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code> and <code>Scala2Localized</code> generate a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer which will <i>update</i> the user environment as follows :

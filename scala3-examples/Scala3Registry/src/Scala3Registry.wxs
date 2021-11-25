@@ -3,7 +3,7 @@
   <?include Includes.wxi ?>
   <Product Id='$(var.ProductId)'
       UpgradeCode='$(var.ProductUpgradeCode)' Name='$(var.ProductName) $(var.ProductVersion)'
-      Version='$(var.ProductVersion).0' Manufacturer='$(var.ProductManufacturer)'
+      Version='$(var.ProductMsiVersion)' Manufacturer='$(var.ProductManufacturer)'
       Language='$(var.ProductLanguage)' Codepage='1252'>
 
     <Package Id='*'
@@ -20,7 +20,7 @@
       </Directory>
       <!-- Step 1: Define the directory structure -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
-         <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductDirectoryName)" />
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductDirectoryName)" />
       </Directory>
       <Directory Id="DesktopFolder" Name="Desktop">
         <!-- no desktop shortcut -->

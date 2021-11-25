@@ -55,7 +55,7 @@
 
 ## <span id="projects">Projects</span>
 
-- [Adoptium WiX installer](https://github.com/adoptium/installer/tree/master/wix) - a Windows installer for OpenJDK binaries.
+- [Adoptium WiX installer](https://github.com/adoptium/installer/tree/master/wix) - the Windows installer for OpenJDK binaries.
 - [`cargo-wix`][cargo_wix] - a cargo subcommand to build Windows installers for Rust projects using the [WiX Toolset][wix_toolset].
 - [`go-msi`][go_msi] - an easy way to generate MSI package for a Go project.
 - [`iswix`](https://github.com/iswix-llc/iswix) - an industrial strength Windows installer XML application.
