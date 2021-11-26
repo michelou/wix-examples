@@ -381,7 +381,7 @@ endlocal & (
         if not defined MAGICK_HOME set "MAGICK_HOME=%_MAGICK_HOME%"
         if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
         if not defined WIX set "WIX=%_WIX_HOME%"
-        set "PATH=%PATH%%_WINSDK_PATH%%WIX_PATH%;%_GIT_PATH%;%~dp0bin"
+        set "PATH=%PATH%%_WINSDK_PATH%%WIX_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

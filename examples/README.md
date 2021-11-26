@@ -12,9 +12,10 @@
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections share the same project organization, i.e.
-- a directory `app\` with the application files
-- a directory `src\` with the [WiX][wix_toolset] source files and resource files
-- a batch file `build.bat` to create the Windows installer from the two input directories.
+- the directory `app\` with the application files
+- the directory `src\` with the [WiX][wix_toolset] source files and resource files
+- the batch file `build.bat` to create the Windows installer from the two input directories.
+- the (*generated*) directory `target\` with the generated `.msi`, `.msi.md5` <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> and `.msi.sha256` files.
 
 ## <span id="myapp">`MyApp`</span>
 
@@ -113,7 +114,7 @@ Figures **2.1** to **2.4** below illustrate the updated user environment after t
 </tr>
 </table>
 
-:mag_right: <b>Figure 2.4</b> shows the window <i>Properties</i> of the *Uninstall* shortcut visible in <b>Figure 2.2</b>; in particular we can read in the field "Target" the GUID value corresponding to `PRODUCT_CODE` in the file [`build.properties`](./MyAppShortcuts/build.properties).
+:mag_right: <b>Figure 2.4</b> shows the window <i>Properties</i> of the *Uninstall* shortcut visible in <b>Figure 2.2</b>; in particular we can read in the field "Target" the GUID <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> value corresponding to `PRODUCT_CODE` in the file [`build.properties`](./MyAppShortcuts/build.properties).
 
 ## <span id="myapp_localized">MyAppLocalized</span>
 
@@ -148,10 +149,16 @@ candle_opts.txt
 candle_sources.txt
 light_opts.txt
 MyApp-1.0.0-de-DE.msi
+MyApp-1.0.0-de-DE.msi.md5
+MyApp-1.0.0-de-DE.msi.sha256
 MyApp-1.0.0-de-DE.wixpdb
 MyApp-1.0.0-fr-FR.msi
+MyApp-1.0.0-fr-FR.msi.md5
+MyApp-1.0.0-fr-FR.msi.sha256
 MyApp-1.0.0-fr-FR.wixpdb
 MyApp-1.0.0.msi
+MyApp-1.0.0.msi.md5
+MyApp-1.0.0.msi.sha256
 MyApp-1.0.0.wixpdb
 MyAppLocalized.wixobj
 </pre>
@@ -236,7 +243,14 @@ Figures **3.1** to **3.4** below illustrate the localized graphical user interfa
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***GUID*** [↩](#anchor_01)
+
+<b name="footnote_01">[1]</b> ***File Checksums*** [↩](#anchor_01)
+
+<p style="margin:0 0 1em 20px;">
+We rely on the PowerShell function <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="md5sums">md5sums</a>.
+</p>
+
+<b name="footnote_02">[2]</b> ***GUID*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated (<i>see also</i> the nice article series from <a href="https://ericlippert.com/about-eric-lippert/">Eric Lippert</a>'s <i>"Guid guide"</i>, <a href="https://ericlippert.com/2012/04/24/guid-guide-part-one/">part 1</a>, <a href="https://ericlippert.com/2012/04/30/guid-guide-part-two/">part 2</a> and <a href="https://ericlippert.com/2012/05/07/guid-guide-part-three/">part 3</a>).

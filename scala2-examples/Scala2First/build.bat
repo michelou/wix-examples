@@ -181,7 +181,7 @@ set __PS1_SCRIPT=$res^='%_PRODUCT_VERSION%' -match '^(?^<major^>\d^+^).^(?^<mino
 $u=if($matches.update){$matches.update}else{'0'}; ^
 $matches.major+'.'+$matches.minor+'.'+$matches.build+'.'+$u
 set _PRODUCT_MSI_VERSION=
-for /f "usebackq" %%v in (`powershell -nologo -c "%__PS1_SCRIPT%" 2^>NUL`) do set "_PRODUCT_MSI_VERSION=%%v"
+for /f "usebackq" %%v in (`powershell -c "%__PS1_SCRIPT%" 2^>NUL`) do set "_PRODUCT_MSI_VERSION=%%v"
 if not defined _PRODUCT_MSI_VERSION (
     echo %_ERROR_LABEL% Failed to extract file version from "%_PRODUCT_VERSION%" 1>&2
     set _EXITCODE=1
@@ -486,6 +486,21 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+@rem input parameter: %1=file path
+:gen_checksums
+set "__INPUT_FILE=%~1"
+
+for %%i in (md5 sha256) do (
+    set "__CHECK_FILE=%__INPUT_FILE%.%%i"
+    powershell -c "$fh=Get-FileHash '%__INPUT_FILE%' -Algorithm %%i;$path=Get-Item $fh.Path;$fh.Hash+'  '+$path.Basename+$path.Extension" > "!__CHECK_FILE!"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to generate file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+goto :eof
+
 :link
 @rem ensure directory "%_APP_DIR%" contains the Scala 2 distribution
 call :gen_app
@@ -525,6 +540,8 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+call :gen_checksums "%_MSI_FILE%"
+if not %_EXITCODE%==0 goto :eof
 goto :eof
 
 @rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
@@ -600,19 +617,18 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :remove
-if not defined _GUID[PRODUCT_ID] (
-    echo %_ERROR_LABEL% Product code not found 1>&2
+if not defined _PRODUCT_ID (
+    echo %_ERROR_LABEL% Product identifier not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
-set "__PRODUCT_ID=%_GUID[PRODUCT_ID]%"
 
 @rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_CODE%" 1>&2
 @rem ) else if %_VERBOSE%==1 ( echo Check if product if already installed 1>&2
 @rem )
 @rem set __INSTALLED=0
-@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%__PRODUCT_ID%" && set __INSTALLED=1
+@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%_PRODUCT_ID%" && set __INSTALLED=1
 @rem if %__INSTALLED%==0 (
 @rem     echo %_WARNING_LABEL% Product "%_PROJECT_NAME%" is not installed 1>&2
 @rem     goto :eof

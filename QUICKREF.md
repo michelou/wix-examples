@@ -12,7 +12,7 @@
 
 The dialog strings must be localized. [WiX][wix_toolset] comes with 40 sets of loc strings; you specify them using the `-cultures` switch to `%WIX%\light.exe`.
 
-## <span id="vars">Built-in Variables</span>
+## <span id="vars">WiX built-in Variables</span>
 
 The [WiX Toolset][wix_toolset] engine provides many [built-in variables](https://wixtoolset.org/documentation/manual/v3/bundle/bundle_built_in_variables.html) to be used in [WiX][wix_toolset] source files. In particular, some of them are needed to target the runtime architecture (e.g. x86, x64, ia64) of the generated Windows installer.
 

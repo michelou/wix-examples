@@ -182,7 +182,7 @@ set __PS1_SCRIPT=$res^='%_PRODUCT_VERSION%' -match '^(?^<major^>\d^+^).^(?^<mino
 $u=if($matches.update){$matches.update}else{'0'}; ^
 $matches.major+'.'+$matches.minor+'.'+$matches.build+'.'+$u
 set _PRODUCT_MSI_VERSION=
-for /f "usebackq" %%v in (`powershell -nologo -c "%__PS1_SCRIPT%" 2^>NUL`) do set "_PRODUCT_MSI_VERSION=%%v"
+for /f "usebackq" %%v in (`powershell -c "%__PS1_SCRIPT%" 2^>NUL`) do set "_PRODUCT_MSI_VERSION=%%v"
 if not defined _PRODUCT_MSI_VERSION (
     echo %_ERROR_LABEL% Failed to extract file version from "%_PRODUCT_VERSION%" 1>&2
     set _EXITCODE=1
@@ -421,6 +421,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+@rem image files are handled separately (see :gen_banner)
 for %%e in (bat ico) do (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
@@ -492,6 +493,21 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+@rem input parameter: %1=file path
+:gen_checksums
+set "__INPUT_FILE=%~1"
+
+for %%i in (md5 sha256) do (
+    set "__CHECK_FILE=%__INPUT_FILE%.%%i"
+    powershell -c "$fh=Get-FileHash '%__INPUT_FILE%' -Algorithm %%i;$path=Get-Item $fh.Path;$fh.Hash+'  '+$path.Basename+$path.Extension" > "!__CHECK_FILE!"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to generate file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+goto :eof
+
 :link
 @rem ensure directory "%_APP_DIR%" contains the Scala 3 distribution
 call :gen_app
@@ -531,6 +547,8 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+call :gen_checksums "%_MSI_FILE%"
+if not %_EXITCODE%==0 goto :eof
 goto :eof
 
 @rem input parameter: 1=target file 2,3,..=path (wildcards accepted)

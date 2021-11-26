@@ -381,6 +381,21 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+@rem input parameter: %1=file path
+:gen_checksums
+set "__INPUT_FILE=%~1"
+
+for %%i in (md5 sha256) do (
+    set "__CHECK_FILE=%__INPUT_FILE%.%%i"
+    powershell -c "$fh=Get-FileHash '%__INPUT_FILE%' -Algorithm %%i;$path=Get-Item $fh.Path;$fh.Hash+'  '+$path.Basename+$path.Extension" > "!__CHECK_FILE!"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to generate file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+goto :eof
+
 :link
 call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_APP_EXE%"
 if %_ACTION_REQUIRED%==0 goto :eof
@@ -431,6 +446,8 @@ for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*.wxl"') do (
         set _EXITCODE=1
         goto :eof
     )
+    call :gen_checksums "!__MSI_FILE!"
+    if not !_EXITCODE!==0 goto :eof
 )
 goto :eof
 
