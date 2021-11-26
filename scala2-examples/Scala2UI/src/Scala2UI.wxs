@@ -31,10 +31,6 @@
         Value="https://scala-lang.org/api/current/"
         Sequence="execute"
         Before="CreateShortcuts" />
-    <SetProperty Id="LicenseURL"
-        Value="https://www.scala-lang.org/license/"
-        Sequence="execute"
-        Before="CreateShortcuts" />
 
     <!-- Step 2: Add the shortcut(s) to our installer package -->
     <DirectoryRef Id="ApplicationProgramsFolder">
@@ -56,8 +52,8 @@
         <Shortcut Id="ScalaLicense"
             Name="$(var.ShortcutScalaLicenseName)"
             Description="$(var.ShortcutScalaLicenseDescription)"
-            Target="[LicenseURL]">
-          <Icon Id="LicenseIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+            Target="[INSTALLDIR]doc\License.rtf">
+          <Icon Id="LicenseIcon" SourceFile="!(bindpath.rsrc)\rtf.ico" />
         </Shortcut>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
@@ -93,7 +89,9 @@
     <Icon Id="Favicon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
     <Property Id="ARPPRODUCTICON" Value="Favicon" />
 
-    <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.pack)\doc\License.rtf" />
+    <!-- original license file is poorly formatted for EULA dialog windows -->
+    <!-- <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.pack)\doc\License.rtf" /> -->
+    <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.rsrc)\License.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="!(bindpath.rsrc)\BannerTop.bmp" />  <!-- 493 x 58 -->
     <WixVariable Id="WixUIDialogBmp" Value="!(bindpath.rsrc)\Dialog.bmp" />  <!-- 493 x 312 -->
 

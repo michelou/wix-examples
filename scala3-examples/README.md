@@ -12,7 +12,7 @@
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections
-- share the same characteristics as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
+- share the same project organisation as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
 - generate the file `target\src_gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> which basically contains a *list of links* to the application files. 
 
 ## <span id="scala3_first">Scala3First</span>
@@ -46,15 +46,20 @@ Command [`build link`](./Scala3First/build.bat) <sup id="anchor_04">[4](#footnot
 │   Fragments.wixobj
 │   light_opts.txt
 │   scala3-3.1.0.msi
+│   scala3-3.1.0.msi.md5
+│   scala3-3.1.0.msi.sha256
 │   scala3-3.1.0.wixpdb
 │   Scala3First.wixobj
+├───resources
+│       favicon.ico
+│       repl.bat
 └───<b>src_gen</b>
         Fragments-cid.txt   <i>(component identifier list)</i>
         Fragments.wxs
         Scala3First.wxs
 </pre>
 
-> **:mag_right:** The above file `target\src_gen\Scala3First.wxs` contains the real GUIDs instead of the symbol names defined in source file [`src\Scala3First.wxs`](./Scala3First/src/Scala3.wxs).
+> **:mag_right:** The above file `target\src_gen\Scala3First.wxs` contains the real GUIDs instead of the variables names specified in source file [`src\Scala3First.wxs`](./Scala3First/src/Scala3First.wxs).
 
 Figures **1.1** to **1.5** below illustrate the updated user environment after the successful execution of the Windows installer.
 
@@ -211,13 +216,22 @@ candle_opts.txt
 candle_sources.txt
 Fragments.wixobj
 light_opts.txt
+replace.ps1
 <b>scala3-3.1.0.msi</b>
+scala3-3.1.0.msi.md5
+scala3-3.1.0.msi.sha256
 scala3-3.1.0.wixpdb
 <b>scala3-3.1.0_de-DE.msi</b>
+scala3-3.1.0_de-DE.msi.md5
+scala3-3.1.0_de-DE.msi.sha256
 scala3-3.1.0_de-DE.wixpdb
 <b>scala3-3.1.0_fr-FR.msi</b>
+scala3-3.1.0_fr-FR.msi.md5
+scala3-3.1.0_fr-FR.msi.sha256
 scala3-3.1.0_fr-FR.wixpdb
 <b>scala3-3.1.0_sv-SE.msi</b>
+scala3-3.1.0_sv-SE.msi.md5
+scala3-3.1.0_sv-SE.msi.sha256
 scala3-3.1.0_sv-SE.wixpdb
 Scala3Localized.wixobj
 </pre>
@@ -268,7 +282,7 @@ The `Scala3Features` project <sup id="anchor_02">[2](#footnote_02)</sup> adds fe
 <b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-In the above projects we not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code>, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
+We not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code> in the above projects, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
 </p>
 
 <b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
