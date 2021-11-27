@@ -1,0 +1,1 @@
+Source: https://www.scala-lang.org/resources/img/

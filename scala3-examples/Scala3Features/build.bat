@@ -62,7 +62,8 @@ set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
-for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
+for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
+set _COPYRIGHT_OWNER=EPFL
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -147,9 +148,9 @@ goto :eof
 set _ARCH=x64
 
 set _PRODUCT_ID=
-set _PRODUCT_SKU=scala
+set _PRODUCT_SKU=scala3
 set _PRODUCT_UPGRADE_CODE=
-set _PRODUCT_VERSION=2.13.7
+set _PRODUCT_VERSION=3.1.0
 
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
@@ -253,7 +254,7 @@ set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
 set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_VERSION%"
-set "_LICENSE_FILE=%_APP_DIR%\LICENSE"
+set "_VERSION_FILE=%_APP_DIR%\VERSION"
 
 set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
 
@@ -324,13 +325,13 @@ goto :eof
 :gen_app
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
-if not exist "%_LICENSE_FILE%" (
+if not exist "%_VERSION_FILE%" (
     @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
     set "__RELEASE=%_PRODUCT_VERSION%"
     set _PRODUCT_VERSION=
 
     set "__ARCHIVE_FILE=%_PRODUCT_SKU%-!__RELEASE!.zip"
-    set "__ARCHIVE_URL=https://downloads.lightbend.com/scala/!__RELEASE!/!__ARCHIVE_FILE!"
+    set "__ARCHIVE_URL=https://github.com/lampepfl/dotty/releases/download/!__RELEASE!/!__ARCHIVE_FILE!"
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
     if not exist "!__OUTPUT_FILE!" (
@@ -367,6 +368,13 @@ if not exist "%_LICENSE_FILE%" (
         goto :eof
     )
     set "_PRODUCT_VERSION=!__RELEASE!"
+)
+for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_VERSION_FILE%" 2^>NUL') do (
+    if not "%%j"=="%_PRODUCT_VERSION%" (
+        echo %_ERROR_LABEL% Version property and product version differ ^(found:%%j, expected:%_PRODUCT_VERSION%^) 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 goto :eof
 
@@ -504,10 +512,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :gen_license
-set "__INFILE=%_RESOURCES_DIR%\License.rtf"
-set "__OUTFILE=%_TARGET_DIR%\resources\License.rtf"
+set "__INFILE=%_RESOURCES_DIR%\LICENSE.rtf"
+set "__OUTFILE=%_TARGET_DIR%\resources\LICENSE.rtf"
 
-set __REPLACE_PAIRS=-replace '\[yyyy\]', '%_COPYRIGHT_END_YEAR%'
+set __REPLACE_PAIRS=-replace '\[yyyy\]', '%_COPYRIGHT_YEAR_RANGE%' -replace '\[name of copyright owner\]', '%_COPYRIGHT_OWNER%'
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% ^(Get-Content -Raw -Encoding Ascii '%__INFILE%'^) %__REPLACE_PAIRS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Set copyright information in file "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
@@ -597,11 +605,11 @@ for %%i in (md5 sha256) do (
 goto :eof
 
 :link
-@rem ensure directory "%_APP_DIR%" contains the Scala 2 distribution
+@rem ensure directory "%_APP_DIR%" contains the Scala 3 distribution
 call :gen_app
 if not %_EXITCODE%==0 goto :eof
 
-call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_LICENSE_FILE%"
+call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_VERSION_FILE%"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 call :gen_src
@@ -712,7 +720,7 @@ if not %ERRORLEVEL%==0 (
 if %_VERBOSE%+%_DEBUG% gtr 0 (
     set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
     set __APP_DIR=
-    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala 2*" 2^>NUL') do set "__APP_DIR=%%f"
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala 3*" 2^>NUL') do set "__APP_DIR=%%f"
     if not defined __APP_DIR (
         echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
         set _EXITCODE=1

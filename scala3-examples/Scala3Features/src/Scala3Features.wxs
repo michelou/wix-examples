@@ -28,7 +28,11 @@
     </Directory>
 
     <SetProperty Id="APIURL"
-        Value="https://scala-lang.org/api/current/"
+        Value="https://scala-lang.org/api/3.x/"
+        Sequence="execute"
+        Before="CreateShortcuts" />
+    <SetProperty Id="LicenseURL"
+        Value="https://www.scala-lang.org/license/"
         Sequence="execute"
         Before="CreateShortcuts" />
 
@@ -52,8 +56,8 @@
         <Shortcut Id="ScalaLicense"
             Name="$(var.ShortcutScalaLicenseName)"
             Description="$(var.ShortcutScalaLicenseDescription)"
-            Target="[INSTALLDIR]doc\License.rtf">
-          <Icon Id="LicenseIcon" SourceFile="!(bindpath.rsrc)\rtf.ico" />
+            Target="[LicenseURL]">
+          <Icon Id="LicenseIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
@@ -67,8 +71,8 @@
 
     <DirectoryRef Id='ProgramFiles64Folder'>
       <Component Id="ApplicationEnvironment" Guid="$(var.ApplicationEnv)" KeyPath="yes">
-        <Environment Id="SCALA_HOME"
-            Action="set" Name="SCALA_HOME" Value="[INSTALLDIR]"
+        <Environment Id="SCALA3_HOME"
+            Action="set" Name="SCALA3_HOME" Value="[INSTALLDIR]"
             Permanent="no" System="yes" />
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
@@ -107,9 +111,7 @@
     <Icon Id="Favicon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
     <Property Id="ARPPRODUCTICON" Value="Favicon" />
 
-    <!-- original license file is poorly formatted for EULA dialog window -->
-    <!-- <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.pack)\doc\License.rtf" /> -->
-    <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.rsrc)\License.rtf" />
+    <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.rsrc)\LICENSE.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="!(bindpath.rsrc)\BannerTop.bmp" />  <!-- 493 x 58 -->
     <WixVariable Id="WixUIDialogBmp" Value="!(bindpath.rsrc)\Dialog.bmp" />  <!-- 493 x 312 -->
 

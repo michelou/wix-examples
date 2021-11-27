@@ -68,13 +68,11 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 <table>
 <tr>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala3First_ProgFiles.png">
   <img style="max-width:180px;" src="images/Scala3First_ProgFiles.png" alt="Scala 3 directory" />
   </a>
   <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Scala 3</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala3First_Menu.png">
   <img style="max-width:180px;" src="images/Scala3First_Menu.png" alt="Scala 3 shortcuts" />
   </a>
@@ -82,13 +80,11 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
   </div>
 </td>
 <td style="text-align:center;background-color:#bbeedd;">
-  <div>
   <a href="images/Scala3First_StartMenu.png">
   <img style="max-width:160px;" src="images/Scala3First_StartMenu.png" alt="Start Menu" />
   </a>
   <div style="font-size:70%;"><b>Figure 1.3 -</b> <i>Scala 3</i> shorcuts<br>(<i>Start Menu</i> folder).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala3First_REPL.png">
   <img style="max-width:180px;" src="images/Scala3First_REPL.png" alt="Scala 3 REPL" />
   </a>
@@ -100,6 +96,7 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
   <img style="max-width:180px;" src="images/Scala3First_Uninstall.png" alt="Uninstall Scala 3" />
   </a>
   <div style="font-size:70%;"><b>Figure 1.5 -</b> Uninstall <i>Scala 3</i><br/>(<i>Settings</i> window).
+  </div>
 </td>
 </tr>
 </table>
@@ -135,13 +132,11 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 <table>
 <tr>
 <td style="text-align:center;background-color:#bbeedd;">
-  <div>
   <a href="images/Scala3UI_Setup1.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup1.png" alt="Welcome" />
   </a>
   <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br/>(<i>Scala 3</i> installer).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala3UI_Setup2.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup2.png" alt="EULA" />
   </a>
@@ -149,13 +144,11 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   </div>
 </td>
 <td style="text-align:center;background-color:#bbeedd;">
-  <div>
   <a href="images/Scala3UI_Setup3.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup3.png" alt="Custom Setup" />
   </a>
   <div style="font-size:70%;"><b>Figure 2.3 -</b> Destination folder<br/>(<i>Scala 3</i> installer).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala3UI_Setup5.png">
   <img style="max-width:180px;" src="images/Scala3UI_Setup5.png" alt="Completed" />
   </a>
@@ -163,13 +156,11 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala3UI.png">
   <img style="max-width:180px;" src="images/Scala3UI.png" alt="Scala 3 directory" />
   </a>
   <div style="font-size:70%;"><b>Figure 2.5 -</b> <i>Scala 3</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala3UI_Menu.png">
   <img style="max-width:180px;" src="images/Scala3UI_Menu.png" alt="Scala 3 shortcuts" />
   </a>
@@ -243,13 +234,11 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
 <table>
 <tr>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala3Localized_Setup1.png">
   <img style="max-width:180px;" src="images/Scala3Localized_Setup1.png" alt="Welcome" />
   </a>
   <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>english</i> version).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala3Localized_Setup1_de.png">
   <img style="max-width:180px;" src="images/Scala3Localized_Setup1_de.png" alt="Willkommen" />
   </a>
@@ -257,13 +246,11 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala3Localized_Setup1_fr.png">
   <img style="max-width:180px;" src="images/Scala3Localized_Setup1_fr.png" alt="Bienvenue" />
   </a>
   <div style="font-size:70%;"><b>Figure 3.3 -</b> Bienvenue<br/>(<i>french</i> version).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala3Localized_Setup1_sv.png">
   <img style="max-width:180px;" src="images/Scala3Localized_Setup1_sv.png" alt="Välkommen" />
   </a>
@@ -278,6 +265,22 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
 Project `Scala3Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 3][scala3] Windows installer.
 
 *wip*
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./Scala3Features/build.bat">build</a> -verbose clean link</b>
+Delete directory "target"
+Generate auxiliary file "target\src_gen\Fragments.wxs"
+Saved 54 component identifiers to file "target\src_gen\Fragments-cid.txt"
+Execute PS1 script "target\replace.ps1"
+Copy .bat files to directory "target\resources"
+Copy .ico files to directory "target\resources"
+Use banner image found in directory "src\resources"
+Add logo to banner image "target\resources\BannerTop.bmp"
+Add logo to dialog image "target\resources\Dialog.bmp"
+Set copyright information in file "target\resources\LICENSE.rtf"
+Compiling 2 WiX source files to directory "target"
+Create Windows installer "target\scala3-3.1.0.msi"
+</pre>
 
 ## <span id="footnotes">Footnotes</span>
 

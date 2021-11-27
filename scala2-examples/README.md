@@ -48,6 +48,8 @@ Command [`build link`](./Scala2First/build.bat) <sup id="anchor_04">[4](#footnot
 │   Fragments.wixobj
 │   light_opts.txt
 │   scala-2.13.7.msi
+│   scala-2.13.7.msi.md5
+│   scala-2.13.7.msi.sha256
 │   scala-2.13.7.wixpdb
 │   Scala2First.wixobj
 ├───<b>resources</b>
@@ -97,13 +99,11 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 <table>
 <tr>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2Sbt_Setup1.png">
   <img style="max-width:180px;" src="images/Scala2Sbt_Setup1.png" alt="Welcome" />
   </a>
   <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala2Sbt_Setup2.png">
   <img style="max-width:180px;" src="images/Scala2Sbt_Setup2.png" alt="License" />
   </a>
@@ -111,13 +111,11 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2Sbt_Setup3.png">
   <img style="max-width:180px;" src="images/Scala2Sbt_Setup3.png" alt="Custom Setup" />
   </a>
   <div style="font-size:70%;"><b>Figure 2.3 -</b> Custom Setup<br>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala2Sbt_Setup4.png">
   <img style="max-width:180px;" src="images/Scala2Sbt_Setup4.png" alt="Completed" />
   </a>
@@ -125,7 +123,6 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2Sbt_ProgFiles.png">
   <img style="max-width:180px;" src="images/Scala2Sbt_ProgFiles.png" alt="Scala 2 directory" />
   </a>
@@ -185,13 +182,11 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
 <table>
 <tr>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2UI_Setup1.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup1.png" alt="Welcome" />
   </a>
   <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala2UI_Setup2.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup2.png" alt="License" />
   </a>
@@ -199,13 +194,11 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2UI_Setup3.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup3.png" alt="Custom Setup" />
   </a>
   <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination folder<br>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala2UI_Setup4.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup4.png" alt="Completed" />
   </a>
@@ -213,13 +206,11 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2UI_ProgFiles.png">
   <img style="max-width:180px;" src="images/Scala2UI_ProgFiles.png" alt="Scala 2 directory" />
   </a>
   <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>Scala 2</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala2UI_StartMenu.png">
   <img style="max-width:180px;" src="images/Scala2UI_StartMenu.png" alt="Scala 2 directory" />
   </a>
@@ -294,13 +285,11 @@ Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of t
 <table>
 <tr>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2Localized_Welcome.png">
   <img style="max-width:180px;" src="images/Scala2Localized_Welcome.png" alt="Welcome" />
   </a>
   <div style="font-size:70%;"><b>Figure 4.1 -</b> Welcome<br/>(<i>english</i> version).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala2Localized_Welcome_de.png">
   <img style="max-width:180px;" src="images/Scala2Localized_Welcome_de.png" alt="Willkommen" />
   </a>
@@ -308,13 +297,11 @@ Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of t
   </div>
 </td>
 <td style="text-align:center;">
-  <div>
   <a href="images/Scala2Localized_Welcome_fr.png">
   <img style="max-width:180px;" src="images/Scala2Localized_Welcome_fr.png" alt="Bienvenue" />
   </a>
   <div style="font-size:70%;"><b>Figure 4.3 -</b> Bienvenue<br/>(<i>french</i> version).<br/>&nbsp;
   </div>
-  <div>
   <a href="images/Scala2Localized_Welcome_sv.png">
   <img style="max-width:180px;" src="images/Scala2Localized_Welcome_sv.png" alt="Välkommen" />
   </a>
