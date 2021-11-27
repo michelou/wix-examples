@@ -51,7 +51,7 @@
 
     <!-- Define the directory structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
-    <?if $(env.Platform)=x86?>
+    <?if $(env.Platform)=x86-32?>
         <Directory Id="ProgramFilesFolder">
             <Directory Id="PRODUCTMANUFACTURER" Name="$(var.ProductManufacturer)">
                 <Directory Id="INSTALLDIR" Name="$(var.AppFolder)" />
@@ -69,8 +69,6 @@
                 <Directory Id="INSTALLDIR" Name="$(var.AppFolder)" />
             </Directory>
          </Directory>
-    <?else?>
-        <!-- unknown arch > build must failed without directory-->
     <?endif?>
     </Directory>
 

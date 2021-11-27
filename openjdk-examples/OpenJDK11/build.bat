@@ -63,10 +63,7 @@ set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
 set "_RELEASE_FILE=%_APP_DIR%\release"
-set "_GUIDS_FILE=%_ROOT_DIR%guids.txt"
-
-set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
-set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments.cid.txt"
+set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -140,16 +137,14 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 :props
-@rem associative array to store <name,guid> pairs
-set _GUID=
-
 @rem default product information
+set _PRODUCT_SKU=OpenJDK
 set _PRODUCT_MAJOR_VERSION=11
 set _PRODUCT_MINOR_VERSION=0
 set _PRODUCT_MAINTENANCE_VERSION=0
 set _PRODUCT_PATCH_VERSION=0
 set _PRODUCT_BUILD_NUMBER=28
-set _MSI_PRODUCT_VERSION=
+set _PRODUCT_MSI_VERSION=
 set _ARCH=x64
 set _JVM=hotspot
 set _PRODUCT_CATEGORY=jdk
@@ -179,13 +174,17 @@ if exist "%__PROPS_FILE%" (
             set "__!__NAME!=!__VALUE!"
         )
     )
+    @rem WiX information
+    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
+    if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
     if defined __PRODUCT_MAJOR_VERSION set "_PRODUCT_MAJOR_VERSION=!__PRODUCT_MAJOR_VERSION!"
     if defined __PRODUCT_MINOR_VERSION set "_PRODUCT_MINOR_VERSION=!__PRODUCT_MINOR_VERSION!"
     if defined __PRODUCT_MAINTENANCE_VERSION set "_PRODUCT_MAINTENANCE_VERSION=!__PRODUCT_MAINTENANCE_VERSION!"
     if defined __PRODUCT_PATCH_VERSION set "_PRODUCT_PATCH_VERSION=!__PRODUCT_PATCH_VERSION!"
     if defined __PRODUCT_BUILD_NUMBER set "_PRODUCT_BUILD_NUMBER=!__PRODUCT_BUILD_NUMBER!"
-    if defined __MSI_PRODUCT_VERSION set "_MSI_PRODUCT_VERSION=!__MSI_PRODUCT_VERSION!"
+    if defined __PRODUCT_MSI_VERSION set "_PRODUCT_MSI_VERSION=!__PRODUCT_MSI_VERSION!"
     if defined __ARCH set "_ARCH=!__ARCH!"
     if defined __JVM set "_JVM=!__JVM!"
     if defined __PRODUCT_CATEGORY set "_PRODUCT_CATEGORY=!__PRODUCT_CATEGORY!"
@@ -200,9 +199,16 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_HELP_LINK set "_PRODUCT_HELP_LINK=!__PRODUCT_HELP_LINK!"
     if defined __PRODUCT_SUPPORT_LINK set "_PRODUCT_SUPPORT_LINK=!__PRODUCT_SUPPORT_LINK!"
     if defined __PRODUCT_UPDATE_INFO_LINK set "_PRODUCT_UPDATE_INFO_LINK=!__PRODUCT_UPDATE_INFO_LINK!"
-    @rem WiX information
-    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
-    if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
+)
+if not defined _PRODUCT_ID (
+    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if not defined _PRODUCT_UPGRADE_CODE (
+    echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 @rem Postcondition: _ARCH = {x64, x86-32, arm64}
 if not "%_ARCH%"=="x64" if not "%_ARCH%"=="x86-32" if not "%_ARCH%"=="arm64" (
@@ -220,6 +226,27 @@ if not "%_PRODUCT_CATEGORY%"=="jdk" if not "%_PRODUCT_CATEGORY%"=="jre" (
     set _EXITCODE=1
     goto :eof
 )
+set _PRODUCT_FULL_VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%.%_PRODUCT_BUILD_NUMBER%
+IF %_PRODUCT_MAJOR_VERSION% geq 10 (
+    @rem eg. directory => 11.0.13+8, file => 11.0.13_8
+    set __VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%
+    if defined _PRODUCT_BUILD_NUMBER (
+        set _PRODUCT_SHORT_VERSION=!__VERSION!+%_PRODUCT_BUILD_NUMBER%
+        set _PRODUCT_FILE_VERSION=!__VERSION!_%_PRODUCT_BUILD_NUMBER%
+    ) else (
+        set _PRODUCT_SHORT_VERSION=!__VERSION!
+        set _PRODUCT_FILE_VERSION=!__VERSION!
+    )
+) else (
+    @rem eg. directory => 8u312-b07, file => 8u312b07
+    set _PRODUCT_SHORT_VERSION=%_PRODUCT_MAJOR_VERSION%u%_PRODUCT_MAINTENANCE_VERSION%-b%_PRODUCT_BUILD_NUMBER%
+    set _PRODUCT_FILE_VERSION=%_PRODUCT_MAJOR_VERSION%u%_PRODUCT_MAINTENANCE_VERSION%b%_PRODUCT_BUILD_NUMBER%
+)
+@rem the MSI file version format is: <major>.<minor>.<build>.<update>
+if not defined _PRODUCT_MSI_VERSION set "_PRODUCT_MSI_VERSION=%_PRODUCT_FULL_VERSION%
+
+@rem associative array to store <name,guid> pairs
+set _GUID=
 if exist "%_GUIDS_FILE%" (
     for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
         if not "%%j"=="" set "_GUID[%%i]=%%j"
@@ -274,27 +301,13 @@ goto args_loop
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
-set _PRODUCT_SKU=OpenJDK
-set _PRODUCT_FULL_VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%.%_PRODUCT_BUILD_NUMBER%
-IF %_PRODUCT_MAJOR_VERSION% geq 10 (
-    @rem eg. directory => 11.0.13+8, file => 11.0.13_8
-    set __VERSION=%_PRODUCT_MAJOR_VERSION%.%_PRODUCT_MINOR_VERSION%.%_PRODUCT_MAINTENANCE_VERSION%
-    if defined _PRODUCT_BUILD_NUMBER (
-        set _PRODUCT_SHORT_VERSION=!__VERSION!+%_PRODUCT_BUILD_NUMBER%
-        set _PRODUCT_FILE_VERSION=!__VERSION!_%_PRODUCT_BUILD_NUMBER%
-    ) else (
-        set _PRODUCT_SHORT_VERSION=!__VERSION!
-        set _PRODUCT_FILE_VERSION=!__VERSION!
-    )
-) else (
-    @rem eg. directory => 8u312-b07, file => 8u312b07
-    set _PRODUCT_SHORT_VERSION=%_PRODUCT_MAJOR_VERSION%u%_PRODUCT_MAINTENANCE_VERSION%-b%_PRODUCT_BUILD_NUMBER%
-    set _PRODUCT_FILE_VERSION=%_PRODUCT_MAJOR_VERSION%u%_PRODUCT_MAINTENANCE_VERSION%b%_PRODUCT_BUILD_NUMBER%
-)
-@rem Naming of Zip file: OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
-if not defined _MSI_PRODUCT_VERSION set "_MSI_PRODUCT_VERSION=%_PRODUCT_FULL_VERSION%
-set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%U-%_PRODUCT_CATEGORY%_%_ARCH%_windows_%_JVM%_%_PRODUCT_FILE_VERSION%.msi"
+set "_GUIDS_FILE=%_ROOT_DIR%guids-%_PRODUCT_FILE_VERSION%.txt"
 
+set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
+set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
+
+@rem Name of zip file: OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
+set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%U-%_PRODUCT_CATEGORY%_%_ARCH%_windows_%_JVM%_%_PRODUCT_FILE_VERSION%.msi"
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
@@ -302,6 +315,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_FILE_VERSION=%_PRODUCT_FILE_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_FULL_VERSION=%_PRODUCT_FULL_VERSION% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_MSI_VERSION=%_PRODUCT_MSI_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_SHORT_VERSION=%_PRODUCT_SHORT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_SKU=%_PRODUCT_SKU% 1>&2
 )
@@ -397,12 +411,12 @@ if not exist "%_RELEASE_FILE%" (
         goto :eof
     )
     set "__TEMP_DIR=%TEMP%\%_PRODUCT_CATEGORY%-%_PRODUCT_SHORT_VERSION%!"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%\" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%\" %_STDOUT_REDIRECT%
+    xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy installation files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+        echo %_ERROR_LABEL% Failed to copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -415,7 +429,8 @@ if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 @rem https://wixtoolset.org/documentation/manual/v3/overview/heat.html
 set __HEAT_OPTS=-nologo -indent 2 -cg AppFiles
-set __HEAT_OPTS=%__HEAT_OPTS% -var var.pack -sfrag -sreg -suid -out "%_FRAGMENTS_FILE%"
+set __HEAT_OPTS=%__HEAT_OPTS% -t "%_XSLT_FILE%"
+set __HEAT_OPTS=%__HEAT_OPTS% -var var.pack -suid -sfrag -sreg -out "%_FRAGMENTS_FILE%"
 if %_VERBOSE%==1 set __HEAT_OPTS=-v %__HEAT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
@@ -455,14 +470,14 @@ for /f %%i in (%_FRAGMENTS_CID_FILE%) do (
         echo %%i=!__GUID!>> "%_GUIDS_FILE%"
     )
     set /a __M+=1
-    set __REPLACE[!__M!]=-replace '^Id="%%i" Guid="PUT-GUID-HERE"', 'Id="%%i" Guid="!__GUID!"'
+    set __REPLACE[!__M!]=-replace 'Id="%%i" Guid="PUT-GUID-HERE"', 'Id="%%i" Guid="!__GUID!"'
 )
 set "__PS1_FILE=%_TARGET_DIR%\replace.ps1"
 if exist "%__PS1_FILE%" del "%__PS1_FILE%"
 
 @rem replace GUID placeholders found in .wx? files by their GUID values
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
     echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
@@ -473,7 +488,6 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
     echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
-echo 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -nologo -file "%__PS1_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute PS1 script "!__PS1_FILE:%_ROOT_DIR%=!" 1>&2
 )
@@ -483,6 +497,27 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+@rem image files are handled separately (see :gen_banner)
+for %%e in (ico rtf) do (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    )
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+@rem call :gen_banner
+@rem if not %_EXITCODE%==0 goto :eof
+
+@rem call :gen_dialog
+@rem if not %_EXITCODE%==0 goto :eof
+
+@rem call :gen_license
+@rem if not %_EXITCODE%==0 goto :eof
+
 goto :eof
 
 :extract_components
@@ -512,7 +547,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 )
 set __OPT_EXTENSIONS=-ext wixUtilExtension
 set __OPT_PROPERTIES="-dpack=%_APP_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dMSIProductVersion=%_MSI_PRODUCT_VERSION%"
+set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dMSIProductVersion=%_PRODUCT_MSI_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersionString=%_PRODUCT_SHORT_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dJVM=%_JVM%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMajorVersion=%_PRODUCT_MAJOR_VERSION%"
@@ -544,9 +579,6 @@ setlocal
 set "PLATFORM=%_ARCH%"
 set "PRODUCT_CATEGORY=%_PRODUCT_CATEGORY%"
 set "PRODUCT_MAJOR_VERSION=%_PRODUCT_MAJOR_VERSION%"
-@rem set "VENDOR=%_VENDOR%"
-@rem set "VENDOR_BRANDING_BANNER=%_VENDOR_BRANDING_BANNER%"
-@rem set "VENDOR_BRANDING_LOGO=%_VENDOR_BRANDING_LOGO%"
 call "%_CANDLE_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     endlocal
@@ -555,6 +587,21 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 endlocal
+goto :eof
+
+@rem input parameter: %1=file path
+:gen_checksums
+set "__INPUT_FILE=%~1"
+
+for %%i in (md5 sha256) do (
+    set "__CHECK_FILE=%__INPUT_FILE%.%%i"
+    powershell -c "$fh=Get-FileHash '%__INPUT_FILE%' -Algorithm %%i;$path=Get-Item $fh.Path;$fh.Hash+'  '+$path.Basename+$path.Extension" > "!__CHECK_FILE!"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to generate file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
 goto :eof
 
 :link
@@ -573,8 +620,8 @@ if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_COMMON=-v -sval
-) else ( set __OPT_COMMON=-sval
+if %_DEBUG%==1 ( set __OPT_BASE=-v -sval
+) else ( set __OPT_BASE=-sval
 )
 set __CULTURE=en-us
 set __OPT_LOCALIZED="-cultures:%__CULTURE%"
@@ -584,7 +631,7 @@ for /f "delims=" %%f in ('dir /b /s "%_GEN_DIR%\*Base.%__CULTURE%.wxl" "%_GEN_DI
 set __OPT_EXTENSIONS=-ext wixUIExtension -ext wixUtilExtension
 set __OPT_PROPERTIES=
 set __LIGHT_BINDINGS=
-echo %__OPT_COMMON% %__OPT_LOCALIZED% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+echo %__OPT_BASE% %__OPT_LOCALIZED% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0
@@ -597,10 +644,12 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_F
 )
 call "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" ^(error %ERRORLEVEL%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
+call :gen_checksums "%_MSI_FILE%"
+if not %_EXITCODE%==0 goto :eof
 goto :eof
 
 @rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
@@ -673,11 +722,22 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+if %_VERBOSE%+%_DEBUG% gtr 0 (
+    set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
+    set __APP_DIR=
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala 2*" 2^>NUL') do set "__APP_DIR=%%f"
+    if not defined __APP_DIR (
+        echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    dir /b /s "!__APP_DIR!" 1>&2
+)
 goto :eof
 
 :remove
 if not defined _PRODUCT_ID (
-    echo %_ERROR_LABEL% Product code not found 1>&2
+    echo %_ERROR_LABEL% Product identifier not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -689,7 +749,7 @@ set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 @rem set __INSTALLED=0
 @rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%_PRODUCT_ID%" && set __INSTALLED=1
 @rem if %__INSTALLED%==0 (
-@rem     echo %_WARNING_LABEL% Product "%PRODUCT_SKU%" is not installed 1>&2
+@rem     echo %_WARNING_LABEL% Product "%_PRODUCT_SKU%" is not installed 1>&2
 @rem     goto :eof
 @rem )
 if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2

@@ -17,7 +17,9 @@ This includes the development of a [WiX installer](https://github.com/adoptium/i
 
 ## <span id="openjdk11">OpenJDK11</span>
 
-Project `OpenJDK11` is based on the [WiX][wix_toolset] source files developed in the project [`adoptium/installer`][adoptium_installer].
+Project `OpenJDK11` is derived from the [WiX][wix_toolset] installer developed in the project [`adoptium/installer`][adoptium_installer].
+
+> **:mag_right:**  Concretely, localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK11/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `guids-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -30,7 +32,6 @@ Y:\openjdk-examples\OpenJDK11
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>
 └───<b>src</b>
-    │   <a href="./OpenJDK11/src/Fragments.wxs">Fragments.wxs</a>
     │   <a href="./OpenJDK11/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./OpenJDK11/src/Main.wxs">Main.wxs</a>
     ├───<b>localizations</b>
@@ -71,11 +72,13 @@ Fragments.wixobj
 light_opts.txt
 Main.wixobj
 OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi
+OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi.md5
+OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi.sha256
 OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.wixpdb
-replace.ps1
+replace.ps11
 </pre>
 
-Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 11][adoptium_openjdk11] Windows installer while figure **1.5** shows the updated user environment after the successful execution of the Windows installer.
+Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 11][adoptium_openjdk11] Windows installer while figures **1.5** and **1.6** show the updated user environment after the successful execution of the Windows installer.
 
 <table>
 <tr>
@@ -103,7 +106,10 @@ Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 1
   <div style="font-size:70%;">
   <b>Figure 1.5 -</b> <i>OpenJDK 11</i> directory<br/>(<i>Program&nbsp;Files</i> folder).<br/>&nbsp;
   </div>
-  <!-- to be added -->
+  <a href="images/Temurin_OpenJDK11_Uninstall.png"><img style="max-width:180px;" src="images/Temurin_OpenJDK11_Uninstall.png" /></a>
+  <div style="font-size:70%;">
+  <b>Figure 1.6 -</b> Uninstall<br/>(<i>Settings</i> window).
+  </div>
 </td>
 </tr>
 </table>
@@ -201,6 +207,7 @@ For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8
 
 [adoptium_installer]: https://github.com/adoptium/installer
 [adoptium_openjdk11]: https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot
+[git_cmd]: https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
 [wix_candle]: https://wixtoolset.org/documentation/manual/v3/overview/candle.html
 [wix_component]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/component.html
 [wix_heat]: https://wixtoolset.org/documentation/manual/v3/overview/heat.html

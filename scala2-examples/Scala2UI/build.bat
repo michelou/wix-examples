@@ -170,6 +170,7 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
+    @rem product information
     if defined __PRODUCT_VERSION set "_PRODUCT_VERSION=!__PRODUCT_VERSION!"
     if defined __MAIN_EXECUTABLE set "_MAIN_EXECUTABLE=!__MAIN_EXECUTABLE!"
     if defined __PROGRAM_MENU_DIR set "_PROGRAM_MENU_DIR=!__PROGRAM_MENU_DIR!"
@@ -258,8 +259,10 @@ set "_GUIDS_FILE=%_ROOT_DIR%guids-%_PRODUCT_VERSION%.txt"
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
+@rem Name of zip file: scala-2.13.7.zip
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.msi"
 
+																							
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
@@ -410,7 +413,7 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>N
     for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
     echo ^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
     for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
-    echo    ^| Out-File -encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
+    echo    ^| Out-File -Encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
     echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
@@ -725,13 +728,13 @@ if not defined _PRODUCT_ID (
 )
 set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 
-@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_CODE%" 1>&2
+@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%_PRODUCT_ID%" 1>&2
 @rem ) else if %_VERBOSE%==1 ( echo Check if product if already installed 1>&2
 @rem )
 @rem set __INSTALLED=0
 @rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%_PRODUCT_ID%" && set __INSTALLED=1
 @rem if %__INSTALLED%==0 (
-@rem     echo %_WARNING_LABEL% Product "%_PROJECT_NAME%" is not installed 1>&2
+@rem     echo %_WARNING_LABEL% Product "%_PRODUCT_SKU%" is not installed 1>&2
 @rem     goto :eof
 @rem )
 if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
