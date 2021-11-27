@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="sv-SE" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="ProductLanguage">1053</String>
+  <String Id="ProductManufacturer">EPFL/LAMP and Lightbend, Inc.</String>
+
+  <String Id="PackageComments">(C) Copyright 2002-2021 EPFL</String>
+  <String Id="PackageDescription">Scala 2 Installatör</String>
+  <String Id="PackageKeywords">Scala, programmeringsspråk, kompilator, Java, JVM, EPFL</String>
+  <String Id="PackageManufacturer">EPFL/LAMP and Lightbend, Inc.</String>
+
+  <String Id="ShortcutScalaAPIDescription">Visar Scala 2 API Dokumentation</String>
+  <String Id="ShortcutScalaAPIName">Scala 2 API Dokumentation</String>
+
+  <String Id="ShortcutScalaLicenseDescription">Scala 2 Licens</String>
+  <String Id="ShortcutScalaLicenseName">Scala Licens</String>
+
+  <String Id="ShortcutScalaREPLDescription">Scala 2 Interaktivt Skal</String>
+  <String Id="ShortcutScalaREPLName">Scala 2 REPL</String>
+
+  <String Id="ShortcutUninstallProductDescription">Avinstallerar Scala 2</String>
+  <String Id="ShortcutUninstallProductName">Scala 2 Avinstallation</String>
+
+  <String Id="FeatureAppComponentsDescription">Installerar Scala 2 komponenter</String>
+  <String Id="FeatureAppComponentsTitle">Scala 2</String>
+</WixLocalization>

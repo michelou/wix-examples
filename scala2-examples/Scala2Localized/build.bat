@@ -63,8 +63,7 @@ set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
-for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
-set _COPYRIGHT_OWNER=EPFL
+for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -149,9 +148,9 @@ goto :eof
 set _ARCH=x64
 
 set _PRODUCT_ID=
-set _PRODUCT_SKU=scala3
+set _PRODUCT_SKU=scala
 set _PRODUCT_UPGRADE_CODE=
-set _PRODUCT_VERSION=3.1.0
+set _PRODUCT_VERSION=2.13.7
 
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
@@ -170,11 +169,12 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
+    @rem product information
     if defined __PRODUCT_VERSION set "_PRODUCT_VERSION=!__PRODUCT_VERSION!"
     if defined __MAIN_EXECUTABLE set "_MAIN_EXECUTABLE=!__MAIN_EXECUTABLE!"
     if defined __PROGRAM_MENU_DIR set "_PROGRAM_MENU_DIR=!__PROGRAM_MENU_DIR!"
-    if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
     if defined __APPLICATION_ENV set "_APPLICATION_ENV=!__APPLICATION_ENV!"
+    if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
 )
 if not defined _PRODUCT_ID (
     echo %_ERROR_LABEL% Product identifier is undefined 1>&2
@@ -261,6 +261,7 @@ set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
+@rem Name of zip file: scala-2.13.7.zip
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.msi"
 
 if %_DEBUG%==1 (
@@ -325,13 +326,13 @@ goto :eof
 :gen_app
 if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
 
-if not exist "%_VERSION_FILE%" (
+if not exist "%_LICENSE_FILE%" (
     @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
     set "__RELEASE=%_PRODUCT_VERSION%"
     set _PRODUCT_VERSION=
 
     set "__ARCHIVE_FILE=%_PRODUCT_SKU%-!__RELEASE!.zip"
-    set "__ARCHIVE_URL=https://github.com/lampepfl/dotty/releases/download/!__RELEASE!/!__ARCHIVE_FILE!"
+    set "__ARCHIVE_URL=https://downloads.lightbend.com/scala/!__RELEASE!/!__ARCHIVE_FILE!"
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
     if not exist "!__OUTPUT_FILE!" (
@@ -368,13 +369,6 @@ if not exist "%_VERSION_FILE%" (
         goto :eof
     )
     set "_PRODUCT_VERSION=!__RELEASE!"
-)
-for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_VERSION_FILE%" 2^>NUL') do (
-    if not "%%j"=="%_PRODUCT_VERSION%" (
-        echo %_ERROR_LABEL% Version property and product version differ ^(found:%%j, expected:%_PRODUCT_VERSION%^) 1>&2
-        set _EXITCODE=1
-        goto :eof
-    )
 )
 goto :eof
 
@@ -422,7 +416,7 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>N
     for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
     echo ^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
     for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
-    echo    ^| Out-File -encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
+    echo    ^| Out-File -Encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
     echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
@@ -512,10 +506,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :gen_license
-set "__INFILE=%_RESOURCES_DIR%\LICENSE.rtf"
-set "__OUTFILE=%_TARGET_DIR%\resources\LICENSE.rtf"
+set "__INFILE=%_RESOURCES_DIR%\License.rtf"
+set "__OUTFILE=%_TARGET_DIR%\resources\License.rtf"
 
-set __REPLACE_PAIRS=-replace '\[yyyy\]', '%_COPYRIGHT_YEAR_RANGE%' -replace '\[name of copyright owner\]', '%_COPYRIGHT_OWNER%'
+set __REPLACE_PAIRS=-replace '\[yyyy\]', '%_COPYRIGHT_END_YEAR%'
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% ^(Get-Content -Raw -Encoding Ascii '%__INFILE%'^) %__REPLACE_PAIRS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Set copyright information in file "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
@@ -559,6 +553,7 @@ set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductId=%_PRODUCT_ID%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersion=%_PRODUCT_VERSION%"
+set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProgramMenuDir=%_PROGRAM_MENU_DIR%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationEnv=%_APPLICATION_ENV%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
@@ -603,11 +598,11 @@ for %%i in (md5 sha256) do (
 goto :eof
 
 :link
-@rem ensure directory "%_APP_DIR%" contains the Scala 3 distribution
+@rem ensure directory "%_APP_DIR%" contains the Scala 2 distribution
 call :gen_app
 if not %_EXITCODE%==0 goto :eof
 
-call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_VERSION_FILE%"
+call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_LICENSE_FILE%"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 call :gen_src
@@ -624,6 +619,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 set __OPT_EXTENSIONS=-ext WixUIExtension
 set __OPT_PROPERTIES=
 set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_TARGET_DIR%\resources"
+echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0
@@ -731,7 +727,7 @@ if not %ERRORLEVEL%==0 (
 if %_VERBOSE%+%_DEBUG% gtr 0 (
     set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
     set __APP_DIR=
-    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*3*" 2^>NUL') do set "__APP_DIR=%%f"
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*2*" 2^>NUL') do set "__APP_DIR=%%f"
     if not defined __APP_DIR (
         echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
         set _EXITCODE=1
@@ -749,13 +745,13 @@ if not defined _PRODUCT_ID (
 )
 set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 
-@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_CODE%" 1>&2
+@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%_PRODUCT_ID%" 1>&2
 @rem ) else if %_VERBOSE%==1 ( echo Check if product if already installed 1>&2
 @rem )
 @rem set __INSTALLED=0
 @rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%_PRODUCT_ID%" && set __INSTALLED=1
 @rem if %__INSTALLED%==0 (
-@rem     echo %_WARNING_LABEL% Product "%_PROJECT_NAME%" is not installed 1>&2
+@rem     echo %_WARNING_LABEL% Product "%_PRODUCT_SKU%" is not installed 1>&2
 @rem     goto :eof
 @rem )
 if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2

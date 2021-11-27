@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-US" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="ProductLanguage">1033</String>
+  <String Id="ProductManufacturer">EPFL/LAMP and Lightbend, Inc.</String>
+
+  <String Id="PackageComments">(C) Copyright 2002-2021 EPFL</String>
+  <String Id="PackageDescription">Scala 2 Installer</String>
+  <String Id="PackageKeywords">Scala, programming language, compiler, Java, JVM, EPFL</String>
+  <String Id="PackageManufacturer">EPFL/LAMP and Lightbend, Inc.</String>
+
+  <String Id="ShortcutScalaAPIDescription">Displays the Scala 2 API Documentation</String>
+  <String Id="ShortcutScalaAPIName">Scala 2 API Documentation</String>
+
+  <String Id="ShortcutScalaLicenseDescription">Displays the Scala 2 License</String>
+  <String Id="ShortcutScalaLicenseName">Scala License</String>
+
+  <String Id="ShortcutScalaREPLDescription">Launches the Scala 2 REPL</String>
+  <String Id="ShortcutScalaREPLName">Scala 2 REPL</String>
+
+  <String Id="ShortcutUninstallProductDescription">Removes the Scala 2 installation</String>
+  <String Id="ShortcutUninstallProductName">Uninstall Scala 2</String>
+
+  <String Id="FeatureAppComponentsDescription">Install the Scala 2 components</String>
+  <String Id="FeatureAppComponentsTitle">Scala 2</String>
+</WixLocalization>

@@ -14,7 +14,7 @@
 The [WiX][wix_toolset] examples presented in the following sections
 - "share" the same project organisation as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md), in particular :
-   - application files are downloaded and extracted from in directory `app\` are extracted from the downloaded from the Zip archive (e.g. `scala-2.13.7.zip`) if not yet present in directory `app\`.
+   - application files are downloaded and extracted from in directory `app\` are extracted from the downloaded from the Zip archive (e.g. `scala3-3.1.0.zip`) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 ## <span id="scala3_first">Scala3First</span>
@@ -194,7 +194,7 @@ Y:\examples\Scala3Localized
 │   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
 └───<b>src</b>
     │   <a href="./Scala3Localized/src/Includes.wxi">Includes.wxi</a>
-    │   <a href="./Scala3Localized/src/Scala3Localizedwxs">Scala3Localized.wxs</a>
+    │   <a href="./Scala3Localized/src/Scala3Localized.wxs">Scala3Localized.wxs</a>
     ├───<b>localizations</b>
     │       <a href="./Scala3Localized/src/localizations/de-DE.wxl">de-DE.wxl</a>
     │       <a href="./Scala3Localized/src/localizations/en-US.wxl">en-US.wxl</a>
@@ -275,7 +275,7 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
 
 ## <span id="scala3_features">Scala3Features</span>
 
-The `Scala3Features` project <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 3][scala3] Windows installer.
+Project `Scala3Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 3][scala3] Windows installer.
 
 *wip*
 

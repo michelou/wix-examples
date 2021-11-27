@@ -55,13 +55,11 @@ set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
-set "_APP_DIR=%_ROOT_DIR%app"
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_RESOURCES_DIR=%_SOURCE_DIR%\resources"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
-set "_LICENSE_FILE=%_APP_DIR%\LICENSE"
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
@@ -243,7 +241,10 @@ goto args_loop
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
-set "_GUIDS_FILE=%_ROOT_DIR%guids-%_PRODUCT_VERSION%.txt"
+set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_VERSION%"
+set "_LICENSE_FILE=%_APP_DIR%\LICENSE"
+
+set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
 
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
@@ -322,13 +323,15 @@ if not exist "%_LICENSE_FILE%" (
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
     if not exist "!__OUTPUT_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTPUT_FILE!" 1>&2
+        set __CURL_OPTS=--fail --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!"
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__OUTPUT_FILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
         )
-        call "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" > "!__OUTPUT_FILE!"
+        call "%_CURL_CMD%" !__CURL_OPTS! > "!__OUTPUT_FILE!"
         if not !ERRORLEVEL!==0 (
+            if exist "!__OUTPUT_FILE!" del "!__OUTPUT_FILE!"
             echo.
-            echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" 1>&2
+            echo %_ERROR_LABEL% Failed to download file "!__ARCHIVE_URL!" 1>&2
             set _EXITCODE=1
             goto :eof
         )

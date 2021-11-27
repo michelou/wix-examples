@@ -233,6 +233,97 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
 
 Project `Scala2Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 2][scala2] Windows installer.
 
+This project contains the additional directory [`src\localizations\`](./Scala2Localized/src/localizations/) with 4 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+Y:\examples\Scala2Localized
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+│   <a href="./Scala2Localized/build.bat">build.bat</a>
+├───<b>app</b>
+│   └───<i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
+└───<b>src</b>
+    │   <a href="./Scala2Localized/src/Includes.wxi">Includes.wxi</a>
+    │   <a href="./Scala2Localized/src/Scala2Localized.wxs">Scala2Localized.wxs</a>
+    ├───<b>localizations</b>
+    │       <a href="./Scala2Localized/src/localizations/de-DE.wxl">de-DE.wxl</a>
+    │       <a href="./Scala2Localized/src/localizations/en-US.wxl">en-US.wxl</a>
+    │       <a href="./Scala2Localized/src/localizations/fr-FR.wxl">fr-Fr.wxl</a>
+    │       <a href="./Scala2Localized/src/localizations/sv-SE.wxl">sv-SE.wxl</a>
+    └───<b>resources</b>
+            <a href="./Scala2Localized/src/resources/BannerTop.bmp">BannerTop.bmp</a>
+            <a href="./Scala2Localized/src/resources/Dialog.bmp">Dialog.bmp</a>
+            <a href="./Scala2Localized/src/resources/logo.svg">logo.svg</a>
+            favicon.ico
+            LICENSE.rtf
+            network.ico
+            <a href="./Scala2Localized/src/resources/repl.bat">repl.bat</a>
+            rtf.ico
+</pre>
+
+Command [`build link`](./Scala2Localized/build.bat) generates a separate MSI file for each language localization, e.g. `scala-2.13.7-sv-SE.msi` is the swedish version of the [Scala 2][scala2] Windows installer.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./Scala2Localized/build.bat">build</a> clean link && <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /a-d target</b>
+candle_opts.txt
+candle_sources.txt
+Fragments.wixobj
+light_opts.txt
+replace.ps1
+<b>scala-2.13.7.msi</b>
+scala-2.13.7.msi.md5
+scala-2.13.7.msi.sha256
+scala-2.13.7.wixpdb
+<b>scala-2.13.7_de-DE.msi</b>
+scala-2.13.7_de-DE.msi.md5
+scala-2.13.7_de-DE.msi.sha256
+scala-2.13.7_de-DE.wixpdb
+<b>scala-2.13.7_fr-FR.msi</b>
+scala-2.13.7_fr-FR.msi.md5
+scala-2.13.7_fr-FR.msi.sha256
+scala-2.13.7_fr-FR.wixpdb
+<b>scala-2.13.7_sv-SE.msi</b>
+scala-2.13.7_sv-SE.msi.md5
+scala-2.13.7_sv-SE.msi.sha256
+scala-2.13.7_sv-SE.wixpdb
+Scala2Localized.wixobj
+</pre>
+
+Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of the [Scala 2][scala2] Windows installer in english, german, french and swedish.
+
+<table>
+<tr>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala2Localized_Welcome.png">
+  <img style="max-width:180px;" src="images/Scala2Localized_Welcome.png" alt="Welcome" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 4.1 -</b> Welcome<br/>(<i>english</i> version).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala2Localized_Welcome_de.png">
+  <img style="max-width:180px;" src="images/Scala2Localized_Welcome_de.png" alt="Willkommen" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 4.2 -</b> Willkommen<br/>(<i>german</i> version).
+  </div>
+</td>
+<td style="text-align:center;">
+  <div>
+  <a href="images/Scala2Localized_Welcome_fr.png">
+  <img style="max-width:180px;" src="images/Scala2Localized_Welcome_fr.png" alt="Bienvenue" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 4.3 -</b> Bienvenue<br/>(<i>french</i> version).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/Scala2Localized_Welcome_sv.png">
+  <img style="max-width:180px;" src="images/Scala2Localized_Welcome_sv.png" alt="Välkommen" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 4.4 -</b> Välkommen<br/>(<i>swedish</i> version).
+  </div>
+</td>
+</tr>
+</table>
+
 ## <span id="footnotes">Footnotes</span>
 
 <b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
@@ -253,6 +344,11 @@ SCALA_HOME=C:\Program Files\Scala 2\
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> scala</b>
 C:\Program Files\Scala 2\bin\scala
 C:\Program Files\Scala 2\bin\scala.bat
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> JAVA_HOME=c:\opt\jdk-bellsoft-1.8.0u312</b>
+&nbsp;
+<b>&gt; scala -version</b>
+Scala code runner version 2.13.7 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
 </pre>
 
 <b name="footnote_03">[3]</b> ***Default Java Location*** [↩](#anchor_03)

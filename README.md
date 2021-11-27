@@ -13,7 +13,7 @@
 
 ## <span id="proj_deps">Project dependencies</span>
 
-This project depends on two external software for the **Microsoft Windows** plaform:
+This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Git 2.34][git_downloads] ([*release notes*][git_relnotes])
 - [WiX 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])

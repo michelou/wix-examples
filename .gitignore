@@ -3,6 +3,7 @@ Debug/
 Release/
 target/
 *_LOCAL
+app*.txt
 guids*.txt
 *.exe
 *.properties
