@@ -324,6 +324,12 @@ Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of t
 </tr>
 </table>
 
+## <span id="scala2_features">Scala2Features</span>
+
+Project `Scala2Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 2][scala2] Windows installer.
+
+*wip*
+
 ## <span id="footnotes">Footnotes</span>
 
 <b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
