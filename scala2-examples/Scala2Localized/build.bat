@@ -64,6 +64,7 @@ set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
 for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
+set _COPYRIGHT_OWNER=EPFL
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -95,6 +96,12 @@ if not exist "%WINDIR%\System32\msiexec.exe" (
     goto :eof
 )
 set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
+
+set _SIGNTOOL_CMD=
+if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
+) else ( set __ARCH=x86
+)
+for /f "delims=" %%f in ('where /r "%WINSDK_HOME%\bin" signtool.exe^|findstr %__ARCH%') do set "_SIGNTOOL_CMD=%%f"
 goto :eof
 
 :env_colors
@@ -597,6 +604,45 @@ for %%i in (md5 sha256) do (
 )
 goto :eof
 
+@rem input parameter: %1=file path
+:sign_file
+set "__TARGET_FILE=%~1"
+set "__CERTS_DIR=%USERPROFILE%\Certificates"
+
+set "__FPX_CERT_FILE=%__CERTS_DIR%\wix-examples.pfx"
+if not exist "%__FPX_CERT_FILE%" (
+    echo %_ERROR_LABEL% PFX certificate file not found ^("!__FPX_CERT_FILE:%USERPROFILE%\=!"^) 1>&2
+    echo ^(put file wix-examples.pfx into directory "%%USERPROFILE%%\Certificates"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__PFX_PSWD_FILE=%__CERTS_DIR%\wix-examples.pfx.txt"
+if not exist "%__PFX_PSWD_FILE%" (
+    echo %_ERROR_LABEL% PFX password file not found ^("!__PFX_PSWD_FILE:%USERPROFILE%\=!"^) 1>&2
+    echo ^(put password file wix-examples.pfx.txt into directory "%%USERPROFILE%%\Certificates"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
+set "__TSTAMP_SERVER_URL=http://timestamp.digicert.com"
+
+@rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
+set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%__TSTAMP_SERVER_URL%" /fd SHA256
+if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
+
+@rem print dummy PFX password in console !
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SIGNTOOL_CMD%" sign /p "XXXXXX" %__SIGN_OPTS% "%__TARGET_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Sign file "!__TARGET_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set /p __PFX_PSWD=< "%__PFX_PSWD_FILE%"
+call "%_SIGNTOOL_CMD%" sign /p "%__PFX_PSWD%" %__SIGN_OPTS% "%__TARGET_FILE%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to sign file "!__TARGET_FILE:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 :link
 @rem ensure directory "%_APP_DIR%" contains the Scala 2 distribution
 call :gen_app
@@ -649,6 +695,9 @@ for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*.wxl"') do (
         set _EXITCODE=1
         goto :eof
     )
+    call :sign_file "!__MSI_FILE!"
+    if not !_EXITCODE!==0 goto :eof
+
     call :gen_checksums "!__MSI_FILE!"
     if not !_EXITCODE!==0 goto :eof
 )
@@ -727,7 +776,7 @@ if not %ERRORLEVEL%==0 (
 if %_VERBOSE%+%_DEBUG% gtr 0 (
     set "__PROGRAMS_DIR=%ProgramData%\Microsoft\Windows\Start Menu\Programs"
     set __APP_DIR=
-    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala*2*" 2^>NUL') do set "__APP_DIR=%%f"
+    for /f "delims=" %%f in ('dir /ad /b /s "!__PROGRAMS_DIR!\Scala 2*" 2^>NUL') do set "__APP_DIR=%%f"
     if not defined __APP_DIR (
         echo %_ERROR_LABEL% Application shorcuts directory not found 1>&2
         set _EXITCODE=1

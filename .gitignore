@@ -2,9 +2,13 @@ app*/
 Debug/
 Release/
 target/
+*.crt
 *_LOCAL
 app*.txt
 guids*.txt
 *.exe
+*.key
+*.pem
+*.pfx
 *.properties
 *.user
