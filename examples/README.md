@@ -59,9 +59,9 @@ Create Windows installer "target\MyApp-1.0.0.msi"
 Execute Windows installer "target\MyApp-1.0.0.msi"
 </pre>
 
-Figures **1.1** and **1.2** below illustrate the updated user environment after the successful execution of the `MyApp` Windows installer.
+Figures **1.1** and **1.2** below illustrate the updated user environment after the successful execution of the *MyApp* Windows installer.
 
-> **:mag_right:** The user must navigate to the *Apps &amp; features* window in the *Windows Settings* in order to uninstall the `MyApp` application (**Figure 1.2**).
+> **:mag_right:** The user must navigate to the *Apps &amp; features* window in the *Windows Settings* in order to uninstall the *MyApp* application (**Figure 1.2**).
 
 <table>
 <tr>
@@ -89,7 +89,7 @@ We declare 3 components in our [WiX][wix_toolset] source file [`MyAppShortcuts.w
 > - from the *Apps &amp; features* window in the [*Windows Settings*][windows_settings]
 > - through the *Uninstall MyApp* shortcut in the [*Start Menu*][windows_start_menu] folder.
 
-Figures **2.1** to **2.4** below illustrate the updated user environment after the successful execution of the `MyApp` Windows installer.
+Figures **2.1** to **2.4** below illustrate the updated user environment after the successful execution of the *MyApp* Windows installer.
 
 <table>
 <tr>
@@ -118,7 +118,11 @@ Figures **2.1** to **2.4** below illustrate the updated user environment after t
 
 ## <span id="myapp_localized">MyAppLocalized</span>
 
+Project `MyAppLocalized` adds language localization to the [WiX][wix_toolset] source files of the *MyApp* Windows installer.
+
 *tbd*
+
+This project contains the additional directory [`src\localizations\`](./MyAppLocalized/src/localizations/) with 3 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
@@ -141,29 +145,31 @@ Y:\examples\MyAppLocalized
             <a href="./MyAppLocalized/src/localizations/README.txt">README.txt</a>
 </pre>
 
-The batch subcommand `link`generates one localized Windows installer for every localization file found in the directory `src\localizations\`.
+Command `build link`generates a separate MSI file for each language localization, e.g. `MyApp-1.0.0-fr-FR.msi` is the french version of the *MyApp* Windows installer.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./MyAppLocalized/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b target</b>
 candle_opts.txt
 candle_sources.txt
 light_opts.txt
-MyApp-1.0.0-de-DE.msi
-MyApp-1.0.0-de-DE.msi.md5
-MyApp-1.0.0-de-DE.msi.sha256
-MyApp-1.0.0-de-DE.wixpdb
-MyApp-1.0.0-fr-FR.msi
-MyApp-1.0.0-fr-FR.msi.md5
-MyApp-1.0.0-fr-FR.msi.sha256
-MyApp-1.0.0-fr-FR.wixpdb
 MyApp-1.0.0.msi
 MyApp-1.0.0.msi.md5
 MyApp-1.0.0.msi.sha256
 MyApp-1.0.0.wixpdb
+MyApp-1.0.0_de-DE.msi
+MyApp-1.0.0_de-DE.msi.md5
+MyApp-1.0.0_de-DE.msi.sha256
+MyApp-1.0.0_de-DE.wixpdb
+MyApp-1.0.0_fr-FR.msi
+MyApp-1.0.0_fr-FR.msi.md5
+MyApp-1.0.0_fr-FR.msi.sha256
+MyApp-1.0.0_fr-FR.wixpdb
 MyAppLocalized.wixobj
 </pre>
 
 ## <span id="myapp_features">MyAppFeatures</span>
+
+Project `MyAppFeatures` adds feature customization to the *MyApp* Windows installer.
 
 *tbd*
 

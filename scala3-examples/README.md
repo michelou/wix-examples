@@ -12,9 +12,9 @@
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections
-- "share" the same project organisation as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
+- *share* the same project organisation as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md), in particular :
-   - application files are downloaded and extracted from in directory `app\` are extracted from the downloaded from the Zip archive (e.g. `scala3-3.1.0.zip`) if not yet present in directory `app\`.
+   - application files are downloaded and extracted from in directory `app\` are extracted from the downloaded from the Zip archive (e.g. [`scala3-3.1.0.zip`][scala3_zip]) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 ## <span id="scala3_first">Scala3First</span>
@@ -24,7 +24,7 @@ Project `Scala3First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first i
 The project directory is organized as follows :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\examples\Scala3First
+Y:\scala3-examples\Scala3First
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3First/build.bat">build.bat</a>
@@ -34,6 +34,7 @@ Y:\examples\Scala3First
     │   <a href="./Scala3First/src/Scala3First.wxs">Scala3First.wxs</a>
     └───<b>resources</b>
             favicon.ico
+            <a href="./Scala3First/src/resources/Fragments.xslt">Fragments.xslt</a>
             <a href="./Scala3First/src/resources/repl.bat">repl.bat</a>
 </pre>
 
@@ -47,12 +48,13 @@ Command [`build link`](./Scala3First/build.bat) <sup id="anchor_04">[4](#footnot
 │   candle_sources.txt
 │   Fragments.wixobj
 │   light_opts.txt
+│   replace.ps1
 │   scala3-3.1.0.msi
 │   scala3-3.1.0.msi.md5
 │   scala3-3.1.0.msi.sha256
 │   scala3-3.1.0.wixpdb
 │   Scala3First.wixobj
-├───resources
+├───<b>resources</b>
 │       favicon.ico
 │       repl.bat
 └───<b>src_gen</b>
@@ -63,7 +65,7 @@ Command [`build link`](./Scala3First/build.bat) <sup id="anchor_04">[4](#footnot
 
 > **:mag_right:** The above file `target\src_gen\Scala3First.wxs` contains the real GUIDs instead of the variables names specified in source file [`src\Scala3First.wxs`](./Scala3First/src/Scala3First.wxs).
 
-Figures **1.1** to **1.5** below illustrate the updated user environment after the successful execution of the Windows installer.
+Figures **1.1** to **1.5** below illustrate the updated user environment after the successful execution of the [Scala 3][scala3] Windows installer.
 
 <table>
 <tr>
@@ -108,7 +110,7 @@ Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizatio
 The project directory is organized as follows :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\examples\Scala3UI
+Y:\scala3-examples\Scala3UI
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3UI/build.bat">build.bat</a>
@@ -122,6 +124,7 @@ Y:\examples\Scala3UI
             <a href="./Scala3UI/src/resources/Dialog.bmp">Dialog.bmp</a>
             <a href="./Scala3UI/src/resources/logo.svg">logo.svg</a>
             favicon.ico
+            <a href="./Scala3UI/src/resources/Fragments.xslt">Fragments.xslt</a>
             LICENSE.rtf
             network.ico
             <a href="./Scala3UI/src/resources/repl.bat">repl.bat</a>
@@ -177,7 +180,7 @@ Project `Scala3Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds langu
 This project contains the additional directory [`src\localizations\`](./Scala3Localized/src/localizations/) with 4 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\examples\Scala3Localized
+Y:\scala3-examples\Scala3Localized
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3Localized/build.bat">build.bat</a>
@@ -395,6 +398,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [scala3]: https://dotty.epfl.ch
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
+[scala3_zip]: https://github.com/lampepfl/dotty/releases/tag/3.1.0
 [windows_program_files]: https://en.wikipedia.org/wiki/Program_Files
 [windows_settings]: https://support.microsoft.com/en-us/windows/find-settings-in-windows-10-6ffbef87-e633-45ac-a1e8-b7a834578ac6
 [windows_start_menu]: https://support.microsoft.com/en-us/windows/see-what-s-on-the-start-menu-a8ccb400-ad49-962b-d2b1-93f453785a13

@@ -155,10 +155,11 @@ if exist "%__PROPS_FILE%" (
             set "__!__NAME!=!__VALUE!"
         )
     )
-    @rem PRODUCT_CODE UPGRADE_CODE UPGRADE_INFO MAIN_EXECUTABLE PROGRAM_MENU_DIR
+    @rem WiX information
     if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
     if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
     if defined __UPGRADE_INFO set "_GUID[UPGRADE_INFO]=!__UPGRADE_INFO!"
+    @rem application information
 	if defined __DOCUMENTATION_HTML set "_GUID[DOCUMENTATION_HTML]=!__DOCUMENTATION_HTML!"
     if defined __APPLICATION_ENV set "_GUID[APPLICATION_ENV]=!__APPLICATION_ENV!"
     if defined __APPLICATION_EXE set "_GUID[APPLICATION_EXE]=!__APPLICATION_EXE!"
@@ -320,8 +321,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+set __PACK_FILES=APPLICATION_ENV APPLICATION_EXE APPLICATION_SHORTCUT DOCUMENTATION_HTML
 set __REPLACE_PAIRS=
-for %%i in (PRODUCT_CODE UPGRADE_CODE UPGRADE_INFO APPLICATION_ENV APPLICATION_EXE APPLICATION_SHORTCUT DOCUMENTATION_HTML) do (
+for %%i in (PRODUCT_CODE UPGRADE_CODE UPGRADE_INFO %__PACK_FILES%) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
@@ -339,7 +341,7 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
     )
 )
 for %%e in (ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
     )
     xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
@@ -385,6 +387,21 @@ if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
+)
+goto :eof
+
+@rem input parameter: %1=file path
+:gen_checksums
+set "__INPUT_FILE=%~1"
+
+for %%i in (md5 sha256) do (
+    set "__CHECK_FILE=%__INPUT_FILE%.%%i"
+    powershell -c "$fh=Get-FileHash '%__INPUT_FILE%' -Algorithm %%i;$path=Get-Item $fh.Path;$fh.Hash+'  '+$path.Basename+$path.Extension" > "!__CHECK_FILE!"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to generate file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 goto :eof
 
@@ -438,6 +455,8 @@ for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*.wxl"') do (
         set _EXITCODE=1
         goto :eof
     )
+    call :gen_checksums "!__MSI_FILE!"
+    if not !_EXITCODE!==0 goto :eof
 )
 goto :eof
 

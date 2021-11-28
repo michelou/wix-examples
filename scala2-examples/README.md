@@ -14,7 +14,7 @@
 The [WiX][wix_toolset] examples presented in the following sections
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md), in particular :
-   - application files are downloaded and extracted from the Zip archive (e.g. `scala-2.13.7.zip`) if not yet present in directory `app\`.
+   - application files are downloaded and extracted from the Zip archive (e.g. [`scala-2.13.7.zip`][scala2_zip]) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 ## <span id="scala2_first">Scala2First</span>
@@ -24,7 +24,7 @@ Project `Scala2First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first i
 The project directory is organized as follows :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\examples\Scala2First
+Y:\scala2-examples\Scala2First
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala2First/build.bat">build.bat</a>
@@ -134,9 +134,32 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 
 ## <span id="scala2_ui">Scala2UI</span>
 
-Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> ...
+Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 2][scala2] Windows installer.
 
-*wip*
+The project directory is organized as follows :
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+Y:\scala-examples\Scala2UI
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+│   <a href="./Scala2UI/build.bat">build.bat</a>
+├───<b>app</b>
+│   └───<i>files extracted from</i> <a href="https://www.scala-lang.org/download/2.13.7.html"><b>scala-2.13.7.zip</b></a>
+└───<b>src</b>
+    │   <a href="./Scala2UI/src/Includes.wxi">Includes.wxi</a>
+    │   <a href="./Scala2UI/src/Scala2UI.wxs">Scala2UI.wxs</a>
+    └───<b>resources</b>
+            <a href="./Scala2UI/src/resources/BannerTop.bmp">BannerTop.bmp</a>
+            <a href="./Scala2UI/src/resources/Dialog.bmp">Dialog.bmp</a>
+            favicon.ico
+            <a href="./Scala2UI/src/resources/Fragments.xslt">Fragments.xslt</a>
+            License.rtf
+            <a href="./Scala2UI/src/resources/logo.svg">logo.svg</a>
+            LICENSE.rtf
+            network.ico
+            <a href="./Scala2UI/src/resources/repl.bat">repl.bat</a>
+            rtf.ico
+</pre>
 
 Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
 
@@ -225,9 +248,10 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
 Project `Scala2Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 2][scala2] Windows installer.
 
 This project contains the additional directory [`src\localizations\`](./Scala2Localized/src/localizations/) with 4 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
+
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\examples\Scala2Localized
+Y:\scala2-examples\Scala2Localized
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala2Localized/build.bat">build.bat</a>
@@ -244,9 +268,10 @@ Y:\examples\Scala2Localized
     └───<b>resources</b>
             <a href="./Scala2Localized/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala2Localized/src/resources/Dialog.bmp">Dialog.bmp</a>
-            <a href="./Scala2Localized/src/resources/logo.svg">logo.svg</a>
             favicon.ico
+            <a href="./Scala2Localized/src/resources/Fragments.xslt">Fragments.xslt</a>
             LICENSE.rtf
+            <a href="./Scala2Localized/src/resources/logo.svg">logo.svg</a>
             network.ico
             <a href="./Scala2Localized/src/resources/repl.bat">repl.bat</a>
             rtf.ico
@@ -434,6 +459,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 [lightbend_scala]: https://www.lightbend.com/blog/scala-center
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [sbt_windows_plugin]: https://www.scala-sbt.org/sbt-native-packager/formats/windows.html
+[scala2_zip]: https://www.scala-lang.org/download/2.13.7.html
 [scala2]: https://www.scala-lang.org/
 [scala2_releases]: https://github.com/scala/scala/releases
 [windows_program_files]: https://en.wikipedia.org/wiki/Program_Files

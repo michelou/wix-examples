@@ -58,6 +58,7 @@ set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 set "_APP_DIR=%_ROOT_DIR%app"
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_LOCALIZATIONS_DIR=%_SOURCE_DIR%\localizations"
+set "_RESOURCES_DIR=%_SOURCE_DIR%\resources"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
@@ -154,10 +155,11 @@ if exist "%__PROPS_FILE%" (
             set "__!__NAME!=!__VALUE!"
         )
     )
-    @rem PRODUCT_CODE UPGRADE_CODE UPGRADE_INFO MAIN_EXECUTABLE PROGRAM_MENU_DIR
+    @rem WiX information
     if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
     if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
     if defined __UPGRADE_INFO set "_GUID[UPGRADE_INFO]=!__UPGRADE_INFO!"
+    @rem application information
     if defined __DOCUMENTATION_HTML set "_GUID[DOCUMENTATION_HTML]=!__DOCUMENTATION_HTML!"
     if defined __APPLICATION_EXE set "_GUID[APPLICATION_EXE]=!__APPLICATION_EXE!"
     if defined __APPLICATION_SHORTCUT set "_GUID[APPLICATION_SHORTCUT]=!__APPLICATION_SHORTCUT!"
@@ -342,6 +344,17 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
        @rem noop
     )
 )
+for %%e in (ico) do (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    )
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
 goto :eof
 
 :compile
@@ -433,7 +446,7 @@ for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*.wxl"') do (
     set "__CULTURES=%%~nf"
     set __OPT_LOCALIZED="-cultures:!__CULTURES!" -loc "%%f"
     if /i "!__CULTURES!"=="en-US" ( set "__MSI_FILE=%_MSI_FILE%"
-    ) else ( set "__MSI_FILE=%_MSI_FILE:~0,-4%-!__CULTURES!.msi"
+    ) else ( set "__MSI_FILE=%_MSI_FILE:~0,-4%_!__CULTURES!.msi"
     )
     echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% !__OPT_LOCALIZED! -nologo -out "!__MSI_FILE:\=\\!" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
