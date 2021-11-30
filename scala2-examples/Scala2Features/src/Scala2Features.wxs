@@ -66,10 +66,12 @@
     </DirectoryRef>
 
     <DirectoryRef Id='ProgramFiles64Folder'>
-      <Component Id="ApplicationEnvironment" Guid="$(var.ApplicationEnv)" KeyPath="yes">
+      <Component Id="ApplicationScalaHome" Guid="$(var.ApplicationScalaHome)" KeyPath="yes">
         <Environment Id="SCALA_HOME"
             Action="set" Name="SCALA_HOME" Value="[INSTALLDIR]"
             Permanent="no" System="yes" />
+      </Component>
+      <Component Id="ApplicationUpdatePath" Guid="$(var.ApplicationUpdatePath)" KeyPath="yes">
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
             Action="set" Name="PATH" Value="[bin]" 
@@ -86,20 +88,25 @@
         Title="$(var.FeatureAppComponentsTitle)" Display="expand" Level="1"
         Description="$(var.FeatureAppComponentsDescription)">
       <Feature Id="AppCore"
-          Title="The core Scala language" Level="1"
-          Description="Install the application files">
+          Title="$(var.FeatureAppCoreTitle)" Level="1"
+          Description="$(var.FeatureAppCoreDescription)">
         <ComponentGroupRef Id='PackFiles' />
         <!-- Step 3: Tell WiX to install the shortcut(s) -->
         <ComponentRef Id="ApplicationShortcuts" />
       </Feature>
+      <Feature Id="ScalaHome"
+          Title="$(var.FeatureScalaHomeTitle)" Level="1"
+          Description="$(var.FeatureScalaHomeDescription)">
+        <ComponentRef Id="ApplicationScalaHome" />
+      </Feature>
       <Feature Id="UpdatePath"
-          Title="Update system PATH" Level="1"
-          Description="Add the Scala binaries (scala, scalac, scaladoc, scalap) to your system path">
-        <ComponentRef Id="ApplicationEnvironment" />
+          Title="$(var.FeatureUpdatePathTitle)" Level="1"
+          Description="$(var.FeatureUpdatePathDescription)">
+        <ComponentRef Id="ApplicationUpdatePath" />
       </Feature>
       <Feature Id="AppDocumentation"
-          Title="Documentation for the Scala library" Level="1"
-          Description="Install the Scala documentation">
+          Title="$(var.FeatureAppDocumentationTitle)" Level="1"
+          Description="$(var.FeatureAppDocumentationDescription)">
         <ComponentRef Id="ApplicationDocumentation" />
       </Feature>
     </Feature>

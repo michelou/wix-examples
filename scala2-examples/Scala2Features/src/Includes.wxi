@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <?define CompanyName="EPFL/LAMP" ?>  <!-- UKCU registry key -->
+  <?define CompanyName="EPFL" ?>  <!-- UKCU registry key -->
 
   <!--
   e.g. de-DE=1031, en-US=1033, fr-Fr=1036, it-IT=1040.
@@ -31,4 +31,16 @@
 
   <?define FeatureAppComponentsDescription="Scala 2 application, shortcuts and environment settings" ?>
   <?define FeatureAppComponentsTitle="Scala 2 Components" ?>
+
+  <?define FeatureAppCoreDescription="Install the application files" ?>
+  <?define FeatureAppCoreTitle="The core Scala language" ?>
+
+  <?define FeatureScalaHomeDescription="Add the environment variable SCALA_HOME" ?>
+  <?define FeatureScalaHomeTitle="Add variable SCALA_HOME" ?>
+
+  <?define FeatureUpdatePathDescription="Add the Scala binaries (scala, scalac, scaladoc, scalap) to your system path" ?>
+  <?define FeatureUpdatePathTitle="Update system PATH" ?>
+
+  <?define FeatureAppDocumentationDescription="Install the Scala documentation" ?>
+  <?define FeatureAppDocumentationTitle="Documentation for the Scala library" ?>
 </Include>

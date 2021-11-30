@@ -169,7 +169,6 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
     if defined __PRODUCT_VERSION set "_PRODUCT_VERSION=!__PRODUCT_VERSION!"
-    if defined __MAIN_EXECUTABLE set "_MAIN_EXECUTABLE=!__MAIN_EXECUTABLE!"
     if defined __PROGRAM_MENU_DIR set "_PROGRAM_MENU_DIR=!__PROGRAM_MENU_DIR!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
 )
@@ -193,13 +192,6 @@ if not defined _PRODUCT_MSI_VERSION (
     echo %_ERROR_LABEL% Failed to extract file version from "%_PRODUCT_VERSION%" 1>&2
     set _EXITCODE=1
     goto :eof
-)
-@rem associative array to store <name,guid> pairs
-set _GUID=
-if exist "%_GUIDS_FILE%" (
-    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
-        if not "%%j"=="" set "_GUID[%%i]=%%j"
-    )
 )
 goto :eof
 
@@ -254,11 +246,17 @@ set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_VERSION%"
 set "_LICENSE_FILE=%_APP_DIR%\LICENSE"
 
 set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
-
+@rem _GUID is an associative array with GUID pairs <name,value>
+set _GUID=
+if exist "%_GUIDS_FILE%" (
+    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
+        if not "%%j"=="" set "_GUID[%%i]=%%j"
+    )
+)
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
-@rem Name of zip file: scala-2.13.7.zip
+@rem same basename as zip file scala-2.13.7.zip
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.msi"
 
 if %_DEBUG%==1 (

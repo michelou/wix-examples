@@ -6,16 +6,16 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>myexamples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> code examples written by ourself.
+    Directory <strong><code>myexamples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself.
   </td>
   </tr>
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections share the same project organization, i.e.
-- the directory `app\` with the application files
-- the directory `src\` with the [WiX][wix_toolset] source files and resource files
-- the batch file `build.bat` to create the Windows installer from the two input directories.
-- the (*generated*) directory `target\` with the generated `.msi`, `.msi.md5` <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> and `.msi.sha256` files.
+- directory `app\` contains the application files
+- directory `src\` contains the [WiX][wix_toolset] source files and resource files
+- batch file `build.bat` creates the Windows installer from the two input directories.
+- output directory `target\` contains the generated `.msi`, `.msi.md5` <sup id="anchor_01"><a href="#footnote_01">1</a></sup> and `.msi.sha256` files.
 
 ## <span id="myapp">`MyApp`</span>
 
@@ -25,11 +25,10 @@ For that purpose we declare one single [component element][wix_component] in our
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\examples\MyApp
+Y:\myexamples\MyApp
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./MyApp/build.bat">build.bat</a>          <i>(calls candle/light)</i>
-│   <a href="./MyApp/build.properties">build.properties</a>   <i>(contains GUID (name,value) pairs)</i>
 ├───<b>app</b>
 │   └───<b>HelloWorld</b>
 │       │   <a href="./MyApp/app/HelloWorld/00download.txt">00download.txt</a>
@@ -41,7 +40,7 @@ Y:\examples\MyApp
 │           └───<b>src</b>
 │                   <a href="./MyApp/app/HelloWorld/cpp/src/main.cpp">main.cpp</a>
 └───<b>src</b>
-        <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>      <i>(contains GUID names)</i>
+        <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>      <i>(with PUT-GUID-HERE placeholders)</i>
 </pre>
 
 > **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple [Visual Studio solution][vs_solution] for generating `MyApp.exe` to be added to the `MyApp` Windows installer.
@@ -51,7 +50,7 @@ Our main batch file [`build.bat`](./MyApp/build.bat) invokes the [WiX][wix_tools
 <pre style="font-size:80%;">
 <b>&gt; <a href="./MyApp/build.bat">build</a> -verbose install</b>
 Generate executable "MyApp.exe"
-Copy executable "MyApp.exe" to directory "Y:\examples\MyApp\app\"
+Copy executable "MyApp.exe" to directory "Y:\myexamples\MyApp\app\"
 Generate auxiliary WXS file
 [...]
 Compiling 1 WXS files to directory "target"
@@ -126,7 +125,7 @@ This project contains the additional directory [`src\localizations\`](./MyAppLoc
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\examples\MyAppLocalized
+Y:\myexamples\MyAppLocalized
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./MyAppLocalized/build.bat">build.bat</a>
@@ -166,6 +165,21 @@ MyApp-1.0.0_fr-FR.msi.sha256
 MyApp-1.0.0_fr-FR.wixpdb
 MyAppLocalized.wixobj
 </pre>
+
+Figures **3.1** and **3.2** below illustrate the updated user environment after the successful execution of the *MyApp* Windows installer.
+
+<table>
+<tr>
+<td style="text-align:center;">
+  <a href="images/MyAppLocalized_ProgFiles.png"><img style="max-width:180px;" src="images/MyAppLocalized_ProgFiles.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.1 -</b> <i>MyApp</i> application<br>(<i>Program Files</i> folder).
+</td>
+<td style="text-align:center;">
+  <a href="images/MyAppLocalized_StartMenu.png"><img style="max-width:180px;" src="images/MyAppLocalized_StartMenu.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> <i>MyApp</i> shortcuts<br/>(<i>Start Menu</i> folder).
+</td>
+</tr>
+</table>
 
 ## <span id="myapp_features">MyAppFeatures</span>
 

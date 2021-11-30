@@ -12,7 +12,7 @@
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections
-are adapted <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from the ZIP archives <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> available on [Firegiant]'s website and share the same characteristics as the [WiX][wix_toolset] examples from page [examples/README.md](../examples/README.md).
+are adapted <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from the ZIP archives <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> available on [Firegiant]'s website and share the same characteristics as the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md).
 
 ## <span id="sample_first">SampleFirst</span>
 

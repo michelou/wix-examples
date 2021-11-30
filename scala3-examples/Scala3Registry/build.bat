@@ -59,6 +59,7 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_RESOURCES_DIR=%_SOURCE_DIR%\resources"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
+set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
@@ -177,10 +178,10 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
     if defined __PRODUCT_VERSION set "_PRODUCT_VERSION=!__PRODUCT_VERSION!"
-    if defined __MAIN_EXECUTABLE set "_MAIN_EXECUTABLE=!__MAIN_EXECUTABLE!"
     if defined __PROGRAM_MENU_DIR set "_PROGRAM_MENU_DIR=!__PROGRAM_MENU_DIR!"
-    if defined __APPLICATION_ENV set "_APPLICATION_ENV=!__APPLICATION_ENV!"
+    if defined __APPLICATION_SCALA_HOME set "_APPLICATION_SCALA_HOME=!__APPLICATION_SCALA_HOME!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
+    if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
 )
 if not defined _PRODUCT_ID (
     echo %_ERROR_LABEL% Product identifier is undefined 1>&2
@@ -444,12 +445,12 @@ if not %ERRORLEVEL%==0 (
 )
 @rem image files are handled separately (see :gen_banner)
 for %%e in (bat ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -478,18 +479,18 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES="-dpack=%_APP_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductId=%_PRODUCT_ID%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersion=%_PRODUCT_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationEnv=%_APPLICATION_ENV%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
+set __CANDLE_OPTS=-nologo
+if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_APP_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductVersion=%_PRODUCT_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationScalaHome=%_APPLICATION_SCALA_HOME%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationUpdatePath=%_APPLICATION_UPDATE_PATH%"
+echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -585,13 +586,11 @@ if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=-ext WixUIExtension
-set __OPT_PROPERTIES=
-set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_TARGET_DIR%\resources"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+set __LIGHT_OPTS=-nologo
+if %_DEBUG%==1 set __LIGHT_OPTS=%__LIGHT_OPTS% -v
+set __LIGHT_OPTS=%__LIGHT_OPTS% -ext WixUIExtension
+set __LIGHT_OPTS=%__LIGHT_OPTS% -b "pack=%_APP_DIR%" -b "rsrc=%_GEN_RESOURCES_DIR%"
+echo %__LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0

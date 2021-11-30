@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <?define CompanyName="EPFL/LAMP" ?>  <!-- HKCU registry key -->
+  <?define CompanyName="EPFL" ?>  <!-- HKCU registry key -->
 
   <!--
   e.g. de-DE=1031, en-US=1033, fr-Fr=1036, it-IT=1040.

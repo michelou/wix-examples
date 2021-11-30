@@ -13,7 +13,7 @@
 
   <?define PackageComments="The Scala Programming Language" ?>
   <?define PackageDescription="Scala 3 Installer" ?>
-  <?define PackageKeywords="Scala, Compiler, Java, JVM" ?>
+  <?define PackageKeywords="Scala, Compiler, Java, JVM, EPFL" ?>
   <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
   <?define PackageManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
 
@@ -31,4 +31,16 @@
 
   <?define FeatureAppComponentsDescription="Scala 3 application, shortcuts and environment settings" ?>
   <?define FeatureAppComponentsTitle="Scala 3 Components" ?>
+
+  <?define FeatureAppCoreDescription="Install the application files" ?>
+  <?define FeatureAppCoreTitle="The core Scala language" ?>
+
+  <?define FeatureScalaHomeDescription="Add the environment variable SCALA3_HOME" ?>
+  <?define FeatureScalaHomeTitle="Add variable SCALA3_HOME" ?>
+
+  <?define FeatureUpdatePathDescription="Add the Scala binaries (scala, scalac, scaladoc, scalap) to your system path" ?>
+  <?define FeatureUpdatePathTitle="Update system PATH" ?>
+
+  <?define FeatureAppDocumentationDescription="Install the Scala documentation" ?>
+  <?define FeatureAppDocumentationTitle="Documentation for the Scala library" ?>
 </Include>

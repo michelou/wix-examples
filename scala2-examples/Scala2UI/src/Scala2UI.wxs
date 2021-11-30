@@ -66,10 +66,12 @@
     </DirectoryRef>
 
     <DirectoryRef Id='ProgramFiles64Folder'>
-      <Component Id="ApplicationEnvironment" Guid="$(var.ApplicationEnv)" KeyPath="yes">
+      <Component Id="ApplicationScalaHome" Guid="$(var.ApplicationScalaHome)" KeyPath="yes">
         <Environment Id="SCALA_HOME"
             Action="set" Name="SCALA_HOME" Value="[INSTALLDIR]"
             Permanent="no" System="yes" />
+      </Component>
+      <Component Id="ApplicationUpdatePath" Guid="$(var.ApplicationUpdatePath)" KeyPath="yes">
         <!-- https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/environmentally-friendly/ -->
         <Environment Id="UpdatePath"
             Action="set" Name="PATH" Value="[bin]" 
@@ -83,7 +85,8 @@
       <ComponentGroupRef Id='PackFiles' />
       <!-- Step 3: Tell WiX to install the shortcut(s) -->
       <ComponentRef Id="ApplicationShortcuts" />
-      <ComponentRef Id="ApplicationEnvironment" />
+      <ComponentRef Id="ApplicationScalaHome" />
+      <ComponentRef Id="ApplicationUpdatePath" />
     </Feature>
 
     <Icon Id="Favicon" SourceFile="!(bindpath.rsrc)\favicon.ico" />

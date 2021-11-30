@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> code examples coming from various websites.
+    Directory <strong><code>examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples coming from various websites.
   </td>
   </tr>
 </table>
@@ -45,42 +45,42 @@ Y:\examples\MiniAppKiller
     │       <a href="./MiniAppKiller/src/images/Dialog.bmp">Dialog.bmp</a>
     │       Dialog.bmp.txt
     │       <a href="./MiniAppKiller/src/images/TopBanner.bmp">TopBanner.bmp</a>
-    │       TopBanner.bmp.txt
+    │       <a href="./MiniAppKiller/src/images/TopBanner.bmp.txt">TopBanner.bmp.txt</a>
     └───<b>localizations</b>
             <a href="./MiniAppKiller/src/localizations/Product.Loc_en-US.wxl">Product.Loc_en-US.wxl</a>
             <a href="./MiniAppKiller/src/localizations/Product.Loc_fr-FR.wxl">Product.Loc_fr-FR.wxl</a>
 </pre>
 
 
-Figures **3.1** to **3.4** below illustrate the localized graphical user interface of the generated *MiniAppKiller* Windows installer while figures **3.5** and **3.6** show the updated user environment.
+Figures **1.1** to **1.4** below illustrate the localized graphical user interface of the generated *MiniAppKiller* Windows installer while figures **1.5** and **1.6** show the updated user environment.
 
 <table>
 <tr>
 <td style="text-align:center;">
   <a href="images/MiniAppKiller_Welcome.png"><img style="max-width:180px;" src="images/MiniAppKiller_Welcome.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>MiniAppKiller</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 1.1 -</b> Welcome<br/>(<i>MiniAppKiller</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/MiniAppKiller_EULA.png"><img style="max-width:180px;" src="images/MiniAppKiller_EULA.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br/><i>(MiniAppKiller</i> installer).
+  <div style="font-size:70%;"><b>Figure 1.2 -</b> EULA<br/><i>(MiniAppKiller</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <a href="images/MiniAppKiller_DestinationFolder.png"><img style="max-width:180px;" src="images/MiniAppKiller_DestinationFolder.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination Folder<br/>(<i>MiniAppKiller</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 1.3 -</b> Destination Folder<br/>(<i>MiniAppKiller</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/MiniAppKiller_Completed.png"><img style="max-width:180px;" src="images/MiniAppKiller_Completed.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.4 -</b> Completed installation<br/><i>(MiniAppKiller</i> installer).
+  <div style="font-size:70%;"><b>Figure 1.4 -</b> Completed installation<br/><i>(MiniAppKiller</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <a href="images/MiniAppKiller_ProgFiles.png"><img style="max-width:180px;" src="images/MiniAppKiller_ProgFiles.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>MiniAppKiller</i> application<br/>(<i>Program Files</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 1.5 -</b> <i>MiniAppKiller</i> application<br/>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
   <div>
   <a href="images/MiniAppKiller_Uninstall.png"><img style="max-width:180px;" src="images/MiniAppKiller_Uninstall.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.6 -</b> Uninstall <i>MiniAppKiller</i><br/><i>(Settings</i> folder).
+  <div style="font-size:70%;"><b>Figure 1.6 -</b> Uninstall <i>MiniAppKiller</i><br/><i>(Settings</i> folder).
   </div>
 </td>
 </tr>
@@ -120,28 +120,28 @@ Y:\examples\uberAgent
             <a href="./uberAgent/src/images/Dialog.bmp.txt">Dialog.bmp.txt</a>
 </pre>
 
-Figures **4.1** to **4.4** below illustrate the localized graphical user interface of the generated *uberAgent* Windows installer.
+Figures **2.1** to **2.4** below illustrate the localized graphical user interface of the generated *uberAgent* Windows installer.
 
 <table>
 <tr>
 <td style="text-align:center;">
   <div>
   <a href="images/uberAgent_Setup1.png"><img style="max-width:180px;" src="images/uberAgent_Setup1.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.1 -</b> Welcome<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.1 -</b> Welcome<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/uberAgent_Setup2.png"><img style="max-width:180px;" src="images/uberAgent_Setup2.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.2 -</b> EULA<br/><i>(uberAgent</i> installer).
+  <div style="font-size:70%;"><b>Figure 2.2 -</b> EULA<br/><i>(uberAgent</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <div>
   <a href="images/uberAgent_Setup3.png"><img style="max-width:180px;" src="images/uberAgent_Setup3.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.3 -</b> Destination Folder<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 2.3 -</b> Destination Folder<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/uberAgent_Setup4.png"><img style="max-width:180px;" src="images/uberAgent_Setup4.png" /></a>
-  <div style="font-size:70%;"><b>Figure 4.4 -</b> Receiver Configuration<br/><i>(uberAgent</i> installer).
+  <div style="font-size:70%;"><b>Figure 2.4 -</b> Receiver Configuration<br/><i>(uberAgent</i> installer).
   </div>
 </td>
 </tr>

@@ -59,6 +59,7 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_RESOURCES_DIR=%_SOURCE_DIR%\resources"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
+set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
@@ -177,10 +178,10 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
     if defined __PRODUCT_VERSION set "_PRODUCT_VERSION=!__PRODUCT_VERSION!"
-    if defined __MAIN_EXECUTABLE set "_MAIN_EXECUTABLE=!__MAIN_EXECUTABLE!"
     if defined __PROGRAM_MENU_DIR set "_PROGRAM_MENU_DIR=!__PROGRAM_MENU_DIR!"
-    if defined __APPLICATION_ENV set "_APPLICATION_ENV=!__APPLICATION_ENV!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
+    if defined __APPLICATION_SCALA_HOME set "_APPLICATION_SCALA_HOME=!__APPLICATION_SCALA_HOME!"
+    if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
 )
 if not defined _PRODUCT_ID (
     echo %_ERROR_LABEL% Product identifier is undefined 1>&2
@@ -202,13 +203,6 @@ if not defined _PRODUCT_MSI_VERSION (
     echo %_ERROR_LABEL% Failed to extract file version from "%_PRODUCT_VERSION%" 1>&2
     set _EXITCODE=1
     goto :eof
-)
-@rem associative array to store <name,guid> pairs
-set _GUID=
-if exist "%_GUIDS_FILE%" (
-    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
-        if not "%%j"=="" set "_GUID[%%i]=%%j"
-    )
 )
 goto :eof
 
@@ -263,11 +257,17 @@ set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_VERSION%"
 set "_LICENSE_FILE=%_APP_DIR%\LICENSE"
 
 set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
-
+@rem _GUID is an associative array with GUID pairs <name,value>
+set _GUID=
+if exist "%_GUIDS_FILE%" (
+    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
+        if not "%%j"=="" set "_GUID[%%i]=%%j"
+    )
+)
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
-@rem Name of zip file: scala-2.13.7.zip
+@rem same basename as zip file scala-2.13.7.zip
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.msi"
 
 if %_DEBUG%==1 (
@@ -437,12 +437,12 @@ if not %ERRORLEVEL%==0 (
 )
 @rem image files are handled separately (see :gen_banner)
 for %%e in (bat ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -464,7 +464,7 @@ set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
 
 set "__INFILE=%_RESOURCES_DIR%\BannerTop.bmp"
 set "__TMPFILE=%TEMP%\BannerTop.bmp"
-set "__OUTFILE=%_TARGET_DIR%\resources\BannerTop.bmp"
+set "__OUTFILE=%_GEN_RESOURCES_DIR%\BannerTop.bmp"
 
 if exist "%__INFILE%" (
     @rem no need to create initial banner image
@@ -498,7 +498,7 @@ goto :eof
 :gen_dialog
 set "__INFILE=%_RESOURCES_DIR%\Dialog.bmp"
 set "__LOGO_FILE=%_RESOURCES_DIR%\logo.svg"
-set "__OUTFILE=%_TARGET_DIR%\resources\Dialog.bmp"
+set "__OUTFILE=%_GEN_RESOURCES_DIR%\Dialog.bmp"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CONVERT_CMD%" "%__INFILE%" "%__LOGO_FILE%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Add logo to dialog image "!__OUTFILE:%_ROOT_DIR%=!" 1>&2
@@ -513,7 +513,7 @@ goto :eof
 
 :gen_license
 set "__INFILE=%_RESOURCES_DIR%\License.rtf"
-set "__OUTFILE=%_TARGET_DIR%\resources\License.rtf"
+set "__OUTFILE=%_GEN_RESOURCES_DIR%\License.rtf"
 
 set __REPLACE_PAIRS=-replace '\[yyyy\]', '%_COPYRIGHT_END_YEAR%'
 
@@ -529,10 +529,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :extract_components
-echo repl.bat> "%_FRAGMENTS_CID_FILE%"
+if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
 
 set __N=0
-for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\">" "%_FRAGMENTS_FILE%"') do (
+for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%_FRAGMENTS_FILE%"') do (
     @rem example: Id="tzdb.dat"
     for /f "delims=^= tokens=1,*" %%x in ("%%j") do set "__COMPONENT_ID=%%~y"
     if defined __COMPONENT_ID (
@@ -560,8 +560,9 @@ set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMsiVersion=%_PRODUCT_MSI_VERSI
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersion=%_PRODUCT_VERSION%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProgramMenuDir=%_PROGRAM_MENU_DIR%"
+set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationScalaHome=%_APPLICATION_SCALA_HOME%"
 set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationEnv=%_APPLICATION_ENV%"
+set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationUpdatePath=%_APPLICATION_UPDATE_PATH%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
@@ -663,7 +664,7 @@ if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
 )
 set __OPT_EXTENSIONS=-ext WixUIExtension
 set __OPT_PROPERTIES=
-set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_TARGET_DIR%\resources"
+set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_GEN_RESOURCES_DIR%"
 echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=

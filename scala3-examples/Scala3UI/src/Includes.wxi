@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <?define CompanyName="EPFL/LAMP" ?>  <!-- UKCU registry key -->
+  <?define CompanyName="EPFL" ?>  <!-- UKCU registry key -->
 
   <!--
   e.g. de-DE=1031, en-US=1033, fr-Fr=1036, it-IT=1040.
@@ -13,7 +13,7 @@
 
   <?define PackageComments="The Scala Programming Language" ?>
   <?define PackageDescription="Scala 3 Installer" ?>
-  <?define PackageKeywords="Scala, Compiler, Java, JVM" ?>
+  <?define PackageKeywords="Scala, Compiler, Java, JVM, EPFL" ?>
   <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
   <?define PackageManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
 
