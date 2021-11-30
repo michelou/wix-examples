@@ -69,7 +69,9 @@ set _APP_NAME=MyApp
 set _APP_VERSION=1.0.0
 set "_APP_EXE=%_APP_DIR%\%_APP_NAME%.exe"
 
-set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
+set "_GUIDS_FILE=%_ROOT_DIR%app-guids.txt"
+
+set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
 set "_MSI_FILE=%_TARGET_DIR%\%_APP_NAME%-%_APP_VERSION%.msi"
 
@@ -88,12 +90,6 @@ if not exist "%WINDIR%\System32\msiexec.exe" (
     goto :eof
 )
 set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
-
-set _SIGNTOOL_CMD=
-if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
-) else ( set __ARCH=x86
-)
-for /f "delims=" %%f in ('where /r "%WINSDK_HOME%\bin" signtool.exe^|findstr %__ARCH%') do set "_SIGNTOOL_CMD=%%f"
 goto :eof
 
 :env_colors
@@ -310,19 +306,6 @@ goto :eof
 :gen_src
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
-@rem https://wixtoolset.org/documentation/manual/v3/overview/heat.html
-set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -suid -sfrag -out "%_FRAGMENTS_FILE%"
-if %_VERBOSE%==1 set __HEAT_OPTS=%__HEAT_OPTS% -v
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
-)
-call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
 call :extract_components
 if not %_EXITCODE%==0 goto :eof
 
@@ -342,7 +325,7 @@ if exist "%__PS1_FILE%" del "%__PS1_FILE%"
 
 @rem replace GUID placeholders found in .wx? files by their GUID values
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
     echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
@@ -364,6 +347,23 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+:extract_components
+if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
+
+set __N=0
+for /f "tokens=1,2,3,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%_SOURCE_DIR%\*.wxs"') do (
+    @rem example: Id="tzdb.dat"
+    for /f "delims=^= tokens=1,*" %%x in ("%%k") do set "__COMPONENT_ID=%%~y"
+    if defined __COMPONENT_ID (
+        echo !__COMPONENT_ID!>> "%_FRAGMENTS_CID_FILE%"
+        set /a __N+=1
+    )
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Saved %__N% component identifiers to file "!_FRAGMENTS_CID_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Saved %__N% component identifiers to file "!_FRAGMENTS_CID_FILE:%_ROOT_DIR%=!" 1>&2
+)
+goto :eof
+
 :compile
 if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
@@ -372,13 +372,15 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 set __CANDLE_OPTS=-nologo
 if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_APP_ARCH%
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductVersion=%_APP_VERSION%"
 echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
-for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wx?" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
     echo %%f>> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -411,45 +413,6 @@ for %%i in (md5 sha256) do (
         set _EXITCODE=1
         goto :eof
     )
-)
-goto :eof
-
-@rem input parameter: %1=file path
-:sign_file
-set "__TARGET_FILE=%~1"
-set "__CERTS_DIR=%USERPROFILE%\Certificates"
-
-set "__FPX_CERT_FILE=%__CERTS_DIR%\wix-examples.pfx"
-if not exist "%__FPX_CERT_FILE%" (
-    echo %_ERROR_LABEL% PFX certificate file not found ^("!__FPX_CERT_FILE:%USERPROFILE%\=!"^) 1>&2
-    echo ^(put file wix-examples.pfx into directory "%%USERPROFILE%%\Certificates"^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "__PFX_PSWD_FILE=%__CERTS_DIR%\wix-examples.pfx.txt"
-if not exist "%__PFX_PSWD_FILE%" (
-    echo %_ERROR_LABEL% PFX password file not found ^("!__PFX_PSWD_FILE:%USERPROFILE%\=!"^) 1>&2
-    echo ^(put password file wix-examples.pfx.txt into directory "%%USERPROFILE%%\Certificates"^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
-set "__TSTAMP_SERVER_URL=http://timestamp.digicert.com"
-
-@rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
-set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%__TSTAMP_SERVER_URL%" /fd SHA256
-if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
-
-@rem print dummy PFX password in console !
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SIGNTOOL_CMD%" sign /p "XXXXXX" %__SIGN_OPTS% "%__TARGET_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Sign file "!__TARGET_FILE:%_ROOT_DIR%=!" 1>&2
-)
-set /p __PFX_PSWD=< "%__PFX_PSWD_FILE%"
-call "%_SIGNTOOL_CMD%" sign /p "%__PFX_PSWD%" %__SIGN_OPTS% "%__TARGET_FILE%"
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to sign file "!__TARGET_FILE:%_ROOT_DIR%=!" 1>&2
-    set _EXITCODE=1
-    goto :eof
 )
 goto :eof
 
@@ -488,9 +451,6 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-call :sign_file "%_MSI_FILE%"
-if not %_EXITCODE%==0 goto :eof
-
 call :gen_checksums "%_MSI_FILE%"
 if not %_EXITCODE%==0 goto :eof
 goto :eof
@@ -568,8 +528,8 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :remove
-if not defined _GUID[PRODUCT_CODE] (
-    echo %_ERROR_LABEL% Product code not found 1>&2
+if not defined _PRODUCT_ID (
+    echo %_ERROR_LABEL% Product identifier not found 1>&2
     set _EXITCODE=1
     goto :eof
 )

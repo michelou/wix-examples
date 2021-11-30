@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WixLocalization Culture="en-US" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="Product_Language">1033</String>
-  <String Id="Product_Manufacturer">MyCompany, Inc.</String>
-  <String Id="Product_Name">MyApp</String>
+  <String Id="ProductLanguage">1033</String>
+  <String Id="ProductManufacturer">MyCompany, Inc.</String>
+  <String Id="ProductName">MyApp</String>
 
-  <String Id="Package_Comments">Install application and create start menu shortcuts</String>
-  <String Id="Package_Description">MyApp Installer</String>
-  <String Id="Package_Keywords">WiX Demo Application</String>
-  <String Id="Package_Manufacturer">MyCompany, Inc.</String>
+  <String Id="PackageComments">Install application and create start menu shortcuts</String>
+  <String Id="PackageDescription">MyApp Installer</String>
+  <String Id="PackageKeywords">WiX Demo Application</String>
+  <String Id="PackageManufacturer">MyCompany, Inc.</String>
 
-  <String Id="Condition_NewerVersionDetected">xxxxxxxxxxxxxxxxxxx</String>
+  <String Id="ConditionNewerVersionDetected">xxxxxxxxxxxxxxxxxxx</String>
 
-  <String Id="MajorUpgrade_DowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
+  <String Id="MajorUpgradeDowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
 
   <!-- ######################## Shorcut elements ######################### -->
   <!-- Description appears in field "Comments" of the dialog window "Properties" -->
 
-  <String Id="Shortcut_ApplicationStartMenu_Description">MyApp Application</String>
-  <String Id="Shortcut_ApplicationStartMenu_Name">MyApp</String>
+  <String Id="ShortcutApplicationStartMenuDescription">MyApp Application</String>
+  <String Id="ShortcutApplicationStartMenuName">MyApp</String>
 
-  <String Id="Shortcut_UninstallProduct_Description">Uninstalls MyApp</String>
-  <String Id="Shortcut_UninstallProduct_Name">Uninstall MyApp</String>
+  <String Id="ShortcutUninstallProductDescription">Uninstalls MyApp</String>
+  <String Id="ShortcutUninstallProductName">Uninstall MyApp</String>
 
   <!-- ######################## Feature elements ######################### -->
   <!-- Description appears on the right side of the installer window "Custom Setup" -->
 
-  <String Id="Feature_AppComponents_Description">MyApp application, documentation and shortcuts</String>
-  <String Id="Feature_AppComponents_Title">MyApp Components</String>
+  <String Id="FeatureAppComponentsDescription">MyApp application, documentation and shortcuts</String>
+  <String Id="FeatureAppComponentsTitle">MyApp Components</String>
 </WixLocalization>

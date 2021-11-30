@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="YOURGUID-PRODUCT_CODE"
-    UpgradeCode="YOURGUID-UPGRADE_CODE" Name="MyApp"
+  <Product Id="$(var.ProductId)"
+    UpgradeCode="$(var.ProductUpgradeCode)" Name="MyApp"
     Version="$(var.ProductVersion).0" Manufacturer="MyCompany, Inc."
     Language="1033" Codepage="1252">
 
@@ -20,15 +20,15 @@
     </Directory>
 
     <DirectoryRef Id="INSTALLFOLDER">
-      <Component Id="ApplicationExecutable" Guid="YOURGUID-APPLICATION_EXE">
-        <File Id="myapp_exe" Source="!(bindpath.pack)\MyApp.exe" KeyPath="yes" Checksum="yes"/>
+      <Component Id="MyApp.exe" Guid="PUT-GUID-HERE">
+        <File Id="MyApp.exe" Source="!(bindpath.pack)\MyApp.exe" KeyPath="yes" Checksum="yes"/>
       </Component>
     </DirectoryRef>
 
     <Feature Id="AppComponents"
       Title="MyApp" Level="1"
       Description="MyApp Components">
-      <ComponentRef Id="ApplicationExecutable" />
+      <ComponentRef Id="myapp.exe" />
     </Feature>
   </Product>
 </Wix>

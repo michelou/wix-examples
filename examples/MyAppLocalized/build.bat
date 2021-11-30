@@ -71,8 +71,10 @@ set _APP_NAME=MyApp
 set _APP_VERSION=1.0.0
 set "_APP_EXE=%_APP_DIR%\%_APP_NAME%.exe"
 
-set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs.txt"
-set "_WIXOBJ_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.wixobj"
+set "_GUIDS_FILE=%_ROOT_DIR%app-guids.txt"
+
+set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
+
 set "_MSI_FILE=%_TARGET_DIR%\%_APP_NAME%-%_APP_VERSION%.msi"
 
 if not exist "%WIX%\candle.exe" (
@@ -139,9 +141,6 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 :props
-@rem associative array to store <name,guid> pairs
-set _GUID=
-
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -156,13 +155,16 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
-    if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
-    if defined __UPGRADE_INFO set "_GUID[UPGRADE_INFO]=!__UPGRADE_INFO!"
-    @rem application information
-    if defined __DOCUMENTATION_HTML set "_GUID[DOCUMENTATION_HTML]=!__DOCUMENTATION_HTML!"
-    if defined __APPLICATION_EXE set "_GUID[APPLICATION_EXE]=!__APPLICATION_EXE!"
-    if defined __APPLICATION_SHORTCUT set "_GUID[APPLICATION_SHORTCUT]=!__APPLICATION_SHORTCUT!"
+    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
+    if defined __PRODUCT_UPGRADE_INFO set "_PRODUCT_UPGRADE_INFO=!__PRODUCT_UPGRADE_INFO!"
+)
+@rem associative array to store <name,guid> pairs
+set _GUID=
+if exist "%_GUIDS_FILE%" (
+    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
+        if not "%%j"=="" set "_GUID[%%i]=%%j"
+    )
 )
 goto :eof
 
@@ -312,48 +314,62 @@ goto :eof
 :gen_src
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
-@rem https://wixtoolset.org/documentation/manual/v3/overview/heat.html
-set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -suid -sfrag -out "%_FRAGMENTS_FILE%"
-if %_VERBOSE%==1 set __HEAT_OPTS=%__HEAT_OPTS% -v
+call :extract_components
+if not %_EXITCODE%==0 goto :eof
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
-)
-call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate auxiliary WXS file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set __PACK_FILES=APPLICATION_EXE APPLICATION_SHORTCUT DOCUMENTATION_HTML
-set __REPLACE_PAIRS=
-for %%i in (PRODUCT_CODE UPGRADE_CODE UPGRADE_INFO %__PACK_FILES%) do (
+set __REPLACE=
+set __M=-1
+for /f %%i in (%_FRAGMENTS_CID_FILE%) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
-        echo %%i=!__GUID!>> "%_ROOT_DIR%\build.properties"
+        echo %%i=!__GUID!>> "%_GUIDS_FILE%"
     )
-    @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %%i=!__GUID! 1>&2
-    set __REPLACE_PAIRS=!__REPLACE_PAIRS! -replace 'YOURGUID-%%i', '!__GUID!' 
+    set /a __M+=1
+    set __REPLACE[!__M!]=-replace 'Id="%%i" Guid="PUT-GUID-HERE"', 'Id="%%i" Guid="!__GUID!"'
 )
+set "__PS1_FILE=%_TARGET_DIR%\replace.ps1"
+if exist "%__PS1_FILE%" del "%__PS1_FILE%"
+
 @rem replace GUID placeholders found in .wx? files by their GUID values
+set __N=0
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" 2^>NUL') do (
-    set "__INFILE=%%f"
-    for %%g in (%%f) do set "__OUTFILE=%_GEN_DIR%\%%~nxg"
-    for /f "usebackq" %%i in (`powershell -C "(Get-Content '!__INFILE!') %__REPLACE_PAIRS% ^| Out-File -encoding ASCII '!__OUTFILE!'"`) do (
-       @rem noop
+    set "__VAR_IN=$in!__N!"
+    set "__VAR_OUT=$out!__N!"
+    echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
+    for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
+    echo ^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
+    for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
+    echo    ^| Out-File -Encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
+    echo.>> "%__PS1_FILE%"
+    set /a __N+=1
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -nologo -file "%__PS1_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute PS1 script "!__PS1_FILE:%_ROOT_DIR%=!" 1>&2
+)
+powershell -nologo -file "%__PS1_FILE%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to execute PS1 script "!__PS1_FILE:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+@rem no resource directory
+goto :eof
+
+:extract_components
+if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
+
+set __N=0
+for /f "tokens=1,2,3,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%_SOURCE_DIR%\*.wxs"') do (
+    @rem example: Id="tzdb.dat"
+    for /f "delims=^= tokens=1,*" %%x in ("%%k") do set "__COMPONENT_ID=%%~y"
+    if defined __COMPONENT_ID (
+        echo !__COMPONENT_ID!>> "%_FRAGMENTS_CID_FILE%"
+        set /a __N+=1
     )
 )
-for %%e in (ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
-    )
-    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
-    if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
-        set _EXITCODE=1
-        goto :eof
-    )
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Saved %__N% component identifiers to file "!_FRAGMENTS_CID_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Saved %__N% component identifiers to file "!_FRAGMENTS_CID_FILE:%_ROOT_DIR%=!" 1>&2
 )
 goto :eof
 
@@ -362,19 +378,19 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-@rem set __OPT_EXTENSIONS= -ext WiXUtilExtension
-set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES="-dProduct_Version=%_APP_VERSION%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_APP_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
+set __CANDLE_OPTS=-nologo
+if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_APP_ARCH%
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductVersion=%_APP_VERSION%"
+echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
 for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
-    echo %%f >> "%__SOURCES_FILE%"
+    echo %%f>> "%__SOURCES_FILE%"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -424,12 +440,10 @@ if not %_EXITCODE%==0 goto end
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=-ext WixUIExtension
-set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%"
-echo %__OPT_VERBOSE% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+set __LIGHT_COMMON_OPTS=-nologo
+if %_DEBUG%==1 set __LIGHT_COMMON_OPTS=%__LIGHT_COMMON_OPTS% -v
+set __LIGHT_COMMON_OPTS=%__LIGHT_COMMON_OPTS% -ext WixUIExtension
+set __LIGHT_COMMON_OPTS=%__LIGHT_COMMON_OPTS% -b "pack=%_APP_DIR%"
 
 set __WIXOBJ_FILES=
 set __N=0
@@ -444,11 +458,11 @@ if not exist "%_LOCALIZATIONS_DIR%\*.wxl" (
 )
 for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*.wxl"') do (
     set "__CULTURES=%%~nf"
-    set __OPT_LOCALIZED="-cultures:!__CULTURES!" -loc "%%f"
     if /i "!__CULTURES!"=="en-US" ( set "__MSI_FILE=%_MSI_FILE%"
     ) else ( set "__MSI_FILE=%_MSI_FILE:~0,-4%_!__CULTURES!.msi"
     )
-    echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% !__OPT_LOCALIZED! -nologo -out "!__MSI_FILE:\=\\!" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+    set __LIGHT_OPTS=%__LIGHT_COMMON_OPTS% "-cultures:!__CULTURES!" -loc "%%f"
+    echo !__LIGHT_OPTS! -out "!__MSI_FILE:\=\\!"> "%__OPTS_FILE%"
 
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% 1>&2
     ) else if %_VERBOSE%==1 ( echo Create Windows installer "!__MSI_FILE:%_ROOT_DIR%=!" 1>&2
@@ -544,19 +558,18 @@ if %_VERBOSE%+%_DEBUG% gtr 0 (
 goto :eof
 
 :remove
-if not defined _GUID[PRODUCT_CODE] (
-    echo %_ERROR_LABEL% Product code not found 1>&2
+if not defined _PRODUCT_ID (
+    echo %_ERROR_LABEL% Product identifier not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
-set "__PRODUCT_CODE=%_GUID[PRODUCT_CODE]%"
 
-@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_CODE%" 1>&2
+@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%_PRODUCT_ID%" 1>&2
 @rem ) else if %_VERBOSE%==1 ( echo Check if product if already installed 1>&2
 @rem )
 @rem set __INSTALLED=0
-@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%__PRODUCT_CODE%" && set __INSTALLED=1
+@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%_PRODUCT_ID%" && set __INSTALLED=1
 @rem if %__INSTALLED%==0 (
 @rem     echo %_WARNING_LABEL% Product "%_PROJECT_NAME%" is not installed 1>&2
 @rem     goto :eof
@@ -564,7 +577,7 @@ set "__PRODUCT_CODE=%_GUID[PRODUCT_CODE]%"
 if %_LOCALE%==en-US ( set "__MSI_FILE=%_MSI_FILE%"
 ) else ( set "__MSI_FILE=!_MSI_FILE:.msi=-%_LOCALE%.msi!"
 )
-if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%__MSI_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%__MSI_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Remove "%_APP_NAME%" installation ^("!__MSI_FILE:%_ROOT_DIR%=!"^) 1>&2
 )
 call "%_MSIEXEC_CMD%" /x "%__MSI_FILE%"

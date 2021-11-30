@@ -2,22 +2,22 @@
 <Include>
   <?define CompanyName="MyCompany" ?>  <!-- HKCU registry key -->
 
-  <?define Product_Language="1033" ?>
-  <?define Product_Manufacturer="MyCompany, Inc." ?>
-  <?define Product_Name="MyApp" ?>
+  <?define ProductLanguage="1033" ?>
+  <?define ProductManufacturer="MyCompany, Inc." ?>
+  <?define ProductName="MyApp" ?>
 
-  <?define Package_Comments="Create application and uninstall shortcuts" ?>
-  <?define Package_Description="MyApp Installer" ?>
-  <?define Package_Keywords="Installer" ?>
-  <?define Package_Languages="1033" ?>  <!-- 1033=en-us -->
-  <?define Package_Manufacturer="MyCompany, Inc." ?>
+  <?define PackageComments="Create application and uninstall shortcuts" ?>
+  <?define PackageDescription="MyApp Installer" ?>
+  <?define PackageKeywords="Installer" ?>
+  <?define PackageLanguages="1033" ?>  <!-- 1033=en-us -->
+  <?define PackageManufacturer="MyCompany, Inc." ?>
 
-  <?define Shortcut_ApplicationStartMenu_Description="Starts the MyApp application" ?>
-  <?define Shortcut_ApplicationStartMenu_Name="Starts MyApp" ?>
+  <?define ShortcutApplicationStartMenuDescription="Starts the MyApp application" ?>
+  <?define ShortcutApplicationStartMenuName="Starts MyApp" ?>
 
-  <?define Shortcut_UninstallProduct_Description="Removes the MyApp installation" ?>
-  <?define Shortcut_UninstallProduct_Name="Uninstalls MyApp" ?>
+  <?define ShortcutUninstallProductDescription="Removes the MyApp installation" ?>
+  <?define ShortcutUninstallProductName="Uninstalls MyApp" ?>
 
-  <?define Feature_AppComponents_Description="MyApp application, documentation and shortcuts" ?>
-  <?define Feature_AppComponents_Title="MyApp" ?>
+  <?define FeatureAppComponentsDescription="MyApp application, documentation and shortcuts" ?>
+  <?define FeatureAppComponentsTitle="MyApp" ?>
 </Include>

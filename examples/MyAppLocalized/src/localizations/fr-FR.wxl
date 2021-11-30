@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WixLocalization Culture="fr-FR" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="Product_Language">1036</String>
-  <String Id="Product_Manufacturer">MyCompany SA</String>
-  <String Id="Product_Name">MyApp</String>
+  <String Id="ProductLanguage">1036</String>
+  <String Id="ProductManufacturer">MyCompany SA</String>
+  <String Id="ProductName">MyApp</String>
 
-  <String Id="Package_Comments">Installe l'application et ajoute les raccourcis au menu de démarrage</String>
-  <String Id="Package_Description">Assistant d'installation de MyApp</String>
-  <String Id="Package_Keywords">Application démo de l'outil WiX</String>
-  <String Id="Package_Manufacturer">MyCompany SA</String>
+  <String Id="PackageComments">Installe l'application et ajoute les raccourcis au menu de démarrage</String>
+  <String Id="PackageDescription">Assistant d'installation de MyApp</String>
+  <String Id="PackageKeywords">Application démo de l'outil WiX</String>
+  <String Id="PackageManufacturer">MyCompany SA</String>
 
-  <String Id="Condition_NewerVersionDetected">xxxxxxxxxxxxxxxxxxx</String>
+  <String Id="ConditionNewerVersionDetected">xxxxxxxxxxxxxxxxxxx</String>
 
-  <String Id="MajorUpgrade_DowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
+  <String Id="MajorUpgradeDowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
 
   <!-- ######################## Shorcut elements ######################### -->
   <!-- Description appears in field "Comments" of the dialog window "Properties" -->
 
-  <String Id="Shortcut_ApplicationStartMenu_Description">Démarre l'application MyApp</String>
-  <String Id="Shortcut_ApplicationStartMenu_Name">Démarrage de MyApp</String>
+  <String Id="ShortcutApplicationStartMenuDescription">Démarre l'application MyApp</String>
+  <String Id="ShortcutApplicationStartMenuName">Démarrage de MyApp</String>
 
-  <String Id="Shortcut_UninstallProduct_Description">Supprime l'installation de MyApp</String>
-  <String Id="Shortcut_UninstallProduct_Name">Désinstallation de MyApp</String>
+  <String Id="ShortcutUninstallProductDescription">Supprime l'installation de MyApp</String>
+  <String Id="ShortcutUninstallProductName">Désinstallation de MyApp</String>
 
   <!-- ######################## Feature elements ######################### -->
   <!-- Description appears on the right side of the installer window "Custom Setup" -->
 
-  <String Id="Feature_AppComponents_Description">Application, documentation et raccourcis de MyApp</String>
-  <String Id="Feature_AppComponents_Title">Composants de MyApp</String>
+  <String Id="FeatureAppComponentsDescription">Application, documentation et raccourcis de MyApp</String>
+  <String Id="FeatureAppComponentsTitle">Composants de MyApp</String>
 </WixLocalization>

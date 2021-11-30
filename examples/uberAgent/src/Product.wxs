@@ -19,7 +19,7 @@
   Upgrade code HAS to be the same for all updates.
   Once you've chosen it don't change it.
   -->
-  <?define UpgradeCode="YOURGUID-UPGRADE_CODE" ?>
+  <?define UpgradeCode="$(var.ProductUpgradeCode)" ?>
 
   <!-- The URL for add/remove programs -->
   <?define InfoURL="https://helgeklein.com/" ?>
@@ -201,13 +201,13 @@
 
             <!-- Installation directory as a component so it can be emptied during uninstall -->
 			<!-- (by default files added by someone other than Windows Installer are not removed) -->
-            <Component Id="INSTALLDIR_comp" Guid="YOURGUID-INSTALLDIR">
+            <Component Id="INSTALLDIR_comp" Guid="PUT-GUID-HERE">
               <CreateFolder />
               <RemoveFile Id="RemoveFilesFromAppDirectory" Name="*.*" On="uninstall" />
             </Component>
             
             <!-- Main program file -->
-            <Component Id="uberAgent.exe_comp" Guid="YOURGUID-EXE_FILE">
+            <Component Id="uberAgent.exe_comp" Guid="PUT-GUID-HERE">
               <File Source="$(var.uberAgentExeSourcePath)" Id="uberAgentExe" KeyPath="yes" />
               <ServiceInstall Id="ServiceInstaller"
                 Account="LocalSystem" Description="!(loc.ServiceDescription)"
@@ -218,7 +218,7 @@
             </Component>
 
             <!-- Configuration file -->
-            <Component Id="uberAgent.conf_comp" Guid="YOURGUID-CONFIGURATION_FILE">
+            <Component Id="uberAgent.conf_comp" Guid="PUT-GUID-HERE">
               <File Source="$(var.ProjectDir)\uberAgent.conf" Id="uberAgentConf" KeyPath="yes" />
               <IniFile Id="ConfigFile" Action="addLine" Directory="INSTALLDIR" Name="uberAgent.conf" Section="Receiver" Key="Servers" Value="[SERVERS]" />
             </Component>
@@ -228,7 +228,7 @@
       </Directory>
 
       <!-- Registry entries -->
-      <Component Id="RegValInstallLocation_comp" Guid="YOURGUID-REG_VAL_INSTALLATION">
+      <Component Id="RegValInstallLocation_comp" Guid="PUT-GUID-HERE">
         <!-- Do NOT use the application's default registry key here, because THIS key will be removed on uninstall
             (important when installing a newer version, because that is uninstall followed by install) -->
         <RegistryKey Root="HKLM" Key="Software\!(loc.ManufacturerName)\InstalledProducts\!(loc.ApplicationName)">
