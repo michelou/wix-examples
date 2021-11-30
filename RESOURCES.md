@@ -10,6 +10,7 @@
 
 ## <span id="articles">Articles</span>
 
+- [What is WiX Toolset & how to use it][article_nrird] by Heiswayi Nrird, May 2018.
 - [Creating a Localized Windows Installer & Bootstrapper: Part 3][article_carlisle3] by Mike Carlisle, February 2013.
 - [Creating a Localized Windows Installer & Bootstrapper: Part 2][article_carlisle2] by Mike Carlisle, February 2013.
 - [A quick introduction: Create an MSI installer with WiX][article_moack] by Moack, December 2010.
@@ -108,6 +109,7 @@ version = "12"
 [article_carlisle3]: https://www.codeproject.com/Articles/103749/Creating-a-Localized-Windows-Installer-Bootstrap-3
 [article_hashimi]: https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/march/automate-releases-with-msbuild-and-windows-installer-xml
 [article_moack]: https://www.codeproject.com/Tips/105638/A-quick-introduction-Create-an-MSI-installer-with
+[article_nrird]: https://heiswayi.nrird.com/get-started-with-wix-toolset
 [blog_arnson]: https://www.joyofsetup.com/2013/02/06/l10nm10n-localization-minimization/
 [blog_dizzy]: http://www.dizzymonkeydesign.com/blog/misc/adding-and-customizing-dlgs-in-wix-3/
 [blog_klein]: https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="fr-FR" Codepage="1252" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+    <String Id="Language">1036</String>
+    <!-- Supported language and codepage codes can be found here: http://www.tramontana.co.hu/wix/lesson2.php#2.4 -->
+    <String Id="ApplicationName">MiniAppKiller</String>
+    <String Id="ManufacturerName">Heiswayi Nrird</String>
+    <String Id="ProductDescription">Process killer</String>
+    <String Id="ProductKeywords">process killer</String>
+    <String Id="Comments">Installe l'application MiniAppKiller</String>
+
+    <String Id="LicenseRtf" Overridable="yes">Eula-fr.rtf</String>
+
+    <String Id="AppNotSupported">Cette application n'est pas supportée par votre système actuel. Minimal OS supported is Windows XP SP2</String>
+    <String Id="DotNetFrameworkNeeded">.NET Framework 3.5 est requis. Please install the .NET Framework then run this installer again.</String>
+    <String Id="NewerVersionInstalled">Une version plus récente de !(loc.ApplicationName) est déjà installée.</String>
+    <String Id="CloseRunningApp">!(loc.ApplicationName) est en cours d'exécution. Vous devez tout d'abord la quitter!</String>
+
+    <String Id="FeatureCompleteDescription">The complete package.</String>
+    <String Id="FeatureMainProgramDescription">The main version including all dependencies.</String>
+    <String Id="FeatureMainProgramTitle">Programme principal</String>
+
+    <!--<String Id="LicenseAgreementDlgLicenseAcceptedCheckBox">Agree</String>-->
+
+    <String Id="UpgradeWelcomeDlgTitle">Assistant d'installation !(loc.ApplicationName)</String>
+    <String Id="UpgradeWelcomeDlgHeaderTitle">Une version antérieure de !(loc.ApplicationName) est détectée</String>
+    <String Id="UpgradeWelcomeDlgMessage">The setup will perform an upgrade of !(loc.ApplicationName). Click Next to proceed with the upgrade or Cancel to exit the setup.</String>
+
+    <String Id="CreateDesktopShortcutCheckboxText">Crée un raccourci sur le Bureau</String>
+</WixLocalization>

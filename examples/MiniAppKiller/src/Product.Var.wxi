@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+    <!-- #### USER-DEFINED VARIABLES #### -->
+    <!-- Set to 1 if you want to enable major upgrade -->
+    <?define EnableMajorUpgrade="1" ?>
+    <?define AppExeName="MiniAppKiller.exe" ?>
+    <!-- App Info -->
+    <!-- The URL for Add/Remove Programs -->
+    <?define InfoURL="https://heiswayi.nrird.com/" ?>
+    <!-- If your app supports both platform (x86 & x64), you have to create separate MSI. -->
+    <?define Platform="x86" ?>
+    <!-- App Icon -->
+    <?define AppIconSource="images\app.ico" ?>
+    <!-- Other resources -->
+    <!-- TopBanner.bmp: 499x58 px -->
+    <?define ImageTopBannerSource="images\TopBanner.bmp" ?>
+    <!-- Dialog.bmp: 499x301 px; Graphical area: 165x301 px -->
+    <?define ImageDialogSource="images\Dialog.bmp" ?>
+
+    <!-- #### DO NOT EDIT ANYTHING BELOW THIS LINE #### -->
+    <?if $(var.EnableMajorUpgrade) = 1 ?>
+        <?define GuidProductId = "*" ?>
+    <?else ?>
+        <?define GuidProductId = "$(var.ProductId)" ?>
+    <?endif ?>
+    <?if $(var.Platform) = x64 ?>
+        <?define Win64 = "yes" ?>
+        <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+        <?define MainExeSourcePath = "$(var.AppDir)\$(var.AppExeName)" ?>
+    <?else ?>
+        <?define Win64 = "no" ?>
+        <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+        <?define MainExeSourcePath = "$(var.AppDir)\$(var.AppExeName)" ?>
+    <?endif ?>
+</Include>

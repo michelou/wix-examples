@@ -186,9 +186,78 @@ Project `MyAppFeatures` adds feature customization to the *MyApp* Windows instal
 </tr>
 </table>
 
-## <span id="uberAgent">uberAgent</span>
+## <span id="mini_app_killer">MiniAppKiller</span>
 
-Example `uberAgent` is adapted from Helge Klein's blog entry [Real-World Example: WiX/MSI Application Installer][uberAgent] (February 2021).
+Project `MinAppKiller` is adapted from Heiswayi Nrird's blog post *[What is WiX Toolset & how to use it][MiniAppKiller]* (May 2018).
+
+The project directory is organized in the same way as the previous [WiX][wix_toolset] examples :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+Y:\examples\MiniAppKiller
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+│   <a href="./MiniAppKiller/00download.txt">00download.txt</a>
+│   <a href="./MiniAppKiller/build.bat">build.bat</a>
+├───<b>app</b>
+│       <a href="./MiniAppKiller/app/config.ini">config.ini</a>
+│       EULA-en.rtf
+│       EULA-fr.rtf
+│       filters.txt
+│       MiniAppKiller.exe   <i>(copy of %WINDIR%\system32\calc.exe)</i>
+└───<b>src</b>
+    │   <a href="./MiniAppKiller/src/Product.Var.wxi">Product.Var.wxi</a>
+    │   <a href="./MiniAppKiller/src/Product.wxs">Product.wxs</a>
+    ├───<b>images</b>
+    │       <a href="./MiniAppKiller/src/images/app.ico">app.ico</a>
+    │       app.ico.txt
+    │       <a href="./MiniAppKiller/src/images/Dialog.bmp">Dialog.bmp</a>
+    │       Dialog.bmp.txt
+    │       <a href="./MiniAppKiller/src/images/TopBanner.bmp">TopBanner.bmp</a>
+    │       TopBanner.bmp.txt
+    └───<b>localizations</b>
+            <a href="./MiniAppKiller/src/localizations/Product.Loc_en-US.wxl">Product.Loc_en-US.wxl</a>
+            <a href="./MiniAppKiller/src/localizations/Product.Loc_fr-FR.wxl">Product.Loc_fr-FR.wxl</a>
+</pre>
+
+
+Figures **3.1** to **3.4** below illustrate the localized graphical user interface of the generated *MiniAppKiller* Windows installer while figures **3.5** and **3.6** show the updated user environment.
+
+<table>
+<tr>
+<td style="text-align:center;">
+  <a href="images/MiniAppKiller_Welcome.png"><img style="max-width:180px;" src="images/MiniAppKiller_Welcome.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>MiniAppKiller</i> installer).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/MiniAppKiller_EULA.png"><img style="max-width:180px;" src="images/MiniAppKiller_EULA.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br/><i>(MiniAppKiller</i> installer).
+  </div>
+</td>
+<td style="text-align:center;">
+  <a href="images/MiniAppKiller_DestinationFolder.png"><img style="max-width:180px;" src="images/MiniAppKiller_DestinationFolder.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination Folder<br/>(<i>MiniAppKiller</i> installer).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/MiniAppKiller_Completed.png"><img style="max-width:180px;" src="images/MiniAppKiller_Completed.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.4 -</b> Completed installation<br/><i>(MiniAppKiller</i> installer).
+  </div>
+</td>
+<td style="text-align:center;">
+  <a href="images/MiniAppKiller_ProgFiles.png"><img style="max-width:180px;" src="images/MiniAppKiller_ProgFiles.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>MiniAppKiller</i> application<br/>(<i>Program Files</i> folder).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/MiniAppKiller_Uninstall.png"><img style="max-width:180px;" src="images/MiniAppKiller_Uninstall.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.6 -</b> Uninstall <i>MiniAppKiller</i><br/><i>(Settings</i> folder).
+  </div>
+</td>
+</tr>
+</table>
+
+## <span id="uber_agent">uberAgent</span>
+
+Project `uberAgent` is adapted from Helge Klein's blog post *[Real-World Example: WiX/MSI Application Installer][uberAgent]* (February 2021).
 
 The project directory is organized in the same way as the previous [WiX][wix_toolset] examples :
 
@@ -220,28 +289,28 @@ Y:\examples\uberAgent
             <a href="./uberAgent/src/images/Dialog.bmp.txt">Dialog.bmp.txt</a>
 </pre>
 
-Figures **3.1** to **3.4** below illustrate the localized graphical user interface of the generated Windows installers.
+Figures **4.1** to **4.4** below illustrate the localized graphical user interface of the generated *uberAgent* Windows installer.
 
 <table>
 <tr>
 <td style="text-align:center;">
   <div>
   <a href="images/uberAgent_Setup1.png"><img style="max-width:180px;" src="images/uberAgent_Setup1.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 4.1 -</b> Welcome<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/uberAgent_Setup2.png"><img style="max-width:180px;" src="images/uberAgent_Setup2.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br/><i>(uberAgent</i> installer).
+  <div style="font-size:70%;"><b>Figure 4.2 -</b> EULA<br/><i>(uberAgent</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <div>
   <a href="images/uberAgent_Setup3.png"><img style="max-width:180px;" src="images/uberAgent_Setup3.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination Folder<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 4.3 -</b> Destination Folder<br/>(<i>uberAgent</i> installer).<br/>&nbsp;
   </div>
   <div>
   <a href="images/uberAgent_Setup4.png"><img style="max-width:180px;" src="images/uberAgent_Setup4.png" /></a>
-  <div style="font-size:70%;"><b>Figure 3.4 -</b> Receiver Configuration<br/><i>(uberAgent</i> installer).
+  <div style="font-size:70%;"><b>Figure 4.4 -</b> Receiver Configuration<br/><i>(uberAgent</i> installer).
   </div>
 </td>
 </tr>
@@ -276,6 +345,7 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 
 <!-- link refs -->
 
+[MiniAppKiller]: https://heiswayi.nrird.com/get-started-with-wix-toolset
 [uberAgent]: https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/
 [vs_solution]: https://docs.microsoft.com/en-us/visualstudio/extensibility/internals/solution-dot-sln-file?view=vs-2022
 [windows_program_files]: https://en.wikipedia.org/wiki/Program_Files
