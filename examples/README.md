@@ -14,7 +14,8 @@
 The [WiX][wix_toolset] examples presented in the following sections 
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md), in particular :
-   - *tbd*
+   - we slightly modified the main [WiX][wix_toolset] source file to match our project settings.
+   - we recreated most resource files (eg. images) not made available by the original author (eg. project [*uberAgent*](#uber_agent)).
 
 ## <span id="mini_app_killer">MiniAppKiller</span>
 
@@ -146,27 +147,14 @@ Figures **4.1** to **4.4** below illustrate the localized graphical user interfa
 </tr>
 </table>
 
+<!--
 ## <span id="footnotes">Footnotes</span>
-
 
 <b name="footnote_01">[1]</b> ***File Checksums*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-We rely on the PowerShell function <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="md5sums">md5sums</a>.
 </p>
-
-<b name="footnote_02">[2]</b> ***GUID*** [↩](#anchor_02)
-
-<p style="margin:0 0 1em 20px;">
-A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated (<i>see also</i> the nice article series from <a href="https://ericlippert.com/about-eric-lippert/">Eric Lippert</a>'s <i>"Guid guide"</i>, <a href="https://ericlippert.com/2012/04/24/guid-guide-part-one/">part 1</a>, <a href="https://ericlippert.com/2012/04/30/guid-guide-part-two/">part 2</a> and <a href="https://ericlippert.com/2012/05/07/guid-guide-part-three/">part 3</a>).
-</p>
-<p style="margin:0 0 1em 20px;">
-<a href="https://wixtoolset.org/">WiX</a> examples developed in this project rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples"><code>New-Guid</code></a> to generate GUID values; for instance :
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; powershell -C <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples">"(New-Guid).Guid"</a></b>
-2d30a843-3eb2-497a-99a1-49a368bba5f7
-</pre>
+-->
 
 ***
 
