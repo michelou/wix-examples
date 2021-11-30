@@ -552,7 +552,7 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
 set __CANDLE_OPTS=-nologo
-if %_DEBUG%==1 ( set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_APP_DIR%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
