@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
-	xmlns="http://schemas.microsoft.com/wix/2006/wi"
+    xmlns="http://schemas.microsoft.com/wix/2006/wi"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:wix="http://schemas.microsoft.com/wix/2006/wi">
 
@@ -15,7 +15,7 @@
   <xsl:template match="wix:Directory[starts-with(@Id, 'app')]">
     <Directory Id="INSTALLDIR" Name="Scala 2" >
       <xsl:apply-templates />
-	</Directory>
+    </Directory>
   </xsl:template>
 
   <xsl:template match="wix:Component[@Id='scala']">
@@ -24,7 +24,7 @@
       <File Id="repl.bat" KeyPath="yes" Source="!(bindpath.rsrc)\repl.bat" />
       <xsl:text>&#10;          </xsl:text>
     </Component>
-     <xsl:text>&#10;          </xsl:text>
+    <xsl:text>&#10;          </xsl:text>
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
@@ -35,7 +35,7 @@
       <xsl:text>&#10;      </xsl:text>
       <ComponentRef Id="repl.bat" />
       <xsl:apply-templates />
-	</ComponentGroup>
+    </ComponentGroup>
   </xsl:template>
 
 </xsl:stylesheet>

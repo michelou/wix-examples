@@ -97,13 +97,13 @@ Environment variables:
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***ImageMagick*** [↩](#anchor_01)
+<span name="footnote_01">[1]</span> ***ImageMagick*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 <a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize two dialog windows in the generated Windows installer.
 </p>
 
-<b name="footnote_02">[2]</b> ***InstEd*** [↩](#anchor_02)
+<span name="footnote_02">[2]</span> ***InstEd*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 <a href="http://www.instedit.com/download.html">InstEd</a> is a free MSI editor built for professionals. In this project we use that tool to inspect Windows installers available for other software products, e.g.
@@ -114,13 +114,13 @@ Environment variables:
   <li><a href="https://adoptium.net/"><code>OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi</code></a></li>
 </ul>
 
-<b name="footnote_03">[3]</b> ***Visual Studio 2019*** [↩](#anchor_03)
+<span name="footnote_03">[3]</span> ***Visual Studio 2019*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 <a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">GUI</a> applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the <a href="https://wixtoolset.org/">WiX tools</a> to create a Windows installer.
 </p>
 
-<b name="footnote_04">[4]</b> ***Downloads*** [↩](#anchor_04)
+<span name="footnote_04">[4]</span> ***Downloads*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
