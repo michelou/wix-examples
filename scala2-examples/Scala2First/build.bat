@@ -59,10 +59,9 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_RESOURCES_DIR=%_SOURCE_DIR%\resources"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
+set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
-
-set _COPYRIGHT_OWNER=EPFL
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
@@ -150,6 +149,10 @@ set _PRODUCT_SKU=scala
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=2.13.7
 
+set _COPYRIGHT_OWNER=EPFL
+
+set "_TIMESTAMP_SERVER=http://timestamp.digicert.com"
+
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -171,6 +174,9 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_VERSION set "_PRODUCT_VERSION=!__PRODUCT_VERSION!"
     if defined __PROGRAM_MENU_DIR set "_PROGRAM_MENU_DIR=!__PROGRAM_MENU_DIR!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
+    @rem user-configurable batch variables
+    if defined __COPYRIGHT_OWNER set "_COPYRIGHT_OWNER=!__COPYRIGHT_OWNER!"
+    if defined __TIMESTAMP_SERVER set "_TIMESTAMP_SERVER=!__TIMESTAMP_SERVER!"
 )
 if not defined _PRODUCT_ID (
     echo %_ERROR_LABEL% Product identifier is undefined 1>&2
@@ -407,11 +413,12 @@ set __N=0
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
-    echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
-    for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
-    echo ^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
+    echo !__VAR_IN!='%%f';>> "%__PS1_FILE%"
+    for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg';>> "%__PS1_FILE%"
+    echo $contents=^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
     for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
-    echo    ^| Out-File -Encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
+    echo    ;>> "%__PS1_FILE%"
+    echo [System.IO.File]::WriteAllLines^(!__VAR_OUT!, $contents^);>> "%__PS1_FILE%"
     echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
@@ -426,12 +433,12 @@ if not %ERRORLEVEL%==0 (
 )
 @rem image files are handled separately (see :gen_banner)
 for %%e in (bat ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -439,7 +446,7 @@ for %%e in (bat ico) do (
 goto :eof
 
 :extract_components
-echo repl.bat> "%_FRAGMENTS_CID_FILE%"
+if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
 
 set __N=0
 for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\">" "%_FRAGMENTS_FILE%"') do (
@@ -532,10 +539,9 @@ if not exist "%__PFX_PSWD_FILE%" (
     goto :eof
 )
 set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
-set "__TSTAMP_SERVER_URL=http://timestamp.digicert.com"
 
 @rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
-set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%__TSTAMP_SERVER_URL%" /fd SHA256
+set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%_TIMESTAMP_SERVER%" /fd SHA256
 if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
 
 @rem print dummy PFX password in console !
@@ -567,13 +573,10 @@ if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES=
-set __LIGHT_BINDINGS=-b "rsrc=%_TARGET_DIR%\resources"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+set _LIGHT_OPTS=-nologo
+if %_DEBUG%==1 set _LIGHT_OPTS=%_LIGHT_OPTS% -v
+set _LIGHT_OPTS=%_LIGHT_OPTS% -b "rsrc=%_GEN_RESOURCES_DIR%"
+echo %_LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0

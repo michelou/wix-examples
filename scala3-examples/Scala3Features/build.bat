@@ -390,7 +390,7 @@ for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_VERSION_FILE%" 2^
 goto :eof
 
 @rem input parameter: %1=release version
-@rem we patch file bin\common.bat to support blank in file paths (see PR#13806)
+@rem we patch file bin\common.bat to support spaces in file paths (see PR#13806)
 :patch_app
 set "__RELEASE=%~1"
 set "__COMMON_BAT=%_APP_DIR%\bin\common.bat"
@@ -712,9 +712,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-call :sign_file "%_MSI_FILE%"
-if not %_EXITCODE%==0 goto :eof
-
+if defined _SIGNTOOL_CMD (
+    call :sign_file "%_MSI_FILE%"
+    if not !_EXITCODE!==0 goto :eof
+) else (
+    echo %_WARNING_LABEL% signtool command not found; is Windows SDK 10 installed? 1>&2
+)
 call :gen_checksums "%_MSI_FILE%"
 if not %_EXITCODE%==0 goto :eof
 goto :eof

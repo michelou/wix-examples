@@ -23,12 +23,12 @@ Optionally one may also install the following software:
 - [ImageMagick 7.1][magick_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup> ([*change log*][magick_changelog])
 - [InstEd 1.5][insted_downloads] <sup id="anchor_02"><a href="#footnote_02">2</a></sup> ([*release notes*][insted_relnotes])
 - [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_03"><a href="#footnote_03">3</a></sup> ([*release notes*][vs2019_relnotes])
-- [Microsoft Windows 10 SDK][windows_sdk] ([*release notes*][windows_sdk_relnotes])
+- [Microsoft Windows 10 SDK][windows_sdk] <sup id="anchor_04"><a href="#footnote_04">4</a></sup> ([*release notes*][windows_sdk_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2021*) <sup id="anchor_04"><a href="#footnote_04">4</a></sup>:
+For instance our development environment looks as follows (*December 2021*) <sup id="anchor_05"><a href="#footnote_05">5</a></sup>:
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.34.1\             <i>(280 MB)</i>
@@ -55,6 +55,7 @@ scala3-examples\{<a href="./scala3-examples/Scala3First">Scala3First</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
+<a href="SECURITY.md">SECURITY.md</a>
 <a href="SETUP.md">SETUP.md</a>
 <a href="setenv.bat">setenv.bat</a>
 </pre>
@@ -71,6 +72,7 @@ where
 - file [**`QUICKREF.md`**](QUICKREF.md) is our [WiX] quick reference.
 - file **`README.md`** is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) is the [Markdown][github_markdown] document presenting external resources.
+- file [**`SECURITY.md`**](SECURITY.md) answers the security concerns about `.msi` files.
 - file [**`SETUP.md`**](SETUP.md) gives some [WiX] setup details.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -97,13 +99,13 @@ Environment variables:
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> ***ImageMagick*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***ImageMagick*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 <a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize two dialog windows in the generated Windows installer.
 </p>
 
-<span name="footnote_02">[2]</span> ***InstEd*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***InstEd*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 <a href="http://www.instedit.com/download.html">InstEd</a> is a free MSI editor built for professionals. In this project we use that tool to inspect Windows installers available for other software products, e.g.
@@ -120,7 +122,9 @@ Environment variables:
 <a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">GUI</a> applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the <a href="https://wixtoolset.org/">WiX tools</a> to create a Windows installer.
 </p>
 
-<span name="footnote_04">[4]</span> ***Downloads*** [↩](#anchor_04)
+<span id="footnote_04">[4]</span> ***Windows SDK*** [↩](#anchor_04)
+
+<span id="footnote_05">[5]</span> ***Downloads*** [↩](#anchor_05)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -138,7 +142,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

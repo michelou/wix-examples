@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer.
@@ -12,10 +12,12 @@
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections
-- *share* the same project organisation as the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md).
-- *differ* in several respects from the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md), in particular :
+- *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
+- *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - application files are downloaded and extracted from the Zip archive (e.g. [`scala-2.13.7.zip`][scala2_zip]) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
+
+> **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 2][scala2] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
 ## <span id="scala2_first">Scala2First</span>
 
@@ -344,16 +346,16 @@ Project `Scala2Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds featur
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> **`Fragments.wxs`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 In the above projects we not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code>, we also specify the option <code>-t <a href="./Scala2UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
 </p>
 
-<b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code> and <code>Scala2Localized</code> generate a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer which will <i>update</i> the system environment as follows :
+Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code>,  <code>Scala2Localized</code> and <code>Scala2Features</code> generate a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer which will <i>update</i> the system environment as follows :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
@@ -369,7 +371,7 @@ C:\Program Files\Scala 2\bin\scala.bat
 Scala code runner version 2.13.7 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
 </pre>
 
-<b name="footnote_03">[3]</b> ***Default Java Location*** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> ***Default Java Location*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
@@ -424,7 +426,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 </tr>
 </table>
 
-<b name="footnote_04">[4]</b> ***Batch file* `build.bat`** [↩](#anchor_04)
+<span id="footnote_04">[4]</span> ***Batch file* `build.bat`** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 Command <a href="./Scala2First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
@@ -450,7 +452,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -459,7 +461,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 [lightbend_scala]: https://www.lightbend.com/blog/scala-center
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [sbt_windows_plugin]: https://www.scala-sbt.org/sbt-native-packager/formats/windows.html
-[scala2_zip]: https://www.scala-lang.org/download/2.13.7.html
+[scala2_zip]: https://scala-lang.org/files/archive/
 [scala2]: https://www.scala-lang.org/
 [scala2_releases]: https://github.com/scala/scala/releases
 [windows_program_files]: https://en.wikipedia.org/wiki/Program_Files

@@ -365,6 +365,9 @@ if not exist "%_VERSION_FILE%" (
         set _EXITCODE=1
         goto :eof
     )
+    call :patch_app "!__RELEASE!"
+    if not !_EXITCODE!==0 goto :eof
+
     set "_PRODUCT_VERSION=!__RELEASE!"
 )
 for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_VERSION_FILE%" 2^>NUL') do (
@@ -373,6 +376,27 @@ for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_VERSION_FILE%" 2^
         set _EXITCODE=1
         goto :eof
     )
+)
+goto :eof
+
+@rem input parameter: %1=release version
+@rem we patch file bin\common.bat to support spaces in file paths (see PR#13806)
+:patch_app
+set "__RELEASE=%~1"
+set "__COMMON_BAT=%_APP_DIR%\bin\common.bat"
+if not exist "%__COMMON_BAT%" goto :eof
+
+set __PS1_SCRIPT=$contents=^(Get-Content -Raw -Encoding UTF8 '%__COMMON_BAT%'^) ` ^
+   -replace 'for /f %%%%f in', 'for /f \"delims=\" %%%%f in'; ^
+[System.IO.File]::WriteAllLines^('%__COMMON_BAT%', $contents^)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -C "^(Get-Content '!__COMMON_BAT:%_ROOT_DIR%=!'^) ..." 1>&2
+) else if %_VERBOSE%==1 ( echo Apply patch to file "!__COMMON_BAT:%_ROOT_DIR%=!" 1>&2
+)
+powershell -C "%__PS1_SCRIPT%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to apply patch to file "!__COMMON_BAT:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
@@ -595,9 +619,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-call :sign_file "%_MSI_FILE%"
-if not %_EXITCODE%==0 goto :eof
-
+if defined _SIGNTOOL_CMD (
+    call :sign_file "%_MSI_FILE%"
+    if not !_EXITCODE!==0 goto :eof
+) else (
+    echo %_WARNING_LABEL% signtool command not found; is Windows SDK 10 installed? 1>&2
+)
 call :gen_checksums "%_MSI_FILE%"
 if not %_EXITCODE%==0 goto :eof
 goto :eof

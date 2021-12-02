@@ -17,7 +17,7 @@
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
-       <Directory Id='ProgramFiles64Folder' Name='PFiles'>
+       <Directory Id='ProgramFiles64Folder' Name='Program Files'>
          <!-- fragments.wxs -->
        </Directory>
        <!-- Step 1: Define the directory structure -->

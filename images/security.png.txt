@@ -1,0 +1,1 @@
+Source: https://peacocksoftware.com/blog/creating-self-signed-san-certificate-ubuntu-which-makes-chrome-happy

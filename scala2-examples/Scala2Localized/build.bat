@@ -64,9 +64,6 @@ set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
-for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
-set _COPYRIGHT_OWNER=EPFL
-
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
     set _EXITCODE=1
@@ -160,6 +157,11 @@ set _PRODUCT_SKU=scala
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=2.13.7
 
+for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
+set _COPYRIGHT_OWNER=EPFL
+
+set "_TIMESTAMP_SERVER=http://timestamp.digicert.com"
+
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -183,6 +185,9 @@ if exist "%__PROPS_FILE%" (
     if defined __APPLICATION_SCALA_HOME set "_APPLICATION_SCALA_HOME=!__APPLICATION_SCALA_HOME!"
     if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
+    @rem user-configurable batch variables
+    if defined __COPYRIGHT_OWNER set "_COPYRIGHT_OWNER=!__COPYRIGHT_OWNER!"
+    if defined __TIMESTAMP_SERVER set "_TIMESTAMP_SERVER=!__TIMESTAMP_SERVER!"
 )
 if not defined _PRODUCT_ID (
     echo %_ERROR_LABEL% Product identifier is undefined 1>&2
@@ -419,11 +424,11 @@ set __N=0
 for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
-    echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
-    for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg'>> "%__PS1_FILE%"
+    echo !__VAR_IN!='%%f';>> "%__PS1_FILE%"
+    for %%g in (%%f) do echo !__VAR_OUT!='%_GEN_DIR%\%%~nxg';>> "%__PS1_FILE%"
     echo ^(Get-Content -Raw -Encoding UTF8 !__VAR_IN!^) `>> "%__PS1_FILE%"
     for /l %%i in (0, 1, %__M%) do echo    !__REPLACE[%%i]! `>> "%__PS1_FILE%"
-    echo    ^| Out-File -Encoding UTF8 !__VAR_OUT!>> "%__PS1_FILE%"
+    echo    ^| Out-File -Encoding UTF8 !__VAR_OUT!;>> "%__PS1_FILE%"
     echo.>> "%__PS1_FILE%"
     set /a __N+=1
 )
@@ -533,12 +538,14 @@ goto :eof
 if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
 
 set __N=0
-for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%_FRAGMENTS_FILE%"') do (
-    @rem example: Id="tzdb.dat"
-    for /f "delims=^= tokens=1,*" %%x in ("%%j") do set "__COMPONENT_ID=%%~y"
-    if defined __COMPONENT_ID (
-        echo !__COMPONENT_ID!>> "%_FRAGMENTS_CID_FILE%"
-        set /a __N+=1
+for /f "delims=" %%f in ('dir /b /s "%_GEN_DIR%\Fragments*.wxs" 2^>NUL') do (
+    for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%%f"') do (
+        @rem example: Id="tzdb.dat"
+        for /f "delims=^= tokens=1,*" %%x in ("%%j") do set "__COMPONENT_ID=%%~y"
+        if defined __COMPONENT_ID (
+            echo !__COMPONENT_ID!>> "%_FRAGMENTS_CID_FILE%"
+            set /a __N+=1
+        )
     )
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Saved %__N% component identifiers to file "!_FRAGMENTS_CID_FILE:%_ROOT_DIR%=!" 1>&2
@@ -551,20 +558,19 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES="-dpack=%_APP_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductId=%_PRODUCT_ID%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersion=%_PRODUCT_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProgramMenuDir=%_PROGRAM_MENU_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationScalaHome=%_APPLICATION_SCALA_HOME%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationUpdatePath=%_APPLICATION_UPDATE_PATH%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
+set __CANDLE_OPTS=-nologo
+if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_APP_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductVersion=%_PRODUCT_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProgramMenuDir=%_PROGRAM_MENU_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationScalaHome=%_APPLICATION_SCALA_HOME%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationUpdatePath=%_APPLICATION_UPDATE_PATH%"
+echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -625,10 +631,9 @@ if not exist "%__PFX_PSWD_FILE%" (
     goto :eof
 )
 set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
-set "__TSTAMP_SERVER_URL=http://timestamp.digicert.com"
 
 @rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
-set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%__TSTAMP_SERVER_URL%" /fd SHA256
+set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%_TIMESTAMP_SERVER%" /fd SHA256
 if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
 
 @rem print dummy PFX password in console !
@@ -660,13 +665,10 @@ if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=-ext WixUIExtension
-set __OPT_PROPERTIES=
-set __LIGHT_BINDINGS=-b "pack=%_APP_DIR%" -b "rsrc=%_GEN_RESOURCES_DIR%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+set __LIGHT_COMMON_OPTS=-nologo
+if %_DEBUG%==1 set __LIGHT_COMMON_OPTS=%__LIGHT_COMMON_OPTS% -v
+set __LIGHT_COMMON_OPTS=%__LIGHT_COMMON_OPTS% -ext WixUIExtension
+set __LIGHT_COMMON_OPTS=%__LIGHT_COMMON_OPTS% -b "pack=%_APP_DIR%" -b "rsrc=%_GEN_RESOURCES_DIR%"
 
 set __WIXOBJ_FILES=
 set __N=0
@@ -685,7 +687,7 @@ for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*.wxl"') do (
     if /i "!__CULTURES!"=="en-US" ( set "__MSI_FILE=%_MSI_FILE%"
     ) else ( set "__MSI_FILE=%_MSI_FILE:~0,-4%_!__CULTURES!.msi"
     )
-    echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% !__OPT_LOCALIZED! -nologo -out "!__MSI_FILE:\=\\!" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+    echo %__LIGHT_COMMON_OPTS% !__OPT_LOCALIZED! -out "!__MSI_FILE:\=\\!"> "%__OPTS_FILE%"
 
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" %__WIXOBJ_FILES% 1>&2
     ) else if %_VERBOSE%==1 ( echo Create Windows installer "!__MSI_FILE:%_ROOT_DIR%=!" 1>&2

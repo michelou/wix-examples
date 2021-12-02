@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty">Dotty project</a>.
@@ -12,10 +12,12 @@
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections
-- *share* the same project organisation as the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md).
-- *differ* in several respects from the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md), in particular :
+- *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
+- *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - application files are downloaded and extracted from in directory `app\` are extracted from the downloaded from the Zip archive (e.g. [`scala3-3.1.0.zip`][scala3_zip]) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
+
+> **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 3][scala3] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
 ## <span id="scala3_first">Scala3First</span>
 
@@ -90,14 +92,19 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
   <a href="images/Scala3First_REPL.png">
   <img style="max-width:180px;" src="images/Scala3First_REPL.png" alt="Scala 3 REPL" />
   </a>
-  <div style="font-size:70%;"><b>Figure 1.4 -</b> <i>Scala 3</i> REPL.
+  <div style="font-size:70%;"><b>Figure 1.4 -</b> <i>Scala 3</i> REPL<br/>(<code>JAVA_HOME</code> defined).
   </div>
 </td>
 <td style="text-align:center;">
+  <a href="images/Scala3First_REPL_failed.png">
+  <img style="max-width:180px;" src="images/Scala3First_REPL_failed.png" alt="Scala 3 REPL" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 1.5 -</b> <i>Scala 3</i> REPL<br/>(<code>JAVA_HOME</code> undefined).<br/>&nbsp;
+  </div>
   <a href="images/Scala3First_Uninstall.png">
   <img style="max-width:180px;" src="images/Scala3First_Uninstall.png" alt="Uninstall Scala 3" />
   </a>
-  <div style="font-size:70%;"><b>Figure 1.5 -</b> Uninstall <i>Scala 3</i><br/>(<i>Settings</i> window).
+  <div style="font-size:70%;"><b>Figure 1.6 -</b> Uninstall <i>Scala 3</i><br/>(<i>Settings</i> window).
   </div>
 </td>
 </tr>
@@ -389,7 +396,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
