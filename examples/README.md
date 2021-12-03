@@ -30,16 +30,16 @@ Y:\examples\MiniAppKiller
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./MiniAppKiller/00download.txt">00download.txt</a>
 │   <a href="./MiniAppKiller/build.bat">build.bat</a>
-├───<b>app</b>
+├───<a href="./MiniAppKiller/app/"><b>app</b></a>
 │       <a href="./MiniAppKiller/app/config.ini">config.ini</a>
-│       EULA-en.rtf
+│       <a href="./MiniAppKiller/app/EULA-en.rtf">EULA-en.rtf</a>
 │       EULA-fr.rtf
 │       filters.txt
 │       MiniAppKiller.exe   <i>(copy of %WINDIR%\system32\calc.exe)</i>
-└───<b>src</b>
+└───<a href="./MiniAppKiller/src/"><b>src</b></a>
     │   <a href="./MiniAppKiller/src/Product.Var.wxi">Product.Var.wxi</a>
     │   <a href="./MiniAppKiller/src/Product.wxs">Product.wxs</a>
-    ├───<b>images</b>
+    ├───<a href="./MiniAppKiller/src/images/"><b>images</b></a>
     │       <a href="./MiniAppKiller/src/images/app.ico">app.ico</a>
     │       app.ico.txt
     │       <a href="./MiniAppKiller/src/images/Dialog.bmp">Dialog.bmp</a>
@@ -99,9 +99,8 @@ Y:\examples\uberAgent
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./uberAgent/00download.txt">00download.txt</a>
 │   <a href="./uberAgent/build.bat">build.bat</a>
-│   <a href="./uberAgent/build.properties">build.properties</a>
-├───<b>app</b>
-│       Eula-en.rtf
+├───<a href="./uberAgent/app/"><b>app</b></a>
+│       <a href="./uberAgent/app/Eula-en.rtf">Eula-en.rtf</a>
 │       <a href="./uberAgent/app/uberAgent.conf">uberAgent.conf</a>
 │       <a href="./uberAgent/app/uberAgent.conf.txt">uberAgent.conf.txt</a>
 │       uberAgent.exe
@@ -112,7 +111,7 @@ Y:\examples\uberAgent
     │   <a href="./uberAgent/src/ServerDlg.wxs">ServerDlg.wxs</a>
     │   <a href="./uberAgent/src/WixUI_HK.wxs">WixUI_HK.wxs</a>
     └───<a href="./uberAgent/src/images/"><b>images</b></a>
-            app.ico
+            <a href="./uberAgent/src/images/app.ico">app.ico</a>
             <a href="./uberAgent/src/images/app.png">app.png</a>
             <a href="./uberAgent/src/images/app.png.txt">app.png.txt</a>
             <a href="./uberAgent/src/images/BannerTop.bmp">BannerTop.bmp</a>

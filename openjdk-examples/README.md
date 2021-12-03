@@ -31,20 +31,20 @@ Y:\openjdk-examples\OpenJDK11
 │   <a href="./OpenJDK11/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>
-└───<b>src</b>
+└───<a href="./OpenJDK11/src/"><b>src</b></a>
     │   <a href="./OpenJDK11/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./OpenJDK11/src/Main.wxs">Main.wxs</a>
-    ├───<b>localizations</b>
+    ├───<a href="./OpenJDK11/src/localizations/"><b>localizations</b></a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.Base.en-us.wxl">OpenJDK.Base.en-us.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.Base.fr-fr.wxl">OpenJDK.Base.fr-fr.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.hotspot.en-us.wxl">OpenJDK.hotspot.en-us.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.hotspot.fr-fr.wxl">OpenJDK.hotspot.fr-fr.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.en-us.wxl">OpenJDK.openj9.en-us.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.fr-fr.wxl">OpenJDK.openj9.fr-fr.wxl</a>
-    └───<b>resources</b>
+    └───<a href="./OpenJDK11/src/resources/"><b>resources</b></a>
             license-GPLv2+CE.en-us.rtf
             license-OpenJ9.en-us.rtf
-            logo.ico
+            <a href="./OpenJDK11/src/resources/logo.ico">logo.ico</a>
             <a href="./OpenJDK11/src/resources/wix-banner.bmp">wix-banner.bmp</a>
             <a href="./OpenJDK11/src/resources/wix-dialog.bmp">wix-dialog.bmp</a>
 </pre>
@@ -123,7 +123,7 @@ Command <a href="./OpenJDK11/build.bat"><code>build help</code></a> displays the
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; build help</b>
+<b>&gt; <a href="./OpenJDK11/build.bat">build</a> help</b>
 Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:

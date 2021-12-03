@@ -1,12 +1,12 @@
-# <span id="top">WiX examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX toolset examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX project" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>myexamples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself.
+    Directory <strong><code>myexamples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX toolset</a> examples written by ourself.
   </td>
   </tr>
 </table>
@@ -77,7 +77,7 @@ Figures **1.1** and **1.2** below illustrate the updated user environment after 
 
 ## <span id="myapp_shortcuts">MyAppShortcuts</span>
 
-This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above example [`MyApp`](#myapp).
+This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above [`MyApp`](#myapp) example.
 
 We declare 3 components in our [WiX][wix_toolset] source file [`MyAppShortcuts.wxs`](./MyAppShortcuts/src/MyAppShortcuts.wxs) :
 - component 1 refers to the `MyApp` executable (as in previous example).
@@ -113,7 +113,11 @@ Figures **2.1** to **2.4** below illustrate the updated user environment after t
 </tr>
 </table>
 
-:mag_right: <b>Figure 2.4</b> shows the window <i>Properties</i> of the *Uninstall* shortcut visible in <b>Figure 2.2</b>; in particular we can read in the field "Target" the GUID <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> value corresponding to `PRODUCT_CODE` in the file [`build.properties`](./MyAppShortcuts/build.properties).
+> :mag_right: <b>Figure 2.4</b> shows the window <i>Properties</i> of the *Uninstall* shortcut visible in <b>Figure 2.2</b>; in particular we can read in the field "Target" the GUID <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> value corresponding to `PRODUCT_CODE` in the file `build.properties`.
+> <pre style="font-size:80%;">
+> PRODUCT_CODE=C04AE4CF22B4403D97EDF523D3A1BD30
+> PRODUCT_UPGRADE_CODE=...
+> </pre>
 
 ## <span id="myapp_localized">MyAppLocalized</span>
 
@@ -129,22 +133,21 @@ Y:\myexamples\MyAppLocalized
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./MyAppLocalized/build.bat">build.bat</a>
-│   <a href="./MyAppLocalized/build.properties">build.properties</a>
-├───<b>app</b>
+├───<a href="./MyAppLocalized/app/"><b>app</b></a>
 │   │   <a href="./MyAppLocalized/app/documentation.html">documentation.html</a>
 │   └───<b>HelloWorld</b>
 │           ... <i>(same as before)</i>
-└───<b>src</b>
+└───<a href="./MyAppLocalized/src/"><b>src</b></a>
     │   <a href="./MyAppLocalized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./MyAppLocalized/src/MyAppLocalized.wxs">MyAppLocalized.wxs</a>
-    └───<b>localizations</b>
+    └───<a href="./MyAppLocalized/src/localizations/"><b>localizations</b></a>
             <a href="./MyAppLocalized/src/localizations/de-DE.wxl">de-DE.wxl</a>
             <a href="./MyAppLocalized/src/localizations/en-US.xwl">en-US.wxl</a>
             <a href="./MyAppLocalized/src/localizations/fr-FR.wxl">fr-FR.wxl</a>
             <a href="./MyAppLocalized/src/localizations/README.txt">README.txt</a>
 </pre>
 
-Command `build link`generates a separate MSI file for each language localization, e.g. `MyApp-1.0.0-fr-FR.msi` is the french version of the *MyApp* Windows installer.
+Command [`build link`](./MyAppLocalized/build.bat) generates a separate MSI file for each language localization, e.g. `MyApp-1.0.0-fr-FR.msi` is the french version of the *MyApp* Windows installer.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./MyAppLocalized/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b target</b>
@@ -207,7 +210,7 @@ Project `MyAppFeatures` adds feature customization to the *MyApp* Windows instal
 <b name="footnote_01">[1]</b> ***File Checksums*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-We rely on the PowerShell function <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="md5sums">md5sums</a>.
+We rely on the PowerShell function <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="md5sums">md5sums</a> (see also document <a href="../SECURITY.md"><code>SECURITY.md</code></a>).
 </p>
 
 <b name="footnote_02">[2]</b> ***GUID*** [↩](#anchor_02)
