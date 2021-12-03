@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../docs/wixtoolset.png" alt="WiX project" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples coming from various websites.
@@ -12,10 +12,10 @@
 </table>
 
 The [WiX][wix_toolset] examples presented in the following sections 
-- *share* the same project organisation as the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md).
-- *differ* in several respects from the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md), in particular :
+- *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
+- *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - we slightly modified the main [WiX][wix_toolset] source file to match our project settings.
-   - we recreated most resource files (eg. images) not made available by the original author (eg. project [*uberAgent*](#uber_agent)).
+   - we recreated most resource files (eg. images) not made available by the original author.
 
 ## <span id="mini_app_killer">MiniAppKiller</span>
 
@@ -105,13 +105,13 @@ Y:\examples\uberAgent
 │       <a href="./uberAgent/app/uberAgent.conf">uberAgent.conf</a>
 │       <a href="./uberAgent/app/uberAgent.conf.txt">uberAgent.conf.txt</a>
 │       uberAgent.exe
-└───<b>src</b>
+└───<a href="./uberAgent/src/"><b>src</b></a>
     │   <a href="./uberAgent/src/LicenseAgreementDlg_HK.wxs">LicenseAgreementDlg_HK.wxs</a>
     │   <a href="./uberAgent/src/Product.wxs">Product.wxs</a>
     │   <a href="./uberAgent/src/Product_en-us.wxl">Product_en-us.wxl</a>
     │   <a href="./uberAgent/src/ServerDlg.wxs">ServerDlg.wxs</a>
     │   <a href="./uberAgent/src/WixUI_HK.wxs">WixUI_HK.wxs</a>
-    └───<b>images</b>
+    └───<a href="./uberAgent/src/images/"><b>images</b></a>
             app.ico
             <a href="./uberAgent/src/images/app.png">app.png</a>
             <a href="./uberAgent/src/images/app.png.txt">app.png.txt</a>

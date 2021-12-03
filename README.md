@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./docs/wixtoolset.png" width="100" alt="WiX project"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./images/wixtoolset.png" width="100" alt="WiX project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">WiX</a> examples coming from various websites and books.<br/>
   It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX toolset</a> on the <b>Microsoft Windows</b> platform.
   </td>
@@ -50,8 +50,8 @@ examples\{<a href="./examples/MiniAppKiller">MiniAppKiller</a>, <a href="./examp
 firegiant-examples\{<a href="./firegiant-examples/SampleFirst">SampleFirst</a>, etc.}
 myexamples\{<a href="./myexamples/MyApp">MyApp</a>, etc.}
 openjdk-examples\{<a href="./openjdk-examples/OpenJDK11">OpenJDK11</a>, etc.}
-scala2-examples\{<a href="./scala2-examples/Scala2First">Scala2First</a>, etc.}
-scala3-examples\{<a href="./scala3-examples/Scala3First">Scala3First</a>, etc.}
+scala2-examples\{<a href="./scala2-examples/Scala2First">Scala2First</a>, <a href="./scala2-examples/Scala2UI">Scala2UI</a>, etc.}
+scala3-examples\{<a href="./scala3-examples/Scala3First">Scala3First</a>, <a href="./scala3-examples/Scala3UI">Scala3UI</a>, etc.}
 <a href="QUICKREF.md">QUICKREF.md</a>
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
