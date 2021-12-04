@@ -32,8 +32,8 @@ The two checksums are equal
 </pre>
 
 The above PowerShell cmdlets accept several options; for instance for [`checksum-scala3.ps1`](bin/checksum-scala3.ps1) we can write :
-- `-version <value>` where `<value>` equals `3.1.0` (default) or `3.0.2`.
-- `-algorithm <name>` where `<name>` equals `md5` (default) or `sha256`
+- `-version <value>` where `<value>` equals `3.1.0` (*default*) or `3.0.2`.
+- `-algorithm <name>` where `<name>` equals `md5` (*default*) or `sha256`
 - `-verbose`(displays download command)
 
 <pre style="margin:0 4em 0 0;font-size:80%;">
@@ -47,7 +47,7 @@ The two checksums are equal
 
 ## <span id="msi">MSI files</span>
 
-In case we are suspicious about a Windows installer we can run the command [`msiexec`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec) <sup id="anchor_01"><a href="#footnote_01">1</a></sup> to extract the files of the <a href="https://en.wikipedia.org/wiki/Cabinet_(file_format)"><code>.cab</code></a> archive(s) embedded in the <code>.msi</code> file (see also the [WiX element `media`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/media.html)).
+In case we are suspicious about a Windows installer we can run the Windows command [`msiexec`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec) <sup id="anchor_01"><a href="#footnote_01">1</a></sup> to extract the files of the <a href="https://en.wikipedia.org/wiki/Cabinet_(file_format)"><code>.cab</code></a> archive(s) embedded in the <code>.msi</code> file (see also the [WiX element `media`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/media.html)).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> msiexec</b>
@@ -64,9 +64,9 @@ C:\Windows\System32\msiexec.exe
 
 ## <span id="certificates">Self-signed Certificates</span>
 
-On MS Windows the [`signtool`][signtool_cmd] command (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the stardard tool to sign executable files, i.e. the  Windows installers in our case.
+The [`signtool`][signtool_cmd] command (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the standard tool to sign executable files on MS Windows, i.e. the  Windows installers in our case.
 
-For instance, in project [`Scala2First`](./scala2-examples/Scala2First/), we run [`signtool`][signtool_cmd] as follows :
+In project [`Scala2First`](./scala2-examples/Scala2First/), for instance, we execute [`signtool`][signtool_cmd] to sign the file `scala-2.13.7.msi` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool">signtool</a> sign /p "XXXX" -v /f "&lt;certs_folder&gt;\wix-examples.pfx" ^
@@ -95,7 +95,7 @@ Number of errors: 0
 <span id="footnote_01">[1]</span> **`msiexec`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-Let's first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.7_epfl.msi</code> to avoid naming collision with our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
+We first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.7_epfl.msi</code> to avoid naming collision with our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
 </p>
 
 <pre style="margin:0 0 1em 20px; font-size:80%;">
@@ -105,7 +105,7 @@ Let's first extract the contents of <a href="https://scala-lang.org/files/archiv
 │   scala-2.13.7_epfl.msi
 └───<b>PFiles</b>
     └───<b>scala</b>
-        ├───<b>api</b>   <i>(600 MB !)</i>
+        ├───<b>api</b>   <i>(600 MB :grimacing:)</i>
         ├───<b>bin</b>
         ├───<b>doc</b>
         └───<b>lib</b>
@@ -116,7 +116,7 @@ Let's first extract the contents of <a href="https://scala-lang.org/files/archiv
 </p>
 
 <p style="margin:0 0 1em 20px;">
-Now We look at the contents of our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
+Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
 </p>
 
 <pre style="margin:0 0 1em 20px; font-size:80%;">
@@ -134,6 +134,8 @@ Now We look at the contents of our <a href="./scala2-examples/README.md">Scala 2
         └───<b>man</b>
 </pre>
 
+> **:mag_right:** We observe that the subdirectory `api\` (600 MB :grimacing:) is not yet present (*work in progress*).
+
 <p style="margin:0 0 1em 20px;">
 Finally we are interested in the contents of the Java 11 Windows installer named <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> :
 </p>
@@ -148,9 +150,9 @@ Finally we are interested in the contents of the Java 11 Windows installer named
         │   NOTICE
         │   release
         ├───<b>bin</b>
-        ├───conf
-        ├───include
-        ├───jmods
+        ├───<b>conf</b>
+        ├───<b>include</b>
+        ├───<b>jmods</b>
         ├───<b>legal</b>
         └───<b>lib</b>
 </pre>
@@ -160,9 +162,6 @@ Finally we are interested in the contents of the Java 11 Windows installer named
 - [6 OpenSSL command options that every sysadmin should know][article_critelli] by Anthony Critelli, March 2021.
 - [Internet Safety: 7 Steps to Keeping Your Computer Safe on the Internet][article_notenboom] by A. Notenboom, March 2004.
 
-<span id="footnote_03">[3]</span> ***Dev Links*** [↩](#anchor_03)
-
-- [Released Versions of Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer) (Microsoft Dev), July 2021.
 
 ***
 

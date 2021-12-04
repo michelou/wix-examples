@@ -1,8 +1,8 @@
-# <span id="top">WiX Quick Reference</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">WiX Toolset Quick Reference</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://wixtoolset.org/" rel="external"><img style="border:0;" src="./docs/wixtoolset.png" width="100" alt="Deno logo"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:100px;"><a href="https://wixtoolset.org/" rel="external"><img style="border:0;" src="./docs/wixtoolset.png" width="100" alt="WiX toolset"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://wixtoolset.org/" rel="external">WiX</a> hints and tips.
   </td>
   </tr>
@@ -27,10 +27,10 @@ For instance, the variables below are defined as follows for a 64-bit Windows op
 | SystemFolder         | `CSIDL_SYSTEMX86`               | `C:\Windows\System32` |
 | System64Folder       | `CSIDL_SYSTEM`                  | `C:\Windows\SysWOW64` |
 
-The [WiX][wix_toolset] developer has to take care of them when specifying the `candle` option `-arch <name>` :
+The [WiX][wix_toolset] developer has to take care of them when specifying the [`candle`][candle_cmd] option `-arch <name>` :
 
 <pre style="font-size:75%;">
-<b>&gt; %WIX%\candle.exe --help</b>
+<b>&gt; %WIX%\<a href="https://wixtoolset.org/documentation/manual/v3/overview/candle.html">candle.exe</a> --help</b>
 Windows Installer XML Toolset Compiler version 3.11.2.4516
 Copyright (c) .NET Foundation and contributors. All rights reserved.
 
@@ -60,7 +60,7 @@ BuildNumber  Caption                   OSArchitecture  Version
 Alternatively we get the same system information with the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1"><b><code>Get-WmiObject</code></b></a>  :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; powershell -c "<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1">Get-WmiObject</a> -ClassName <a href="https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem">Win32_OperatingSystem</a> | <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object?view=powershell-5.1">Select</a> BuildNumber,Caption,Version,OSArchitecture"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1" rel="external">powershell</a> -c "<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1">Get-WmiObject</a> -ClassName <a href="https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem">Win32_OperatingSystem</a> | <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object?view=powershell-5.1">Select</a> BuildNumber,Caption,Version,OSArchitecture"</b>
 &nbsp;
 BuildNumber Caption                  Version    OSArchitecture
 ----------- -------                  -------    --------------
@@ -69,10 +69,11 @@ BuildNumber Caption                  Version    OSArchitecture
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[candle_cmd]: https://wixtoolset.org/documentation/manual/v3/overview/candle.html
 [csidl]: https://docs.microsoft.com/en-us/windows/win32/shell/csidl
 [wix_toolset]: https://wixtoolset.org/
