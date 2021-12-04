@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./images/wixtoolset.png" width="100" alt="WiX project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">WiX</a> examples coming from various websites and books.<br/>
+  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">Windows installer</a> examples coming from various websites and books.<br/>
   It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX toolset</a> on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
@@ -123,6 +123,10 @@ Environment variables:
 </p>
 
 <span id="footnote_04">[4]</span> ***Windows SDK*** [↩](#anchor_04)
+
+<p style="margin:0 0 1em 20px;">
+The <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a> provides libraries and tools for building Windows applications; for instance <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool"><code>signtool.exe</code></a> is the security tool we use in this project to sign the generated Windows installers.
+</p>
 
 <span id="footnote_05">[5]</span> ***Downloads*** [↩](#anchor_05)
 

@@ -56,9 +56,39 @@ C:\Windows\System32\msiexec.exe
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a &lt;msi_file_path&gt; /qn TARGETDIR=c:\Temp\unpacked</b>
 </pre>
 
+> **:mag_right:** Visit Microsoft's page [Released Versions of Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer) to find the correspondance between Windows installer versions and MS Windows OS versions. For instance [`msiexec`][msiexec_cmd] has version 5.0 on MS Windows 7 and newer :
+> <pre>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -c "(Get-Item C:\Windows\System32\msiexec.exe).VersionInfo.ProductVersion"</b>
+> 5.0.19041.320
+> </pre>
+
 ## <span id="certificates">Self-signed Certificates</span>
 
+On MS Windows the [`signtool`][signtool_cmd] command (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the stardard tool to sign executable files, i.e. the  Windows installers in our case.
+
+For instance, in project [`Scala2First`](./scala2-examples/Scala2First/), we run [`signtool`][signtool_cmd] as follows :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool">signtool</a> sign /p "XXXX" -v /f "&lt;certs_folder&gt;\wix-examples.pfx" ^
+           /d "&lt;description&gt;" ^
+           /t "http://timestamp.digicert.com" /fd SHA256 ^
+           "Y:\scala2-examples\Scala2First\target\scala-2.13.7.msi"</b>
+The following certificate was selected:
+    Issued to: Stephane Micheloud
+    Issued by: Stephane Micheloud
+    Expires:   Sun Jul 23 01:02:42 2023
+    SHA1 hash: 64C2...
+
+Done Adding Additional Store
+Successfully signed: Y:\scala2-examples\Scala2First\target\scala-2.13.7.msi
+
+Number of files successfully Signed: 1
+Number of warnings: 0
+Number of errors: 0
+</pre>
+
 *WIP*
+
 
 ## <span id="footnotes">Footnotes</span>
 
@@ -145,5 +175,7 @@ Finally we are interested in the contents of the Java 11 Windows installer named
 [article_hoffman]: https://www.howtogeek.com/363735/what-is-a-checksum-and-why-should-you-care/
 [article_notenboom]: https://askleo.com/internet_safety_7_steps_to_keeping_your_computer_safe_on_the_internet/
 [aaaa]: https://docs.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate?view=windowsserver2019-ps
+[msiexec_cmd]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec
 [scala2]: https://www.scala-lang.org/
 [scala3]: https://dotty.epfl.ch
+[signtool_cmd]: https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool

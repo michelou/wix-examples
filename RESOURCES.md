@@ -1,9 +1,9 @@
-# <span id="top">WiX Resources</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">WiX Toolset Resources</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/"><img src="./docs/wixtoolset.png" width="100" alt="WiX project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://wixtoolset.org/" rel="external">WiX</a> related resources we have collected so far.
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/"><img src="./docs/wixtoolset.png" width="100" alt="WiX toolset"/></a></td>
+  <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://wixtoolset.org/" rel="external">WiX toolset</a> related resources we have collected so far.
   </td>
   </tr>
 </table>
@@ -68,13 +68,14 @@
 ## <span id="tools">Tools</span>
 
 - [CPack WIX Generator](https://cmake.org/cmake/help/v3.22/cpack_gen/wix.html) - WiX generator for [CMake](https://cmake.org/).
-- [InstEd](http://www.instedit.com/) - a free MSI editor built for professionals.
+- &#128077; [InstEd](http://www.instedit.com/) - a free MSI editor built for professionals.
 - [`msiexec`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec) - the official Microsoft command line tool to install, modify, and perform operations on Windows Installer.
 
 ## <span id="tutorials">Tutorials</span>
 
+- &#128077; [From MSI to WiX][tutorial_shevchuck] by Alex Shevchuk, February 2008.
 - [Windows Installer User's Guide](https://www.advancedinstaller.com/user-guide/windows-installer.html) by [Caphyon Srl](https://www.caphyon.com/).
-- [WiX Toolset Tutorial](https://www.firegiant.com/wix/tutorial/).
+- &#128077; [WiX Toolset Tutorial](https://www.firegiant.com/wix/tutorial/).
 
 ## <span id="videos">Videos</span>
 
@@ -124,6 +125,7 @@ version = "12"
 [cargo_wix]: https://github.com/volks73/cargo-wix
 [go_msi]: https://github.com/mh-cbon/go-msi
 [sbt_plugin]: https://www.scala-sbt.org/1.x/docs/Plugins.html
+[tutorial_shevchuck]: https://docs.microsoft.com/en-us/archive/blogs/alexshev/from-msi-to-wix
 [video_angelsix]: https://youtu.be/6Yf-eDsRrnM
 [video_ives]: https://youtu.be/usOh3NQO9Ms
 [wix_toolset]: https://wixtoolset.org/
