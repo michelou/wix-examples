@@ -17,7 +17,7 @@
 
 Checksums are used to verify the integrity of files downloaded from an external source, eg. a Windows installer. In this project we rely on two small PowerShell scripts to check the [Scala 2][scala2] and [Scala 3][scala3] Windows installers available on our [Releases](https://github.com/michelou/wix-examples/releases) page.
 
-> **&#9755;** The official [Scala 2 download page](https://www.scala-lang.org/download/scala2.html) ***does not*** provides checksum files for the published [Scala 2][scala2] software distributions (see last section ""Other resources"). 
+> **&#9755;** The official [Scala 2 download page](https://www.scala-lang.org/download/scala2.html) ***does not*** provides checksum files for the published [Scala 2][scala2] software distributions (see last section "Other resources"). 
 
 <pre style="margin:0 4em 0 0;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1" rel="external">powershell</a> -nologo -f bin\<a href="bin/checksum-scala.ps1">checksum-scala.ps1</a></b>
@@ -157,8 +157,9 @@ Finally we are interested in the contents of the Java 11 Windows installer named
         └───<b>lib</b>
 </pre>
 
-<span id="footnote_02">[2]</span> ***Articles*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***Security Resources*** [↩](#anchor_02)
 
+- [Security Update Guide - Vulnerabilities](https://docs.microsoft.com/en-us/windows/win32/msi/installation-context), by Microsoft, December 2021.
 - [6 OpenSSL command options that every sysadmin should know][article_critelli] by Anthony Critelli, March 2021.
 - [Internet Safety: 7 Steps to Keeping Your Computer Safe on the Internet][article_notenboom] by A. Notenboom, March 2004.
 
