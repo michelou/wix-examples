@@ -1,18 +1,15 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Id='$(var.ProductId)'
-    UpgradeCode='$(var.ProductUpgradeCode)' Name='Scala $(var.ProductVersion)'
-    Version='$(var.ProductMsiVersion)' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
-    Language='1033' Codepage='1252'>
-    <!--
-    See language codes on
-    https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
-    -->
+      UpgradeCode='$(var.ProductUpgradeCode)' Name='Scala $(var.ProductVersion)'
+      Version='$(var.ProductMsiVersion)' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+      Language='1033' Codepage='1252'>
+
     <Package Id='*'
-      Description='Scala 2 Installer' Keywords='Scala, Compiler, Java, JVM'
-      Comments='The Scala Programming Language' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
-      InstallerVersion='200' InstallScope="perMachine"
-      Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+        Description='Scala 2 Installer' Keywords='Scala, Compiler, Java, JVM'
+        Comments='The Scala Programming Language' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+        InstallerVersion='200' InstallScope="perMachine"
+        Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
@@ -33,11 +30,11 @@
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcuts" Guid="$(var.ApplicationShortcuts)">
         <Shortcut Id="ScalaREPL" 
-          Name="Scala 2 REPL" 
-          Description="Launches the Scala 2 REPL"
-          Target="[System64Folder]cmd.exe"
-          Arguments='/k "call ^"[#repl.bat]^""'
-          WorkingDirectory="PersonalFolder">
+            Name="Scala 2 REPL" 
+            Description="Launches the Scala 2 REPL"
+            Target="[System64Folder]cmd.exe"
+            Arguments='/k "call ^"[#repl.bat]^""'
+            WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
         </Shortcut>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />

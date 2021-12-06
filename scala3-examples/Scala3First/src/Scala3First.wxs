@@ -4,15 +4,18 @@
       UpgradeCode='$(var.ProductUpgradeCode)' Name='Scala 3'
       Version='$(var.ProductMsiVersion)' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
       Language='1033' Codepage='1252'>
-    <!--
-    See language codes on
-    https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
-    -->
+
     <Package Id='*'
         Description='Scala 3 Installer' Keywords='Scala, Compiler, JVM'
         Comments='The Scala Programming Language' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
         InstallerVersion='200' InstallScope="perMachine"
         Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+
+    <MajorUpgrade
+        Schedule="afterInstallInitialize"
+        AllowDowngrades="no" AllowSameVersionUpgrades="no"
+        DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit.">
+    </MajorUpgrade>
 
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
@@ -35,10 +38,10 @@
         <Shortcut Id="ScalaREPL" 
             Name="Scala 3 REPL" 
             Description="Launches the Scala 3 REPL"
-            Target="[SystemFolder]cmd.exe"
+            Target="[System64Folder]cmd.exe"
             Arguments='/k "call ^"[#repl.bat]^""'
             WorkingDirectory="PersonalFolder">
-          <Icon Id="ScalaIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
+          <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
         </Shortcut>
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\EPFL/LAMP\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes"/>

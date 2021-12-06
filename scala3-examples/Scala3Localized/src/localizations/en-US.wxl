@@ -8,6 +8,8 @@
   <String Id="PackageKeywords">Scala, programming language, compiler, Java, JVM, EPFL</String>
   <String Id="PackageManufacturer">EPFL/LAMP and Lightbend, Inc.</String>
 
+  <String Id="MajorUpgradeDowngradeErrorMessage">A later version of [ProductName] is already installed. Setup will now exit.</String>
+
   <String Id="ShortcutScalaAPIDescription">Displays the Scala 3 API Documentation</String>
   <String Id="ShortcutScalaAPIName">Scala 3 API Documentation</String>
 

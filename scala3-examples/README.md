@@ -17,6 +17,10 @@ The [WiX][wix_toolset] examples presented in the following sections
    - application files are downloaded and extracted from in directory `app\` are extracted from the downloaded from the Zip archive (e.g. [`scala3-3.1.0.zip`][scala3_zip]) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
+The [Scala 3][scala3] Windows installer behaves as follows when it detects that a [Scala 3][scala3] installation is already present on the target machine :
+- if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on.
+- if the version to be installed is ***older or the same than*** the version found on the machine then the Windows installer does exit.
+
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 3][scala3] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
 ## <span id="scala3_first">Scala3First</span>
@@ -123,10 +127,10 @@ Y:\scala3-examples\Scala3UI
 │   <a href="./Scala3UI/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
-└───<b>src</b>
+└───<a href="./Scala3UI/src/"><b>src</b></a>
     │   <a href="./Scala3UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3UI/src/Scala3UI.wxs">Scala3UI.wxs</a>
-    └───<b>resources</b>
+    └───<a href="./Scala3UI/src/resources/"><b>resources</b></a>
             <a href="./Scala3UI/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala3UI/src/resources/Dialog.bmp">Dialog.bmp</a>
             <a href="./Scala3UI/src/resources/logo.svg">logo.svg</a>
@@ -196,18 +200,18 @@ Y:\scala3-examples\Scala3Localized
 └───<b>src</b>
     │   <a href="./Scala3Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3Localized/src/Scala3Localized.wxs">Scala3Localized.wxs</a>
-    ├───<b>localizations</b>
+    ├───<a href="./Scala3Localized/src/localizations/"><b>localizations</b></a>
     │       <a href="./Scala3Localized/src/localizations/de-DE.wxl">de-DE.wxl</a>
     │       <a href="./Scala3Localized/src/localizations/en-US.wxl">en-US.wxl</a>
     │       <a href="./Scala3Localized/src/localizations/fr-FR.wxl">fr-Fr.wxl</a>
     │       <a href="./Scala3Localized/src/localizations/sv-SE.wxl">sv-SE.wxl</a>
-    └───<b>resources</b>
+    └───<a href="./Scala3Localized/src/resources/"><b>resources</b></a>
             <a href="./Scala3Localized/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala3Localized/src/resources/Dialog.bmp">Dialog.bmp</a>
             <a href="./Scala3Localized/src/resources/logo.svg">logo.svg</a>
-            favicon.ico
-            LICENSE.rtf
-            network.ico
+            <a href="./Scala3Localized/src/resources/favicon.ico">favicon.ico</a>
+            <a href="./Scala3Localized/src/resources/LICENSE.rtf">LICENSE.rtf</a>
+            <a href="./Scala3Localized/src/resources/network.ico">network.ico</a>
             <a href="./Scala3Localized/src/resources/repl.bat">repl.bat</a>
 </pre>
 
@@ -297,7 +301,7 @@ Create Windows installer "target\scala3-3.1.0.msi"
 <b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-We not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code> in the above projects, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
+When we run the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code> in the above projects, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
 </p>
 
 <b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)

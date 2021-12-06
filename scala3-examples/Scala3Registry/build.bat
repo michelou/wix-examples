@@ -154,7 +154,6 @@ goto :eof
 @rem Architecture (candle): x86, x64, or ia64 (default: x86)
 set _ARCH=x64
 
-set _PRODUCT_ID=
 set _PRODUCT_SKU=scala3
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=3.1.0
@@ -173,7 +172,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    @rem _PRODUCT_ID is defined in file app-guids-X.Y.Z.txt as it depends on X.Y.Z
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
@@ -183,11 +182,7 @@ if exist "%__PROPS_FILE%" (
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
     if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
 )
-if not defined _PRODUCT_ID (
-    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem _PRODUCT_UPGRADE_CODE is identical for ALL versions of the SAME product
 if not defined _PRODUCT_UPGRADE_CODE (
     echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
     set _EXITCODE=1
@@ -203,13 +198,6 @@ if not defined _PRODUCT_MSI_VERSION (
     echo %_ERROR_LABEL% Failed to extract file version from "%_PRODUCT_VERSION%" 1>&2
     set _EXITCODE=1
     goto :eof
-)
-@rem associative array to store <name,guid> pairs
-set _GUID=
-if exist "%_GUIDS_FILE%" (
-    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
-        if not "%%j"=="" set "_GUID[%%i]=%%j"
-    )
 )
 goto :eof
 
@@ -264,11 +252,24 @@ set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_VERSION%"
 set "_VERSION_FILE=%_APP_DIR%\VERSION"
 
 set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
+@rem _GUID is an associative array with GUID pairs <name,value>
+set _GUID=
+if exist "%_GUIDS_FILE%" (
+    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
+        if not "%%j"=="" set "_GUID[%%i]=%%j"
+    )
+)
+if not defined _GUID[PRODUCT_ID] (
+    echo %_ERROR_LABEL% Product identified is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PRODUCT_ID=%_GUID[PRODUCT_ID]%"
 
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
-@rem Name of zip file: scala3-3.1.0.zip
+@rem same basename as zip file scala3-3.1.0.zip
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.msi"
 
 if %_DEBUG%==1 (
@@ -375,6 +376,9 @@ if not exist "%_VERSION_FILE%" (
         set _EXITCODE=1
         goto :eof
     )
+    call :patch_app "!__RELEASE!"
+    if not !_EXITCODE!==0 goto :eof
+
     set "_PRODUCT_VERSION=!__RELEASE!"
 )
 for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_VERSION_FILE%" 2^>NUL') do (
@@ -383,6 +387,27 @@ for /f "delims=^:^= tokens=1,*" %%i in ('findstr /b version "%_VERSION_FILE%" 2^
         set _EXITCODE=1
         goto :eof
     )
+)
+goto :eof
+
+@rem input parameter: %1=release version
+@rem we patch file bin\common.bat to support spaces in file paths (see PR#13806)
+:patch_app
+set "__RELEASE=%~1"
+set "__COMMON_BAT=%_APP_DIR%\bin\common.bat"
+if not exist "%__COMMON_BAT%" goto :eof
+
+set __PS1_SCRIPT=$contents=^(Get-Content -Raw -Encoding UTF8 '%__COMMON_BAT%'^) ` ^
+   -replace 'for /f %%%%f in', 'for /f \"delims=\" %%%%f in'; ^
+[System.IO.File]::WriteAllLines^('%__COMMON_BAT%', $contents^)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -C "^(Get-Content '!__COMMON_BAT:%_ROOT_DIR%=!'^) ..." 1>&2
+) else if %_VERBOSE%==1 ( echo Apply patch to file "!__COMMON_BAT:%_ROOT_DIR%=!" 1>&2
+)
+powershell -C "%__PS1_SCRIPT%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to apply patch to file "!__COMMON_BAT:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
@@ -445,7 +470,7 @@ if not %ERRORLEVEL%==0 (
 )
 @rem image files are handled separately (see :gen_banner)
 for %%e in (bat ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
     )
     xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
@@ -458,10 +483,10 @@ for %%e in (bat ico) do (
 goto :eof
 
 :extract_components
-echo repl.bat> "%_FRAGMENTS_CID_FILE%"
+if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
 
 set __N=0
-for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\">" "%_FRAGMENTS_FILE%"') do (
+for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%_FRAGMENTS_FILE%"') do (
     @rem example: Id="tzdb.dat"
     for /f "delims=^= tokens=1,*" %%x in ("%%j") do set "__COMPONENT_ID=%%~y"
     if defined __COMPONENT_ID (
@@ -607,9 +632,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-call :sign_file "%_MSI_FILE%"
-if not %_EXITCODE%==0 goto :eof
-
+if defined _SIGNTOOL_CMD (
+    call :sign_file "%_MSI_FILE%"
+    if not !_EXITCODE!==0 goto :eof
+) else (
+    echo %_WARNING_LABEL% signtool command not found; is Windows SDK 10 installed? 1>&2
+)
 call :gen_checksums "%_MSI_FILE%"
 if not %_EXITCODE%==0 goto :eof
 goto :eof

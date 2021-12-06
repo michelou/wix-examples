@@ -146,7 +146,6 @@ goto :eof
 @rem Architecture (candle): x86, x64, or ia64 (default: x86)
 set _ARCH=x64
 
-set _PRODUCT_ID=
 set _PRODUCT_SKU=scala3
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=3.1.0
@@ -165,7 +164,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    @rem _PRODUCT_ID is defined in file app-guids-X.Y.Z.txt as it depends on X.Y.Z
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
@@ -174,11 +173,7 @@ if exist "%__PROPS_FILE%" (
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
     if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
 )
-if not defined _PRODUCT_ID (
-    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem _PRODUCT_UPGRADE_CODE is identical for ALL versions of the SAME product
 if not defined _PRODUCT_UPGRADE_CODE (
     echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
     set _EXITCODE=1
@@ -255,6 +250,13 @@ if exist "%_GUIDS_FILE%" (
         if not "%%j"=="" set "_GUID[%%i]=%%j"
     )
 )
+if not defined _GUID[PRODUCT_ID] (
+    echo %_ERROR_LABEL% Product identified is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PRODUCT_ID=%_GUID[PRODUCT_ID]%"
+
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 

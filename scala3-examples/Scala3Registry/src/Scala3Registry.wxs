@@ -12,6 +12,12 @@
         InstallerVersion='200' InstallScope="perMachine"
         Languages='$(var.PackageLanguages)' Compressed='yes' SummaryCodepage='1252' />
 
+    <MajorUpgrade
+        Schedule="afterInstallInitialize"
+        AllowDowngrades="no" AllowSameVersionUpgrades="no"
+        DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit.">
+    </MajorUpgrade>
+
     <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
