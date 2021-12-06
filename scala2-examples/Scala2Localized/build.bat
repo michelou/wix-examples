@@ -152,7 +152,6 @@ goto :eof
 @rem Architecture (candle): x86, x64, or ia64 (default: x86)
 set _ARCH=x64
 
-set _PRODUCT_ID=
 set _PRODUCT_SKU=scala
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=2.13.7
@@ -176,7 +175,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    @rem _PRODUCT_ID is defined in file app-guids-X.Y.Z.txt as it depends on X.Y.Z
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
@@ -189,11 +188,7 @@ if exist "%__PROPS_FILE%" (
     if defined __COPYRIGHT_OWNER set "_COPYRIGHT_OWNER=!__COPYRIGHT_OWNER!"
     if defined __TIMESTAMP_SERVER set "_TIMESTAMP_SERVER=!__TIMESTAMP_SERVER!"
 )
-if not defined _PRODUCT_ID (
-    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem _PRODUCT_UPGRADE_CODE is identical for ALL versions of the SAME product
 if not defined _PRODUCT_UPGRADE_CODE (
     echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
     set _EXITCODE=1
@@ -270,6 +265,13 @@ if exist "%_GUIDS_FILE%" (
         if not "%%j"=="" set "_GUID[%%i]=%%j"
     )
 )
+if not defined _GUID[PRODUCT_ID] (
+    echo %_ERROR_LABEL% Product identified is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PRODUCT_ID=%_GUID[PRODUCT_ID]%"
+
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
@@ -698,9 +700,12 @@ for /f "delims=" %%f in ('dir /b /s "%_LOCALIZATIONS_DIR%\*.wxl"') do (
         set _EXITCODE=1
         goto :eof
     )
-    call :sign_file "!__MSI_FILE!"
-    if not !_EXITCODE!==0 goto :eof
-
+    if defined _SIGNTOOL_CMD (
+        call :sign_file "!__MSI_FILE!"
+        if not !_EXITCODE!==0 goto :eof
+    ) else (
+        echo %_WARNING_LABEL% signtool command not found; is Windows SDK 10 installed? 1>&2
+    )
     call :gen_checksums "!__MSI_FILE!"
     if not !_EXITCODE!==0 goto :eof
 )

@@ -144,7 +144,6 @@ goto :eof
 @rem Architecture (candle): x86, x64, or ia64 (default: x86)
 set _ARCH=x64
 
-set _PRODUCT_ID=
 set _PRODUCT_SKU=scala
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=2.13.7
@@ -167,7 +166,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    @rem _PRODUCT_ID is defined in file app-guids-X.Y.Z.txt as it depends on X.Y.Z
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
@@ -178,11 +177,7 @@ if exist "%__PROPS_FILE%" (
     if defined __COPYRIGHT_OWNER set "_COPYRIGHT_OWNER=!__COPYRIGHT_OWNER!"
     if defined __TIMESTAMP_SERVER set "_TIMESTAMP_SERVER=!__TIMESTAMP_SERVER!"
 )
-if not defined _PRODUCT_ID (
-    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem _PRODUCT_UPGRADE_CODE is identical for ALL versions of the SAME product
 if not defined _PRODUCT_UPGRADE_CODE (
     echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
     set _EXITCODE=1
@@ -259,6 +254,13 @@ if exist "%_GUIDS_FILE%" (
         if not "%%j"=="" set "_GUID[%%i]=%%j"
     )
 )
+if not defined _GUID[PRODUCT_ID] (
+    echo %_ERROR_LABEL% Product identified is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PRODUCT_ID=%_GUID[PRODUCT_ID]%"
+
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
@@ -449,7 +451,7 @@ goto :eof
 if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
 
 set __N=0
-for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\">" "%_FRAGMENTS_FILE%"') do (
+for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%_FRAGMENTS_FILE%"') do (
     @rem example: Id="tzdb.dat"
     for /f "delims=^= tokens=1,*" %%x in ("%%j") do set "__COMPONENT_ID=%%~y"
     if defined __COMPONENT_ID (
@@ -467,18 +469,17 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=
-set __OPT_PROPERTIES="-dpack=%_APP_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductId=%_PRODUCT_ID%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersion=%_PRODUCT_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProgramMenuDir=%_PROGRAM_MENU_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
+set __CANDLE_OPTS=-nologo
+if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_APP_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductVersion=%_PRODUCT_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProgramMenuDir=%_PROGRAM_MENU_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
+echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -573,10 +574,10 @@ if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-set _LIGHT_OPTS=-nologo
-if %_DEBUG%==1 set _LIGHT_OPTS=%_LIGHT_OPTS% -v
-set _LIGHT_OPTS=%_LIGHT_OPTS% -b "rsrc=%_GEN_RESOURCES_DIR%"
-echo %_LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
+set __LIGHT_OPTS=-nologo
+if %_DEBUG%==1 set __LIGHT_OPTS=%__LIGHT_OPTS% -v
+set __LIGHT_OPTS=%__LIGHT_OPTS% -b "rsrc=%_GEN_RESOURCES_DIR%"
+echo %__LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0
@@ -593,9 +594,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-call :sign_file "%_MSI_FILE%"
-if not %_EXITCODE%==0 goto :eof
-
+if defined _SIGNTOOL_CMD (
+    call :sign_file "%_MSI_FILE%"
+    if not !_EXITCODE!==0 goto :eof
+) else (
+    echo %_WARNING_LABEL% signtool command not found; is Windows SDK 10 installed? 1>&2
+)
 call :gen_checksums "%_MSI_FILE%"
 if not %_EXITCODE%==0 goto :eof
 goto :eof

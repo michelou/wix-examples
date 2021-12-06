@@ -63,9 +63,6 @@ set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
-for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
-set _COPYRIGHT_OWNER=EPFL
-
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
     set _EXITCODE=1
@@ -154,10 +151,14 @@ goto :eof
 @rem Architecture (candle): x86, x64, or ia64 (default: x86)
 set _ARCH=x64
 
-set _PRODUCT_ID=
 set _PRODUCT_SKU=scala
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=2.13.7
+
+for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
+set _COPYRIGHT_OWNER=EPFL
+
+set "_TIMESTAMP_SERVER=http://timestamp.digicert.com"
 
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
@@ -173,7 +174,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    @rem _PRODUCT_ID is defined in file app-guids-X.Y.Z.txt as it depends on X.Y.Z
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
@@ -184,13 +185,9 @@ if exist "%__PROPS_FILE%" (
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
     if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
 )
-if not defined _PRODUCT_ID (
-    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem _PRODUCT_UPGRADE_CODE is identical for ALL versions of the SAME product
 if not defined _PRODUCT_UPGRADE_CODE (
-    echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
+    echo %_ERROR_LABEL% Product upgrade code is undefined ^("!__PROPS_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -265,6 +262,13 @@ if exist "%_GUIDS_FILE%" (
         if not "%%j"=="" set "_GUID[%%i]=%%j"
     )
 )
+if not defined _GUID[PRODUCT_ID] (
+    echo %_ERROR_LABEL% Product identified is undefined ^("!_GUIDS_FILE:%_ROOT_DIR%=!"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PRODUCT_ID=%_GUID[PRODUCT_ID]%"
+
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
@@ -625,10 +629,9 @@ if not exist "%__PFX_PSWD_FILE%" (
     goto :eof
 )
 set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
-set "__TSTAMP_SERVER_URL=http://timestamp.digicert.com"
 
 @rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
-set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%__TSTAMP_SERVER_URL%" /fd SHA256
+set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%_TIMESTAMP_SERVER%" /fd SHA256
 if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
 
 @rem print dummy PFX password in console !
@@ -681,9 +684,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-call :sign_file "%_MSI_FILE%"
-if not %_EXITCODE%==0 goto :eof
-
+if defined _SIGNTOOL_CMD (
+    call :sign_file "%_MSI_FILE%"
+    if not !_EXITCODE!==0 goto :eof
+) else (
+    echo %_WARNING_LABEL% signtool command not found; is Windows SDK 10 installed? 1>&2
+)
 call :gen_checksums "%_MSI_FILE%"
 if not %_EXITCODE%==0 goto :eof
 goto :eof

@@ -44,9 +44,9 @@
 
 ## <span id="books">Books</span>
 
-- [WiX Cookbook][book_ramirez2] by Nick Ramirez, January 2015.</br><span style="font-size:80%;">(Packt, ISBN 978-1-7843-9321-2, 260 pages)</span>
-- [WiX 3.6: A Developer's Guide to Windows Installer XML][book_ramirez1] by Nick Ramirez, December 2012.
-</br><span style="font-size:80%;">(Packt, ISBN 978-1-7821-6042-7, 488 pages)</span>
+- [WiX Cookbook][book_ramirez2] by Nick Ramirez, January 2015.<br/><span style="font-size:80%;">(Packt, ISBN 978-1-7843-9321-2, 260 pages)</span>
+- [WiX 3.6: A Developer's Guide to Windows Installer XML][book_ramirez1] by Nick Ramirez, December 2012.<br/><span style="font-size:80%;">(Packt, ISBN 978-1-7821-6042-7, 488 pages)</span>
+- [The Definitive Guide to Windows Installer][book_wilson] by Phil Wilson, April 2004.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-59059-297-7, 320 pages)</span>
 
 <!--
 ## <span id="community">Community</span>
@@ -114,6 +114,7 @@ version = "12"
 [blog_arnson]: https://www.joyofsetup.com/2013/02/06/l10nm10n-localization-minimization/
 [blog_dizzy]: http://www.dizzymonkeydesign.com/blog/misc/adding-and-customizing-dlgs-in-wix-3/
 [blog_klein]: https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/
+[blog_kumar]: https://arunpp.wordpress.com/2014/06/13/variables-conditional-statements-in-wix/
 [blog_mensching_2008]: https://robmensching.com/blog/posts/2008/4/21/how-to-escape-the-ampersand-in-wix-and-msi-ui/
 [blog_mensching_2010]: https://robmensching.com/blog/posts/2010/5/2/the-wix-toolsets-remember-property-pattern/
 [blog_robbin1]: https://www.wintellect.com/wix-hints-for-new-users-part-1-of-3/
@@ -121,7 +122,7 @@ version = "12"
 [blog_robbin3]: https://www.wintellect.com/wix-a-better-tallow-paraffin-part-3-of-3/
 [book_ramirez1]: https://www.packtpub.com/product/wix-3-6-a-developer-s-guide-to-windows-installer-xml/9781782160427
 [book_ramirez2]: https://www.packtpub.com/product/wix-cookbook/9781784393212
-[blog_kumar]: https://arunpp.wordpress.com/2014/06/13/variables-conditional-statements-in-wix/
+[book_wilson]: https://link.springer.com/book/10.1007/978-1-4302-0676-7
 [cargo_wix]: https://github.com/volks73/cargo-wix
 [go_msi]: https://github.com/mh-cbon/go-msi
 [sbt_plugin]: https://www.scala-sbt.org/1.x/docs/Plugins.html

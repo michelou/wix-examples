@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX project" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty">Dotty project</a>.
@@ -14,12 +14,13 @@
 The [WiX][wix_toolset] examples presented in the following sections
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
-   - application files are downloaded and extracted from in directory `app\` are extracted from the downloaded from the Zip archive (e.g. [`scala3-3.1.0.zip`][scala3_zip]) if not yet present in directory `app\`.
+   - we *download* and extract the application files from the Zip archive (e.g. [`scala3-3.1.0.zip`][scala3_zip]) if they are not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
-The [Scala 3][scala3] Windows installer behaves as follows when it detects that a [Scala 3][scala3] installation is already present on the target machine :
-- if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on.
-- if the version to be installed is ***older or the same than*** the version found on the machine then the Windows installer does exit.
+The [Scala 3][scala3] Windows installer behaves in *3 different ways* when it detects a [Scala 3][scala3] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
+- if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on (it removes the old version and install the new one).
+- if the version to be installed is ***older than*** the version found on the machine then the Windows installer does exit.
+- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a change, repair or remove operation.
 
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 3][scala3] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
@@ -36,10 +37,10 @@ Y:\scala3-examples\Scala3First
 │   <a href="./Scala3First/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
-└───<b>src</b>
+└───<a href="./Scala3First/src/"><b>src</b></a>
     │   <a href="./Scala3First/src/Scala3First.wxs">Scala3First.wxs</a>
-    └───<b>resources</b>
-            favicon.ico
+    └───<a href="./Scala3First/src/resources/"><b>resources</b></a>
+            <a href="./Scala3First/src/resources/favicon.ico">favicon.ico</a>
             <a href="./Scala3First/src/resources/Fragments.xslt">Fragments.xslt</a>
             <a href="./Scala3First/src/resources/repl.bat">repl.bat</a>
 </pre>
@@ -116,7 +117,10 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 
 ## <span id="scala3_ui">Scala3UI</span>
 
-Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer.
+Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer. Concretely, we can define two images to customize the dialog windows of the Windows installer, ie. :
+- image `Dialog.bmp` appears in the *Welcome* and *Completed* dialog windows.
+- image `BannerTop.bmp` appears at the top of the other dialog windows.
+
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -134,10 +138,10 @@ Y:\scala3-examples\Scala3UI
             <a href="./Scala3UI/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala3UI/src/resources/Dialog.bmp">Dialog.bmp</a>
             <a href="./Scala3UI/src/resources/logo.svg">logo.svg</a>
-            favicon.ico
+            <a href="./Scala3UI/src/resources/favicon.ico">favicon.ico</a>
             <a href="./Scala3UI/src/resources/Fragments.xslt">Fragments.xslt</a>
-            LICENSE.rtf
-            network.ico
+            <a href="./Scala3UI/src/resources/LICENSE.rtf">LICENSE.rtf</a>
+            <a href="./Scala3UI/src/resources/network.ico">network.ico</a>
             <a href="./Scala3UI/src/resources/repl.bat">repl.bat</a>
 </pre>
 
@@ -197,7 +201,7 @@ Y:\scala3-examples\Scala3Localized
 │   <a href="./Scala3Localized/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
-└───<b>src</b>
+└───<a href="./Scala3Localized/src/"><b>src</b></a>
     │   <a href="./Scala3Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3Localized/src/Scala3Localized.wxs">Scala3Localized.wxs</a>
     ├───<a href="./Scala3Localized/src/localizations/"><b>localizations</b></a>

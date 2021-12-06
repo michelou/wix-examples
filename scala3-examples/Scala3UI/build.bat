@@ -63,9 +63,6 @@ set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
-for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
-set _COPYRIGHT_OWNER=EPFL
-
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
     set _EXITCODE=1
@@ -157,6 +154,11 @@ set _ARCH=x64
 set _PRODUCT_SKU=scala3
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=3.1.0
+
+for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
+set _COPYRIGHT_OWNER=EPFL
+
+set "_TIMESTAMP_SERVER=http://timestamp.digicert.com"
 
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
@@ -655,10 +657,9 @@ if not exist "%__PFX_PSWD_FILE%" (
     goto :eof
 )
 set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
-set "__TSTAMP_SERVER_URL=http://timestamp.digicert.com"
 
 @rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
-set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%__TSTAMP_SERVER_URL%" /fd SHA256
+set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%_TIMESTAMP_SERVER%" /fd SHA256
 if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
 
 @rem print dummy PFX password in console !

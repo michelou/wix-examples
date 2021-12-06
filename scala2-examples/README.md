@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX project" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer.
@@ -16,6 +16,11 @@ The [WiX][wix_toolset] examples presented in the following sections
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - application files are downloaded and extracted from the Zip archive (e.g. [`scala-2.13.7.zip`][scala2_zip]) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
+
+The [Scala 2][scala2] Windows installer behaves in *3 different ways* when it detects a [Scala 2][scala2] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
+- if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on (it removes the old version and install the new one).
+- if the version to be installed is ***older than*** the version found on the machine then the Windows installer does exit.
+- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a change, repair or remove operation.
 
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 2][scala2] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
@@ -136,7 +141,9 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 
 ## <span id="scala2_ui">Scala2UI</span>
 
-Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 2][scala2] Windows installer.
+Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 2][scala2] Windows installer. Concretely, we can define two images to customize the dialog windows of the Windows installer, ie. :
+- image `Dialog.bmp` appears in the *Welcome* and *Completed* dialog windows.
+- image `BannerTop.bmp` appears at the top of the other dialog windows.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -215,7 +222,7 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
   <a href="images/Scala2UI_Setup2.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup2.png" alt="License" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.2 -</b> License<br>(<i>Scala 2</i> installer).
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br>(<i>Scala 2</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
@@ -343,6 +350,50 @@ Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of t
 Project `Scala2Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 2][scala2] Windows installer.
 
 *wip*
+
+Figures **5.1** to **5.4** below illustrate the dialog windows of our Windows installer while Figures **5.5** and **5.6** show how the Windws installer behaves when a [Scala 2][scala2] installation is already present on the target machine.
+
+<table>
+<tr>
+<td style="text-align:center;">
+  <a href="images/Scala2Features_Welcome.png">
+  <img style="max-width:180px;" src="images/Scala2Features_Welcome.png" alt="Welcome" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 5.1 -</b> Welcome<br/>(<i>Scala 2</i> installer).<br/>&nbsp;
+  </div>
+  <a href="images/Scala2Features_EULA.png">
+  <img style="max-width:180px;" src="images/Scala2Features_EULA.png" alt="EULA" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 5.2 -</b> EULA<br/>(<i>Scala 2</i> installer).
+  </div>
+</td>
+<td style="text-align:center;">
+  <a href="images/Scala2Features_CustomSetup.png">
+  <img style="max-width:180px;" src="images/Scala2Features_CustomSetup.png" alt="Custom Setup" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 5.3 -</b> Custom Setup<br/>(<i>Scala 2</i> installer).<br/>&nbsp;
+  </div>
+  <a href="images/Scala2Features_Completed.png">
+  <img style="max-width:180px;" src="images/Scala2Features_Completed.png" alt="Competed installation" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 5.4 -</b> Completed installation<br/>(<i>Scala 2</i> installer).
+  </div>
+</td>
+
+<td style="text-align:center;">
+  <a href="images/Scala2Features_LaterAlreadyInstalled.png">
+  <img style="max-width:180px;" src="images/Scala2Features_LaterAlreadyInstalled.png" alt="Custom Setup" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 5.5 -</b> Later version already installed<br/>(<i>Scala 2</i> installer).<br/>&nbsp;
+  </div>
+  <a href="images/Scala2Features_ChangeOrRepair.png">
+  <img style="max-width:180px;" src="images/Scala2Features_ChangeOrRepair.png" alt="Competed installation" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 5.5 -</b> Change, repaire or remove<br/>(<i>Scala 2</i> installer).
+  </div>
+</td>
+</tr>
+</table>
 
 ## <span id="footnotes">Footnotes</span>
 
