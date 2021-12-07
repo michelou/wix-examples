@@ -43,7 +43,7 @@ Y:\myexamples\MyApp
         <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>      <i>(with PUT-GUID-HERE placeholders)</i>
 </pre>
 
-> **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple [Visual Studio solution][vs_solution] for generating `MyApp.exe` to be added to the `MyApp` Windows installer.
+> **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple [Visual Studio solution][vs_solution] for generating `MyApp.exe` to be added to the *MyApp* Windows installer.
 
 Our main batch file [`build.bat`](./MyApp/build.bat) invokes the [WiX][wix_toolset] tools [`candle`][wix_candle] (compiler) and [`light`][wix_light] (linker) with the appropriate settings and inputs.
 
@@ -77,7 +77,7 @@ Figures **1.1** and **1.2** below illustrate the updated user environment after 
 
 ## <span id="myapp_shortcuts">MyAppShortcuts</span>
 
-This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above [`MyApp`](#myapp) example.
+This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above [*MyApp*](#myapp) example.
 
 We declare 3 components in our [WiX][wix_toolset] source file [`MyAppShortcuts.wxs`](./MyAppShortcuts/src/MyAppShortcuts.wxs) :
 - component 1 refers to the `MyApp` executable (as in previous example).
@@ -122,8 +122,6 @@ Figures **2.1** to **2.4** below illustrate the updated user environment after t
 ## <span id="myapp_localized">MyAppLocalized</span>
 
 Project `MyAppLocalized` adds language localization to the [WiX][wix_toolset] source files of the *MyApp* Windows installer.
-
-*tbd*
 
 This project contains the additional directory [`src\localizations\`](./MyAppLocalized/src/localizations/) with 3 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
 
@@ -210,7 +208,7 @@ Project `MyAppFeatures` adds feature customization to the *MyApp* Windows instal
 <b name="footnote_01">[1]</b> ***File Checksums*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-We rely on the PowerShell function <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="md5sums">md5sums</a> (see also document <a href="../SECURITY.md"><code>SECURITY.md</code></a>).
+We rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="MD5sums">MD5sums</a> (see also document <a href="../SECURITY.md"><code>SECURITY.md</code></a>).
 </p>
 
 <b name="footnote_02">[2]</b> ***GUID*** [↩](#anchor_02)

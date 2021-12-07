@@ -28,7 +28,7 @@
     <Feature Id="AppComponents"
       Title="MyApp" Level="1"
       Description="MyApp Components">
-      <ComponentRef Id="myapp.exe" />
+      <ComponentRef Id="MyApp.exe" />
     </Feature>
   </Product>
 </Wix>

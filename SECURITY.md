@@ -45,7 +45,7 @@ SHA256 file: 484DAD60174CB44D496F8447399577EB5680F599923E3CED9E8D8D89D9254329  s
 The two checksums are equal
 </pre>
 
-> **:mag_right:** See also Chris's post [*What Is a Checksum (and Why Should You Care)?*][article_hoffman] (September 2019).
+> **:mag_right:** See also Chris's post [*What Is a Checksum (and Why Should You Care)?*][resource_hoffman] (September 2019).
 
 ## <span id="msi">MSI files</span>
 
@@ -165,9 +165,9 @@ Finally we extract the contents of the Java 11 Windows installer named <code>Ope
 
 <span id="footnote_02">[2]</span> ***Security Resources*** [↩](#anchor_02)
 
-- [Security Update Guide - Vulnerabilities](https://docs.microsoft.com/en-us/windows/win32/msi/installation-context), by Microsoft, December 2021.
-- [6 OpenSSL command options that every sysadmin should know][article_critelli] by Anthony Critelli, March 2021.
-- [Internet Safety: 7 Steps to Keeping Your Computer Safe on the Internet][article_notenboom] by A. Notenboom, March 2004.
+- [Security Update Guide - Vulnerabilities][resource_microsoft], by Microsoft, December 2021.
+- [6 OpenSSL command options that every sysadmin should know][resource_critelli] by Anthony Critelli, March 2021.
+- [Internet Safety: 7 Steps to Keeping Your Computer Safe on the Internet][resource_notenboom] by A. Notenboom, March 2004.
 
 
 ***
@@ -177,9 +177,10 @@ Finally we extract the contents of the Java 11 Windows installer named <code>Ope
 
 <!-- link refs -->
 
-[article_critelli]: https://www.redhat.com/sysadmin/6-openssl-commands
-[article_hoffman]: https://www.howtogeek.com/363735/what-is-a-checksum-and-why-should-you-care/
-[article_notenboom]: https://askleo.com/internet_safety_7_steps_to_keeping_your_computer_safe_on_the_internet/
+[resource_critelli]: https://www.redhat.com/sysadmin/6-openssl-commands
+[resource_hoffman]: https://www.howtogeek.com/363735/what-is-a-checksum-and-why-should-you-care/
+[resource_notenboom]: https://askleo.com/internet_safety_7_steps_to_keeping_your_computer_safe_on_the_internet/
+[resource_microsoft]: https://msrc.microsoft.com/update-guide/vulnerability
 [aaaa]: https://docs.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate?view=windowsserver2019-ps
 [msiexec_cmd]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec
 [scala2]: https://www.scala-lang.org/
