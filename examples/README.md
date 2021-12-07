@@ -21,7 +21,7 @@ The [WiX][wix_toolset] examples presented in the following sections
 
 Project `MinAppKiller` is adapted from Heiswayi Nrird's blog post *[What is WiX Toolset & how to use it][MiniAppKiller]* (May 2018).
 
-The project directory is organized in the same way as the previous [WiX][wix_toolset] examples :
+The project directory is organized as follows :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
@@ -41,7 +41,7 @@ Y:\examples\MiniAppKiller
     │   <a href="./MiniAppKiller/src/Product.wxs">Product.wxs</a>
     ├───<a href="./MiniAppKiller/src/images/"><b>images</b></a>
     │       <a href="./MiniAppKiller/src/images/app.ico">app.ico</a>
-    │       app.ico.txt
+    │       <a href="./MiniAppKiller/src/images/app.ico.txt">app.ico.txt</a>
     │       <a href="./MiniAppKiller/src/images/Dialog.bmp">Dialog.bmp</a>
     │       Dialog.bmp.txt
     │       <a href="./MiniAppKiller/src/images/TopBanner.bmp">TopBanner.bmp</a>
@@ -90,7 +90,7 @@ Figures **1.1** to **1.4** below illustrate the localized graphical user interfa
 
 Project `uberAgent` is adapted from Helge Klein's blog post *[Real-World Example: WiX/MSI Application Installer][uberAgent]* (February 2021).
 
-The project directory is organized in the same way as the previous [WiX][wix_toolset] examples :
+The project directory is organized in the same way as the previous [WiX][wix_toolset] example :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
