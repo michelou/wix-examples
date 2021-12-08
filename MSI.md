@@ -2,13 +2,13 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-development-tools" rel="external"><img src="./docs/win-installer.png" width="100" alt="Windows installers"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This document gathers resources related to <a href="https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-development-tools" rel="external">Windows installers</a> and <code>.msi</code> files.
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-development-tools" rel="external"><img src="./docs/win-installer.png" width="100" alt=".msi files"/></a></td>
+  <td style="border:0;padding:0;vertical-align:text-top;">This document gathers resources related to <code>.msi</code> files (aka. <a href="https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-development-tools" rel="external">Windows installers</a>).
   </td>
   </tr>
 </table>
 
-MSI ("*Microsoft Silent Installer*") files are database files (with components and features) which are executed with the help of ` msicexec.exe`. MSI files are the current recommended method for installations on Windows.
+MSI ("*Microsoft Silent Installer*") files are database files (with components and features) which are executed with the help of [`msiexec.exe`][msiexec_cmd]. MSI files are the current recommended method for installations on MS Windows.
 
 > **:mag_right:** Here are two discussion feeds for people interested in a deeper insight :
 > - [The corporate benefits of using MSI files](https://serverfault.com/questions/11670/the-corporate-benefits-of-using-msi-files/274609)
@@ -49,14 +49,14 @@ The following table shows a brief comparison of some Windows installers availabl
 <span id="footnote_01">[1]</span> ***Software Distributions*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-Several popular software distributions are only available as Zip archives, for instance :
+Some popular software distributions are only available as Zip archives, for instance :
 </p>
 <ul style="margin:0 0 1em 20px;">
 <li><a href="https://maven.apache.org/download.cgi#files">Apache Maven 3.8</a> - a software project management tool.
 <li><a href="https://github.com/denoland/deno/releases">Deno 1.x</a> - a modern runtime for JavaScript and TypeScript.</li>
 </ul>
 <p style="margin:0 0 1em 20px;">
-For other popular software distributions the Windows installer is provided as an executable file (extension <code>.exe</code>) instead of a MSI file (extension <code>.msi</code>).
+For other popular software distributions the Windows installer is provided as a setup program (extension <code>.exe</code>) instead of a MSI file (extension <code>.msi</code>).
 </p>
 <ul style="margin:0 0 1em 20px;">
   <li><a href="https://www.python.org/downloads/release/python-3100/">Python 3.x</li>
@@ -69,6 +69,7 @@ For other popular software distributions the Windows installer is provided as an
 
 <!-- link refs -->
 
+[msiexec_cmd]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec
 [project_elastic]: https://github.com/elastic/windows-installers
 [tool_insted]: http://www.instedit.com/
 [tool_lessmsi]: https://github.com/activescott/lessmsi

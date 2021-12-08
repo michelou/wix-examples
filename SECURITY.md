@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://en.wikipedia.org/wiki/Self-signed_certificate/" rel="external"><img src="images/security.png" width="100" alt="Security"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This document aims to response to the security concerns regarding <code>.msi</code> files (aka. Windows installers).<br/>We present several ways to address those concerns, e.g. with <a href="https://en.wikipedia.org/wiki/Self-signed_certificate/" rel="external">self-signed certificates</a>.
+  <td style="border:0;padding:0;vertical-align:text-top;">This document aims to response to the security concerns regarding <code>.msi</code> files (aka. Windows installers).<br/>We present several ways to address those concerns, e.g. using file checksums and <a href="https://en.wikipedia.org/wiki/Self-signed_certificate/" rel="external">self-signed certificates</a>.
   </td>
   </tr>
 </table>
@@ -15,7 +15,7 @@
 
 ## <span id="checksums">File Checksums</span>
 
-On the "[Releases](https://github.com/michelou/wix-examples/releases)" page of this project we publish our Windows installers (`.msi` files) together with their checksum files (`.md5` and `.sha265` files).
+On the [Releases](https://github.com/michelou/wix-examples/releases) page of this project we publish our Windows installers (`.msi` files) together with their checksum files (`.md5` and `.sha265` files).
 
 Checksums are used to verify the integrity of files downloaded from an external source, eg. a Windows installer. In this project we rely on two small PowerShell scripts to check the [Scala 2][scala2] and [Scala 3][scala3] Windows installers available on our [Releases](https://github.com/michelou/wix-examples/releases) page.
 
@@ -68,10 +68,10 @@ C:\Windows\System32\msiexec.exe
 
 The [`signtool`][signtool_cmd] command (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the standard tool to sign executable files on MS Windows, i.e. the  Windows installers in our case.
 
-In project [`Scala2First`](./scala2-examples/Scala2First/), for instance, we execute [`signtool`][signtool_cmd] to sign the file `scala-2.13.7.msi` :
+In project [`Scala2First`](./scala2-examples/Scala2First/), for instance, we execute [`signtool`][signtool_cmd] to sign the file [`scala-2.13.7.msi`](./releases/tag/scala-2.13.7.msi) :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool">signtool</a> sign /p "XXXX" -v /f "&lt;certs_folder&gt;\wix-examples.pfx" ^
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool">signtool</a> sign /p "&lt;pswd&gt; -v /f "&lt;certs_folder&gt;\wix-examples.pfx" ^
            /d "&lt;description&gt;" ^
            /t "http://timestamp.digicert.com" /fd SHA256 ^
            "Y:\scala2-examples\Scala2First\target\scala-2.13.7.msi"</b>
@@ -101,7 +101,7 @@ With option <code>/a</code> the Windows command <a href="https://docs.microsoft.
 </p>
 
 <p style="margin:0 0 1em 20px;">
-We first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.7_epfl.msi</code> to avoid naming collision with our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
+We first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.7_epfl.msi</code> to avoid naming collision with our own <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
 </p>
 
 <pre style="margin:0 0 1em 20px; font-size:80%;">
@@ -118,7 +118,7 @@ We first extract the contents of <a href="https://scala-lang.org/files/archive/"
 </pre>
 
 <p style="margin:0 0 1em 20px;">
-<b>&#9755;</b> We observe that 3 files/directories are <i>missing</i> compared to the Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.zip</code></a>, namely the two files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory <code>man\</code>.  
+<b>&#9755;</b> We observe that 3 files/directories are <i>missing</i> compared to the corresponding Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.zip</code></a>, namely the two text files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory <code>man\</code>.  
 </p>
 
 <p style="margin:0 0 1em 20px;">
@@ -166,6 +166,7 @@ Finally we extract the contents of the Java 11 Windows installer named <code>Ope
 <span id="footnote_02">[2]</span> ***Security Resources*** [↩](#anchor_02)
 
 - [Security Update Guide - Vulnerabilities][resource_microsoft], by Microsoft, December 2021.
+  - [CVE-2021-41379](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-41379), November 9, 2021.<br/>([issue resolved](https://docs.microsoft.com/en-us/windows/release-health/resolved-issues-windows-10-21h2#2759msgdesc) on November 22, 2021)
 - [6 OpenSSL command options that every sysadmin should know][resource_critelli] by Anthony Critelli, March 2021.
 - [Internet Safety: 7 Steps to Keeping Your Computer Safe on the Internet][resource_notenboom] by A. Notenboom, March 2004.
 

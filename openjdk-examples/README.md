@@ -19,7 +19,7 @@ That includes the development of a [WiX installer](https://github.com/adoptium/i
 
 Project `OpenJDK11` is derived from the [WiX][wix_toolset] installer developed in the project [`adoptium/installer`][adoptium_installer].
 
-> **:mag_right:**  Localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK11/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `app-guids-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
+> **:mag_right:** Localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK11/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `app-guids-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -48,6 +48,24 @@ Y:\openjdk-examples\OpenJDK11
             <a href="./OpenJDK11/src/resources/wix-banner.bmp">wix-banner.bmp</a>
             <a href="./OpenJDK11/src/resources/wix-dialog.bmp">wix-dialog.bmp</a>
 </pre>
+
+> **:mag_right:** Command [`build.bat`](./OpenJDK11/build) reads its configuration from file `build.properties`, e.g.
+> <pre style="font-size:80%;">
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> build.properties</b>
+> PRODUCT_MAJOR_VERSION=11
+> PRODUCT_MINOR_VERSION=0
+> PRODUCT_MAINTENANCE_VERSION=13
+> PRODUCT_PATCH_VERSION=0
+> PRODUCT_BUILD_NUMBER=8
+> # ARCH=x64|x86-32|arm64 or all "x64 x86-32 arm64"
+> ARCH=x64
+> # JVM=hotspot|openj9|dragonwell or both JVM=hotspot openj9
+> JVM=hotspot
+> # PRODUCT_CATEGORY=jre|jdk (only one at a time)
+> PRODUCT_CATEGORY=jdk
+> # Add -sval option to light.exe to skip MSI/MSM validation and skip smoke.exe )
+> SKIP_MSI_VALIDATION=true
+> </pre>
 
 Command [`build link`](./OpenJDK11/build.bat) <sup id="anchor_01">[1](#footnote_01)</sup> generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi` <sup id="anchor_02">[2](#footnote_02)</sup>.
 
