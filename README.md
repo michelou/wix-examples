@@ -69,7 +69,7 @@ where
 - directory [**`myexamples\`**](myexamples/) contains [WiX] examples (see [`README.md`](myexamples/README.md) file).
 - directory [**`openjdk-examples\`**](openjdk-examples/) contains [WiX] examples for creating [OpenJDK]() installers (see [`README.md`](openjdk-examples/README.md) file).
 - directory [**`scala2-examples\`**](scala2-examples/) contains [WiX] examples for creating [Scala 2][scala2] installers (see [`README.md`](scala2-examples/README.md) file).
-- directory [**`scala3-examples\`**](scala3-examples/) contains [WiX] examples for createing [Scala 3][scala3] installers (see [`README.md`](scala3-examples/README.md) file).
+- directory [**`scala3-examples\`**](scala3-examples/) contains [WiX] examples for creating [Scala 3][scala3] installers (see [`README.md`](scala3-examples/README.md) file).
 - file [**`MSI.md`**](MSI.md) provides some insight into MSI files.
 - file [**`QUICKREF.md`**](QUICKREF.md) is our [WiX] quick reference.
 - file **`README.md`** is the [Markdown][github_markdown] document for this page.

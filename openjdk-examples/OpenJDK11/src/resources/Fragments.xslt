@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
-	xmlns="http://schemas.microsoft.com/wix/2006/wi"
+    xmlns="http://schemas.microsoft.com/wix/2006/wi"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:wix="http://schemas.microsoft.com/wix/2006/wi">
 
@@ -26,11 +26,10 @@
     <xsl:text disable-output-escaping="yes">&lt;!-- &lt;/DirectoryRef&gt; --&gt;</xsl:text>
   </xsl:template>
 
-  <xsl:template match="wix:Directory[@Id='app']">
+  <xsl:template match="wix:Directory[starts-with(@Id, 'app')]">
     <DirectoryRef Id="INSTALLDIR" >
       <xsl:apply-templates />
-	</DirectoryRef>
+    </DirectoryRef>
   </xsl:template>
 
 </xsl:stylesheet>
-

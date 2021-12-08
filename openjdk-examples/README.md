@@ -11,15 +11,15 @@
   </tr>
 </table>
 
-[Eclipse Adoptium](https://projects.eclipse.org/projects/adoptium) is a top-level project whose mission is to provide an open and reproducible build and test system for OpenJDK source across multiple platforms.
+The mission of the [Eclipse Adoptium](https://projects.eclipse.org/projects/adoptium) project is to provide an open and reproducible build and test system for OpenJDK source across multiple platforms.
 
-This includes the development of a [WiX installer](https://github.com/adoptium/installer/tree/master/wix) (see GitHub project [`adoptium/installer`][adoptium_installer]) configurable for various OpenJDK implementations.
+That includes the development of a [WiX installer](https://github.com/adoptium/installer/tree/master/wix) (see GitHub project [`adoptium/installer`][adoptium_installer]) *configurable* for various OpenJDK implementations.
 
 ## <span id="openjdk11">OpenJDK11</span>
 
 Project `OpenJDK11` is derived from the [WiX][wix_toolset] installer developed in the project [`adoptium/installer`][adoptium_installer].
 
-> **:mag_right:**  Concretely, localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK11/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `guids-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
+> **:mag_right:**  Localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK11/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `app-guids-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -42,8 +42,8 @@ Y:\openjdk-examples\OpenJDK11
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.en-us.wxl">OpenJDK.openj9.en-us.wxl</a>
     │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.fr-fr.wxl">OpenJDK.openj9.fr-fr.wxl</a>
     └───<a href="./OpenJDK11/src/resources/"><b>resources</b></a>
-            license-GPLv2+CE.en-us.rtf
-            license-OpenJ9.en-us.rtf
+            <a href="./OpenJDK11/src/resources/license-GPLv2+CE.en-us.rtf">license-GPLv2+CE.en-us.rtf</a>
+            <a href="./OpenJDK11/src/resources/license-OpenJ9.en-us.rtf">license-OpenJ9.en-us.rtf</a>
             <a href="./OpenJDK11/src/resources/logo.ico">logo.ico</a>
             <a href="./OpenJDK11/src/resources/wix-banner.bmp">wix-banner.bmp</a>
             <a href="./OpenJDK11/src/resources/wix-dialog.bmp">wix-dialog.bmp</a>
@@ -75,7 +75,7 @@ OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi
 OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi.md5
 OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi.sha256
 OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.wixpdb
-replace.ps11
+replace.ps1
 </pre>
 
 Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 11][adoptium_openjdk11] Windows installer while figures **1.5** and **1.6** show the updated user environment after the successful execution of the Windows installer.

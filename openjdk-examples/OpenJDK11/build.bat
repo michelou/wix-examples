@@ -55,14 +55,13 @@ set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
-set "_APP_DIR=%_ROOT_DIR%app"
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_LOCALIZATIONS_DIR=%_SOURCE_DIR%\localizations"
 set "_RESOURCES_DIR=%_SOURCE_DIR%\resources"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
+set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
-set "_RELEASE_FILE=%_APP_DIR%\release"
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
@@ -88,6 +87,12 @@ if not exist "%WINDIR%\System32\msiexec.exe" (
     goto :eof
 )
 set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
+
+set _SIGNTOOL_CMD=
+if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
+) else ( set __ARCH=x86
+)
+for /f "delims=" %%f in ('where /r "%WINSDK_HOME%\bin" signtool.exe^|findstr %__ARCH%') do set "_SIGNTOOL_CMD=%%f"
 goto :eof
 
 :env_colors
@@ -161,6 +166,8 @@ set "_PRODUCT_HELP_LINK=https://github.com/adoptium/adoptium-support/issues/new/
 set "_PRODUCT_SUPPORT_LINK=https://adoptium.net/support.html"
 set "_PRODUCT_UPDATE_INFO_LINK=https://adoptium.net/releases.html"
 
+set "_TIMESTAMP_SERVER=http://timestamp.digicert.com"
+
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -175,7 +182,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    if defined __PRODUCT_ID set "_PRODUCT_ID=!__PRODUCT_ID!"
+    @rem _PRODUCT_ID is defined in file app-guids-X.Y.Z.txt as it depends on X.Y.Z
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
@@ -199,11 +206,6 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_HELP_LINK set "_PRODUCT_HELP_LINK=!__PRODUCT_HELP_LINK!"
     if defined __PRODUCT_SUPPORT_LINK set "_PRODUCT_SUPPORT_LINK=!__PRODUCT_SUPPORT_LINK!"
     if defined __PRODUCT_UPDATE_INFO_LINK set "_PRODUCT_UPDATE_INFO_LINK=!__PRODUCT_UPDATE_INFO_LINK!"
-)
-if not defined _PRODUCT_ID (
-    echo %_ERROR_LABEL% Product identifier is undefined 1>&2
-    set _EXITCODE=1
-    goto :eof
 )
 if not defined _PRODUCT_UPGRADE_CODE (
     echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
@@ -244,14 +246,6 @@ IF %_PRODUCT_MAJOR_VERSION% geq 10 (
 )
 @rem the MSI file version format is: <major>.<minor>.<build>.<update>
 if not defined _PRODUCT_MSI_VERSION set "_PRODUCT_MSI_VERSION=%_PRODUCT_FULL_VERSION%
-
-@rem associative array to store <name,guid> pairs
-set _GUID=
-if exist "%_GUIDS_FILE%" (
-    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
-        if not "%%j"=="" set "_GUID[%%i]=%%j"
-    )
-)
 goto :eof
 
 :args
@@ -301,18 +295,36 @@ goto args_loop
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
-set "_GUIDS_FILE=%_ROOT_DIR%guids-%_PRODUCT_FILE_VERSION%.txt"
+set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_FILE_VERSION%"
+set "_RELEASE_FILE=%_APP_DIR%\release"
+
+set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_FILE_VERSION%.txt"
+@rem associative array to store <name,guid> pairs
+set _GUID=
+if exist "%_GUIDS_FILE%" (
+    for /f "delims=^= tokens=1,*" %%i in (%_GUIDS_FILE%) do (
+        if not "%%j"=="" set "_GUID[%%i]=%%j"
+    )
+)
+if not defined _GUID[PRODUCT_ID] (
+    echo %_ERROR_LABEL% Product identified is undefined 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PRODUCT_ID=%_GUID[PRODUCT_ID]%"
 
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
 
-@rem Name of zip file: OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
+@rem same baseame as zip file OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%U-%_PRODUCT_CATEGORY%_%_ARCH%_windows_%_JVM%_%_PRODUCT_FILE_VERSION%.msi"
+
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_CATEGORY=%_PRODUCT_CATEGORY% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_FILE_VERSION=%_PRODUCT_FILE_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_FULL_VERSION=%_PRODUCT_FULL_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_MSI_VERSION=%_PRODUCT_MSI_VERSION% 1>&2
@@ -373,11 +385,23 @@ goto :eof
 if exist "%_RELEASE_FILE%" goto :eof
 
 @rem Java 8
-@rem https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip
+@rem Corretto  : https://corretto.aws/downloads/resources/8.312.07.1/amazon-corretto-8.312.07.1-windows-x64-jdk.zip
+@rem Liberica  : https://download.bell-sw.com/java/8u312+7/bellsoft-jdk8u312+7-windows-amd64.zip
+@rem Temurin   : https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip
+
 @rem Java 11
-@rem https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip
+@rem Corretto  : https://corretto.aws/downloads/resources/11.0.13.8.1/amazon-corretto-11.0.13.8.1-windows-x64-jdk.zip
+@rem Dragonwell: https://github.com/alibaba/dragonwell11/releases/download/dragonwell-11.0.13.9_jdk-11.0.13-ga/Alibaba_Dragonwell_11.0.13.9_x64_windows.zip
+@rem Liberica  : https://download.bell-sw.com/java/11.0.13+8/bellsoft-jdk11.0.13+8-windows-amd64.zip
+@rem Microsoft : https://aka.ms/download-jdk/microsoft-jdk-11.0.13.8.1-windows-x64.zip
+@rem Temurin   : https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip
+
 @rem Java 17
-@rem https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.1%2B12/OpenJDK17U-jdk_x64_windows_hotspot_17.0.1_12.zip
+@rem Corretto  : https://corretto.aws/downloads/resources/17.0.1.12.1/amazon-corretto-17.0.1.12.1-windows-x64-jdk.zip
+@rem Dragonwell: https://github.com/alibaba/dragonwell17/releases/download/dragonwell-17.0.1.0.1%2B12_jdk-17.0.1-ga/Alibaba_Dragonwell_17.0.1.0.1+12_x86_windows.zip
+@rem Liberica  : https://download.bell-sw.com/java/17.0.1+12/bellsoft-jdk17.0.1+12-windows-amd64.zip
+@rem Microsoft : https://aka.ms/download-jdk/microsoft-jdk-17.0.1.12.1-windows-x64.zip
+@rem Temurin   : https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.1%2B12/OpenJDK17U-jdk_x64_windows_hotspot_17.0.1_12.zip
 
 if not exist "%_RELEASE_FILE%" (
     set "__BASE_URL=https://github.com/adoptium/temurin%_PRODUCT_MAJOR_VERSION%-binaries/releases/download"
@@ -390,13 +414,15 @@ if not exist "%_RELEASE_FILE%" (
     set "__ARCHIVE_URL=!__BASE_URL!/!__ARCHIVE_FILE!"
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
     if not exist "!__OUTPUT_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" ^> "!__OUTPUT_FILE!" 1>&2
+        set __CURL_OPTS=--fail --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!"
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__OUTPUT_FILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
         )
-        call "%_CURL_CMD%" --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!" > "!__OUTPUT_FILE!"
+        call "%_CURL_CMD%" !__CURL_OPTS! > "!__OUTPUT_FILE!"
         if not !ERRORLEVEL!==0 (
+            if exist "!__OUTPUT_FILE!" del "!__OUTPUT_FILE!"
             echo.
-            echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" 1>&2
+            echo %_ERROR_LABEL% Failed to download file "!__ARCHIVE_URL!" 1>&2
             set _EXITCODE=1
             goto :eof
         )
@@ -499,12 +525,12 @@ if not %ERRORLEVEL%==0 (
 )
 @rem image files are handled separately (see :gen_banner)
 for %%e in (ico rtf) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\\*.%%e" "%_TARGET_DIR%\resources" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_TARGET_DIR%\resources" %_STDOUT_REDIRECT%
+    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_TARGET_DIR:%_ROOT_DIR%=!\resources" 1>&2
+        echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -542,20 +568,20 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __OPT_EXTENSIONS=-ext wixUtilExtension
-set __OPT_PROPERTIES="-dpack=%_APP_DIR%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dMSIProductVersion=%_PRODUCT_MSI_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductVersionString=%_PRODUCT_SHORT_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dJVM=%_JVM%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMajorVersion=%_PRODUCT_MAJOR_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductMinorVersion=%_PRODUCT_MINOR_VERSION%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductId=%_PRODUCT_ID%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
-set __OPT_PROPERTIES=%__OPT_PROPERTIES% "-dSetupResourcesDir=%_RESOURCES_DIR%"
-echo %__OPT_VERBOSE% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% "-I%_GEN_DIR:\=\\%" -arch %_ARCH% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
+set __CANDLE_OPTS=-nologo
+if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
+set __CANDLE_OPTS=%__CANDLE_OPTS% -ext wixUtilExtension
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_APP_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dMSIProductVersion=%_PRODUCT_MSI_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductVersionString=%_PRODUCT_SHORT_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dJVM=%_JVM%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMajorVersion=%_PRODUCT_MAJOR_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMinorVersion=%_PRODUCT_MINOR_VERSION%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dSetupResourcesDir=%_RESOURCES_DIR%"
+echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -604,6 +630,44 @@ for %%i in (md5 sha256) do (
 )
 goto :eof
 
+@rem input parameter: %1=file path
+:sign_file
+set "__TARGET_FILE=%~1"
+set "__CERTS_DIR=%USERPROFILE%\Certificates"
+
+set "__FPX_CERT_FILE=%__CERTS_DIR%\wix-examples.pfx"
+if not exist "%__FPX_CERT_FILE%" (
+    echo %_ERROR_LABEL% PFX certificate file not found ^("!__FPX_CERT_FILE:%USERPROFILE%\=!"^) 1>&2
+    echo ^(put file wix-examples.pfx into directory "%%USERPROFILE%%\Certificates"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__PFX_PSWD_FILE=%__CERTS_DIR%\wix-examples.pfx.txt"
+if not exist "%__PFX_PSWD_FILE%" (
+    echo %_ERROR_LABEL% PFX password file not found ^("!__PFX_PSWD_FILE:%USERPROFILE%\=!"^) 1>&2
+    echo ^(put password file wix-examples.pfx.txt into directory "%%USERPROFILE%%\Certificates"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
+
+@rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
+set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%_TIMESTAMP_SERVER%" /fd SHA256
+if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
+
+@rem print dummy PFX password in console !
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SIGNTOOL_CMD%" sign /p "XXXXXX" %__SIGN_OPTS% "%__TARGET_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Sign file "!__TARGET_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set /p __PFX_PSWD=< "%__PFX_PSWD_FILE%"
+call "%_SIGNTOOL_CMD%" sign /p "%__PFX_PSWD%" %__SIGN_OPTS% "%__TARGET_FILE%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to sign file "!__TARGET_FILE:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 :link
 @rem ensure directory "%_APP_DIR%" contains the OpenJDK distribution
 call :gen_app
@@ -620,18 +684,16 @@ if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_BASE=-v -sval
-) else ( set __OPT_BASE=-sval
-)
+set __LIGHT_OPTS=-nologo -sval
+if %_DEBUG%==1 set __LIGHT_OPTS=%__LIGHT_OPTS% -v
+
 set __CULTURE=en-us
-set __OPT_LOCALIZED="-cultures:%__CULTURE%"
+set __LIGHT_OPTS=%__LIGHT_OPTS% "-cultures:%__CULTURE%"
 for /f "delims=" %%f in ('dir /b /s "%_GEN_DIR%\*Base.%__CULTURE%.wxl" "%_GEN_DIR%\*%_JVM%.%__CULTURE%.wxl"') do (
-    set __OPT_LOCALIZED=!__OPT_LOCALIZED! -loc "%%f"
+    set __LIGHT_OPTS=!__LIGHT_OPTS! -loc "%%f"
 )
-set __OPT_EXTENSIONS=-ext wixUIExtension -ext wixUtilExtension
-set __OPT_PROPERTIES=
-set __LIGHT_BINDINGS=
-echo %__OPT_BASE% %__OPT_LOCALIZED% %__OPT_EXTENSIONS% %__OPT_PROPERTIES% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+set __LIGHT_OPTS=%__LIGHT_OPTS% -ext wixUIExtension -ext wixUtilExtension
+echo %__LIGHT_OPTS% -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0
@@ -647,6 +709,12 @@ if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" ^(error %ERRORLEVEL%^) 1>&2
     set _EXITCODE=1
     goto :eof
+)
+if defined _SIGNTOOL_CMD (
+    call :sign_file "%_MSI_FILE%"
+    if not !_EXITCODE!==0 goto :eof
+) else (
+    echo %_WARNING_LABEL% signtool command not found; is Windows SDK 10 installed? 1>&2
 )
 call :gen_checksums "%_MSI_FILE%"
 if not %_EXITCODE%==0 goto :eof

@@ -18,7 +18,7 @@
         DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit.">
     </MajorUpgrade>
 
-    <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' />
+    <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' CompressionLevel='high' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFiles64Folder' Name='PFiles'>

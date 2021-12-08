@@ -36,7 +36,7 @@ if defined _SCALA_ENV (
     call "%~dp0scala.bat"
     exit /b !ERRORLEVEL!
 ) else (
-    powershell -C "$x = [Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); $res = [Windows.Forms.MessageBox]::show('Environment variable JAVA_HOME or JAVAMCD must be defined', 'Scala 3');
+    powershell -C "$x = [Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); $res = [Windows.Forms.MessageBox]::show('Environment variable JAVA_HOME or JAVAMCD must be defined', 'Scala 2');
     exit /b 1
 )
 endlocal
