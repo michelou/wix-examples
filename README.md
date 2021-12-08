@@ -45,13 +45,13 @@ C:\Program Files (x86)\Windows Kits\10\      <i>(5.46 GB)</i>
 
 This project is organized as follows:
 <pre style="font-size:80%;">
-docs\
-examples\{<a href="./examples/MiniAppKiller">MiniAppKiller</a>, <a href="./examples/uberAgent">uberAgent</a>}
-firegiant-examples\{<a href="./firegiant-examples/SampleFirst">SampleFirst</a>, etc.}
-myexamples\{<a href="./myexamples/MyApp">MyApp</a>, etc.}
-openjdk-examples\{<a href="./openjdk-examples/OpenJDK11">OpenJDK11</a>, etc.}
-scala2-examples\{<a href="./scala2-examples/Scala2First">Scala2First</a>, <a href="./scala2-examples/Scala2UI">Scala2UI</a>, etc.}
-scala3-examples\{<a href="./scala3-examples/Scala3First">Scala3First</a>, <a href="./scala3-examples/Scala3UI">Scala3UI</a>, etc.}
+<a href="./examples/docs">docs\</a>
+examples\{<a href="./examples/README.md">README.md</a>, <a href="./examples/MiniAppKiller">MiniAppKiller</a>, <a href="./examples/uberAgent">uberAgent</a>}
+firegiant-examples\{<a href="./firegiant-examples/README.md">README.md</a>, <a href="./firegiant-examples/SampleFirst">SampleFirst</a>, etc.}
+myexamples\{<a href="./myexamples/README.md">README.md</a>, <a href="./myexamples/MyApp">MyApp</a>, etc.}
+openjdk-examples\{<a href="./openjdk-examples/README.md">README.md</a>, <a href="./openjdk-examples/OpenJDK11">OpenJDK11</a>, etc.}
+scala2-examples\{<a href="./scala2-examples/README.md">README.md</a>, <a href="./scala2-examples/Scala2First">Scala2First</a>, <a href="./scala2-examples/Scala2UI">Scala2UI</a>, etc.}
+scala3-examples\{<a href="./scala3-examples/README.md">README.md</a>, <a href="./scala3-examples/Scala3First">Scala3First</a>, <a href="./scala3-examples/Scala3UI">Scala3UI</a>, etc.}
 <a href="MSI.md">MSI.md</a>
 <a href="QUICKREF.md">QUICKREF.md</a>
 README.md
@@ -104,7 +104,7 @@ Environment variables:
 <span id="footnote_01">[1]</span> ***ImageMagick*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-<a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize two dialog windows in the generated Windows installer.
+<a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize the dialog windows in the generated Windows installer.
 </p>
 
 <span id="footnote_02">[2]</span> ***InstEd*** [↩](#anchor_02)

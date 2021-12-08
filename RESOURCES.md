@@ -20,13 +20,14 @@
 ## <span id="blogs">Blogs</span>
 
 - [Real-World Example: WiX/MSI Application Installer][blog_klein] by Helge Klein, February 2021.
-- [WiX Software Blog](https://www.hass.de/category/software/wix) from Alexander Haas :
-  - [How to create MSI packages with multilingual user interface (MUI) ?](https://www.hass.de/content/how-create-msi-packages-multilingual-user-interface-mui)
-  - [How to create a MSI for deploying Fonts in Enterprise ?](https://www.hass.de/content/how-create-msi-deploying-fonts-enterprise), September 2016.
 - [WiX Tips](https://sorceryforce.net/en/tips/wix) from Yuuichi Onodera :
   - [Create a Windows Installer "MSI" using WiX part2](https://sorceryforce.net/en/tips/wix-installer-create2), October 2021.
   - [Create a Windows Installer "MSI" using WiX part1](https://sorceryforce.net/en/tips/wix-installer-create1), April 2020.
   - [Set up WiX to create Windows Installer for program distribution](https://sorceryforce.net/en/tips/wix-setup), April 2020.
+- [WiX setup saving user input values](https://siderite.dev/blog/wix-setup-windows-installer-saving-user.html/) by Siderite, November 2018.
+- [WiX Software Blog](https://www.hass.de/category/software/wix) from Alexander Haas :
+  - [How to create MSI packages with multilingual user interface (MUI) ?](https://www.hass.de/content/how-create-msi-packages-multilingual-user-interface-mui)
+  - [How to create a MSI for deploying Fonts in Enterprise ?](https://www.hass.de/content/how-create-msi-deploying-fonts-enterprise), September 2016.
 - [Variables and Conditional Statements in WiX][blog_kumar] by Arun Kumar, June 2014.
 - [L10N/M10N: Localization minimization][blog_arnson] by Bob Arnson, February 2013.
 - [Blog](https://robmensching.com/blog/) from Rob Mensching :
