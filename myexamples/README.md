@@ -29,17 +29,17 @@ Y:\myexamples\MyApp
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./MyApp/build.bat">build.bat</a>          <i>(calls candle/light)</i>
-├───<b>app</b>
-│   └───<b>HelloWorld</b>
+├───<a href="./MyApp/app/"><b>app</b></a>
+│   └───<a href="./MyApp/app/HelloWorld/"><b>HelloWorld</b></a>
 │       │   <a href="./MyApp/app/HelloWorld/00download.txt">00download.txt</a>
 │       │   <a href="./MyApp/app/HelloWorld/build.bat">build.bat</a>  <i>(calls MSBuild)</i>
 │       │   <a href="./MyApp/app/HelloWorld/README.md">README.md</a>
-│       └───<b>cpp</b>
+│       └───<a href="./MyApp/app/HelloWorld/cpp/"><b>cpp</b></a>
 │           │   <a href="./MyApp/app/HelloWorld/cpp/HelloWorld.sln">HelloWorld.sln</a>
 │           │   <a href="./MyApp/app/HelloWorld/cpp/HelloWorld.vcxproj">HelloWorld.vcxproj</a>
-│           └───<b>src</b>
+│           └───<a href="./MyApp/app/HelloWorld/cpp/src/"><b>src</b></a>
 │                   <a href="./MyApp/app/HelloWorld/cpp/src/main.cpp">main.cpp</a>
-└───<b>src</b>
+└───<a href="./MyApp/src/"><b>src</b></a>
         <a href="./MyApp/src/MyApp.wxs">MyApp.wxs</a>      <i>(with PUT-GUID-HERE placeholders)</i>
 </pre>
 
@@ -53,7 +53,7 @@ Generate executable "MyApp.exe"
 Copy executable "MyApp.exe" to directory "Y:\myexamples\MyApp\app\"
 Generate auxiliary WXS file
 [...]
-Compiling 1 WXS files to directory "target"
+Compiling 1 WiX source file to directory "target"
 Create Windows installer "target\MyApp-1.0.0.msi"
 Execute Windows installer "target\MyApp-1.0.0.msi"
 </pre>
@@ -84,7 +84,7 @@ We declare 3 components in our [WiX][wix_toolset] source file [`MyAppShortcuts.w
 - component 2 refers to the HTML file [`documentation.html`](./MyAppShortcuts/app/documentation.html).
 - component 3 defines the two shortcuts `MyApp` and `Uninstall MyApp` (**Figure 2.2**).
 
-> **:mag_right:** The user has now *two* possibilities to remove the `MyApp` application :
+> **:mag_right:** The user has now *two* possibilities to remove the *MyApp* application :
 > - from the *Apps &amp; features* window in the [*Windows Settings*][windows_settings]
 > - through the *Uninstall MyApp* shortcut in the [*Start Menu*][windows_start_menu] folder.
 
@@ -113,7 +113,7 @@ Figures **2.1** to **2.4** below illustrate the updated user environment after t
 </tr>
 </table>
 
-> :mag_right: <b>Figure 2.4</b> shows the window <i>Properties</i> of the *Uninstall* shortcut visible in <b>Figure 2.2</b>; in particular we can read in the field "Target" the GUID <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> value corresponding to `PRODUCT_CODE` in the file `build.properties`.
+> :mag_right: <b>Figure 2.4</b> shows the window <i>Properties</i> of the *Uninstall* shortcut visible in <b>Figure 2.2</b>; in particular we can read in the field "Target" the GUID <sup id="anchor_02"><a href="#footnote_02">2</a></sup> value corresponding to `PRODUCT_CODE` in the file `build.properties`.
 > <pre style="font-size:80%;">
 > PRODUCT_CODE=C04AE4CF22B4403D97EDF523D3A1BD30
 > PRODUCT_UPGRADE_CODE=...
@@ -205,13 +205,17 @@ Project `MyAppFeatures` adds feature customization to the *MyApp* Windows instal
 ## <span id="footnotes">Footnotes</span>
 
 
-<b name="footnote_01">[1]</b> ***File Checksums*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***File Checksums*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 We rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="MD5sums">MD5sums</a> (see also document <a href="../SECURITY.md"><code>SECURITY.md</code></a>).
 </p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b> &gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -C "(<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash">Get-FileHash</a> 'target\MyApp-1.0.0.msi' -Algorithm md5).Hash"</b>
+38C2F1D6F7FF5D40A75DAEA0950CF949
+</pre>
 
-<b name="footnote_02">[2]</b> ***GUID*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***GUID*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated (<i>see also</i> the nice article series from <a href="https://ericlippert.com/about-eric-lippert/">Eric Lippert</a>'s <i>"Guid guide"</i>, <a href="https://ericlippert.com/2012/04/24/guid-guide-part-one/">part 1</a>, <a href="https://ericlippert.com/2012/04/30/guid-guide-part-two/">part 2</a> and <a href="https://ericlippert.com/2012/05/07/guid-guide-part-three/">part 3</a>).
@@ -220,7 +224,7 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 <a href="https://wixtoolset.org/">WiX</a> examples developed in this project rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples"><code>New-Guid</code></a> to generate GUID values; for instance :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; powershell -C <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples">"(New-Guid).Guid"</a></b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -C <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples">"(New-Guid).Guid"</a></b>
 2d30a843-3eb2-497a-99a1-49a368bba5f7
 </pre>
 

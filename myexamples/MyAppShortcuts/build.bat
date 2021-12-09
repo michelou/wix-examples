@@ -60,7 +60,7 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
-set "_PROJECT_DIR=%_APP_DIR%\HelloWorld
+set "_PROJECT_DIR=%_APP_DIR%\HelloWorld"
 for %%i in ("%_ROOT_DIR%.") do set "_PROJECT_NAME=%%~ni"
 
 @rem Architecture (candle): x86, x64, or ia64 (default: x86)
