@@ -8,11 +8,18 @@
   </tr>
 </table>
 
-## `WixUI_InstallDir`-dialogs
+## <span id="dialogs">`WixUI_InstallDir`-dialogs</span>
 
 The dialog strings must be localized. [WiX][wix_toolset] comes with 40 sets of loc strings; you specify them using the `-cultures` switch to `%WIX%\light.exe`.
 
-## <span id="vars">WiX built-in Variables</span>
+## <span id="custom">WiX custom variables</span>
+
+The [WiX Toolset][wix_toolset] engine supports 3 types of [custom variables](https://wixtoolset.org/documentation/manual/v3/overview/preprocessor.html) : 
+- *Environment variables* : The syntax is `$(var.<var_name>)` (`<var_name>` is case-insensitive). For example, we write `$(env.APPDATA)` to retrieve the environment variable [`%APPDATA%`][windows_appdata].
+- *System variables* : The syntax is `$(sys.<var_name>)`.<br/>**`CURRENTDIR`** - The current directory where the build process is running.<br/>**`SOURCEFILEPATH`** - the full path to the file being processed.<br/>**`SOURCEFILEDIR`** - the directory containing the file being processed.<br/>**`BUILDARCH`** - the platform this package is compiled for (Intel, x64, Intel64, ARM).
+- *User-defined variables* : The user has two ways to defined them, either at the top of a WiX source file as `<?define MyVariable="Hello World" ?>` or from the command line using option `-d`, e.g. `candle -dMyVariable="Hello World" ...`.
+
+## <span id="builtin">WiX built-in variables</span>
 
 The [WiX Toolset][wix_toolset] engine provides many [built-in variables](https://wixtoolset.org/documentation/manual/v3/bundle/bundle_built_in_variables.html) to be used in [WiX][wix_toolset] source files. In particular, some of them are needed to target the runtime architecture (e.g. x86, x64, ia64) of the generated Windows installer.
 
@@ -43,7 +50,7 @@ Copyright (c) .NET Foundation and contributors. All rights reserved.
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Windows System Information*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Windows System Information*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 On the Windows prompt we call the command <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic</code></b></a> to display information about the installed Windows operating system :
@@ -76,4 +83,5 @@ BuildNumber Caption                  Version    OSArchitecture
 
 [candle_cmd]: https://wixtoolset.org/documentation/manual/v3/overview/candle.html
 [csidl]: https://docs.microsoft.com/en-us/windows/win32/shell/csidl
+[windows_appdata]: https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables#variables-that-are-recognized-only-in-the-user-context
 [wix_toolset]: https://wixtoolset.org/

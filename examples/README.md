@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX project" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples coming from various websites.
@@ -15,7 +15,7 @@ The [WiX][wix_toolset] examples presented in the following sections
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - we slightly modified the main [WiX][wix_toolset] source file to match our project settings.
-   - we recreated most resource files (eg. images) not made available by the original author.
+   - we recreated most resource files (e.g. images) not made available by the original author.
 
 ## <span id="mini_app_killer">MiniAppKiller</span>
 
@@ -33,9 +33,9 @@ Y:\examples\MiniAppKiller
 ├───<a href="./MiniAppKiller/app/"><b>app</b></a>
 │       <a href="./MiniAppKiller/app/config.ini">config.ini</a>
 │       <a href="./MiniAppKiller/app/EULA-en.rtf">EULA-en.rtf</a>
-│       EULA-fr.rtf
-│       filters.txt
-│       MiniAppKiller.exe   <i>(copy of %WINDIR%\system32\calc.exe)</i>
+│       <a href="./MiniAppKiller/app/EULA-fr.rtf">EULA-fr.rtf</a>
+│       <a href="./MiniAppKiller/app/filters.txt">filters.txt</a>
+│       <i>MiniAppKiller.exe</i> <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 └───<a href="./MiniAppKiller/src/"><b>src</b></a>
     │   <a href="./MiniAppKiller/src/Product.Var.wxi">Product.Var.wxi</a>
     │   <a href="./MiniAppKiller/src/Product.wxs">Product.wxs</a>
@@ -43,10 +43,10 @@ Y:\examples\MiniAppKiller
     │       <a href="./MiniAppKiller/src/images/app.ico">app.ico</a>
     │       <a href="./MiniAppKiller/src/images/app.ico.txt">app.ico.txt</a>
     │       <a href="./MiniAppKiller/src/images/Dialog.bmp">Dialog.bmp</a>
-    │       Dialog.bmp.txt
+    │       <a href="./MiniAppKiller/src/images/Dialog.bmp.txt">Dialog.bmp.txt</a>
     │       <a href="./MiniAppKiller/src/images/TopBanner.bmp">TopBanner.bmp</a>
     │       <a href="./MiniAppKiller/src/images/TopBanner.bmp.txt">TopBanner.bmp.txt</a>
-    └───<b>localizations</b>
+    └───<a href="./MiniAppKiller/src/localizations/"><b>localizations</b></a>
             <a href="./MiniAppKiller/src/localizations/Product.Loc_en-US.wxl">Product.Loc_en-US.wxl</a>
             <a href="./MiniAppKiller/src/localizations/Product.Loc_fr-FR.wxl">Product.Loc_fr-FR.wxl</a>
 </pre>
@@ -103,7 +103,7 @@ Y:\examples\uberAgent
 │       <a href="./uberAgent/app/Eula-en.rtf">Eula-en.rtf</a>
 │       <a href="./uberAgent/app/uberAgent.conf">uberAgent.conf</a>
 │       <a href="./uberAgent/app/uberAgent.conf.txt">uberAgent.conf.txt</a>
-│       uberAgent.exe
+│       <i>uberAgent.exe</i> <sup id="anchor_01"><a href="#footnote_01">1</a></sup>
 └───<a href="./uberAgent/src/"><b>src</b></a>
     │   <a href="./uberAgent/src/LicenseAgreementDlg_HK.wxs">LicenseAgreementDlg_HK.wxs</a>
     │   <a href="./uberAgent/src/Product.wxs">Product.wxs</a>
@@ -146,14 +146,73 @@ Figures **2.1** to **2.4** below illustrate the localized graphical user interfa
 </tr>
 </table>
 
-<!--
+## <span id="customdialog">WiXCustomDialog</span>
+
+Project `WiXCustomDialog` is adapted from glytzhkof's GitHub repository [`glytzhkof/WiXCustomDialog`](https://github.com/glytzhkof/WiXCustomDialog) (February 2021).
+
+
+The project directory is organized in the same way as the previous [WiX][wix_toolset] example :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+Y:\examples\WiXCustomDialog
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+│   <a href="./WixCustomDialog/00download.txt">00download.txt</a>
+│   <a href="./WixCustomDialog/build.bat">build.bat</a>
+└───<a href="./WixCustomDialog/src/"><b>src</b></a>
+    │   <a href="./WixCustomDialog/src/Product.wxs">Product.wxs</a>
+    │   <a href="./WixCustomDialog/src/WixUI_Mondo.wxs">WixUI_Mondo.wxs</a>
+    │   <a href="./WixCustomDialog/src/WixUI_MyMondo.wxs">WixUI_MyMondo.wxs</a>
+    └───<a href="./WixCustomDialog/src/resources/"><b>resources</b></a>
+            <a href="./WixCustomDialog/src/resources/Banner.bmp">Banner.bmp</a>
+            <a href="./WixCustomDialog/src/resources/Image.bmp">Image.bmp</a>
+</pre>
+
+Command `build -verbose link` generates file `WiXCustomDialog-1.0.0`:
+
+<pre style="font-size:80%;">
+<b> &gt; <a href="./WixCustomDialog/build.bat">build</a> -verbose clean link</b>
+Compiling 3 WiX source files to directory "target"
+Create Windows installer "target\WiXCustomDialog-1.0.0.msi"
+Sign file "target\WiXCustomDialog-1.0.0.msi"
+Done Adding Additional Store
+Successfully signed: Y:\examples\WiXCustomDialog\target\WiXCustomDialog-1.0.0.msi
+</pre>
+
+
+<table>
+<tr>
+<td style="text-align:center;">
+  <div>
+  <a href="images/WiXCustomDialog_Welcome.png"><img style="max-width:180px;" src="images/WiXCustomDialog_Welcome.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>WiXCustomDialog</i> installer).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/WiXCustomDialog_EULA.png"><img style="max-width:180px;" src="images/WiXCustomDialog_EULA.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br/><i>(WiXCustomDialog</i> installer).
+  </div>
+</td>
+<td style="text-align:center;">
+  <div>
+  <a href="images/WiXCustomDialog_DialogTitle.png"><img style="max-width:180px;" src="images/WiXCustomDialog_DialogTitle.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.3 -</b> Dialog Title<br/>(<i>WiXCustomDialog</i> installer).<br/>&nbsp;
+  </div>
+  <div>
+  <a href="images/WiXCustomDialog_SetupType.png"><img style="max-width:180px;" src="images/WiXCustomDialog_SetupType.png" /></a>
+  <div style="font-size:70%;"><b>Figure 3.4 -</b> Choose Setup Type<br/><i>(WiXCustomDialog</i> installer).
+  </div>
+</td>
+</tr>
+</table>
+
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***File Checksums*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Missing application*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
+Since the original application (resp. its source files) is not available we must be satisfied with a "<a href="https://en.wikipedia.org/wiki/Double_(filmmaking)"><i>body double</i></a>" instead of the orginal one; concretely we simply copy (and rename) the <a href="https://en.wikipedia.org/wiki/Windows_Calculator">Windows Calculator</a> (aka. <code>%WINDIR%\system32\calc.exe</code>) during the build process.
 </p>
--->
 
 ***
 
