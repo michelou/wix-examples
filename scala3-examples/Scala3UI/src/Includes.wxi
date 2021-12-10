@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <?define CompanyName="EPFL" ?>  <!-- UKCU registry key -->
+  <?define CompanyName="EPFL" ?>  <!-- HKCU registry key -->
 
   <!--
   e.g. de-DE=1031, en-US=1033, fr-Fr=1036, it-IT=1040.
   See https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
   -->
   <?define ProductLanguage="1033" ?>
-  <?define ProductManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define ProductManufacturer="EPFL and Lightbend, Inc." ?>
   <?define ProductName="Scala" ?>
   <?define ProductDirectoryName="Scala 3" ?>
 
   <?define PackageComments="The Scala Programming Language" ?>
   <?define PackageDescription="Scala 3 Installer" ?>
-  <?define PackageKeywords="Scala, Compiler, Java, JVM, EPFL" ?>
+  <?define PackageKeywords="Scala, programming language, compiler, Java, JVM, EPFL" ?>
   <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
-  <?define PackageManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define PackageManufacturer="EPFL and Lightbend, Inc." ?>
 
   <?define ShortcutScalaAPIDescription="Displays the Scala 3 API Documentation" ?>
   <?define ShortcutScalaAPIName="API Documentation" ?>
@@ -29,6 +29,6 @@
   <?define ShortcutUninstallProductDescription="Removes the Scala 3 installation" ?>
   <?define ShortcutUninstallProductName="Uninstall Scala 3" ?>
 
-  <?define FeatureAppComponentsDescription="Scala 3 application, shortcuts and environment settings" ?>
+  <?define FeatureAppComponentsDescription="Installs the Scala 3 components, add shortcuts and update the environment" ?>
   <?define FeatureAppComponentsTitle="Scala 3 Components" ?>
 </Include>

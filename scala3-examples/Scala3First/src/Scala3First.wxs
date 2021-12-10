@@ -2,12 +2,12 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Id='$(var.ProductId)'
       UpgradeCode='$(var.ProductUpgradeCode)' Name='Scala 3'
-      Version='$(var.ProductMsiVersion)' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+      Version='$(var.ProductMsiVersion)' Manufacturer='EPFL and Lightbend, Inc.'
       Language='1033' Codepage='1252'>
 
     <Package Id='*'
-        Description='Scala 3 Installer' Keywords='Scala, Compiler, JVM'
-        Comments='The Scala Programming Language' Manufacturer='EPFL/LAMP and Lightbend, Inc.'
+        Description='Scala 3 Installer' Keywords='Scala, programming language, compiler, Java, JVM, EPFL'
+        Comments='The Scala Programming Language' Manufacturer='EPFL and Lightbend, Inc.'
         InstallerVersion='200' InstallScope="perMachine"
         Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 

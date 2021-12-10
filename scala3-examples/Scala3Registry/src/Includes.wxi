@@ -7,7 +7,7 @@
   See https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
   -->
   <?define ProductLanguage="1033" ?>
-  <?define ProductManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define ProductManufacturer="EPFL and Lightbend, Inc." ?>
   <?define ProductName="Scala" ?>
   <?define ProductDirectoryName="Scala 3" ?>
 
@@ -15,7 +15,7 @@
   <?define PackageDescription="Scala 3 Installer" ?>
   <?define PackageKeywords="Scala, programming language, compiler, Java, JVM, EPFL" ?>
   <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
-  <?define PackageManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define PackageManufacturer="EPFL and Lightbend, Inc." ?>
 
   <?define ShortcutScalaAPIDescription="Displays the Scala 3 API Documentation" ?>
   <?define ShortcutScalaAPIName="API Documentation" ?>
