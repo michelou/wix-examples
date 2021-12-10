@@ -15,7 +15,7 @@ The dialog strings must be localized. [WiX][wix_toolset] comes with 40 sets of l
 ## <span id="custom">WiX custom variables</span>
 
 The [WiX Toolset][wix_toolset] engine supports 3 types of [custom variables](https://wixtoolset.org/documentation/manual/v3/overview/preprocessor.html) : 
-- *Environment variables* : The syntax is `$(var.<var_name>)` (`<var_name>` is case-insensitive). For example, we write `$(env.APPDATA)` to retrieve the environment variable [`%APPDATA%`][windows_appdata].
+- *Environment variables* : The syntax is `$(env.<var_name>)` where `<var_name>` is case-insensitive. For example, we write `$(env.APPDATA)` to retrieve the environment variable [`%APPDATA%`][windows_appdata].
 - *System variables* : The syntax is `$(sys.<var_name>)`.<br/>**`CURRENTDIR`** - The current directory where the build process is running.<br/>**`SOURCEFILEPATH`** - the full path to the file being processed.<br/>**`SOURCEFILEDIR`** - the directory containing the file being processed.<br/>**`BUILDARCH`** - the platform this package is compiled for (Intel, x64, Intel64, ARM).
 - *User-defined variables* : The user has two ways to defined them, either at the top of a WiX source file as `<?define MyVariable="Hello World" ?>` or from the command line using option `-d`, e.g. `candle -dMyVariable="Hello World" ...`.
 
@@ -23,7 +23,7 @@ The [WiX Toolset][wix_toolset] engine supports 3 types of [custom variables](htt
 
 The [WiX Toolset][wix_toolset] engine provides many [built-in variables](https://wixtoolset.org/documentation/manual/v3/bundle/bundle_built_in_variables.html) to be used in [WiX][wix_toolset] source files. In particular, some of them are needed to target the runtime architecture (e.g. x86, x64, ia64) of the generated Windows installer.
 
-For instance, the variables below are defined as follows for a 64-bit Windows operating system <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> ([CSIDL]=*"constant special item ID list"*) :
+For instance, the variables below are defined as follows for a 64-bit Windows operating system <sup id="anchor_01"><a href="#footnote_01">1</a></sup> ([CSIDL]=*"constant special item ID list"*) :
 
 | WiX variable         | [CSIDL]                         | Path |
 |:---------------------|:--------------------------------|:-----|
@@ -56,7 +56,7 @@ Copyright (c) .NET Foundation and contributors. All rights reserved.
 On the Windows prompt we call the command <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic</code></b></a> to display information about the installed Windows operating system :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic">wmic</a> os get Caption, Version, BuildNumber, OSArchitecture</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic">wmic</a> os get BuildNumber, Caption, OSArchitecture, Version</b>
 BuildNumber  Caption                   OSArchitecture  Version
 19042        Microsoft Windows 10 Pro  64-bit          10.0.19042
 </pre>
