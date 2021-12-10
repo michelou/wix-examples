@@ -36,8 +36,8 @@ C:\Windows\System32\msiexec.exe
 
 The following table shows a brief comparison of some Windows installers available for open-source (or free) software products <sup id="anchor_02"><a href="#footnote_02">2</a></sup> :
 
-| MSI file     | Signed | Name | Destination folder <sup>(a)</sup> |
-|:-------------|:------:|:------:|:-------------------|
+| MSI file     | Signed | Name   | Destination folder <sup>(a)</sup> |
+|:-------------|:------:|:------:|:----------------------------------|
 | [`amazon-corretto-11.0.13.8.1-windows-x64.msi`](https://github.com/corretto/corretto-11/releases) | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | Amazon.com Services LLC |  `C:\Program Files\Amazon Corretto\` |
 | [`cmake-3.22.0-windows-x86_64.msi`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
 | [`cppcheck-2.6-x64-Setup.msi`](https://github.com/danmar/cppcheck/releases) | <span style="color:red;">No</span> | n.a. | ? |
@@ -47,6 +47,7 @@ The following table shows a brief comparison of some Windows installers availabl
 | [`OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi`](http) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | Eclipse.org Foundation, Inc. | ? |
 | [`OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi`](http) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | Eclipse.org Foundation, Inc. | ? |
 | [`pandoc-2.16.2-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
+| [`sbt-1.5.6.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.6) | <span style="color:red;">No</span> | n.a. | `C:\Program Files(x86)\sbt` |
 | [`TortoiseGit-2.12.0.0-64bit.msi`](https://tortoisegit.org/download/) | <span style="color:green;">Yes</span> **<sup>(e)</sup>** | Open Source Developer | `C:\Program Files\TortoiseGit\` |
 <div style="font-size:70%;"><b><sup>(a)</sup></b> Default location.</div>
 <div style="font-size:70%;"><b><sup>(b)</sup></b> Signer: Digicert Timestamp 2021.</div>
@@ -59,7 +60,7 @@ The following table shows a brief comparison of some Windows installers availabl
 <span id="footnote_01">[1]</span> **`Administrative Installation`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-With option <code>/a</code> the Windows command <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec"><code>msiexec</code></a> performs a so-called <a href="https://stackoverflow.com/questions/5564619/what-is-the-purpose-of-administrative-installation-initiated-using-msiexec-a">administrative installation</a>. In the following we give three examples to illustrate its usage.
+With option <code>/a</code> the Windows command <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec"><code>msiexec</code></a> performs a so-called <a href="https://stackoverflow.com/questions/5564619/what-is-the-purpose-of-administrative-installation-initiated-using-msiexec-a">administrative installation</a>. In the following we give 4 examples to illustrate its usage.
 </p>
 
 <p style="margin:0 0 1em 20px;">
@@ -79,9 +80,7 @@ We first extract the contents of <a href="https://scala-lang.org/files/archive/"
         └───<b>lib</b>
 </pre>
 
-<p style="margin:0 0 1em 20px;">
-<b>&#9755;</b> We observe that 3 files/directories are <i>missing</i> compared to the corresponding Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.zip</code></a>, namely the two text files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory <code>man\</code>.  
-</p>
+> **:mag_right:** We observe that 3 files/directories are <i>missing</i> compared to the corresponding Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.zip</code></a>, namely the two text files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory `man\`.
 
 <p style="margin:0 0 1em 20px;">
 Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
@@ -126,6 +125,8 @@ As next example we look at the contents of the sbt Windows installer named <a hr
                 sbtconfig.txt
                 sbtopts
 </pre>
+
+> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.6.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.6) but not in MSi file [`sbt-1.5.6.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.6).
 
 <p style="margin:0 0 1em 20px;">
 Finally we extract the contents of the Java 11 Windows installer named <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> :
