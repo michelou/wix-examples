@@ -9,8 +9,8 @@
 #### What if a Scala 3 installation is already present ?
 The Windows installer behaves in *3 different ways* when it detects a [Scala 3](https://dotty.epfl.ch) installation on the user machine :
 - if the version to be installed is ***newer than*** the version found on the machine then the Windows installer removes the old version and installs the new one.
-- if the version to be installed is ***older than*** the version found on the machine then the Windows installer does exit.
-- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a change, repair or remove operation.
+- if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](../../scala3-examples/images/Scala3Features_LaterAlreadyInstalled).
+- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a [change, repair or remove operation](../../scala3-examples/images/Scala3Features_ChangeOrRepair.png).
 
 #### The execution of the Scala 3 Windows installer
 - triggers an elevation of privileges (tested many times but "*usage at your own risk*" disclaimer).
@@ -20,7 +20,5 @@ The Windows installer behaves in *3 different ways* when it detects a [Scala 3](
 - adds variable `SCALA3_HOME` to the Windows *system environment* (tested on Win10 Pro/Home).
 - appends path `%SCALA3_HOME%\bin\` to the system variable `PATH`.
 
-***Work in progress*** Some parts need further development : 
-- ~~more work with the feature tree in the "Custom Setup" dialog window~~
-- ~~handling of upgrade installations (downgrading is not considered)~~
-- [Scala 3 API](https://scala-lang.org/api/3.x/) documentation is currently not part of the installer (unlike the official [Scala 2 Windows installer](https://scala-lang.org/files/archive/))
+***Not yet implemented***
+- [Scala 3 API](https://scala-lang.org/api/3.x/) documentation is currently not part of the installer (unlike the official [Scala 2 Windows installer](https://scala-lang.org/files/archive/)).

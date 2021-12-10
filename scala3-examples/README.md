@@ -19,8 +19,8 @@ The [WiX][wix_toolset] examples presented in the following sections
 
 The [Scala 3][scala3] Windows installer behaves in *3 different ways* when it detects a [Scala 3][scala3] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
 - if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on (it removes the old version and install the new one).
-- if the version to be installed is ***older than*** the version found on the machine then the Windows installer does exit.
-- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a change, repair or remove operation.
+- if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](./Scala3Features_LaterAlreadyInstalled.png).
+- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a [change, repair or remove operation](./Scala3Features_ChangeOrRepair.png).
 
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 3][scala3] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
@@ -118,8 +118,8 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 ## <span id="scala3_ui">Scala3UI</span>
 
 Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer. Concretely, we can define two images to customize the dialog windows of the Windows installer, ie. :
-- image `Dialog.bmp` appears in the *Welcome* and *Completed* dialog windows.
-- image `BannerTop.bmp` appears at the top of the other dialog windows.
+- image [`Dialog.bmp`](./Scala3UI/src/resources/Dialog.bmp) appears in the *Welcome* and *Completed* dialog windows.
+- image [`BannerTop.bmp`](./Scala3UI/src/resources/BannerTop.bmp) appears at the top of the other dialog windows.
 
 
 The project directory is organized as follows :
@@ -302,16 +302,16 @@ Create Windows installer "target\scala3-3.1.0.msi"
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> **`Fragments.wxs`** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> **`Fragments.wxs`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 When we run the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code> in the above projects, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
 </p>
 
-<b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
+<sapn id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Unlike the first project <code>Scala3First</code> the following projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> generate a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer which will <i>update</i> the system environment as follows :
+The Scala 3 Windows installer generated in projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> (but <b><i>not</i></b> <code>Scala3First</code>) will <i>update</i> the system environment as follows :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
@@ -322,8 +322,7 @@ C:\Program Files\Scala 3\bin\scala
 C:\Program Files\Scala 3\bin\scala.bat
 </pre>
 
-
-<b name="footnote_03">[3]</b> ***Default Java Location*** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> ***Default Java Location*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
@@ -378,7 +377,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 </tr>
 </table>
 
-<b name="footnote_04">[4]</b> ***Batch file* `build.bat`** [↩](#anchor_04)
+<span id="footnote_04">[4]</span> ***Batch file* `build.bat`** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 Command <a href="./Scala3First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :

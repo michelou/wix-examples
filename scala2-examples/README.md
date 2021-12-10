@@ -18,9 +18,9 @@ The [WiX][wix_toolset] examples presented in the following sections
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 The [Scala 2][scala2] Windows installer behaves in *3 different ways* when it detects a [Scala 2][scala2] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
-- if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on (it removes the old version and install the new one).
-- if the version to be installed is ***older than*** the version found on the machine then the Windows installer does exit.
-- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a change, repair or remove operation.
+- if the version to be installed is ***newer than*** the version found on the machine then the Windows installer removes the old version and install the new one.
+- if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](./images/Scala2Features_LaterAlreadyInstalled.png).
+- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a [change, repair or remove operation](./images/Scala2Features_ChangeOrRepair.png).
 
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 2][scala2] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
@@ -142,8 +142,8 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 ## <span id="scala2_ui">Scala2UI</span>
 
 Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 2][scala2] Windows installer. Concretely, we can define two images to customize the dialog windows of the Windows installer, ie. :
-- image `Dialog.bmp` appears in the *Welcome* and *Completed* dialog windows.
-- image `BannerTop.bmp` appears at the top of the other dialog windows.
+- image [`Dialog.bmp`](./Scala2UI/src/resources/Dialog.bmp) appears in the *Welcome* and *Completed* dialog windows.
+- image [`BannerTop.bmp`](./Scala2UI/src/resources/BannerTop.bmp) appears at the top of the other dialog windows.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -154,20 +154,20 @@ Y:\scala-examples\Scala2UI
 │   <a href="./Scala2UI/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
-└───<b>src</b>
+└───<a href="./Scala2UI/src/"><b>src</b></a>
     │   <a href="./Scala2UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2UI/src/Scala2UI.wxs">Scala2UI.wxs</a>
-    └───<b>resources</b>
+    └───<a href="./Scala2UI/src/resources/"><b>resources</b></a>
             <a href="./Scala2UI/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala2UI/src/resources/Dialog.bmp">Dialog.bmp</a>
-            favicon.ico
+            <a href="./Scala2UI/src/resources/favicon.ico">favicon.ico</a>
             <a href="./Scala2UI/src/resources/Fragments.xslt">Fragments.xslt</a>
-            License.rtf
+            <a href="./Scala2UI/src/resources/License.rtf">License.rtf</a>
             <a href="./Scala2UI/src/resources/logo.svg">logo.svg</a>
-            LICENSE.rtf
-            network.ico
+            <a href="./Scala2UI/src/resources/LICENSE.rtf">LICENSE.rtf</a>
+            <a href="./Scala2UI/src/resources/network.ico">network.ico</a>
             <a href="./Scala2UI/src/resources/repl.bat">repl.bat</a>
-            rtf.ico
+            <a href="./Scala2UI/src/resources/rtf.ico">rtf.ico</a>
 </pre>
 
 Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
@@ -217,36 +217,36 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
   <a href="images/Scala2UI_Setup1.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup1.png" alt="Welcome" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br>(<i>Scala 2</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 3.1 -</b> Welcome<br/>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
   <a href="images/Scala2UI_Setup2.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup2.png" alt="License" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br>(<i>Scala 2</i> installer).
+  <div style="font-size:70%;"><b>Figure 3.2 -</b> EULA<br/>(<i>Scala 2</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <a href="images/Scala2UI_Setup3.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup3.png" alt="Custom Setup" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination folder<br>(<i>Scala 2</i> installer).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 3.3 -</b> Destination folder<br/>(<i>Scala 2</i> installer).<br/>&nbsp;
   </div>
   <a href="images/Scala2UI_Setup4.png">
   <img style="max-width:180px;" src="images/Scala2UI_Setup4.png" alt="Completed" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.4 -</b> Completed Installation<br>(<i>Scala 2</i> installer).
+  <div style="font-size:70%;"><b>Figure 3.4 -</b> Completed Installation<br/>(<i>Scala 2</i> installer).
   </div>
 </td>
 <td style="text-align:center;">
   <a href="images/Scala2UI_ProgFiles.png">
   <img style="max-width:180px;" src="images/Scala2UI_ProgFiles.png" alt="Scala 2 directory" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>Scala 2</i> directory<br>(<i>Program Files</i> folder).<br/>&nbsp;
+  <div style="font-size:70%;"><b>Figure 3.5 -</b> <i>Scala 2</i> directory<br/>(<i>Program Files</i> folder).<br/>&nbsp;
   </div>
   <a href="images/Scala2UI_StartMenu.png">
   <img style="max-width:180px;" src="images/Scala2UI_StartMenu.png" alt="Scala 2 directory" />
   </a>
-  <div style="font-size:70%;"><b>Figure 3.6 -</b> <i>Scala 2</i> directory<br>(<i>Start Menu</i> folder).
+  <div style="font-size:70%;"><b>Figure 3.6 -</b> <i>Scala 2</i> directory<br/>(<i>Start Menu</i> folder).
   </div>
 </td>
 </tr>
@@ -266,24 +266,24 @@ Y:\scala2-examples\Scala2Localized
 │   <a href="./Scala2Localized/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
-└───<b>src</b>
+└───<a href="./Scala2Localized/src/"><b>src</b></a>
     │   <a href="./Scala2Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2Localized/src/Scala2Localized.wxs">Scala2Localized.wxs</a>
-    ├───<b>localizations</b>
+    ├───<a href="./Scala2Localized/src/localizations/"><b>localizations</b></a>
     │       <a href="./Scala2Localized/src/localizations/de-DE.wxl">de-DE.wxl</a>
     │       <a href="./Scala2Localized/src/localizations/en-US.wxl">en-US.wxl</a>
     │       <a href="./Scala2Localized/src/localizations/fr-FR.wxl">fr-Fr.wxl</a>
     │       <a href="./Scala2Localized/src/localizations/sv-SE.wxl">sv-SE.wxl</a>
-    └───<b>resources</b>
+    └───<a href="./Scala2Localized/src/resources/"><b>resources</b></a>
             <a href="./Scala2Localized/src/resources/BannerTop.bmp">BannerTop.bmp</a>
             <a href="./Scala2Localized/src/resources/Dialog.bmp">Dialog.bmp</a>
-            favicon.ico
+            <a href="./Scala2Localized/src/resources/favicon.ico">favicon.ico</a>
             <a href="./Scala2Localized/src/resources/Fragments.xslt">Fragments.xslt</a>
-            LICENSE.rtf
+            <a href="./Scala2Localized/src/resources/LICENSE.rtf">LICENSE.rtf</a>
             <a href="./Scala2Localized/src/resources/logo.svg">logo.svg</a>
-            network.ico
+            <a href="./Scala2Localized/src/resources/network.ico">network.ico</a>
             <a href="./Scala2Localized/src/resources/repl.bat">repl.bat</a>
-            rtf.ico
+            <a href="./Scala2Localized/src/resources/rtf.ico">rtf.ico</a>
 </pre>
 
 Command [`build link`](./Scala2Localized/build.bat) generates a separate MSI file for each language localization, e.g. `scala-2.13.7-sv-SE.msi` is the swedish version of the [Scala 2][scala2] Windows installer.
@@ -406,7 +406,7 @@ In the above projects we not just call the <a href="https://wixtoolset.org/docum
 <span id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Unlike the first project <code>Scala2First</code> the following projects <code>Scala2Sbt</code>, <code>Scala2UI</code>,  <code>Scala2Localized</code> and <code>Scala2Features</code> generate a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer which will <i>update</i> the system environment as follows :
+The Scala 2 Windows installer generated in projects <code>Scala2Sbt</code>, <code>Scala2UI</code>,  <code>Scala2Localized</code> and <code>Scala2Features</code> (but <b><i>not</i></b> <code>Scala2First</code>) will <i>update</i> the system environment as follows :
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
