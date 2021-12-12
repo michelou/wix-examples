@@ -25,24 +25,24 @@ Checksums are used to verify the integrity of files downloaded from an external 
 > **:mag_right:** Concretely each PowerShell script downloads a `.msi` file and its `.md5` (resp. `.sha256`) companion file and checks that the computed checksum is identical with the downloaded checksum.
 
 <pre style="margin:0 4em 0 0;font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1" rel="external">powershell</a> -nologo -f bin\<a href="bin/checksum-scala.ps1">checksum-scala.ps1</a></b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1" rel="external">powershell</a> -nologo -f bin\<a href="bin/scala-checksum.ps1">scala-checksum.ps1</a></b>
 Computed: 61A6E578022546ADF0B76A8C09BCD784  scala-2.13.7.msi
 MD5 file: 61A6E578022546ADF0B76A8C09BCD784  scala-2.13.7.msi
 The two checksums are equal
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -nologo -f bin\<a href="bin/checksum-scala3.ps1">checksum-scala3.ps1</a></b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -nologo -f bin\<a href="bin/scala3-checksum.ps1">scala3-checksum.ps1</a></b>
 Computed: F484CD8D12DDA43C88467CDB68FC18C9  scala3-3.1.0.msi
 MD5 file: F484CD8D12DDA43C88467CDB68FC18C9  scala3-3.1.0.msi
 The two checksums are equal
 </pre>
 
-The above PowerShell cmdlets accept several options; for instance for [`checksum-scala3.ps1`](bin/checksum-scala3.ps1) :
+The above PowerShell cmdlets accept several options; for instance for [`scala3-checksum.ps1`](bin/scala3-checksum.ps1) :
 - `-version <value>` where `<value>` equals `3.1.0` (*default*) or `3.0.2`.
 - `-algorithm <name>` where `<name>` equals `md5` (*default*) or `sha256`
 - `-verbose`(displays download command)
 
 <pre style="margin:0 4em 0 0;font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -nologo -f bin\<a href="bin/checksum-scala3.ps1">checksum-scala3.ps1</a> -algorithm sha256</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -nologo -f bin\<a href="bin/scala3-checksum.ps1">scala3-checksum.ps1</a> -algorithm sha256</b>
 Computed: 484DAD60174CB44D496F8447399577EB5680F599923E3CED9E8D8D89D9254329  scala3-3.1.0.msi
 SHA256 file: 484DAD60174CB44D496F8447399577EB5680F599923E3CED9E8D8D89D9254329  scala3-3.1.0.msi
 The two checksums are equal

@@ -1,7 +1,7 @@
 ### Release notes &ndash; `scala3-3.0.2.msi`
 
 #### General informations
-- `scala3-3.0.2.msi` (32 MB) is a [*self-signed*](https://en.wikipedia.org/wiki/Self-signed_certificate) Windows installer built from [`scala3-3.0.2.zip`](https://github.com/lampepfl/dotty/releases/tag/3.0.2) (31 MB).
+- `scala3-3.0.2.msi` (42 MB) is a [*self-signed*](https://en.wikipedia.org/wiki/Self-signed_certificate) Windows installer built from [`scala3-3.0.2.zip`](https://github.com/lampepfl/dotty/releases/tag/3.0.2) (31 MB) **and** including the Scala 3 API documentation (10 MB).
 - The [installation context](https://docs.microsoft.com/en-us/windows/win32/msi/installation-context) is *per-machine*, **not** *per-user*.
 - The installation targets 64-bit Windows systems (MS Windows 7 or newer).
 - The project description is available on page [`README.md`](../../scala3-examples/README.md) (GitHub project [`michelou/wix-examples`](https://github.com/michelou/wix-examples)).
@@ -12,13 +12,14 @@ The Windows installer behaves in *3 different ways* when it detects a [Scala 3](
 - if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](../../scala3-examples/images/Scala3Features_LaterAlreadyInstalled).
 - if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a [change, repair or remove operation](../../scala3-examples/images/Scala3Features_ChangeOrRepair.png).
 
-#### The execution of the Scala 3 Windows installer
-- triggers an elevation of privileges (tested many times but "*usage at your own risk*" disclaimer).
-- installs the application files to the selected destination folder (default location is : `C:\Program Files\Scala 3\`).
-- adds the small wrapper script [`bin\repl.bat`](../../scala3-examples/Scala3First/src/resources/repl.bat) which gives direct access to the [Scala 3 REPL](../../scala3-examples/images/Scala3First_REPL.png).
-- creates shortcuts under the Start Menu folder "[Scala 3](../../scala3-examples/images/Scala3First_Menu.png)".
-- adds variable `SCALA3_HOME` to the Windows *system environment* (tested on Win10 Pro/Home).
-- appends path `%SCALA3_HOME%\bin\` to the system variable `PATH`.
-
+#### Running the Scala 3 Windows installer does...
+- trigger an elevation of privileges (tested many times but "*usage at your own risk*" disclaimer).
+- install the application files to the selected destination folder (default location is : `C:\Program Files\Scala 3\`).
+- add the small wrapper script [`bin\repl.bat`](../../scala3-examples/Scala3First/src/resources/repl.bat) which gives direct access to the [Scala 3 REPL](../../scala3-examples/images/Scala3First_REPL.png).
+- create shortcuts under the Start Menu folder "[Scala 3](../../scala3-examples/images/Scala3First_Menu.png)".
+- add variable `SCALA3_HOME` to the Windows *system environment* (tested on Win10 Pro/Home).
+- append path `%SCALA3_HOME%\bin\` to the system variable `PATH`.
+<!--
 ***Not yet implemented***
 - [Scala 3 API](https://scala-lang.org/api/3.x/) documentation is currently not part of the installer (unlike the official [Scala 2 Windows installer](https://scala-lang.org/files/archive/)).
+-->

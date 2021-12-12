@@ -8,6 +8,7 @@ app*.txt
 guids*.txt
 *.exe
 *.key
+*.msi
 *.pem
 *.pfx
 *.properties

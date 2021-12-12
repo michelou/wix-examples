@@ -22,9 +22,12 @@ if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
+set _GIT_PATH=
+set _SBT_PATH=
+set _WIX_PATH=
 
 call :winsdk
-@rem optional
+@rem optional (required in myexamples\myApp*)
 @rem if not %_EXITCODE%==0 goto end
 
 call :wix3
@@ -33,7 +36,14 @@ if not %_EXITCODE%==0 goto end
 call :git
 if not %_EXITCODE%==0 goto end
 
+@rem required by sbt
+call :java "openjdk" 11
+if not %_EXITCODE%==0 goto end
+
 call :magick
+if not %_EXITCODE%==0 goto end
+
+call :sbt
 if not %_EXITCODE%==0 goto end
 
 goto end
@@ -274,6 +284,103 @@ if not exist "%_MAGICK_HOME%\magick.exe" (
 )
 goto :eof
 
+@rem input parameter: %1=vendor %1^=required version
+@rem output parameter: _JAVA_HOME (resp. JAVA11_HOME)
+:java
+set _JAVA_HOME=
+
+set __VENDOR=%~1
+set __VERSION=%~2
+if not defined __VENDOR ( set __JDK_NAME=jdk-%__VERSION%
+) else ( set __JDK_NAME=jdk-%__VENDOR%-%__VERSION%
+)
+set __JAVAC_CMD=
+for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
+if defined __JAVAC_CMD (
+    call :jdk_version "%__JAVAC_CMD%"
+    if !_JDK_VERSION!==%__VERSION% (
+        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
+        for %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
+    ) else (
+        echo %_ERROR_LABEL% Required JDK installation not found ^(%__JDK_NAME%^) 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+if defined JAVA_HOME (
+    set "_JAVA_HOME=%JAVA_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JAVA_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+    if not defined _JAVA_HOME (
+        set "_PATH=%ProgramFiles%\Java"
+        for /f %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+    )
+    if defined _JAVA_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JAVA_HOME! 1>&2
+    )
+)
+if not exist "%_JAVA_HOME%\bin\javac.exe" (
+    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JAVA_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+call :jdk_version "%_JAVA_HOME%\bin\javac.exe"
+set "_JAVA!_JDK_VERSION!_HOME=%_JAVA_HOME%"
+goto :eof
+
+@rem input parameter(s): %1=javac file path
+@rem output parameter(s): _JDK_VERSION
+:jdk_version
+set "__JAVAC_CMD=%~1"
+if not exist "%__JAVAC_CMD%" (
+    echo %_ERROR_LABEL% Command javac.exe not found ^("%__JAVAC_CMD%"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set __JAVAC_VERSION=
+for /f "usebackq tokens=1,*" %%i in (`"%__JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
+set "__PREFIX=%__JAVAC_VERSION:~0,2%"
+@rem either 1.7, 1.8 or 11..18
+if "%__PREFIX%"=="1." ( set _JDK_VERSION=%__JAVAC_VERSION:~2,1%
+) else ( set _JDK_VERSION=%__PREFIX%
+)
+goto :eof
+
+@rem output parameters: _SBT_HOME, _SBT_PATH
+:sbt
+set _SBT_HOME=
+set _SBT_PATH=
+
+set __SBT_CMD=
+for /f %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
+if defined __SBT_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of sbt executable found in PATH 1>&2
+    @rem keep _SBT_PATH undefined since executable already in path
+    goto :eof
+) else if defined SBT_HOME (
+    set "_SBT_HOME=%SBT_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SBT_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\sbt\" ( set "_SBT_HOME=!__PATH!\sbt"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
+        if not defined _SBT_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
+        )
+    )
+)
+if not exist "%_SBT_HOME%\bin\sbt.bat" (
+    echo %_ERROR_LABEL% sbt executable not found ^(%_SBT_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_SBT_PATH=;%_SBT_HOME%\bin"
+goto :eof
+
 @rem output parameters: _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
@@ -329,7 +436,7 @@ where /q "%__WINSDK_BIN_DIR%:msiinfo.exe"
 if %ERRORLEVEL%==0 (
     @rem (!) printing the msiinfo version is tricky
     @rem (it requires a msi file as argument, using option '/?' fails)
-    for /f "delims=" %%f in ('dir /b /s "%WINDIR%\installer\a*.msi"') do (
+    for /f "delims=" %%f in ('dir /b /s "%WINDIR%\installer\*.msi"') do (
         for /f "tokens=1,2,*" %%i in ('call "%__WINSDK_BIN_DIR%\msiinfo.exe" "%%f"^|findstr MsiInfo') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% msiinfo %%k,"
         goto end_for
     )
@@ -338,8 +445,13 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%__WINSDK_BIN_DIR%:uuidgen.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,4,*" %%i in ('"%__WINSDK_BIN_DIR%\uuidgen.exe" -v^|findstr UUID') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% uuidgen %%l"
+    for /f "tokens=1-3,4,*" %%i in ('"%__WINSDK_BIN_DIR%\uuidgen.exe" -v^|findstr UUID') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% uuidgen %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__WINSDK_BIN_DIR%:uuidgen.exe"
+)
+where /q "%SBT_HOME%\bin:sbt.bat"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,*" %%i in ('"%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
 )
 where /q "%MAGICK_HOME%:magick.exe"
 if %ERRORLEVEL%==0 (
@@ -365,7 +477,9 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
+    if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined MAGICK_HOME echo    "MAGICK_HOME=%MAGICK_HOME%" 1>&2
+    if defined SBT_HOME echo    "SBT_HOME=%SBT_HOME%" 1>&2
     if defined WINSDK_HOME echo    "WINSDK_HOME=%WINSDK_HOME%" 1>&2
     if defined WIX echo    "WIX=%WIX%" 1>&2
 )
@@ -378,10 +492,12 @@ goto :eof
 endlocal & (
     if %_EXITCODE%==0 (
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
+        if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
         if not defined MAGICK_HOME set "MAGICK_HOME=%_MAGICK_HOME%"
+        if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
         if not defined WIX set "WIX=%_WIX_HOME%"
-        set "PATH=%PATH%%_WINSDK_PATH%%WIX_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%PATH%%_SBT_PATH%%_WINSDK_PATH%%WIX_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

@@ -7,33 +7,39 @@
   See https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
   -->
   <?define ProductLanguage="1033" ?>
-  <?define ProductManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define ProductManufacturer="EPFL and Lightbend, Inc." ?>
   <?define ProductName="Scala" ?>
   <?define ProductDirectoryName="Scala 2" ?>
 
   <?define PackageComments="The Scala Programming Language" ?>
   <?define PackageDescription="Scala 2 Installer" ?>
-  <?define PackageKeywords="Scala, Compiler, Java, JVM, EPFL" ?>
+  <?define PackageKeywords="Scala, programming language, compiler, Java, JVM, EPFL" ?>
   <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
-  <?define PackageManufacturer="EPFL/LAMP and Lightbend, Inc." ?>
+  <?define PackageManufacturer="EPFL and Lightbend, Inc." ?>
 
-  <?define ShortcutScalaAPIDescription="Displays the Scala 2 API documentation" ?>
-  <?define ShortcutScalaAPIName="API Documentation" ?>
+  <?define ShortcutCompilerAPIDescription="Display the Scala 2 Compiler documentation" ?>
+  <?define ShortcutCompilerAPIName="Scala Compiler" ?>
 
-  <?define ShortcutScalaLicenseDescription="Displays the Scala 2 license" ?>
+  <?define ShortcutLibraryAPIDescription="Display the Scala 2 Standard Library documentation" ?>
+  <?define ShortcutLibraryAPIName="Scala Standard Library" ?>
+
+  <?define ShortcutReflectAPIDescription="Display the Scala 2 Reflect Library documentation" ?>
+  <?define ShortcutReflectAPIName="Scala Reflect Library" ?>
+
+  <?define ShortcutScalaLicenseDescription="Display the Scala 2 license" ?>
   <?define ShortcutScalaLicenseName="License" ?>
 
-  <?define ShortcutScalaREPLDescription="Launches the Scala 2 REPL" ?>
+  <?define ShortcutScalaREPLDescription="Launch the Scala 2 REPL" ?>
   <?define ShortcutScalaREPLName="Scala 2 REPL" ?>
 
-  <?define ShortcutUninstallProductDescription="Removes the Scala 2 installation" ?>
+  <?define ShortcutUninstallProductDescription="Remove the Scala 2 installation" ?>
   <?define ShortcutUninstallProductName="Uninstall Scala 2" ?>
 
-  <?define FeatureAppComponentsDescription="Scala 2 application, shortcuts and environment settings" ?>
+  <?define FeatureAppComponentsDescription="Install the Scala 2 libraries and tools, add menu shortcuts and environment variables" ?>
   <?define FeatureAppComponentsTitle="Scala 2 Components" ?>
 
-  <?define FeatureAppCoreDescription="Install the application files" ?>
-  <?define FeatureAppCoreTitle="The core Scala language" ?>
+  <?define FeatureAppCoreDescription="Install the Scala 2 libraries and tools" ?>
+  <?define FeatureAppCoreTitle="Scala 2 libraries and tools" ?>
 
   <?define FeatureScalaHomeDescription="Add the environment variable SCALA_HOME" ?>
   <?define FeatureScalaHomeTitle="Add variable SCALA_HOME" ?>
@@ -41,6 +47,6 @@
   <?define FeatureUpdatePathDescription="Add the Scala binaries (scala, scalac, scaladoc, scalap) to your system path" ?>
   <?define FeatureUpdatePathTitle="Update system PATH" ?>
 
-  <?define FeatureAppDocumentationDescription="Install the Scala documentation" ?>
-  <?define FeatureAppDocumentationTitle="Documentation for the Scala library" ?>
+  <?define FeatureAppDocumentationDescription="Install the Scala 2 API documentation" ?>
+  <?define FeatureAppDocumentationTitle="Scala 2 API documentation" ?>
 </Include>

@@ -49,12 +49,6 @@
             WorkingDirectory="PersonalFolder">
           <Icon Id="ScalaREPLIcon" SourceFile="!(bindpath.rsrc)\favicon.ico" />
         </Shortcut>
-        <Shortcut Id="ScalaAPI"
-            Name="$(var.ShortcutScalaAPIName)"
-            Description="$(var.ShortcutScalaAPIDescription)"
-            Target="[APIURL]">
-          <Icon Id="APIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
-        </Shortcut>
         <Shortcut Id="ScalaLicense"
             Name="$(var.ShortcutScalaLicenseName)"
             Description="$(var.ShortcutScalaLicenseDescription)"
@@ -71,6 +65,30 @@
       </Component>
     </DirectoryRef>
 
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="DocumentationShortcuts" Guid="$(var.DocumentationShortcuts)">
+        <Shortcut Id="CompilerAPI"
+            Name="$(var.ShortcutCompilerAPIName)"
+            Description="$(var.ShortcutCompilerAPIDescription)"
+            Target="[INSTALLDIR]api\scala-compiler\index.html">
+          <Icon Id="CompilerAPIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+        </Shortcut>
+        <Shortcut Id="LibraryAPI"
+            Name="$(var.ShortcutLibraryAPIName)"
+            Description="$(var.ShortcutLibraryAPIDescription)"
+            Target="[INSTALLDIR]api\scala-library\index.html">
+          <Icon Id="LibraryAPIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+        </Shortcut>
+        <Shortcut Id="ReflectAPI"
+            Name="$(var.ShortcutReflectAPIName)"
+            Description="$(var.ShortcutReflectAPIDescription)"
+            Target="[INSTALLDIR]api\scala-reflect\index.html">
+          <Icon Id="ReflectAPIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+        </Shortcut>
+        <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="apiInstalled" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
     <DirectoryRef Id='ProgramFiles64Folder'>
       <Component Id="ApplicationScalaHome" Guid="$(var.ApplicationScalaHome)" KeyPath="yes">
         <Environment Id="SCALA_HOME"
@@ -82,11 +100,6 @@
         <Environment Id="UpdatePath"
             Action="set" Name="PATH" Value="[bin]" 
             Permanent="no" System="yes" Part="last" Separator=";" />
-      </Component>
-    </DirectoryRef>
-
-    <DirectoryRef Id='ProgramFiles64Folder'>
-      <Component Id="ApplicationDocumentation" Guid="$(var.ApplicationDoc)" KeyPath="yes">
       </Component>
     </DirectoryRef>
 
@@ -112,8 +125,10 @@
       </Feature>
       <Feature Id="AppDocumentation"
           Title="$(var.FeatureAppDocumentationTitle)" Level="1"
+          Absent="allow" TypicalDefault="install"
           Description="$(var.FeatureAppDocumentationDescription)">
-        <ComponentRef Id="ApplicationDocumentation" />
+        <ComponentGroupRef Id="APIFiles" />
+        <ComponentRef Id="DocumentationShortcuts" />
       </Feature>
     </Feature>
 

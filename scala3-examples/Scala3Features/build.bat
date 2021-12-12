@@ -63,9 +63,6 @@ set "_GEN_RESOURCES_DIR=%_GEN_DIR%\resources"
 
 set "_XSLT_FILE=%_RESOURCES_DIR%\Fragments.xslt"
 
-for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
-set _COPYRIGHT_OWNER=EPFL
-
 if not exist "%GIT_HOME%\mingw64\bin\curl.exe" (
     echo %_ERROR_LABEL% Git installation directory not found 1>&2
     set _EXITCODE=1
@@ -158,6 +155,11 @@ set _PRODUCT_SKU=scala3
 set _PRODUCT_UPGRADE_CODE=
 set _PRODUCT_VERSION=3.1.0
 
+for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
+set _COPYRIGHT_OWNER=EPFL
+
+set "_TIMESTAMP_SERVER=http://timestamp.digicert.com"
+
 set "__PROPS_FILE=%_ROOT_DIR%build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -182,10 +184,14 @@ if exist "%__PROPS_FILE%" (
     if defined __APPLICATION_SCALA_HOME set "_APPLICATION_SCALA_HOME=!__APPLICATION_SCALA_HOME!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
     if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
+    if defined __DOCUMENTATION_SHORTCUTS set "_DOCUMENTATION_SHORTCUTS=!__DOCUMENTATION_SHORTCUTS!"
+    @rem user-configurable batch variables
+    if defined __COPYRIGHT_OWNER set "_COPYRIGHT_OWNER=!__COPYRIGHT_OWNER!"
+    if defined __TIMESTAMP_SERVER set "_TIMESTAMP_SERVER=!__TIMESTAMP_SERVER!"
 )
 @rem _PRODUCT_UPGRADE_CODE is identical for ALL versions of the SAME product
 if not defined _PRODUCT_UPGRADE_CODE (
-    echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
+    echo %_ERROR_LABEL% Product upgrade code is undefined ^("!__PROPS_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -249,10 +255,11 @@ goto args_loop
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
-set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_VERSION%"
-set "_VERSION_FILE=%_APP_DIR%\VERSION"
+set "_APP_DIR=%_ROOT_DIR%app"
+set "_PRODUCT_DIR=%_APP_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%"
+set "_VERSION_FILE=%_PRODUCT_DIR%\VERSION"
 
-set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
+set "_GUIDS_FILE=%_APP_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.txt"
 @rem _GUID is an associative array with GUID pairs <name,value>
 set _GUID=
 if exist "%_GUIDS_FILE%" (
@@ -261,7 +268,7 @@ if exist "%_GUIDS_FILE%" (
     )
 )
 if not defined _GUID[PRODUCT_ID] (
-    echo %_ERROR_LABEL% Product identified is undefined 1>&2
+    echo %_ERROR_LABEL% Product identified is undefined ^("!_GUIDS_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -269,6 +276,8 @@ set "_PRODUCT_ID=%_GUID[PRODUCT_ID]%"
 
 set "_FRAGMENTS_FILE=%_GEN_DIR%\Fragments.wxs"
 set "_FRAGMENTS_CID_FILE=%_GEN_DIR%\Fragments-cid.txt"
+
+set "_API_DIR=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%\api"
 
 @rem same basename as zip file scala3-3.1.0.zip
 set "_MSI_FILE=%_TARGET_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.msi"
@@ -333,10 +342,10 @@ goto :eof
 
 @rem NB. we unset variable _PRODUCT_VERSION if download fails
 :gen_app
-if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
+if not exist "%_PRODUCT_DIR%\" mkdir "%_PRODUCT_DIR%"
 
 if not exist "%_VERSION_FILE%" (
-    @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
+    @rem we download version %__RELEASE% if product is not yet present in %_PRODUCT_DIR%
     set "__RELEASE=%_PRODUCT_VERSION%"
     set _PRODUCT_VERSION=
 
@@ -368,12 +377,12 @@ if not exist "%_VERSION_FILE%" (
         goto :eof
     )
     set "__TEMP_DIR=%TEMP%\%_PRODUCT_SKU%-!__RELEASE!"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" %_STDOUT_REDIRECT%
+    xcopy /s /y "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+        echo %_ERROR_LABEL% Failed to copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -395,7 +404,7 @@ goto :eof
 @rem we patch file bin\common.bat to support spaces in file paths (see PR#13806)
 :patch_app
 set "__RELEASE=%~1"
-set "__COMMON_BAT=%_APP_DIR%\bin\common.bat"
+set "__COMMON_BAT=%_PRODUCT_DIR%\bin\common.bat"
 if not exist "%__COMMON_BAT%" goto :eof
 
 set __PS1_SCRIPT=$contents=^(Get-Content -Raw -Encoding UTF8 '%__COMMON_BAT%'^) ` ^
@@ -415,16 +424,19 @@ goto :eof
 :gen_src
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
+call :gen_api
+if not %_EXITCODE%==0 goto :eof
+
 @rem https://wixtoolset.org/documentation/manual/v3/overview/heat.html
 set __HEAT_OPTS=-nologo -indent 2 -cg PackFiles -dr ProgramFiles64Folder
 set __HEAT_OPTS=%__HEAT_OPTS% -t "%_XSLT_FILE%"
 set __HEAT_OPTS=%__HEAT_OPTS% -var var.pack -suid -sfrag -out "%_FRAGMENTS_FILE%"
 if %_VERBOSE%==1 set __HEAT_OPTS=-v %__HEAT_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_PRODUCT_DIR%" %__HEAT_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate auxiliary file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
+call "%_HEAT_CMD%" dir "%_PRODUCT_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate auxiliary file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -579,6 +591,46 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Saved %__N% component identifiers to file "
 )
 goto :eof
 
+:gen_api
+set "__API_ZIP_FILE=%_RESOURCES_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.zip"
+if not exist "%__API_ZIP_FILE%" (
+    echo %_WARNING_LABEL% API documentation archive not found ^(%_PRODUCT_VERSION%^) 1>&2
+    goto :eof
+)
+call :action_required "%_API_DIR%\index.html" "%__API_ZIP_FILE%"
+if %_ACTION_REQUIRED%==0 goto :eof
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% 1>&2
+) else if %_VERBOSE%==1 ( echo Extract Scala 3 API documentation files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_UNZIP_CMD%" -o "%__API_ZIP_FILE%" -d "%_TARGET_DIR%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to extract Scala 3 API documentation files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if not exist "%_API_DIR%\index.html" (
+    echo %_ERROR_LABEL% Scala 3 API documentation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+call :action_required "%_GEN_DIR%\Scala3API.wxs" "%_API_DIR%\index.html"
+if %_ACTION_REQUIRED%==0 goto :eof
+
+set __HEAT_OPTS=-nologo -indent 2 -cg APIFiles -dr INSTALLDIR
+set __HEAT_OPTS=%__HEAT_OPTS% -gg -g1 sfrag -sreg -suid
+set __HEAT_OPTS=%__HEAT_OPTS% -var var.api -out "%_GEN_DIR%\Scala3API.wxs"
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_API_DIR%" %__HEAT_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate WiX source file for Scala 3 API documentation 1>&2
+)
+call "%_HEAT_CMD%" dir "%_API_DIR%" %__HEAT_OPTS%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate WiX source file for Scala 3 API documentation 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 :compile
 if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
@@ -587,7 +639,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 set __CANDLE_OPTS=-nologo
 if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
-set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_APP_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_PRODUCT_DIR%" "-dapi=%_API_DIR%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
@@ -597,6 +649,7 @@ set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationDoc=%_APPLICATION_DOC%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationScalaHome=%_APPLICATION_SCALA_HOME%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationShortcuts=%_APPLICATION_SHORTCUTS%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dApplicationUpdatePath=%_APPLICATION_UPDATE_PATH%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dDocumentationShortcuts=%_DOCUMENTATION_SHORTCUTS%"
 echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
@@ -658,10 +711,9 @@ if not exist "%__PFX_PSWD_FILE%" (
     goto :eof
 )
 set "__CERT_LABEL=%_COPYRIGHT_OWNER%"
-set "__TSTAMP_SERVER_URL=http://timestamp.digicert.com"
 
 @rem DO NOT specify PFX password in variable __SIGN_OPTS (but separately) !!
-set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%__TSTAMP_SERVER_URL%" /fd SHA256
+set __SIGN_OPTS=/f "%__FPX_CERT_FILE%" /d "%__CERT_LABEL%" /t "%_TIMESTAMP_SERVER%" /fd SHA256
 if %_DEBUG%==1 set __SIGN_OPTS=-v %__SIGN_OPTS%
 
 @rem print dummy PFX password in console !
@@ -696,7 +748,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 set __LIGHT_OPTS=-nologo
 if %_DEBUG%==1 set __LIGHT_OPTS=%__LIGHT_OPTS% -v
 set __LIGHT_OPTS=%__LIGHT_OPTS% -ext WixUIExtension
-set __LIGHT_OPTS=%__LIGHT_OPTS% -b "pack=%_APP_DIR%" -b "rsrc=%_GEN_RESOURCES_DIR%"
+set __LIGHT_OPTS=%__LIGHT_OPTS% -b "pack=%_PRODUCT_DIR%" -b "rsrc=%_GEN_RESOURCES_DIR%"
 echo %__LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=

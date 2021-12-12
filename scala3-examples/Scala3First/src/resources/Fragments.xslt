@@ -12,7 +12,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="wix:Directory[starts-with(@Id, 'app')]">
+  <xsl:template match="wix:Directory[starts-with(@Id, 'scala3')]">
     <Directory Id="INSTALLDIR" Name="Scala 3" >
       <xsl:apply-templates />
     </Directory>

@@ -183,10 +183,13 @@ if exist "%__PROPS_FILE%" (
     if defined __APPLICATION_SCALA_HOME set "_APPLICATION_SCALA_HOME=!__APPLICATION_SCALA_HOME!"
     if defined __APPLICATION_SHORTCUTS set "_APPLICATION_SHORTCUTS=!__APPLICATION_SHORTCUTS!"
     if defined __APPLICATION_UPDATE_PATH set "_APPLICATION_UPDATE_PATH=!__APPLICATION_UPDATE_PATH!"
+    @rem user-configurable batch variables
+    if defined __COPYRIGHT_OWNER set "_COPYRIGHT_OWNER=!__COPYRIGHT_OWNER!"
+    if defined __TIMESTAMP_SERVER set "_TIMESTAMP_SERVER=!__TIMESTAMP_SERVER!"
 )
 @rem _PRODUCT_UPGRADE_CODE is identical for ALL versions of the SAME product
 if not defined _PRODUCT_UPGRADE_CODE (
-    echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
+    echo %_ERROR_LABEL% Product upgrade code is undefined ^("!__PROPS_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -250,10 +253,11 @@ goto args_loop
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
-set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_VERSION%"
-set "_VERSION_FILE=%_APP_DIR%\VERSION"
+set "_APP_DIR=%_ROOT_DIR%app"
+set "_PRODUCT_DIR=%_APP_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%"
+set "_VERSION_FILE=%_PRODUCT_DIR%\VERSION"
 
-set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_VERSION%.txt"
+set "_GUIDS_FILE=%_APP_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.txt"
 @rem _GUID is an associative array with GUID pairs <name,value>
 set _GUID=
 if exist "%_GUIDS_FILE%" (
@@ -334,10 +338,10 @@ goto :eof
 
 @rem NB. we unset variable _PRODUCT_VERSION if download fails
 :gen_app
-if not exist "%_APP_DIR%\" mkdir "%_APP_DIR%"
+if not exist "%_PRODUCT_DIR%\" mkdir "%_PRODUCT_DIR%"
 
 if not exist "%_VERSION_FILE%" (
-    @rem we download version %__RELEASE% if product is not yet present in %_APP_DIR%
+    @rem we download version %__RELEASE% if product is not yet present in %_PRODUCT_DIR%
     set "__RELEASE=%_PRODUCT_VERSION%"
     set _PRODUCT_VERSION=
 
@@ -369,12 +373,12 @@ if not exist "%_VERSION_FILE%" (
         goto :eof
     )
     set "__TEMP_DIR=%TEMP%\%_PRODUCT_SKU%-!__RELEASE!"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" %_STDOUT_REDIRECT%
+    xcopy /s /y "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+        echo %_ERROR_LABEL% Failed to copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -396,7 +400,7 @@ goto :eof
 @rem we patch file bin\common.bat to support spaces in file paths (see PR#13806)
 :patch_app
 set "__RELEASE=%~1"
-set "__COMMON_BAT=%_APP_DIR%\bin\common.bat"
+set "__COMMON_BAT=%_PRODUCT_DIR%\bin\common.bat"
 if not exist "%__COMMON_BAT%" goto :eof
 
 set __PS1_SCRIPT=$contents=^(Get-Content -Raw -Encoding UTF8 '%__COMMON_BAT%'^) ` ^
@@ -422,10 +426,10 @@ set __HEAT_OPTS=%__HEAT_OPTS% -t "%_XSLT_FILE%"
 set __HEAT_OPTS=%__HEAT_OPTS% -var var.pack -suid -sfrag -out "%_FRAGMENTS_FILE%"
 if %_VERBOSE%==1 set __HEAT_OPTS=-v %__HEAT_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_PRODUCT_DIR%" %__HEAT_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate auxiliary file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_HEAT_CMD%" dir "%_APP_DIR%" %__HEAT_OPTS%
+call "%_HEAT_CMD%" dir "%_PRODUCT_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate auxiliary file "!_FRAGMENTS_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -588,7 +592,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 set __CANDLE_OPTS=-nologo
 if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
-set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_APP_DIR%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_PRODUCT_DIR%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
