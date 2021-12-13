@@ -36,24 +36,23 @@ C:\Windows\System32\msiexec.exe
 
 The following table shows a brief comparison of some Windows installers available for open-source (or free) software products <sup id="anchor_02"><a href="#footnote_02">2</a></sup> :
 
-| MSI file     | Signed | Name   | Destination folder <sup>(a)</sup> |
+| MSI&nbsp;file     | Signed | Name   | Destination&nbsp;folder (<i>default</i>) |
 |:-------------|:------:|:------:|:----------------------------------|
-| [`amazon-corretto-11.0.13.8.1-windows-x64.msi`](https://github.com/corretto/corretto-11/releases) | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | Amazon.com Services LLC |  `C:\Program Files\Amazon Corretto\` |
-| [`cmake-3.22.0-windows-x86_64.msi`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
+| [`amazon-corretto-11.0.13.8.1-windows-x64.msi`](https://github.com/corretto/corretto-11/releases) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Amazon.com Services LLC |  `C:\Program Files\Amazon Corretto\` |
+| [`cmake-3.22.0-windows-x86_64.msi`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
 | [`cppcheck-2.6-x64-Setup.msi`](https://github.com/danmar/cppcheck/releases) | <span style="color:red;">No</span> | n.a. | `C:\Program Files\Cppcheck\` |
-| [`GitHubDesktopSetup-x64.msi`](https://desktop.github.com/) | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | GitHub,&nbsp;Inc. | ? |
-| [`java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi`](http) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Red Hat, Inc. | `C:\Program Files\RedHat\java-1.8.0-openjdk-1.8.0.312-2` |
-| [`node-v16.13.0-x64.msi`](https://nodejs.org/en/download/) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | OpenJS Foundation | `C:\Program Files\nodejs\` |
-| [`OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi`](http) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | Eclipse.org Foundation, Inc. | ? |
-| [`OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi`](http) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | Eclipse.org Foundation, Inc. | ? |
-| [`pandoc-2.16.2-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
+| [`GitHubDesktopSetup-x64.msi`](https://desktop.github.com/) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | GitHub,&nbsp;Inc. | `C:\Program Files(x86)\GitHubDesktop\` |
+| [`java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi`](https://developers.redhat.com/products/openjdk/download) | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | Red Hat, Inc. | `C:\Program Files\RedHat\java-1.8.0-openjdk-1.8.0.312-2` |
+| [`node-v16.13.0-x64.msi`](https://nodejs.org/en/download/) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | OpenJS Foundation | `C:\Program Files\nodejs\` |
+| [`OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi`](https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\` |
+| [`OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi`](https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-11.0.13.8-hotspot\` |
+| [`pandoc-2.16.2-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
 | [`sbt-1.5.6.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.6) | <span style="color:red;">No</span> | n.a. | `C:\Program Files(x86)\sbt\` |
-| [`TortoiseGit-2.12.0.0-64bit.msi`](https://tortoisegit.org/download/) | <span style="color:green;">Yes</span> **<sup>(e)</sup>** | Open Source Developer | `C:\Program Files\TortoiseGit\` |
-<div style="font-size:70%;"><b><sup>(a)</sup></b> Default location.</div>
-<div style="font-size:70%;"><b><sup>(b)</sup></b> Signer: Digicert Timestamp 2021.</div>
-<div style="font-size:70%;"><b><sup>(c)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.</div>
-<div style="font-size:70%;"><b><sup>(d)</sup></b> Signer: Sectigo RSA Time Stamping Signer #2.</div>
-<div style="font-size:70%;"><b><sup>(e)</sup></b> Signer: Certum EV TSA SHA2.</div>
+| [`TortoiseGit-2.12.0.0-64bit.msi`](https://tortoisegit.org/download/) | <span style="color:green;">Yes</span> **<sup>(d)</sup>** | Open Source Developer | `C:\Program Files\TortoiseGit\` |
+<div style="font-size:70%;"><b><sup>(a)</sup></b> Signer: Digicert Timestamp 2021.</div>
+<div style="font-size:70%;"><b><sup>(b)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.</div>
+<div style="font-size:70%;"><b><sup>(c)</sup></b> Signer: Sectigo RSA Time Stamping Signer #2.</div>
+<div style="font-size:70%;"><b><sup>(d)</sup></b> Signer: Certum EV TSA SHA2.</div>
 
 ## <span id="footnotes">Footnotes</span>
 
@@ -91,17 +90,16 @@ Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f C:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   scala-2.13.7.msi
-└───<b>Program Files</b>
+└───<b>PFiles</b>
     └───<b>Scala 2</b>
         │   LICENSE
         │   NOTICE
+        ├───<b>api</b>   <i>(600 MB !)</i>
         ├───<b>bin</b>
         ├───<b>doc</b>
         ├───<b>lib</b>
         └───<b>man</b>
 </pre>
-
-> **:mag_right:** We observe that the subdirectory `api\` (600 MB :grimacing:) is not yet present (*work in progress*).
 
 <p style="margin:0 0 1em 20px;">
 As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.5.6"><code>sbt-1.5.6.msi</code></a> : 
@@ -152,19 +150,60 @@ Finally we extract the contents of the Java 11 Windows installer named <code>Ope
 <span id="footnote_02">[2]</span> ***Software Distributions*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Some popular software distributions are only available as Zip archives, for instance :
+Software distributions are available in many different forms, for instance :
 </p>
-<ul style="margin:0 0 1em 20px;">
-<li><a href="https://maven.apache.org/download.cgi#files">Apache Maven 3.8</a> - a software project management tool.
-<li><a href="https://github.com/denoland/deno/releases">Deno 1.x</a> - a modern runtime for JavaScript and TypeScript.</li>
-</ul>
-<p style="margin:0 0 1em 20px;">
-For other popular software distributions the Windows installer is provided as a setup program (extension <code>.exe</code>) instead of a MSI file (extension <code>.msi</code>).
-</p>
-<ul style="margin:0 0 1em 20px;">
-  <li><a href="https://julialang.org/downloads/#long_term_support_release">Julia 1.6</a> - a <a href="https://docs.julialang.org/en/v1/manual/types/">dynamically typed</a> programming language.</li>
-  <li><a href="https://www.python.org/downloads/release/python-3100/">Python 3.10</li>
-</ul>
+<table>
+<tr>
+<th>Software<br/>distribution</th>
+<th>Zip <sup><b>(a)</b></sup><br/>archive</td>
+<th>Setup<br/>program <sup><b>(b)</b></sup></th>
+<th>Package<br/>manager</th>
+</tr>
+<tr>
+<td><a href="https://maven.apache.org/download.cgi#files">Apache Maven 3.8</a></td>
+<td style="text-align:center;"><b>x</b></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/bazelbuild/bazel/releases">Bazel 4.2</a></td>
+<td style="text-align:center;"><b>x</b></td>
+<td style="text-align:center;"><b>x</b></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/denoland/deno/releases">Deno 1.x</a></td>
+<td style="text-align:center;"><b>x</b></td>
+<td></td>
+<td><a href="https://formulae.brew.sh/formula/deno">Homebrew</a>, <a href="https://chocolatey.org/packages/deno">Chocolatery</a>, <a href="https://scoop.sh/">Scoop</a>, <a href="https://crates.io/crates/deno">Cargo</a></td>
+</tr>
+<tr>
+<td><a href="https://gradle.org/install/">Gradle 4.2</a></td>
+<td style="text-align:center;"><b>x</b></td>
+<td style="text-align:center;"><b>x</b></td>
+<td><a href="https://sdkman.io/">SDKMAN!</a></td>
+</tr>
+<tr>
+<td><a href="https://julialang.org/downloads/#long_term_support_release">Julia 1.6</a></td>
+<td style="text-align:center;"><b>x</b></td>
+<td style="text-align:center;"><b>x</b></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-13.0.0">LLVM 13</a></td>
+<td></td>
+<td style="text-align:center;"><b>x</b></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://www.python.org/downloads/release/python-3100/">Python 3.10</a></td>
+<td></td>
+<td style="text-align:center;"><b>x</b></td>
+<td></td>
+</tr>
+</table>
+<span style="font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</span>
+<div style="font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).<br/>&nbsp;</div>
 
 <span id="footnote_03">[3]</span> **`MSI Resources`** [↩](#anchor_03)
 

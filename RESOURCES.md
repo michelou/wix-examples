@@ -29,14 +29,16 @@
   - [How to create MSI packages with multilingual user interface (MUI) ?](https://www.hass.de/content/how-create-msi-packages-multilingual-user-interface-mui)
   - [How to create a MSI for deploying Fonts in Enterprise ?](https://www.hass.de/content/how-create-msi-deploying-fonts-enterprise), September 2016.
 - [Variables and Conditional Statements in WiX][blog_kumar] by Arun Kumar, June 2014.
-- [L10N/M10N: Localization minimization][blog_arnson] by Bob Arnson, February 2013.
+- [Joy of Setup](https://www.joyofsetup.com/) - Bob Arnson's blog :
+  - [L10N/M10N: Localization minimization][blog_arnson_2013], February 2013.
+  - [Simplifying WiX component authoring][blog_arnson_2009], December 2009.
 - [Blog](https://robmensching.com/blog/) from Rob Mensching :
   - [The WiX toolset's "Remember Property" pattern][blog_mensching_2010], May 2010.
   - [How to escape the ampersand in WiX and MSI UI][blog_mensching_2008], April 2008.
 - [Wix Blog](https://weblogs.sqlteam.com/mladenp/tags/wix-windows-installer-xml-toolset/) from Mladen Prajdić :
   - [WiX 3 Tutorial: Custom EULA License and MSI localization](https://weblogs.sqlteam.com/mladenp/2010/04/15/wix-3-tutorial-custom-eula-license-and-msi-localization/), April 2010.
   - [WiX 3 Tutorial: Generating file/directory fragments with Heat.exe](https://weblogs.sqlteam.com/mladenp/2010/02/23/wix-3-tutorial-generating-filedirectory-fragments-with-heat.exe/), February 2010.
-  - [WiX 3 Tutorial: Understanding main WXS and WXI file](https://weblogs.sqlteam.com/mladenp/2010/02/17/wix-3-tutorial-understanding-main-wxs-and-wxi-file/) by Mladen Prajdić, February 2010.
+  - [WiX 3 Tutorial: Understanding main WXS and WXI file](https://weblogs.sqlteam.com/mladenp/2010/02/17/wix-3-tutorial-understanding-main-wxs-and-wxi-file/), February 2010.
   - [WiX 3 Tutorial: Solution/Project structure and Dev resources](https://weblogs.sqlteam.com/mladenp/2010/02/11/wix-3-tutorial-solutionproject-structure-and-dev-resources/), February 2010.
 - [Adding and Customizing Dialogs in WiX 3][blog_dizzy] by Dizzy, 2008.
 - [WiX: A Better TALLOW – PARAFFIN (Part 3 of 3)][blog_robbin3] by John Robbins, October 2007.
@@ -112,7 +114,8 @@ version = "12"
 [article_hashimi]: https://docs.microsoft.com/en-us/archive/msdn-magazine/2007/march/automate-releases-with-msbuild-and-windows-installer-xml
 [article_moack]: https://www.codeproject.com/Tips/105638/A-quick-introduction-Create-an-MSI-installer-with
 [article_nrird]: https://heiswayi.nrird.com/get-started-with-wix-toolset
-[blog_arnson]: https://www.joyofsetup.com/2013/02/06/l10nm10n-localization-minimization/
+[blog_arnson_2009]: https://www.joyofsetup.com/2009/12/31/simplifying-wix-component-authoring/
+[blog_arnson_2013]: https://www.joyofsetup.com/2013/02/06/l10nm10n-localization-minimization/
 [blog_dizzy]: http://www.dizzymonkeydesign.com/blog/misc/adding-and-customizing-dlgs-in-wix-3/
 [blog_klein]: https://helgeklein.com/blog/real-world-example-wix-msi-application-installer/
 [blog_kumar]: https://arunpp.wordpress.com/2014/06/13/variables-conditional-statements-in-wix/
