@@ -9,7 +9,7 @@
 #### What if a Scala 2 installation is already present ?
 The Windows installer behaves in *3 different ways* when it detects a [Scala 2](https://www.scala-lang.org/) installation on the user machine :
 - if the version to be installed is ***newer than*** the version found on the machine then the Windows installer removes the old version and installs the new one.
-- if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](../../scala2-examples/images/Scala2Features_LaterAlreadyInstalled).
+- if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](../../scala2-examples/images/Scala2Features_LaterAlreadyInstalled.png).
 - if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a [change, repair or remove operation](../../scala2-examples/images/Scala2Features_ChangeOrRepair.png).
 
 #### Running the Scala 2 Windows installer does...
