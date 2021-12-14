@@ -56,7 +56,6 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
-set "_LOCALIZATIONS_DIR=%_SOURCE_DIR%\localizations"
 set "_RESOURCES_DIR=%_SOURCE_DIR%\resources"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_GEN_DIR=%_TARGET_DIR%\src_gen"
@@ -155,6 +154,7 @@ set _JVM=hotspot
 set _PRODUCT_CATEGORY=jdk
 set _SKIP_MSI_VALIDATION=
 set _UPGRADE_CODE_SEED=
+set _BUNDLE_ICEDTEAWEB=
 
 @rem default vendor information
 set "_VENDOR=Eclipse Adoptium"
@@ -182,7 +182,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     @rem WiX information
-    @rem _PRODUCT_ID is defined in file app-guids-X.Y.Z.txt as it depends on X.Y.Z
+    @rem _PRODUCT_ID is defined in file %_PRODUCT_SKU%-X.Y.Z.txt as it depends on X.Y.Z
     if defined __PRODUCT_SKU set "_PRODUCT_SKU=!__PRODUCT_SKU!"
     if defined __PRODUCT_UPGRADE_CODE set "_PRODUCT_UPGRADE_CODE=!__PRODUCT_UPGRADE_CODE!"
     @rem product information
@@ -197,6 +197,7 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_CATEGORY set "_PRODUCT_CATEGORY=!__PRODUCT_CATEGORY!"
     if defined __SKIP_MSI_VALIDATION set "_SKIP_MSI_VALIDATION=!__SKIP_MSI_VALIDATION!"
     if defined __UPGRADE_CODE_SEED set "_UPGRADE_CODE_SEED=!__UPGRADE_CODE_SEED!"
+    if defined __BUNDLE_ICEDTEAWEB set "_BUNDLE_ICEDTEAWEB=!__BUNDLE_ICEDTEAWEB!"
     @rem vendor information
     if defined __VENDOR set "_VENDOR=!__VENDOR!"
     if defined __VENDOR_BRANDING set "_VENDOR_BRANDING=!__VENDOR_BRANDING!"
@@ -206,6 +207,8 @@ if exist "%__PROPS_FILE%" (
     if defined __PRODUCT_HELP_LINK set "_PRODUCT_HELP_LINK=!__PRODUCT_HELP_LINK!"
     if defined __PRODUCT_SUPPORT_LINK set "_PRODUCT_SUPPORT_LINK=!__PRODUCT_SUPPORT_LINK!"
     if defined __PRODUCT_UPDATE_INFO_LINK set "_PRODUCT_UPDATE_INFO_LINK=!__PRODUCT_UPDATE_INFO_LINK!"
+    @rem user-defined properties
+    if defined __TIMESTAMP_SERVER set "_TIMESTAMP_SERVER=!__TIMESTAMP_SERVER!"
 )
 if not defined _PRODUCT_UPGRADE_CODE (
     echo %_ERROR_LABEL% Product upgrade code is undefined 1>&2
@@ -295,10 +298,11 @@ goto args_loop
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=
 
-set "_APP_DIR=%_ROOT_DIR%app-%_PRODUCT_FILE_VERSION%"
-set "_RELEASE_FILE=%_APP_DIR%\release"
+set "_APP_DIR=%_ROOT_DIR%app"
+set "_PRODUCT_DIR=%_APP_DIR%\%_PRODUCT_SKU%-%_PRODUCT_FILE_VERSION%"
+set "_RELEASE_FILE=%_PRODUCT_DIR%\release"
 
-set "_GUIDS_FILE=%_ROOT_DIR%app-guids-%_PRODUCT_FILE_VERSION%.txt"
+set "_GUIDS_FILE=%_APP_DIR%\%_PRODUCT_SKU%-%_PRODUCT_FILE_VERSION%.txt"
 @rem associative array to store <name,guid> pairs
 set _GUID=
 if exist "%_GUIDS_FILE%" (
@@ -409,6 +413,7 @@ if not exist "%_RELEASE_FILE%" (
     ) else ( set "__BASE_URL=!__BASE_URL!/%_PRODUCT_CATEGORY%%_PRODUCT_SHORT_VERSION%"
     )
     set _PRODUCT_VERSION=
+    @rem e.g. OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip
     @rem e.g. OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip
     set "__ARCHIVE_FILE=%_PRODUCT_SKU%%_PRODUCT_MAJOR_VERSION%U-%_PRODUCT_CATEGORY%_%_ARCH%_windows_%_JVM%_%_PRODUCT_FILE_VERSION%.zip"
     set "__ARCHIVE_URL=!__BASE_URL!/!__ARCHIVE_FILE!"
@@ -436,13 +441,16 @@ if not exist "%_RELEASE_FILE%" (
         set _EXITCODE=1
         goto :eof
     )
-    set "__TEMP_DIR=%TEMP%\%_PRODUCT_CATEGORY%-%_PRODUCT_SHORT_VERSION%!"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+    set __XCOPY_OPTS=/i /s /y
+    if %_DEBUG%==0 if %_VERBOSE%==0 set __XCOPY_OPTS=/q !__XCOPY_OPTS!
+
+    set "__TEMP_DIR=%TEMP%\%_PRODUCT_CATEGORY%%_PRODUCT_SHORT_VERSION%!"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy !__XCOPY_OPTS! "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /s /y "!__TEMP_DIR!\*" "%_APP_DIR%" %_STDOUT_REDIRECT%
+    xcopy !__XCOPY_OPTS! "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Failed to copy application files to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+        echo %_ERROR_LABEL% Failed to copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -523,12 +531,15 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+set __XCOPY_OPTS=/i /s /y
+if %_DEBUG%==0 if %_VERBOSE%==0 set __XCOPY_OPTS=/q !__XCOPY_OPTS!
+
 @rem image files are handled separately (see :gen_banner)
 for %%e in (ico rtf) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy %__XCOPY_OPTS% "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
+    xcopy %__XCOPY_OPTS% "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
@@ -550,7 +561,7 @@ goto :eof
 if exist "%_FRAGMENTS_CID_FILE%" del "%_FRAGMENTS_CID_FILE%"
 
 set __N=0
-for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\">" "%_FRAGMENTS_FILE%"') do (
+for /f "tokens=1,2,*" %%i in ('findstr /r /c:"<Component Id=\".*\" Guid=\"PUT-GUID-HERE\"" "%_FRAGMENTS_FILE%"') do (
     @rem example: Id="tzdb.dat"
     for /f "delims=^= tokens=1,*" %%x in ("%%j") do set "__COMPONENT_ID=%%~y"
     if defined __COMPONENT_ID (
@@ -600,11 +611,11 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CANDLE_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 ) else if %_VERBOSE%==1 ( echo Compiling %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
 setlocal
-@rem file Includes.wxi depends on several environment variables,
-@rem e.g. PLATFORM, PRODUCT_CATEGORY, PRODUCT_MAJOR_VERSION
+@rem Includes.wxi and Main.wxs depend on the following environment variables
 set "PLATFORM=%_ARCH%"
 set "PRODUCT_CATEGORY=%_PRODUCT_CATEGORY%"
 set "PRODUCT_MAJOR_VERSION=%_PRODUCT_MAJOR_VERSION%"
+set "BUNDLE_ICEDTEAWEB=%_BUNDLE_ICEDTEAWEB%
 call "%_CANDLE_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     endlocal

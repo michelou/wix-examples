@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>openjdk-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/">OpenJDK</a> Windows installer.
+    Directory <strong><code>openjdk-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">OpenJDK</a> Windows installer.
   </td>
   </tr>
 </table>
@@ -15,11 +15,11 @@ The mission of the [Eclipse Adoptium](https://projects.eclipse.org/projects/adop
 
 That includes the development of a [WiX installer](https://github.com/adoptium/installer/tree/master/wix) (see GitHub project [`adoptium/installer`][adoptium_installer]) *configurable* for various OpenJDK implementations.
 
-## <span id="openjdk11">OpenJDK11</span>
+## <span id="openjdk">OpenJDK</span>
 
-Project `OpenJDK11` is derived from the [WiX][wix_toolset] installer developed in the project [`adoptium/installer`][adoptium_installer].
+Project `OpenJDK` is derived from the [WiX][wix_toolset] installer developed in the project [`adoptium/installer`][adoptium_installer].
 
-> **:mag_right:** Localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK11/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `app-guids-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
+> **:mag_right:** Localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `app\OpenJDK-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -27,29 +27,29 @@ The project directory is organized as follows :
 Y:\openjdk-examples\OpenJDK11
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   <a href="./OpenJDK11/00download.txt">00download.txt</a>
-│   <a href="./OpenJDK11/build.bat">build.bat</a>
+│   <a href="./OpenJDK/00download.txt">00download.txt</a>
+│   <a href="./OpenJDK/build.bat">build.bat</a>
 ├───<b>app</b>
 │   └───<i>files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>
-└───<a href="./OpenJDK11/src/"><b>src</b></a>
-    │   <a href="./OpenJDK11/src/Includes.wxi">Includes.wxi</a>
-    │   <a href="./OpenJDK11/src/Main.wxs">Main.wxs</a>
-    ├───<a href="./OpenJDK11/src/localizations/"><b>localizations</b></a>
-    │       <a href="./OpenJDK11/src/localizations/OpenJDK.Base.en-us.wxl">OpenJDK.Base.en-us.wxl</a>
-    │       <a href="./OpenJDK11/src/localizations/OpenJDK.Base.fr-fr.wxl">OpenJDK.Base.fr-fr.wxl</a>
-    │       <a href="./OpenJDK11/src/localizations/OpenJDK.hotspot.en-us.wxl">OpenJDK.hotspot.en-us.wxl</a>
-    │       <a href="./OpenJDK11/src/localizations/OpenJDK.hotspot.fr-fr.wxl">OpenJDK.hotspot.fr-fr.wxl</a>
-    │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.en-us.wxl">OpenJDK.openj9.en-us.wxl</a>
-    │       <a href="./OpenJDK11/src/localizations/OpenJDK.openj9.fr-fr.wxl">OpenJDK.openj9.fr-fr.wxl</a>
-    └───<a href="./OpenJDK11/src/resources/"><b>resources</b></a>
-            <a href="./OpenJDK11/src/resources/license-GPLv2+CE.en-us.rtf">license-GPLv2+CE.en-us.rtf</a>
-            <a href="./OpenJDK11/src/resources/license-OpenJ9.en-us.rtf">license-OpenJ9.en-us.rtf</a>
-            <a href="./OpenJDK11/src/resources/logo.ico">logo.ico</a>
-            <a href="./OpenJDK11/src/resources/wix-banner.bmp">wix-banner.bmp</a>
-            <a href="./OpenJDK11/src/resources/wix-dialog.bmp">wix-dialog.bmp</a>
+└───<a href="./OpenJDK/src/"><b>src</b></a>
+    │   <a href="./OpenJDK/src/Includes.wxi">Includes.wxi</a>
+    │   <a href="./OpenJDK/src/Main.wxs">Main.wxs</a>
+    ├───<a href="./OpenJDK/src/localizations/"><b>localizations</b></a>
+    │       <a href="./OpenJDK/src/localizations/OpenJDK.Base.en-us.wxl">OpenJDK.Base.en-us.wxl</a>
+    │       <a href="./OpenJDK/src/localizations/OpenJDK.Base.fr-fr.wxl">OpenJDK.Base.fr-fr.wxl</a>
+    │       <a href="./OpenJDK/src/localizations/OpenJDK.hotspot.en-us.wxl">OpenJDK.hotspot.en-us.wxl</a>
+    │       <a href="./OpenJDK/src/localizations/OpenJDK.hotspot.fr-fr.wxl">OpenJDK.hotspot.fr-fr.wxl</a>
+    │       <a href="./OpenJDK/src/localizations/OpenJDK.openj9.en-us.wxl">OpenJDK.openj9.en-us.wxl</a>
+    │       <a href="./OpenJDK/src/localizations/OpenJDK.openj9.fr-fr.wxl">OpenJDK.openj9.fr-fr.wxl</a>
+    └───<a href="./OpenJDK/src/resources/"><b>resources</b></a>
+            <a href="./OpenJDK/src/resources/license-GPLv2+CE.en-us.rtf">license-GPLv2+CE.en-us.rtf</a>
+            <a href="./OpenJDK/src/resources/license-OpenJ9.en-us.rtf">license-OpenJ9.en-us.rtf</a>
+            <a href="./OpenJDK/src/resources/logo.ico">logo.ico</a>
+            <a href="./OpenJDK/src/resources/wix-banner.bmp">wix-banner.bmp</a>
+            <a href="./OpenJDK/src/resources/wix-dialog.bmp">wix-dialog.bmp</a>
 </pre>
 
-> **:mag_right:** Command [`build.bat`](./OpenJDK11/build) reads its configuration from file `build.properties`, e.g.
+> **:mag_right:** Command [`build.bat`](./OpenJDK/build) reads the build configuration from file `build.properties` <sup id="anchor_01">[1](#footnote_01)</sup>, e.g.
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> build.properties</b>
 > PRODUCT_MAJOR_VERSION=11
@@ -57,6 +57,7 @@ Y:\openjdk-examples\OpenJDK11
 > PRODUCT_MAINTENANCE_VERSION=13
 > PRODUCT_PATCH_VERSION=0
 > PRODUCT_BUILD_NUMBER=8
+> PRODUCT_UPGRADE_CODE=&lt;guid-for-version-11&gt;
 > # ARCH=x64|x86-32|arm64 or all "x64 x86-32 arm64"
 > ARCH=x64
 > # JVM=hotspot|openj9|dragonwell or both JVM=hotspot openj9
@@ -67,10 +68,10 @@ Y:\openjdk-examples\OpenJDK11
 > SKIP_MSI_VALIDATION=true
 > </pre>
 
-Command [`build link`](./OpenJDK11/build.bat) <sup id="anchor_01">[1](#footnote_01)</sup> generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi` <sup id="anchor_02">[2](#footnote_02)</sup>.
+Command [`build link`](./OpenJDK/build.bat) <sup id="anchor_02">[2](#footnote_02)</sup> generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi` <sup id="anchor_03">[3](#footnote_03)</sup> based on the properties defined in file `build.properties`.
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./OpenJDK11/build.bat">build</a> -verbose clean link</b>
+<b>&gt; <a href="./OpenJDK/build.bat">build</a> -verbose clean link</b>
 Delete directory "target"
 Generate auxiliary file "target\src_gen\Fragments.wxs.txt"
 Saved 497 component identifiers to file "target\src_gen\Fragments.cid.txt"
@@ -134,14 +135,42 @@ Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 1
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Batch file* `build.bat`** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Configuration file* `build.properties`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-Command <a href="./OpenJDK11/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
+We can adapt the properties as follow in order to create a OpenJDK 17 Windows installer :
+</p>
+<pre style="margin:0 0 1em 20px; font-size:80%;">
+<span style="color:green;"># OpenJDK 17.0.1.12</span>
+PRODUCT_MAJOR_VERSION=17
+PRODUCT_MINOR_VERSION=0
+PRODUCT_MAINTENANCE_VERSION=1
+PRODUCT_PATCH_VERSION=0
+PRODUCT_BUILD_NUMBER=12
+PRODUCT_UPGRADE_CODE=&lt;guid-for-version-17&gt;
+</pre>
+
+<p style="margin:0 0 1em 20px;">
+Similarly we can adapt the properties as follows to create a OpenJDK 1.8 Windows installer :
+</p>
+<pre style="margin:0 0 1em 20px; font-size:80%;">
+<span style="color:green;"># OpenJDK 1.8 (aka 8u312b07)</span>
+PRODUCT_MAJOR_VERSION=8
+PRODUCT_MINOR_VERSION=0
+PRODUCT_MAINTENANCE_VERSION=312
+PRODUCT_PATCH_VERSION=0
+PRODUCT_BUILD_NUMBER=07
+PRODUCT_UPGRADE_CODE=&lt;guid-for-version-8&gt;
+</pre>
+
+<span id="footnote_02">[2]</span> ***Batch file* `build.bat`** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;">
+Command <a href="./OpenJDK/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; <a href="./OpenJDK11/build.bat">build</a> help</b>
+<b>&gt; <a href="./OpenJDK/build.bat">build</a> help</b>
 Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
@@ -158,7 +187,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     uninstall    remove installed program
 </pre>
 
-<b name="footnote_02">[2]</b> ***File naming conventions*** [↩](#anchor_02)
+<span id="footnote_03">[3]</span> ***File naming conventions*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> can be decomposed as follows (see also the Swagger descriptions of the <a href="https://api.adoptium.net/q/swagger-ui/#/Installer">OpenAPI UI</a>):

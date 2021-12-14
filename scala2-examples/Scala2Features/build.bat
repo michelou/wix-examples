@@ -376,11 +376,14 @@ if not exist "%_LICENSE_FILE%" (
         set _EXITCODE=1
         goto :eof
     )
+    set __XCOPY_OPTS=/i /s /y
+    if %_DEBUG%==0 if %_VERBOSE%==0 set __XCOPY_OPTS=/q !__XCOPY_OPTS!
+
     set "__TEMP_DIR=%TEMP%\%_PRODUCT_SKU%-!__RELEASE!"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy !__XCOPY_OPTS! "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /s /y "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" %_STDOUT_REDIRECT%
+    xcopy !__XCOPY_OPTS! "!__TEMP_DIR!\*" "%_PRODUCT_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to copy application files to directory "!_PRODUCT_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
@@ -450,12 +453,15 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+set __XCOPY_OPTS=/i /s /y
+if %_DEBUG%==0 if %_VERBOSE%==0 set __XCOPY_OPTS=/q !__XCOPY_OPTS!
+
 @rem image files are handled separately (see :gen_banner)
 for %%e in (bat ico) do (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy %__XCOPY_OPTS% "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    xcopy /i /q /y "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
+    xcopy %__XCOPY_OPTS% "%_RESOURCES_DIR%\*.%%e" "%_GEN_RESOURCES_DIR%" %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to copy .%%e files to directory "!_GEN_RESOURCES_DIR:%_ROOT_DIR%=!" 1>&2
         set _EXITCODE=1
