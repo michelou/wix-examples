@@ -16,9 +16,9 @@
 
 ## <span id="checksums">File Checksums</span>
 
-On the [Releases](https://github.com/michelou/wix-examples/releases) page of this project we publish our Windows installers (`.msi` files) together with their checksum files (`.md5` and `.sha265` files).
+We publish our Windows installers (`.msi` files) together with their checksum files (`.md5` and `.sha265` files) on the [Releases](https://github.com/michelou/wix-examples/releases) page of this project.
 
-> **&#9755;** The official [Scala 2 download page](https://www.scala-lang.org/download/scala2.html) ***does not*** provides checksum files for the published [Scala 2][scala2] software distributions (see last section "Other resources"). 
+> **&#9755;** The official [Scala 2 download page](https://www.scala-lang.org/download/scala2.html) ***does not*** provide checksum files for the published [Scala 2][scala2] software distributions (see last section "Other resources"). 
 
 Checksums are used to verify the integrity of files downloaded from an external source, eg. a Windows installer. In this project we wrote two small PowerShell scripts to check the [Scala 2][scala2] and [Scala 3][scala3] Windows installers available on our [Releases](https://github.com/michelou/wix-examples/releases) page.
 
@@ -52,15 +52,15 @@ The two checksums are equal
 
 ## <span id="certificates">Self-signed Certificates</span>
 
-The [`signtool`][signtool_cmd] command (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the standard tool to sign executable files on MS Windows, i.e. the  Windows installers in our case.
+Command [`signtool`][signtool_cmd] (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the standard tool to sign executable files on MS Windows, i.e. the  Windows installers in our case.
 
-In project [`Scala2Features`](./scala2-examples/Scala2Features/), for instance, we execute [`signtool`][signtool_cmd] to sign the file [`scala-2.13.7.msi`](https://github.com/michelou/wix-examples/releases/tag/scala-2.13.7.msi) :
+In project [`Scala3Features`](./scala3-examples/Scala3Features/), for instance, we execute [`signtool`][signtool_cmd] to sign the file [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases/tag/scala3-3.1.0.msi) :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool">signtool</a> sign /p "&lt;pswd&gt; -v /f "&lt;certs_folder&gt;\wix-examples.pfx" ^
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool">signtool</a> sign /p "&lt;cert_pswd&gt; -v /f "&lt;certs_folder&gt;\wix-examples.pfx" ^
            /d "&lt;description&gt;" ^
            /t "http://timestamp.digicert.com" /fd SHA256 ^
-           "Y:\scala2-examples\Scala2Features\target\scala-2.13.7.msi"</b>
+           "Y:\scala3-examples\Scala3Features\target\scala3-3.1.0.msi"</b>
 The following certificate was selected:
     Issued to: Stephane Micheloud
     Issued by: Stephane Micheloud
@@ -68,14 +68,33 @@ The following certificate was selected:
     SHA1 hash: 64C2...
 
 Done Adding Additional Store
-Successfully signed: Y:\scala2-examples\Scala2Features\target\scala-2.13.7.msi
+Successfully signed: Y:\scala3-examples\Scala3Features\target\scala3-3.1.0.msi
 
 Number of files successfully Signed: 1
 Number of warnings: 0
 Number of errors: 0
 </pre>
 
-*WIP*
+Figures **1.1** to **1.2** below show that a digital signature was indeed added to file [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases/tag/scala3-3.1.0.msi) :
+
+<table>
+<tr>
+<td>
+  <a href="images/scala3-3.1.0.msi_Properties.png">
+  <img style="max-width:180px;" src="images/scala3-3.1.0.msi_Properties.png" alt="Properties" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 1.1 -</b> MSI File<br>(<i>Propperties</i> window).
+  </div>
+</td>
+<td>
+  <a href="images/scala3-3.1.0.msi_Certificate.png">
+  <img style="max-width:180px;" src="images/scala3-3.1.0.msi_Certificate.png" alt="Certificate" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 1.2 -</b> Signature details<br>(<i>Certificate</i> window).
+  </div>
+</td>
+</tr>
+</table>
 
 ## <span id="footnotes">Footnotes</span>
 

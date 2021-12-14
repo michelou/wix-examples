@@ -7,7 +7,7 @@ Param (
 )
 $algorithm = $algorithm.ToUpper()
 
-$TempFolder = Join-Path $env:TEMP -ChildPath 'checksum-scala'
+$TempFolder = Join-Path $env:TEMP -ChildPath 'scala-checksum'
 if (-Not (Test-Path -Path $TempFolder)) {
     New-Item -Path $TempFolder -ItemType Directory
 }
