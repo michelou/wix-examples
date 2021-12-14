@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>openjdk-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">OpenJDK</a> Windows installer.
+    Directory <strong><code>openjdk-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create an <a href="https://www.scala-lang.org/" rel="external">OpenJDK</a> Windows installer.
   </td>
   </tr>
 </table>
@@ -24,13 +24,21 @@ Project `OpenJDK` is derived from the [WiX][wix_toolset] installer developed in 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-Y:\openjdk-examples\OpenJDK11
+Y:\openjdk-examples\<a href="./OpenJDK">OpenJDK</a>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./OpenJDK/00download.txt">00download.txt</a>
 │   <a href="./OpenJDK/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>
+│   ├───<b><i>OpenJDK-11.0.13_8</i></b>
+│   │      <i>(files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a><i>)</i>
+│   ├───<b><i>OpenJDK-17.0.1_12</i></b>
+│   │      <i>(files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.1_12.zip</a><i>)</i>
+│   └───<b><i>OpenJDK-8u312b07</i></b>
+│          <i>(files extracted from</i> <a href="https://adoptium.net/archive.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_8u312b07.zip</a><i>)</i>
+│       <i>OpenJDK-11.0.13_8.txt</i>
+│       <i>OpenJDK-17.0.1_12.txt</i>
+│       <i>OpenJDK-8u312b07.txt</i>
 └───<a href="./OpenJDK/src/"><b>src</b></a>
     │   <a href="./OpenJDK/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./OpenJDK/src/Main.wxs">Main.wxs</a>
@@ -66,6 +74,8 @@ Y:\openjdk-examples\OpenJDK11
 > PRODUCT_CATEGORY=jdk
 > # Add -sval option to light.exe to skip MSI/MSM validation and skip smoke.exe )
 > SKIP_MSI_VALIDATION=true
+> #
+> BUNDLE_ICEDTEAWEB=false
 > </pre>
 
 Command [`build link`](./OpenJDK/build.bat) <sup id="anchor_02">[2](#footnote_02)</sup> generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi` <sup id="anchor_03">[3](#footnote_03)</sup> based on the properties defined in file `build.properties`.
@@ -138,7 +148,7 @@ Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 1
 <span id="footnote_01">[1]</span> ***Configuration file* `build.properties`** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-We can adapt the properties as follow in order to create a OpenJDK 17 Windows installer :
+We can adapt the properties as follow in order to create an <a href="https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot">OpenJDK 17</a> Windows installer :
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <span style="color:green;"># OpenJDK 17.0.1.12</span>
@@ -151,7 +161,7 @@ PRODUCT_UPGRADE_CODE=&lt;guid-for-version-17&gt;
 </pre>
 
 <p style="margin:0 0 1em 20px;">
-Similarly we can adapt the properties as follows to create a OpenJDK 1.8 Windows installer :
+Similarly we can adapt the properties as follows to create an <a href="https://adoptium.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK 1.8</a> Windows installer :
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <span style="color:green;"># OpenJDK 1.8 (aka 8u312b07)</span>
@@ -254,6 +264,8 @@ For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8
 
 [adoptium_installer]: https://github.com/adoptium/installer
 [adoptium_openjdk11]: https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot
+[adoptium_openjdk17]: https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot
+[adoptium_openjdk8]: https://adoptium.net/?variant=openjdk8&jvmVariant=hotspot
 [git_cmd]: https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
 [wix_candle]: https://wixtoolset.org/documentation/manual/v3/overview/candle.html
 [wix_component]: https://wixtoolset.org/documentation/manual/v3/xsd/wix/component.html
