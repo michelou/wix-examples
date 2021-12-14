@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/">Scala 2</a> Windows installer.
+    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">Scala 2</a> Windows installer.
   </td>
   </tr>
 </table>
@@ -36,7 +36,10 @@ Y:\scala2-examples\Scala2First
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala2First/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
+│   ├───<b>scala-2.12.15</b>
+│   │       <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a>
+│   └───<b>scala-2.13.7</b>
+│           <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
 └───<b>src</b>
     │   <a href="./Scala2First/src/Scala2First.wxs">Scala2First.wxs</a>
     └───<b>resources</b>
@@ -153,7 +156,10 @@ Y:\scala-examples\Scala2UI
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala2UI/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
+│   ├───<b>scala-2.12.15</b>
+│   │       <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a>
+│   └───<b>scala-2.13.7</b>
+│           <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
 └───<a href="./Scala2UI/src/"><b>src</b></a>
     │   <a href="./Scala2UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2UI/src/Scala2UI.wxs">Scala2UI.wxs</a>
@@ -265,7 +271,10 @@ Y:\scala2-examples\Scala2Localized
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala2Localized/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
+│   ├───<b>scala-2.12.15</b>
+│   │       <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a>
+│   └───<b>scala-2.13.7</b>
+│           <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
 └───<a href="./Scala2Localized/src/"><b>src</b></a>
     │   <a href="./Scala2Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2Localized/src/Scala2Localized.wxs">Scala2Localized.wxs</a>

@@ -20,10 +20,10 @@ MSI ("*Microsoft Silent Installer*") files are database files (with components a
 In case we are suspicious about a Windows installer we can run the Windows command [`msiexec`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec) <sup id="anchor_01"><a href="#footnote_01">1</a></sup> to *extract* the files of the <a href="https://en.wikipedia.org/wiki/Cabinet_(file_format)"><code>.cab</code></a> archive(s) embedded in the <code>.msi</code> file (see also the [WiX element `media`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/media.html)).
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> msiexec</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> msiexec</b>
 C:\Windows\System32\msiexec.exe
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a &lt;msi_file_path&gt; /qn TARGETDIR=c:\Temp\unpacked</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec" rel="external">msiexec</a> /a &lt;msi_file_path&gt; /qn TARGETDIR=c:\Temp\unpacked</b>
 </pre>
 
 > **:mag_right:** Visit Microsoft's page [Released Versions of Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer) to find the correspondance between Windows installer versions and MS Windows OS versions. For instance [`msiexec`][msiexec_cmd] has version 5.0 on MS Windows 7 and newer :
@@ -152,12 +152,12 @@ Finally we extract the contents of the Java 11 Windows installer named <code>Ope
 <p style="margin:0 0 1em 20px;">
 Software distributions are available in many different forms, for instance :
 </p>
-<table>
+<table style="font-size:80%;">
 <tr>
-<th>Software<br/>distribution</th>
-<th>Zip <sup><b>(a)</b></sup><br/>archive</td>
-<th>Setup<br/>program <sup><b>(b)</b></sup></th>
-<th>Package<br/>manager</th>
+<th>Software distribution</th>
+<th>Zip archive <sup><b>(a)</b></sup></td>
+<th>Setup program <sup><b>(b)</b></sup></th>
+<th>Package manager</th>
 </tr>
 <tr>
 <td><a href="https://maven.apache.org/download.cgi#files">Apache Maven 3.8</a></td>
@@ -181,7 +181,7 @@ Software distributions are available in many different forms, for instance :
 <td><a href="https://gradle.org/install/">Gradle 4.2</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td style="text-align:center;"><b>x</b></td>
-<td><a href="https://sdkman.io/">SDKMAN!</a></td>
+<td><a href="https://sdkman.io/">SDKMAN</a> <sup><b>(c)</b></sup></td>
 </tr>
 <tr>
 <td><a href="https://julialang.org/downloads/#long_term_support_release">Julia 1.6</a></td>
@@ -202,8 +202,9 @@ Software distributions are available in many different forms, for instance :
 <td></td>
 </tr>
 </table>
-<span style="font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</span>
-<div style="font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).<br/>&nbsp;</div>
+<div style="font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</div>
+<div style="font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).</div>
+<div style="font-size:80%;"><sup><b>(c)</b></sup> On Windows <a href="https://sdkman.io/install">SDKMAN</a> (written in Bash) requires WSL, Cygwin or MSYS+MinGW.<br/>&nbsp;</div>
 
 <span id="footnote_03">[3]</span> **`MSI Resources`** [↩](#anchor_03)
 

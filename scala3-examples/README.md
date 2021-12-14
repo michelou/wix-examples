@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty">Dotty project</a>.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.
   </td>
   </tr>
 </table>
@@ -19,8 +19,8 @@ The [WiX][wix_toolset] examples presented in the following sections
 
 The [Scala 3][scala3] Windows installer behaves in *3 different ways* when it detects a [Scala 3][scala3] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
 - if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on (it removes the old version and install the new one).
-- if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](./Scala3Features_LaterAlreadyInstalled.png).
-- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a [change, repair or remove operation](./Scala3Features_ChangeOrRepair.png).
+- if the version to be installed is ***older than*** the version found on the machine then the [Windows installer does exit](./images/Scala3Features_LaterAlreadyInstalled.png).
+- if the version to be installed is ***the same as*** the version found on the machine then the user is asked for a [change, repair or remove operation](./images/Scala3Features_ChangeOrRepair.png).
 
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 3][scala3] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
@@ -36,7 +36,10 @@ Y:\scala3-examples\Scala3First
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3First/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
+│   ├───<b>scala3-3.0.2</b>
+│   │       <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a>
+│   └───<b>scala3-3.1.0</b>
+│           <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
 └───<a href="./Scala3First/src/"><b>src</b></a>
     │   <a href="./Scala3First/src/Scala3First.wxs">Scala3First.wxs</a>
     └───<a href="./Scala3First/src/resources/"><b>resources</b></a>
@@ -130,7 +133,10 @@ Y:\scala3-examples\Scala3UI
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3UI/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
+│   ├───<b>scala3-3.0.2</b>
+│   │       <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a>
+│   └───<b>scala3-3.1.0</b>
+│           <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
 └───<a href="./Scala3UI/src/"><b>src</b></a>
     │   <a href="./Scala3UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3UI/src/Scala3UI.wxs">Scala3UI.wxs</a>
@@ -200,7 +206,10 @@ Y:\scala3-examples\Scala3Localized
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3Localized/build.bat">build.bat</a>
 ├───<b>app</b>
-│   └───<i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
+│   ├───<b>scala3-3.0.2</b>
+│   │       <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a>
+│   └───<b>scala3-3.1.0</b>
+│           <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
 └───<a href="./Scala3Localized/src/"><b>src</b></a>
     │   <a href="./Scala3Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3Localized/src/Scala3Localized.wxs">Scala3Localized.wxs</a>
@@ -320,6 +329,11 @@ SCALA3_HOME=C:\Program Files\Scala 3\
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> scala</b>
 C:\Program Files\Scala 3\bin\scala
 C:\Program Files\Scala 3\bin\scala.bat
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> JAVA_HOME=c:\opt\jdk-bellsoft-1.8.0u312</b>
+&nbsp;
+<b>&gt; scala -version</b>
+Scala code runner version 3.1.0 -- Copyright 2002-2021, LAMP/EPFL
 </pre>
 
 <span id="footnote_03">[3]</span> ***Default Java Location*** [↩](#anchor_03)
