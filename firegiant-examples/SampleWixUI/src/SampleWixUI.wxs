@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Id='YOURGUID-PRODUCT_ID'
+  <Product Id='YOURGUID-PRODUCT_CODE'
       Name='Foobar 1.0' UpgradeCode='YOURGUID-PRODUCT_UPGRADE_CODE'
       Language='1033' Codepage='1252' Version='1.0.0' Manufacturer='Acme Ltd.'>
 
     <Package Id='*'
         Description="Acme's Foobar 1.0 Installer" Keywords='Installer'
         Comments='Foobar is a registered trademark of Acme Ltd.' Manufacturer='Acme Ltd.'
-        InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+        InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
 
-    <Media Id='1' Cabinet='Sample.cab' />
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
+    <Property Id='DiskPrompt' Value="Acme's Foobar 1.0 Installation [1]" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
@@ -17,7 +18,7 @@
           <Directory Id='INSTALLDIR' Name='Foobar 1.0'>
 
             <Component Id='MainExecutable' Guid='YOURGUID-MAIN_EXECUTABLE'>
-              <File Id='FoobarEXE' Name='FoobarAppl10.exe' DiskId='1' Source='!(bindpath.app)\FoobarAppl10.exe' KeyPath='yes'>
+              <File Id='FoobarEXE' Name='FoobarAppl10.exe' DiskId='1' Source='!(bindpath.exe)\FoobarAppl10.exe' KeyPath='yes'>
                 <Shortcut Id="startmenuFoobar10"
                     Directory="ProgramMenuDir" Name="Foobar 1.0"
                     WorkingDirectory='INSTALLDIR' Icon="Foobar10.exe" IconIndex="0" Advertise="yes" />
@@ -28,12 +29,13 @@
             </Component>
 
             <Component Id='HelperLibrary' Guid='YOURGUID-HELPER_LIBRARY'>
-              <File Id='HelperDLL' Name='Helper.dll' DiskId='1' Source='!(bindpath.app)\Helper.dll' KeyPath='yes' />
+              <File Id='HelperDLL' Name='Helper.dll' DiskId='1' Source='!(bindpath.dll)\Helper.dll' KeyPath='yes' />
             </Component>
 
             <Component Id='Manual' Guid='YOURGUID-MANUAL'>
-              <File Id='Manual' Name='Manual.pdf' DiskId='1' Source='!(bindpath.app)\Manual.pdf' KeyPath='yes'>
-                <Shortcut Id='startmenuManual' Directory='ProgramMenuDir' Name='Instruction Manual' Advertise='yes' />
+              <File Id='Manual' Name='Manual.pdf' DiskId='1' Source='!(bindpath.pdf)\Manual.pdf' KeyPath='yes'>
+                <Shortcut Id="startmenuManual"
+                    Directory="ProgramMenuDir" Name="Instruction Manual" Advertise="yes" />
               </File>
             </Component>
 
@@ -53,12 +55,24 @@
       <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
 
-    <Feature Id='Complete' Level='1'>
-      <ComponentRef Id='MainExecutable' />
-      <ComponentRef Id='HelperLibrary' />
-      <ComponentRef Id='Manual' />
-      <ComponentRef Id='ProgramMenuDir' />
+    <Feature Id='Complete'
+        Title='Foobar 1.0' Description='The complete package.'
+        Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id='MainProgram'
+          Title='Program' Description='The main executable.' Level='1'>
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id='HelperLibrary' />
+        <ComponentRef Id='ProgramMenuDir' />
+      </Feature>
+
+      <Feature Id='Documentation'
+          Title='Description' Description='The instruction manual.' Level='1000'>
+        <ComponentRef Id='Manual' />
+      </Feature>
     </Feature>
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
 
     <Icon Id="Foobar10.exe" SourceFile="!(bindpath.exe)\FoobarAppl10.exe" />
 

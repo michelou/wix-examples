@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='Foobar 1.0'
-    Id='YOURGUID-PRODUCT_CODE' UpgradeCode='YOURGUID-UPGRADE_CODE'
+    Id='YOURGUID-PRODUCT_ID' UpgradeCode='YOURGUID-PRODUCT_UPGRADE_CODE'
     Language='1033' Codepage='1252' Version='1.0.0' Manufacturer='Acme Ltd.'>
 
     <Package Id='*' Keywords='Installer'
@@ -21,7 +21,7 @@
           <Directory Id='INSTALLDIR' Name='Foobar 1.0'>
 
             <Component Id='MainExecutable' Guid='YOURGUID-MAIN_EXECUTABLE'>
-              <File Id='FoobarEXE' Name='FoobarAppl10.exe' DiskId='1' Source='!(bindpath.exe)\FoobarAppl10.exe' KeyPath='yes'>
+              <File Id='FoobarEXE' Name='FoobarAppl10.exe' DiskId='1' Source='!(bindpath.app)\FoobarAppl10.exe' KeyPath='yes'>
                 <Shortcut Id="startmenuFoobar10" Directory="ProgramMenuDir" Name="Foobar 1.0"
                   WorkingDirectory='INSTALLDIR' Icon="Foobar10.exe" IconIndex="0" Advertise="yes" />
                 <Shortcut Id="desktopFoobar10" Directory="DesktopFolder" Name="Foobar 1.0"
@@ -30,11 +30,11 @@
             </Component>
 
             <Component Id='HelperLibrary' Guid='YOURGUID-HELPER_LIBRARY'>
-              <File Id='HelperDLL' Name='Helper.dll' DiskId='1' Source='!(bindpath.dll)\Helper.dll' KeyPath='yes' />
+              <File Id='HelperDLL' Name='Helper.dll' DiskId='1' Source='!(bindpath.app)\Helper.dll' KeyPath='yes' />
             </Component>
 
             <Component Id='Manual' Guid='YOURGUID-MANUAL'>
-              <File Id='Manual' Name='Manual.pdf' DiskId='1' Source='!(bindpath.pdf)\Manual.pdf' KeyPath='yes'>
+              <File Id='Manual' Name='Manual.pdf' DiskId='1' Source='!(bindpath.app)\Manual.pdf' KeyPath='yes'>
                 <Shortcut Id="startmenuManual" Directory="ProgramMenuDir" Name="Instruction Manual" Advertise="yes" />
               </File>
             </Component>
@@ -62,7 +62,7 @@
       <ComponentRef Id='ProgramMenuDir' />
     </Feature>
 
-    <Icon Id="Foobar10.exe" SourceFile="!(bindpath.exe)\FoobarAppl10.exe" />
+    <Icon Id="Foobar10.exe" SourceFile="!(bindpath.app)\FoobarAppl10.exe" />
 
   </Product>
 </Wix>

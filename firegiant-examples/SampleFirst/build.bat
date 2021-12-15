@@ -61,7 +61,6 @@ set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
 for %%i in ("%_ROOT_DIR%.") do set "_PROJECT_NAME=%%~ni"
 
-set "_WIXOBJ_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.wixobj"
 set "_MSI_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.msi"
 
 if not exist "%WIX%\candle.exe" (
@@ -145,7 +144,7 @@ if exist "%__PROPS_FILE%" (
     )
     @rem PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR
     if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
-    if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
+    if defined __PRODUCT_UPGRADE_CODE set "_GUID[PRODUCT_UPGRADE_CODE]=!__PRODUCT_UPGRADE_CODE!"
     if defined __MAIN_EXECUTABLE set "_GUID[MAIN_EXECUTABLE]=!__MAIN_EXECUTABLE!"
     if defined __HELPER_LIBRARY set "_GUID[HELPER_LIBRARY]=!__HELPER_LIBRARY!"
     if defined __MANUAL set "_GUID[MANUAL]=!__MANUAL!"
@@ -259,7 +258,7 @@ goto :eof
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 set __REPLACE_PAIRS=
-for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR) do (
+for %%i in (PRODUCT_CODE PRODUCT_UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
@@ -283,10 +282,9 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
-if %_DEBUG%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-echo %__OPT_VERBOSE% -nologo -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
+set __CANDLE_OPTS=-nologo
+if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
@@ -324,16 +322,21 @@ if not %_EXITCODE%==0 goto end
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
-if %_VERBOSE%==1 ( set __OPT_VERBOSE=-v
-) else ( set __OPT_VERBOSE=
-)
-set __LIGHT_BINDINGS= -b "exe=%_APP_DIR%" -b "dll=%_APP_DIR%" -b "pdf=%_APP_DIR%"
-echo %__OPT_VERBOSE% -nologo -out "%_MSI_FILE:\=\\%" %__LIGHT_BINDINGS%> "%__OPTS_FILE%"
+set __LIGHT_OPTS=-nologo
+if %_DEBUG%==1 set __LIGHT_OPTS=%__LIGHT_OPTS% -v
+set __LIGHT_OPTS=%__LIGHT_OPTS% -b "app=%_APP_DIR%"
+echo %__LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%_WIXOBJ_FILE%" 1>&2
+set __WIXOBJ_FILES=
+set __N=0
+for /f %%f in ('dir /s /b "%_TARGET_DIR%\*.wixobj" 2^>NUL') do (
+    set __WIXOBJ_FILES=!__WIXOBJ_FILES! "%%f"
+    set /a __N+=1
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%__WIXOBJ_FILES%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Windows installer from file "!_WIXOBJ_FILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%_WIXOBJ_FILE%" %_STDOUT_REDIRECT%
+call "%_LIGHT_CMD%" "@%__OPTS_FILE%" "%__WIXOBJ_FILES%" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

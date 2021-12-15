@@ -11,12 +11,30 @@
   </tr>
 </table>
 
-The [WiX][wix_toolset] examples presented in the following sections
-are adapted <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from the ZIP archives <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> available on [Firegiant]'s website and share the same characteristics as the [WiX][wix_toolset] examples from page [myexamples/README.md](../myexamples/README.md).
+The [WiX][wix_toolset] examples presented in the following sections are adapted<sup id="anchor_01"><a href="#footnote_01">1</a></sup> from the onlie [WiX Toolset Tutorial](https://www.firegiant.com/wix/tutorial/) and are organized in the same way as our [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
+
+1. [Getting Started](https://www.firegiant.com/wix/tutorial/getting-started/)
+   - [Put it to Use](https://www.firegiant.com/wix/tutorial/getting-started/putting-it-to-use/) : [`SampleFirst.zip`](https://www.firegiant.com/system/files/samples/SampleFirst.zip).
+   - [Conditional Installation](https://www.firegiant.com/wix/tutorial/getting-started/conditional-installation/) : [`SampleCondition.zip`](https://www.firegiant.com/system/files/samples/SampleCondition.zip).
+2. [User Interface](https://www.firegiant.com/wix/tutorial/user-interface/)
+   - [First Steps](https://www.firegiant.com/wix/tutorial/user-interface/first-steps/) : [`SampleWixUI.zip`](https://www.firegiant.com/system/files/samples/SampleWixUI.zip)
+   - [New Link in the Chain](https://www.firegiant.com/wix/tutorial/user-interface/new-link-in-the-chain/) : [`SampleWixUIAddDlg.zip`](https://www.firegiant.com/system/files/samples/SampleWixUIAddDlg.zip)
+   - [Think Localized](https://www.firegiant.com/wix/tutorial/user-interface/think-localized/) : [`SampleWixUIAddDlgLoc.zip`](https://www.firegiant.com/system/files/samples/SampleWixUIAddDlgLoc.zip)
+3. [Events and Actions](https://www.firegiant.com/wix/tutorial/events-and-actions/)
+     - [How to Manage?](https://www.firegiant.com/wix/tutorial/events-and-actions/how-to-manage/) : [`SampleAskKeyNET.zip`](https://www.firegiant.com/system/files/samples/SampleAskKeyNET.zip)
+4. [Upgrades and Modularizations](https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/)
+     - [Checking for Oldies](https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/checking-for-oldies/) : [`SampleUpgrade.zip`](https://www.firegiant.com/system/files/samples/SampleUpgrade.zip)
+     - [Patchwork](https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/patchwork/) : [`SamplePatch.zip`](https://www.firegiant.com/system/files/samples/SamplePatch.zip)
+    - [Fragments](https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/fragments/) : [`SampleFragment.zip`](https://www.firegiant.com/system/files/samples/SampleFragment.zip)
+    - [Mergers](https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/mergers/) : [`SampleMergeModule.zip`](https://www.firegiant.com/system/files/samples/SampleMergeModule.zip)
+5. [User Interface Revisited](https://www.firegiant.com/wix/tutorial/user-interface-revisited/)
+    - [A Single Dialog](https://www.firegiant.com/wix/tutorial/user-interface-revisited/a-single-dialog/) : [`SampleCustomUI.zip`](https://www.firegiant.com/system/files/samples/SampleCustomUI.zip)
 
 ## <span id="sample_first">SampleFirst</span>
 
-Example `SampleFirst` is organized as follows :
+In this first example the [WiX][wix_toolset] source file [`SampleFirst.wxs`](./SampleFirst/src/SampleFirst.wxs) declares 4 `component` elements for the 3 application files and one menu shortcut.
+
+The project is organized as follows :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 Y:\firegiant-examples\SampleFirst
@@ -31,9 +49,7 @@ Y:\firegiant-examples\SampleFirst
         <a href="./SampleFirst/src/SampleFirst.wxs">SampleFirst.wxs</a>
 </pre>
 
-> **:mag_right:** In more elaborated projects directory [`src\`](./SampleFirst/src/) would also contain [WXI and WXL files](https://wixtoolset.org/documentation/manual/v3/overview/files.html) (aka WiX include and localization files).
-
-Command [`build help`](./SampleFirst/build.bat) displays the batch file options and subcommands:
+> **:mag_right:** Command [`build help`](./SampleFirst/build.bat) displays the batch file options and subcommands.
 
 Command [`build pack`](./SampleFirst/build.bat) generates the MSI package file:
 
@@ -46,11 +62,13 @@ Command [`build pack`](./SampleFirst/build.bat) generates the MSI package file:
 │   SampleFirst.msi
 │   SampleFirst.wixobj
 │   SampleFirst.wixpdb
-└───src_gen
+└───<b>src_gen</b>
         SampleFirst.wxs
 </pre>
 
 > **:mag_right:** In the above listing of the `target\` directory file `target\src_gen\SampleFirst.wxs` contains the real GUIDs instead of the symbol names defined in file [`src\SampleFirst.wxs`](./SampleFirst/src/SampleFirst.wxs).
+
+Figures **1.1** to **1.3** below illustrate the updated user environment after the successful execution of the *SampleFirst* Windows installer.
 
 <table>
 <tr>
@@ -60,18 +78,34 @@ Command [`build pack`](./SampleFirst/build.bat) generates the MSI package file:
 </td>
 <td style="text-align:center;">
   <a href="images/SampleFirst_StartMenu.png"><img style="max-width:160px;" src="images/SampleFirst_StartMenu.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.1 -</b> <i>Foobar</i> shortcuts<br>(<i>Start Menu</i> folder).
+  <div style="font-size:70%;"><b>Figure 1.2 -</b> <i>Foobar</i> shortcuts<br>(<i>Start Menu</i> folder).
 </td>
 <td style="text-align:center;">
   <a href="images/SampleFirst_Uninstall.png"><img style="max-width:180px;" src="images/SampleFirst_Uninstall.png" /></a>
-  <div style="font-size:70%;"><b>Figure 1.2 -</b> Uninstalling <i>Foobar</i><br/>(<i>Settings</i> window).
+  <div style="font-size:70%;"><b>Figure 1.3 -</b> Uninstalling <i>Foobar</i><br/>(<i>Settings</i> window).
 </td>
 </tr>
 </table>
 
+## <span id="sample_condition">SampleCondition</span>
+
+***WIP***
+
+## <span id="sample_wixui">SampleWixUI</span>
+
+***WIP***
+
+## <span id="sample_wixui_2">SampleWixUIAddDlg</span>
+
+***WIP***
+
+## <span id="sample_wixui_3">SampleWixUIAddDlgLoc</span>
+
+***WIP***
+
 ## <span id="sample_registry">SampleRegistry</span>
 
-Example `SampleRegistry` is organized in the same way as example `SampleFirst`.
+Example `SampleRegistry` is organized in the same way as the previous examples.
 
 Again command [`build pack`](./SampleFirst/build.bat) generates the Windows installer:
 
@@ -84,7 +118,7 @@ Again command [`build pack`](./SampleFirst/build.bat) generates the Windows inst
 │   SampleRegistry.msi
 │   SampleRegistry.wixobj
 │   SampleRegistry.wixpdb
-└───src_gen
+└───<b>src_gen</b>
         SampleRegistry.wxs
 </pre>
 
@@ -92,7 +126,7 @@ Again command [`build pack`](./SampleFirst/build.bat) generates the Windows inst
 
 Example `SampleLocalization` implements the user interface of the Windows installer.
 
-**WIP**
+***WIP***
 
 <!--
 http://www.lingoes.net/en/translator/langcode.htm
@@ -100,7 +134,7 @@ http://www.lingoes.net/en/translator/langcode.htm
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Archive contents*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Archive contents*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 The contents of each archive file is minimal; for instance the <code>SampleFirst.zip</code> example contains one <a href="https://wixtoolset.org/documentation/manual/v3/overview/files.html">WiX source file</a> and 3 dummy (<i>and invalid</i>) binary files:
@@ -119,9 +153,9 @@ Concretely, we undertake the following modifications of the original examples:
 <li>
 We modify the original <a href="./SampleFirst/src/SampleFirst.wxs"><code>SampleFirst.wxs</code></a> file as follows:
   <ul>
-  <li>We replace the <code>YOURGUID-<...></code> placeholders by unique symbolic names (e.g. <code>Id='YOURGUID-86C7-4D14-AEC0-86416A69ABDE'</code> becomes <code>Id='YOURGUID-PRODUCT_CODE'</code>) in order to delay <i>and</i> automatize their substitution (more details below).
+  <li>We replace the <code>YOURGUID-<...></code> placeholders by unique symbolic names (e.g. <code>Id='YOURGUID-86C7-4D14-AEC0-86416A69ABDE'</code> becomes <code>Id='YOURGUID-PRODUCT_ID'</code>) in order to delay <i>and</i> automatize their substitution (more details below).
   </li>
-  <li>We introduce <a href="https://wixtoolset.org/documentation/manual/v3/howtos/general/specifying_source_files.html">bindpath variables</a> to specify the file location in the <code>Source</code> tags (e.g. <code>Source='FoobarAppl10.exe'</code> becomes <code>Source='!(bindpath.exe)\FoobarAppl10.exe'</code>). The real file location is resolved at build time using the <code>-b "&lt;var&gt;=&lt;path&gt;"</code> option of the <a href="https://wixtoolset.org/">WiX</a> linker <a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html"><code>light</code></a>.
+  <li>We introduce <a href="https://wixtoolset.org/documentation/manual/v3/howtos/general/specifying_source_files.html">bindpath variables</a> to specify the file location in the <code>Source</code> tags (e.g. <code>Source='FoobarAppl10.exe'</code> becomes <code>Source='!(bindpath.app)\FoobarAppl10.exe'</code>). The real file location is resolved at build time using the <code>-b "&lt;var&gt;=&lt;path&gt;"</code> option of the <a href="https://wixtoolset.org/">WiX</a> linker <a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html"><code>light</code></a>.
   </liS>
   </ul>
 </li>
@@ -159,48 +193,12 @@ The build steps to generate a Windows installer are:
 The preprocessing step consists of several operations:
 </p>
 <ul style="margin:0 0 1em 20px;">
-<li>We generate a GUID <sup id="anchor_03"><a href="#footnote_03">[3]</a></sup> with the <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PS</a> cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.1"><code>New-Guid</code></a>.</li>
-<li>We associate a new GUID to each symbolic name (e.g. <code>'YOURGUID-PRODUCT_CODE'</code>) found in file <code>src\SampleFirst.wxs</code>.</li>
+<li>We generate a GUID <sup id="anchor_02"><a href="#footnote_02">2</a></sup> with the <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PS</a> cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.1"><code>New-Guid</code></a>.</li>
+<li>We associate a new GUID to each symbolic name (e.g. <code>'YOURGUID-PRODUCT_ID'</code>) found in file <code>src\SampleFirst.wxs</code>.</li>
 <li>We save the association into the file `build.properties` to ensure the same GUID is <i>reused</i> when generating the MSI package again <a href="./SampleFirst/build.bat"></code>build.bat</code></a> takes existing GUIDs from <code>build.properties</code> instead of generating new ones).</li>
 </ul>
 
-<b name="footnote_02">[2]</b> ***Archive List*** [↩](#anchor_02)
-
-<p style="margin:0 0 1em 20px;">
-Here is the list of ZIP archives available on <a href="https://www.firegiant.com/">Firegiant</a>'s website :
-</p>
-
-<table style="margin:0 0 1em 20px;">
-<tr><th>Chapter</th><th>Zip archive</th></tr>
-<tr>
-  <td><a href="">Getting Started</a></td>
-  <td><a href="https://www.firegiant.com/system/files/samples/SampleFirst.zip"><code>SampleFirst.zip</code></a></td>
-</tr>
-<!--
-<tr>
-  <td><a href="https://www.firegiant.com/wix/tutorial/events-and-actions">Events and Actions</a></td>
-  <td><a href=""><code>xxxx</code></a></td>
-</tr>
--->
-<tr>
-  <td><a href="https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/checking-for-oldies/">Upgrades and Modularization<br/>Checking for Oldies</a></td>
-  <td><a href="https://www.firegiant.com/system/files/samples/SampleUpgrade.zip"><code>SampleUpgrade.zip</code></a></td>
-</tr>
-<tr>
-  <td><a href="https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/patchwork/">Upgrades and Modularization<br/>Patchwork</a></td>
-  <td><a href="https://www.firegiant.com/system/files/samples/SamplePatch.zip"><code>SamplePatch.zip</code></a></td>
-</tr>
-<tr>
-  <td><a href="https://www.firegiant.com/wix/tutorial/upgrades-and-modularization/fragments/">Upgrades and Modularization<br/>Fragments</a></td>
-  <td><a href="https://www.firegiant.com/system/files/samples/SampleFragment.zip"><code>SampleFragment.zip</code></a></td>
-</tr>
-<tr>
-  <td><a href="https://www.firegiant.com/wix/tutorial/user-interface/">User Interface</a></td>
-  <td><a href="https://www.firegiant.com/system/files/samples/SampleWixUI.zip"><code>SampleWixUI.zip</code></a></td>
-</tr>
-</table>
-
-<b name="footnote_03">[3]</b> ***GUID*** [↩](#anchor_03)
+<span id="footnote_02">[2]</span> ***GUID*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated.

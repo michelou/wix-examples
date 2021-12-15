@@ -61,6 +61,7 @@ set "_GEN_DIR=%_TARGET_DIR%\src_gen"
 
 for %%i in ("%_ROOT_DIR%.") do set "_PROJECT_NAME=%%~ni"
 
+set "_WIXOBJ_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.wixobj"
 set "_MSI_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.msi"
 
 if not exist "%WIX%\candle.exe" (
@@ -71,7 +72,12 @@ if not exist "%WIX%\candle.exe" (
 set "_CANDLE_CMD=%WIX%\candle.exe"
 set "_LIGHT_CMD=%WIX%\light.exe"
 
-set "_MSIEXEC_CMD=msiexec.exe"
+if not exist "%WINDIR%\System32\msiexec.exe" (
+    echo %_ERROR_LABEL% Microsoft Windows installer not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MSIEXEC_CMD=%WINDIR%\System32\msiexec.exe"
 goto :eof
 
 :env_colors
@@ -137,8 +143,8 @@ if exist "%__PROPS_FILE%" (
             set "__!__NAME!=!__VALUE!"
         )
     )
-    @rem PRODUCT_ID PRODUCT_UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR
-    if defined __PRODUCT_ID set "_GUID[PRODUCT_ID]=!__PRODUCT_ID!"
+    @rem PRODUCT_CODE PRODUCT_UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR
+    if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
     if defined __PRODUCT_UPGRADE_CODE set "_GUID[PRODUCT_UPGRADE_CODE]=!__PRODUCT_UPGRADE_CODE!"
     if defined __MAIN_EXECUTABLE set "_GUID[MAIN_EXECUTABLE]=!__MAIN_EXECUTABLE!"
     if defined __HELPER_LIBRARY set "_GUID[HELPER_LIBRARY]=!__HELPER_LIBRARY!"
@@ -197,6 +203,7 @@ if %_DEBUG%==1 set _STDOUT_REDIRECT=
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
+    echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
 )
@@ -253,7 +260,7 @@ goto :eof
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 set __REPLACE_PAIRS=
-for %%i in (PRODUCT_ID PRODUCT_UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR) do (
+for %%i in (PRODUCT_CODE PRODUCT_UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"
@@ -279,13 +286,14 @@ set "__OPTS_FILE=%_TARGET_DIR%\candle_opts.txt"
 
 set __CANDLE_OPTS=-nologo
 if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
+set __CANDLE_OPTS=%__CANDLE_OPTS% -ext WixUIExtension -ext WiXUtilExtension
 echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
-for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
-    echo "%%f">> "%__SOURCES_FILE%"
+for /f %%f in ('dir /s /b "%_GEN_DIR%\Sample*.wxs" 2^>NUL') do (
+    echo %%f>> "%__SOURCES_FILE%"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -319,7 +327,8 @@ set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 
 set __LIGHT_OPTS=-nologo
 if %_DEBUG%==1 set __LIGHT_OPTS=%__LIGHT_OPTS% -v
-set __LIGHT_OPTS=%__LIGHT_OPTS% -b "app=%_APP_DIR%"
+set __LIGHT_OPTS=%__LIGHT_OPTS% -ext WixUIExtension
+set __LIGHT_OPTS=%__LIGHT_OPTS% -b "exe=%_APP_DIR%" -b "dll=%_APP_DIR%" -b "pdf=%_APP_DIR%"
 echo %__LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
@@ -412,19 +421,19 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :remove
-if not defined _GUID[PRODUCT_ID] (
+if not defined _GUID[PRODUCT_CODE] (
     echo %_ERROR_LABEL% Product code not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
-set "__PRODUCT_ID=%_GUID[PRODUCT_ID]%"
+set "__PRODUCT_CODE=%_GUID[PRODUCT_CODE]%"
 
-@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_ID%" 1>&2
+@rem if %_DEBUG%==1 ( echo %_DEBUG_LABEL% reg query "%__HKLM_UNINSTALL%"| findstr /I /C:"%__PRODUCT_CODE%" 1>&2
 @rem ) else if %_VERBOSE%==1 ( echo Check if product if already installed 1>&2
 @rem )
 @rem set __INSTALLED=0
-@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%__PRODUCT_ID%" && set __INSTALLED=1
+@rem reg query "%__HKLM_UNINSTALL%" | findstr /I /C:"%__PRODUCT_CODE%" && set __INSTALLED=1
 @rem if %__INSTALLED%==0 (
 @rem     echo %_WARNING_LABEL% Product "%_PROJECT_NAME%" is not installed 1>&2
 @rem     goto :eof
