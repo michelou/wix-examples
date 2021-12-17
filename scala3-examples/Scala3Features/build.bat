@@ -206,6 +206,7 @@ if not defined _PRODUCT_MSI_VERSION (
     set _EXITCODE=1
     goto :eof
 )
+for /f "delims=. tokens=1,2,*" %%i in ("%_PRODUCT_VERSION%") do set "_PRODUCT_MINOR_VERSION=%%~j"
 goto :eof
 
 :args
@@ -287,6 +288,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _INSTALL=%_INSTALL% _LINK=%_LINK% _REMOVE=%_REMOVE% 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "WIX=%WIX%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_MINOR_VERSION=%_PRODUCT_MINOR_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_MSI_VERSION=%_PRODUCT_MSI_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_SKU=%_PRODUCT_SKU% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_VERSION=%_PRODUCT_VERSION% 1>&2
@@ -615,7 +617,11 @@ if not %_EXITCODE%==0 goto :eof
 call :gen_api_javadoc scala3-tasty-inspector_3 "%_PRODUCT_VERSION%"
 if not %_EXITCODE%==0 goto :eof
 
-set "__INDEX_HTML=%_API_DIR%\scala3-library_3\index.html"
+if exist "%_API_DIR%\scala3-library_3\index.html" (
+    set "__INDEX_HTML=%_API_DIR%\scala3-library_3\index.html"
+) else (
+    set "__INDEX_HTML=%_API_DIR%\scala3-library_3\api\index.html"
+)
 if not exist "%__INDEX_HTML%" (
     echo %_ERROR_LABEL% Scala 3 API documentation directory not found ^("!__INDEX_HTML:%_ROOT_DIR%\=!"^) 1>&2
     set _EXITCODE=1
@@ -685,6 +691,7 @@ if %_DEBUG%==1 set __CANDLE_OPTS=%__CANDLE_OPTS% -v
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-I%_GEN_DIR:\=\\%" -arch %_ARCH%
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dpack=%_PRODUCT_DIR%" "-dapi=%_API_DIR%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductId=%_PRODUCT_ID%"
+set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMinorVersion=%_PRODUCT_MINOR_VERSION%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductMsiVersion=%_PRODUCT_MSI_VERSION%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductUpgradeCode=%_PRODUCT_UPGRADE_CODE%"
 set __CANDLE_OPTS=%__CANDLE_OPTS% "-dProductVersion=%_PRODUCT_VERSION%"

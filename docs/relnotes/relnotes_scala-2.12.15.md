@@ -16,10 +16,9 @@ The Windows installer behaves in *3 different ways* when it detects a [Scala 2](
 - trigger an elevation of privileges (tested many times but "*usage at your own risk*" disclaimer).
 - install the application files to the selected destination folder (*default* location is : `C:\Program Files\Scala 2\`).
 - add the small wrapper script [`bin\repl.bat`](../../scala2-examples/Scala2First/src/resources/repl.bat) which gives direct access to the [Scala 2 REPL](../../scala2-examples/images/Scala2First_REPL.png).
-- create shortcuts under the *Start Menu* folder "[Scala 2](../../scala2-examples/images/Scala2First_StartMenu.png)".
-- add variable `SCALA_HOME` to the Windows *system environment* (tested on Win10 Pro/Home).
-- append path `%SCALA_HOME%\bin\` to the system variable `PATH`.
-<!--
-***Not yet implemented***
-- [Scala 2 API](https://www.scala-lang.org/api/current/) documentation is currently not part of the installer (unlike the official [Scala 2 Windows installer](https://scala-lang.org/files/archive/)).
--->
+- &#9746; create shortcuts under the *Start Menu* folder "[Scala 2](../../scala2-examples/images/Scala2First_StartMenu.png)".
+- &#9746; add variable `SCALA_HOME` to the Windows *system environment* (tested on Win10 Pro/Home).
+- &#9746; append path `%SCALA_HOME%\bin\` to the system variable `PATH`.
+- &#9746; install the API documentation to the selected destination folder (default location is : `C:\Program Files\Scala 2\`).
+
+<dl><dd><u>Note</u>: &#9746; Optional feature <i>enabled</i> by default.</dd></dl>
