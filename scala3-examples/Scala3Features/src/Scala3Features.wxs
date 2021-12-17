@@ -72,11 +72,29 @@
 
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="DocumentationShortcuts" Guid="$(var.DocumentationShortcuts)">
-        <Shortcut Id="ScalaAPI"
-            Name="$(var.ShortcutScalaAPIName)"
-            Description="$(var.ShortcutScalaAPIDescription)"
-            Target="[INSTALLDIR]api\index.html">
-          <Icon Id="APIIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+        <Shortcut Id="Scala2StdLib"
+            Name="$(var.ShortcutScala2StdLibName)"
+            Description="$(var.ShortcutScala2StdLibDescription)"
+            Target="[INSTALLDIR]api\scala-library\index.html">
+          <Icon Id="Scala2StdLibIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+        </Shortcut>
+        <Shortcut Id="Scala3Compiler"
+            Name="$(var.ShortcutScala3CompilerName)"
+            Description="$(var.ShortcutScala3CompilerDescription)"
+            Target="[INSTALLDIR]api\scala3-compiler_3\index.html">
+          <Icon Id="Scala3CompilerIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+        </Shortcut>
+        <Shortcut Id="Scala3StdLib"
+            Name="$(var.ShortcutScala3StdLibName)"
+            Description="$(var.ShortcutScala3StdLibDescription)"
+            Target="[INSTALLDIR]api\scala3-library_3\index.html">
+          <Icon Id="Scala3StdLibIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
+        </Shortcut>
+        <Shortcut Id="Scala3TastyInspector"
+            Name="$(var.ShortcutScala3TastyInspectorName)"
+            Description="$(var.ShortcutScala3TastyInspectorDescription)"
+            Target="[INSTALLDIR]api\scala3-tasty-inspector_3\index.html">
+          <Icon Id="Scala3TastyInspectorIcon" SourceFile="!(bindpath.rsrc)\network.ico" />
         </Shortcut>
         <RegistryValue Root="HKCU" Key="Software\$(var.CompanyName)\[ProductName]" Name="apiInstalled" Type="integer" Value="1" KeyPath="yes"/>
       </Component>

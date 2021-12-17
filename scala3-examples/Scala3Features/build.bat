@@ -598,29 +598,30 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Saved %__N% component identifiers to file "
 goto :eof
 
 :gen_api
-set "__API_ZIP_FILE=%_RESOURCES_DIR%\%_PRODUCT_SKU%-%_PRODUCT_VERSION%.zip"
-if not exist "%__API_ZIP_FILE%" (
-    echo %_WARNING_LABEL% API documentation archive not found ^(%_PRODUCT_VERSION%^) 1>&2
-    goto :eof
-)
-call :action_required "%_API_DIR%\index.html" "%__API_ZIP_FILE%"
-if %_ACTION_REQUIRED%==0 goto :eof
+if not exist "%_API_DIR%\jars\" mkdir "%_API_DIR%\jars"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% 1>&2
-) else if %_VERBOSE%==1 ( echo Extract Scala 3 API documentation files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
-)
-call "%_UNZIP_CMD%" -o "%__API_ZIP_FILE%" -d "%_TARGET_DIR%"
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to extract Scala 3 API documentation files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+call :gen_api_javadoc scala-library "2.13.6"
+if not %_EXITCODE%==0 goto :eof
+
+call :gen_api_javadoc scala3-compiler_3 "%_PRODUCT_VERSION%"
+if not %_EXITCODE%==0 goto :eof
+
+call :gen_api_javadoc scala3-library_3 "%_PRODUCT_VERSION%"
+if not %_EXITCODE%==0 goto :eof
+
+@rem call :gen_api_javadoc scala3-staging_3 "%_PRODUCT_VERSION%"
+@rem if not %_EXITCODE%==0 goto :eof
+
+call :gen_api_javadoc scala3-tasty-inspector_3 "%_PRODUCT_VERSION%"
+if not %_EXITCODE%==0 goto :eof
+
+set "__INDEX_HTML=%_API_DIR%\scala3-library_3\index.html"
+if not exist "%__INDEX_HTML%" (
+    echo %_ERROR_LABEL% Scala 3 API documentation directory not found ^("!__INDEX_HTML:%_ROOT_DIR%\=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if not exist "%_API_DIR%\index.html" (
-    echo %_ERROR_LABEL% Scala 3 API documentation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-call :action_required "%_GEN_DIR%\Scala3API.wxs" "%_API_DIR%\index.html"
+call :action_required "%_GEN_DIR%\Scala3API.wxs" "%__INDEX_HTML%"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 set __HEAT_OPTS=-nologo -indent 2 -cg APIFiles -dr INSTALLDIR
@@ -632,6 +633,43 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_HEAT_CMD%" dir "%_API_DIR%" %__HEAT_OPTS
 call "%_HEAT_CMD%" dir "%_API_DIR%" %__HEAT_OPTS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate WiX source file for Scala 3 API documentation 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+@rem input parameters: %1=artifact, %2=version
+:gen_api_javadoc
+set "__SCALA_LANG_URL=https://repo1.maven.org/maven2/org/scala-lang"
+set "__ARTIFACT=%~1"
+set "__VERSION=%~2"
+
+set "__ARCHIVE_URL=%__SCALA_LANG_URL%/%__ARTIFACT%/%__VERSION%/%__ARTIFACT%-%__VERSION%-javadoc.jar"
+set "__OUTPUT_FILE=%_API_DIR%\jars\%__ARTIFACT%-%__VERSION%-javadoc.jar"
+
+if not exist "!__OUTPUT_FILE!" (
+    set __CURL_OPTS=--fail --silent --user-agent "Mozilla 5.0" -L --url "%__ARCHIVE_URL%"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__OUTPUT_FILE!" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Download file "%__ARCHIVE_FILE%" 1>&2
+    )
+    call "%_CURL_CMD%" !__CURL_OPTS! > "!__OUTPUT_FILE!"
+    if not !ERRORLEVEL!==0 (
+        if exist "!__OUTPUT_FILE!" del "!__OUTPUT_FILE!"
+        echo.
+        echo %_ERROR_LABEL% Failed to download file "%__ARCHIVE_URL%" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+set "__OUTPUT_DIR=%_API_DIR%\%__ARTIFACT%"
+if exist "%__OUTPUT_DIR%\index.html" goto :eof
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" -o "%__OUTPUT_FILE%" -d "!__OUTPUT_DIR!" 1>&2
+) else if %_VERBOSE%==1 ( echo Extract Scala 3 API documentation files into directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_UNZIP_CMD%" -o "%__OUTPUT_FILE%" -d "!__OUTPUT_DIR!"
+if not !ERRORLEVEL!==0 (
+    echo %_ERROR_LABEL% Failed to extract "!__OUTPUT_FILE:%_ROOT_DIR%=!" into directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

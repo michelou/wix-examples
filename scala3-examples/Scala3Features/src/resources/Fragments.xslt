@@ -8,7 +8,7 @@
 
   <xsl:template match="@*|node()">
     <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:apply-templates select="@*|node()" />
     </xsl:copy>
   </xsl:template>
 
@@ -16,14 +16,21 @@
     <xsl:copy>
       <xsl:text>&#10;  </xsl:text>
       <xsl:text disable-output-escaping="yes">&lt;?include Includes.wxi ?&gt;</xsl:text>
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:apply-templates select="@*|node()" />
     </xsl:copy>
   </xsl:template>
 
   <xsl:template match="wix:Directory[starts-with(@Id, 'scala3')]">
-    <Directory Id="INSTALLDIR" Name="$(var.ProductDirectoryName)" >
+    <Directory Id="INSTALLDIR" Name="$(var.ProductDirectoryName)">
       <xsl:apply-templates />
     </Directory>
+  </xsl:template>
+
+  <xsl:template match="wix:Directory/@Id">
+    <xsl:attribute name="{name()}">
+      <xsl:value-of select="concat('app_', .)" />
+    </xsl:attribute>
+    <xsl:apply-templates />
   </xsl:template>
 
   <xsl:template match="wix:Component[@Id='scala']">
@@ -34,8 +41,29 @@
     </Component>
     <xsl:text>&#10;          </xsl:text>
     <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
+      <xsl:apply-templates select="@*|node()" />
     </xsl:copy>
+  </xsl:template>
+
+  <!-- add prefix 'app_' to elements Component, File and ComponentRef
+       to avoid naming collision with generated file Scala2API.wxs -->  
+  <xsl:template match="wix:Component/@Id">
+    <xsl:attribute name="{name()}">
+      <xsl:value-of select="concat('app_', .)" />
+    </xsl:attribute>
+    <xsl:apply-templates />
+  </xsl:template>
+
+  <xsl:template match="wix:File/@Id">
+    <xsl:attribute name="{name()}">
+      <xsl:value-of select="concat('app_', .)" />
+    </xsl:attribute>
+  </xsl:template>
+ 
+  <xsl:template match="wix:ComponentRef/@Id">
+    <xsl:attribute name="{name()}">
+      <xsl:value-of select="concat('app_', .)" />
+    </xsl:attribute>
   </xsl:template>
 
   <xsl:template match="wix:ComponentGroup[@Id='PackFiles']">

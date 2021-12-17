@@ -17,8 +17,17 @@
   <?define PackageLanguages="1033" ?>  <!-- 1033 = en-us -->
   <?define PackageManufacturer="EPFL and Lightbend, Inc." ?>
 
-  <?define ShortcutScalaAPIDescription="Display the Scala 3 API Documentation" ?>
-  <?define ShortcutScalaAPIName="API Documentation" ?>
+  <?define ShortcutScala2StdLibDescription="Display the Scala 2 Standard Library Documentation" ?>
+  <?define ShortcutScala2StdLibName="Scala 2 Standard Library Documentation" ?>
+
+  <?define ShortcutScala3CompilerDescription="Display the Scala 3 Compiler Documentation" ?>
+  <?define ShortcutScala3CompilerName="Scala 3 Compiler Documentation" ?>
+
+  <?define ShortcutScala3StdLibDescription="Display the Scala 3 Standard Library Documentation" ?>
+  <?define ShortcutScala3StdLibName="Scala 3 Standard Library Documentation" ?>
+
+  <?define ShortcutScala3TastyInspectorDescription="Display the Scala 3 TASTy Inspector Documentation" ?>
+  <?define ShortcutScala3TastyInspectorName="Scala 3 TASTy Inspector Documentation" ?>
 
   <?define ShortcutScalaLicenseDescription="Display the Scala 3 License" ?>
   <?define ShortcutScalaLicenseName="License" ?>
