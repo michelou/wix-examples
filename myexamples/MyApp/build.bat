@@ -421,13 +421,13 @@ call :action_required "%_MSI_FILE%" "%_SOURCE_DIR%\*.wx?" "%_APP_EXE%"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 call :gen_app
-if not %_EXITCODE%==0 goto end
+if not %_EXITCODE%==0 goto :eof
 
 call :gen_src
-if not %_EXITCODE%==0 goto end
+if not %_EXITCODE%==0 goto :eof
 
 call :compile
-if not %_EXITCODE%==0 goto end
+if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\light_opts.txt"
 

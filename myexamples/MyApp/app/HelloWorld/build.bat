@@ -244,7 +244,7 @@ set "__SLN_FILE=%_PROJECT_DIR%\%_PROJECT_NAME%.sln"
 if not exist "%__SLN_FILE%" (
     echo %_ERROR_LABEL% Solution file "%_PROJECT_NAME%.sln" not found 1>&2
     set _EXITCODE=1
-    goto end
+    goto :eof
 )
 call :action_required "%__EXE_FILE%" "%__SLN_FILE%" "%_SOURCE_DIR%\*.cpp"
 if %_ACTION_REQUIRED%==0 goto :eof
@@ -262,7 +262,7 @@ call "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%__SLN_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_NAME%.exe" 1>&2
     set _EXITCODE=1
-    goto end
+    goto :eof
 )
 goto :eof
 
