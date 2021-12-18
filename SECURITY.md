@@ -50,7 +50,7 @@ The two checksums are equal
 
 > **:mag_right:** See also Chris's post [*What Is a Checksum (and Why Should You Care)?*][resource_hoffman] (September 2019).
 
-## <span id="certificates">Self-signed Certificates</span>
+## <span id="certificates">Self-signed Certificates</span> <sup id="anchor_02"><a href="#footnote_02">2</a></sup>
 
 Command [`signtool`][signtool_cmd] (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the standard tool to sign executable files on MS Windows, i.e. the  Windows installers in our case.
 
@@ -105,6 +105,10 @@ Figures **1.1** to **1.2** below show that a digital signature was indeed added 
 - [6 OpenSSL command options that every sysadmin should know][resource_critelli] by Anthony Critelli, March 2021.
 - [Internet Safety: 7 Steps to Keeping Your Computer Safe on the Internet][resource_notenboom] by A. Notenboom, March 2004.
 
+<span id="footnote_02">[2]</span> ***Code Signing Resources*** [↩](#anchor_02)
+
+- [Authenticode Code Signing with Microsoft SignTool][resource_digicert] by DigiCert, December 2021.
+- [Code-Signing Best Practices][resource_microsoft] by Microsoft, January 2007.
 
 ***
 
@@ -114,7 +118,9 @@ Figures **1.1** to **1.2** below show that a digital signature was indeed added 
 <!-- link refs -->
 
 [resource_critelli]: https://www.redhat.com/sysadmin/6-openssl-commands
+[resource_digicert]: https://www.digicert.com/kb/code-signing/signcode-signtool-command-line.htm
 [resource_hoffman]: https://www.howtogeek.com/363735/what-is-a-checksum-and-why-should-you-care/
+[resource_microsoft]: https://docs.microsoft.com/en-us/previous-versions/windows/hardware/design/dn653556(v=vs.85)
 [resource_notenboom]: https://askleo.com/internet_safety_7_steps_to_keeping_your_computer_safe_on_the_internet/
 [resource_microsoft]: https://msrc.microsoft.com/update-guide/vulnerability
 [aaaa]: https://docs.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate?view=windowsserver2019-ps
