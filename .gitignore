@@ -5,7 +5,7 @@ target/
 *.crt
 *_LOCAL
 app*.txt
-guids*.txt
+*_LOCAL.txt
 *.exe
 *.key
 *.msi

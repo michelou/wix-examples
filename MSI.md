@@ -19,22 +19,15 @@ MSI ("*Microsoft Silent Installer*") files are database files (with components a
 
 In case we are suspicious about a Windows installer we can run the Windows command [`msiexec`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec) <sup id="anchor_01"><a href="#footnote_01">1</a></sup> to *extract* the files of the <a href="https://en.wikipedia.org/wiki/Cabinet_(file_format)"><code>.cab</code></a> archive(s) embedded in the <code>.msi</code> file (see also the [WiX element `media`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/media.html)).
 
-<pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> msiexec</b>
-C:\Windows\System32\msiexec.exe
-
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec" rel="external">msiexec</a> /a &lt;msi_file_path&gt; /qn TARGETDIR=c:\Temp\unpacked</b>
-</pre>
-
 > **:mag_right:** Visit Microsoft's page [Released Versions of Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer) to find the correspondance between Windows installer versions and MS Windows OS versions. For instance [`msiexec`][msiexec_cmd] has version 5.0 on MS Windows 7 and newer :
 > <pre>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -c "(Get-Item C:\Windows\System32\msiexec.exe).VersionInfo.ProductVersion"</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -c "(<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-item?view=powershell-7.2">Get-Item</a> C:\Windows\System32\msiexec.exe).VersionInfo.ProductVersion"</b>
 > 5.0.19041.320
 > </pre>
 
 ## <span id="installers">Windows Installers</span>
 
-The following table shows a brief comparison of some Windows installers available for open-source (or free) software products <sup id="anchor_02"><a href="#footnote_02">2</a></sup> :
+The following table shows a brief comparison of several Windows installers available for open-source (or free) software products <sup id="anchor_02"><a href="#footnote_02">2</a></sup> :
 
 | MSI&nbsp;file     | Signed | Name   | Destination&nbsp;folder (<i>default</i>) |
 |:-------------|:------:|:------:|:----------------------------------|
@@ -58,13 +51,26 @@ The following table shows a brief comparison of some Windows installers availabl
 
 <span id="footnote_01">[1]</span> **`Administrative Installation`** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 With option <code>/a</code> the Windows command <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec"><code>msiexec</code></a> performs a so-called <a href="https://stackoverflow.com/questions/5564619/what-is-the-purpose-of-administrative-installation-initiated-using-msiexec-a">administrative installation</a>. In the following we give 4 examples to illustrate its usage.
-</p>
+</dd></dl>
 
-<p style="margin:0 0 1em 20px;">
+<pre style="margin:0 0 1em 20px; font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> msiexec</b>
+C:\Windows\System32\msiexec.exe
+
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec" rel="external">msiexec</a> /a &lt;msi_file_path&gt; /qn TARGETDIR=c:\Temp\unpacked</b>
+</pre>
+
+> **:mag_right:** Options are:
+> - `/a` - run administrative installation sequence.
+> - `/qn` - run completely silently (alternatively: `/qb!` for semi-silent).
+> - `/l*v "Extract.log"` - create verbose log file.
+> - `TARGETDIR` - destination path for file extraction (top level folder)
+
+<dl><dd>
 We first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.7_epfl.msi</code> to avoid naming collision with our own <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
-</p>
+</dd></dl>
 
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://scala-lang.org/files/archive/">scala-2.13.7_epfl.msi</aS> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
@@ -81,9 +87,9 @@ We first extract the contents of <a href="https://scala-lang.org/files/archive/"
 
 > **:mag_right:** We observe that 3 files/directories are <i>missing</i> compared to the corresponding Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.zip</code></a>, namely the two text files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory `man\`.
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
-</p>
+</dd></dl>
 
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/michelou/wix-examples/releases/tag/scala-2.13.7.msi">scala-2.13.7.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
@@ -101,30 +107,30 @@ Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2
         └───<b>man</b>
 </pre>
 
-<p style="margin:0 0 1em 20px;">
-As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.5.6"><code>sbt-1.5.6.msi</code></a> : 
-</p>
+<dl><dd>
+As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.5.7"><code>sbt-1.5.7.msi</code></a> : 
+</dd></dl>
 
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.5.6">sbt-1.5.6.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.5.7">sbt-1.5.7.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f c:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   sbt-1.5.6.msi
-└───PFiles
-    └───sbt
+│   sbt-1.5.7.msi
+└───<b>PFiles</b>
+    └───<b>sbt</b>
         │   LICENSE
         │   NOTICE
-        ├───bin
+        ├───<b>bin</b>
         │       sbt
         │       sbt-launch.jar
         │       sbt.bat
         │       sbtn-x86_64-pc-win32.exe
-        └───conf
+        └───<b>conf</b>
                 sbtconfig.txt
                 sbtopts
 </pre>
 
-> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.6.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.6) but not in MSi file [`sbt-1.5.6.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.6).
+> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.6.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.6) but not in MSi file [`sbt-1.5.7.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.7).
 
 <p style="margin:0 0 1em 20px;">
 Finally we extract the contents of the Java 11 Windows installer named <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> :
@@ -150,9 +156,10 @@ Finally we extract the contents of the Java 11 Windows installer named <code>Ope
 <span id="footnote_02">[2]</span> ***Software Distributions*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Software distributions are available in many different forms, for instance :
+Software distributions can be installed in several ways, not necessarily using MSI files, for instance :
 </p>
-<table style="font-size:80%;">
+
+<table style="margin:0 0 0 20px;font-size:80%;">
 <tr>
 <th>Software distribution</th>
 <th>Zip archive <sup><b>(a)</b></sup></td>
@@ -201,15 +208,20 @@ Software distributions are available in many different forms, for instance :
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
 </tr>
+<tr>
+<td><a href="https://github.com/wixtoolset/wix3/releases/tag/wix3112rtm">WiX Toolset 3.11</a></td>
+<td style="text-align:center;"><b>x</b></td>
+<td style="text-align:center;"><b>x</b></td>
+<td></td>
+</tr>
 </table>
-<div style="font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</div>
-<div style="font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).</div>
-<div style="font-size:80%;"><sup><b>(c)</b></sup> On Windows <a href="https://sdkman.io/install">SDKMAN</a> (written in Bash) requires WSL, Cygwin or MSYS+MinGW.<br/>&nbsp;</div>
+<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</div>
+<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).</div>
+<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(c)</b></sup> On Windows <a href="https://sdkman.io/install">SDKMAN</a> (written in Bash) requires WSL, Cygwin or MSYS+MinGW.<br/>&nbsp;</div>
 
 <span id="footnote_03">[3]</span> **`MSI Resources`** [↩](#anchor_03)
 
 - [Elastic Windows Installer][project_elastic] - Windows installers for the Elastic stack.
-
 - &#128077; [InstEd][tool_insted] - a free MSI editor built for professionals.
 - [lessmi][tool_lessmsi] - a tool to view and extract the contents of an Windows Installer.
 
