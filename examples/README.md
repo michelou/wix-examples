@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples coming from various websites.
@@ -169,7 +169,7 @@ Y:\examples\WiXCustomDialog
             <a href="./WixCustomDialog/src/resources/Image.bmp">Image.bmp</a>
 </pre>
 
-Command `build -verbose link` generates file `WiXCustomDialog-1.0.0`:
+Command [`build -verbose link`](./WixCustomDialog/build.bat) generates file `WiXCustomDialog-1.0.0.msi`:
 
 <pre style="font-size:80%;">
 <b> &gt; <a href="./WixCustomDialog/build.bat">build</a> -verbose clean link</b>
@@ -208,10 +208,10 @@ Successfully signed: Y:\examples\WiXCustomDialog\target\WiXCustomDialog-1.0.0.ms
 
 ## <span id="footnotes">Footnotes</span>
 
-<span id="footnote_01">[1]</span> ***Missing application*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Missing application files*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-Since the original application (resp. its source files) is not available we must be satisfied with a "<a href="https://en.wikipedia.org/wiki/Double_(filmmaking)"><i>body double</i></a>" instead of the orginal one; concretely we simply copy (and rename) the <a href="https://en.wikipedia.org/wiki/Windows_Calculator">Windows Calculator</a> (aka. <code>%WINDIR%\system32\calc.exe</code>) during the build process.
+Since the original application (resp. its source files) is not available we must be satisfied with a "<a href="https://en.wikipedia.org/wiki/Double_(filmmaking)"><i>body double</i></a>" instead of the orginal one; concretely we simply copy (and rename) the <a href="https://en.wikipedia.org/wiki/Windows_Calculator">Windows Calculator</a> (aka. <code><a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables#variables-that-are-processed-for-the-operating-system-and-in-the-context-of-each-user">%WINDIR%</a>\system32\calc.exe</code>) during the build process.
 </p>
 
 ***

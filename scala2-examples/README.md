@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">Scala 2</a> Windows installer.
@@ -37,9 +37,9 @@ Y:\scala2-examples\Scala2First
 │   <a href="./Scala2First/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala-2.12.15</b>
-│   │       <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a>
+│   │       <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a><i>)</i>
 │   └───<b>scala-2.13.7</b>
-│           <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
+│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a><i>)</i>
 └───<b>src</b>
     │   <a href="./Scala2First/src/Scala2First.wxs">Scala2First.wxs</a>
     └───<b>resources</b>
@@ -157,9 +157,9 @@ Y:\scala-examples\Scala2UI
 │   <a href="./Scala2UI/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala-2.12.15</b>
-│   │       <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a>
+│   │       <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a><i>)</i>
 │   └───<b>scala-2.13.7</b>
-│           <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
+│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a><i>)</i>
 └───<a href="./Scala2UI/src/"><b>src</b></a>
     │   <a href="./Scala2UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2UI/src/Scala2UI.wxs">Scala2UI.wxs</a>
@@ -272,9 +272,9 @@ Y:\scala2-examples\Scala2Localized
 │   <a href="./Scala2Localized/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala-2.12.15</b>
-│   │       <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a>
+│   │       <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a><i>)</i>
 │   └───<b>scala-2.13.7</b>
-│           <i>files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a>
+│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a><i>)</i>
 └───<a href="./Scala2Localized/src/"><b>src</b></a>
     │   <a href="./Scala2Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2Localized/src/Scala2Localized.wxs">Scala2Localized.wxs</a>
@@ -425,7 +425,7 @@ SCALA_HOME=C:\Program Files\Scala 2\
 C:\Program Files\Scala 2\bin\scala
 C:\Program Files\Scala 2\bin\scala.bat
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> JAVA_HOME=c:\opt\jdk-bellsoft-1.8.0u312</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> JAVA_HOME=c:\opt\<a href="https://bell-sw.com/pages/downloads/#/java-8-lts">jdk-bellsoft-1.8.0u312</a></b>
 &nbsp;
 <b>&gt; scala -version</b>
 Scala code runner version 2.13.7 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
@@ -442,7 +442,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 <table style="margin:0 0 1em 20px;font-size:80%;">
 <tr>
   <th style="padding:6px;">OpenJDK<br/>Implementation</th>
-  <th style="padding:6px;">Default location<br/>in directory <code>%ProgramFiles%</code></th>
+  <th style="padding:6px;">Default location<br/>in <code>%ProgramFiles%</code> folder</th>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://github.com/corretto/corretto-11/releases">Amazon Corretto 11</a></td>

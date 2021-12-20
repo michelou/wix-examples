@@ -116,9 +116,11 @@
 
     <Feature Id="AppComponents"
         Title="$(var.FeatureAppComponentsTitle)" Display="expand" Level="1"
+        Absent="disallow" TypicalDefault="install"
         Description="$(var.FeatureAppComponentsDescription)">
       <Feature Id="AppCore"
           Title="$(var.FeatureAppCoreTitle)" Level="1"
+          Absent="disallow" TypicalDefault="install"
           Description="$(var.FeatureAppCoreDescription)">
         <ComponentGroupRef Id='PackFiles' />
         <!-- Step 3: Tell WiX to install the shortcut(s) -->
@@ -126,11 +128,13 @@
       </Feature>
       <Feature Id="ScalaHome"
           Title="$(var.FeatureScalaHomeTitle)" Level="1"
+          Absent="allow" TypicalDefault="install"
           Description="$(var.FeatureScalaHomeDescription)">
         <ComponentRef Id="ApplicationScalaHome" />
       </Feature>
       <Feature Id="UpdatePath"
           Title="$(var.FeatureUpdatePathTitle)" Level="1"
+          Absent="allow" TypicalDefault="install"
           Description="$(var.FeatureUpdatePathDescription)">
         <ComponentRef Id="ApplicationUpdatePath" />
       </Feature>

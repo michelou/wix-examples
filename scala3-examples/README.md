@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.
@@ -37,9 +37,9 @@ Y:\scala3-examples\Scala3First
 │   <a href="./Scala3First/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala3-3.0.2</b>
-│   │       <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a>
+│   │       <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a><i>)</i>
 │   └───<b>scala3-3.1.0</b>
-│           <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
+│           <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a><i>)</i>
 └───<a href="./Scala3First/src/"><b>src</b></a>
     │   <a href="./Scala3First/src/Scala3First.wxs">Scala3First.wxs</a>
     └───<a href="./Scala3First/src/resources/"><b>resources</b></a>
@@ -120,7 +120,7 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 
 ## <span id="scala3_ui">Scala3UI</span>
 
-Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer. Concretely, we can define two images to customize the dialog windows of the Windows installer, ie. :
+Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer. Concretely, we define two images to customize the dialog windows of the Windows installer, ie. :
 - image [`Dialog.bmp`](./Scala3UI/src/resources/Dialog.bmp) appears in the *Welcome* and *Completed* dialog windows.
 - image [`BannerTop.bmp`](./Scala3UI/src/resources/BannerTop.bmp) appears at the top of the other dialog windows.
 
@@ -134,9 +134,9 @@ Y:\scala3-examples\Scala3UI
 │   <a href="./Scala3UI/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala3-3.0.2</b>
-│   │       <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a>
+│   │       <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a><i>)</i>
 │   └───<b>scala3-3.1.0</b>
-│           <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
+│           <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a><i>)</i>
 └───<a href="./Scala3UI/src/"><b>src</b></a>
     │   <a href="./Scala3UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3UI/src/Scala3UI.wxs">Scala3UI.wxs</a>
@@ -151,7 +151,7 @@ Y:\scala3-examples\Scala3UI
             <a href="./Scala3UI/src/resources/repl.bat">repl.bat</a>
 </pre>
 
-Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows installer while figures **2.5** and **2.6** show the updated user environment after the successful execution of the [Scala 3][scala3] Windows installer.
+Figures **2.1** to **2.4** below illustrate the dialog windows of the [Scala 3][scala3] Windows installer while figures **2.5** and **2.6** show the updated user environment after the successful execution of the Windows installer.
 
 <table>
 <tr>
@@ -207,9 +207,9 @@ Y:\scala3-examples\Scala3Localized
 │   <a href="./Scala3Localized/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala3-3.0.2</b>
-│   │       <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a>
+│   │       <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a><i>)</i>
 │   └───<b>scala3-3.1.0</b>
-│           <i>files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a>
+│           <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a><i>)</i>
 └───<a href="./Scala3Localized/src/"><b>src</b></a>
     │   <a href="./Scala3Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3Localized/src/Scala3Localized.wxs">Scala3Localized.wxs</a>
@@ -291,7 +291,28 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
 
 Project `Scala3Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 3][scala3] Windows installer.
 
-*wip*
+Concretely the main [`Feature` element](https://wixtoolset.org/documentation/manual/v3/xsd/wix/feature.html) of the WiX source file [`Scala3Features.wxs`](./Scala3Features/src/Scala3Features.wxs) contains one mandatory `Feature` element and 3 optional `Feature` elements (attribute `Absent="allow"`): 
+
+<pre style="font-size:80%;">
+&lt;<b>Feature</b> Id="AppComponents" Absent="disallow" ...&gt;
+  &lt;<b>Feature</b> Id="AppCore" Absent="disallow" ...&gt;
+    &lt;<b>ComponentGroupRef</b> Id='PackFiles' /&gt;
+    &lt;<b>ComponentRef</b> Id="ApplicationShortcuts" /&gt;
+  &lt;/<b>Feature</b>&gt;
+  &lt;<b>Feature</b> Id="ScalaHome" Absent="allow" ...&gt;
+    &lt;<b>ComponentRef</b> Id="ApplicationScalaHome" /&gt;
+  &lt;/<b>Feature</b>&gt;
+  &lt;<b>Feature</b> Id="UpdatePath" Absent="allow" ...&gt;
+    &lt;<b>ComponentRef</b> Id="ApplicationUpdatePath" /&gt;
+  &lt;/<b>Feature</b>&gt;
+  &lt;<b>Feature</b> Id="AppDocumentation" Absent="allow" ...&gt;
+    &lt;<b>ComponentGroupRef</b> Id="APIFiles" /&gt;
+    &lt;<b>ComponentRef</b> Id="DocumentationShortcuts" /&gt;
+  &lt;/<b>Feature</b>&gt;
+&lt;/<b>Feature</b>&gt;
+</pre>
+
+As before command [`build link`](./Scala3Features/build.bat) generates the MSI file [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases) with the two checksum files `scala3-3.1.0.msi.md5` and `scala3-3.1.0.mis.sha256`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3Features/build.bat">build</a> -verbose clean link</b>

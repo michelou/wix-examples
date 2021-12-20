@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
+    <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>openjdk-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create an <a href="https://www.scala-lang.org/" rel="external">OpenJDK</a> Windows installer.
@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-The mission of the [Eclipse Adoptium](https://projects.eclipse.org/projects/adoptium) project is to provide an open and reproducible build and test system for OpenJDK source across multiple platforms.
+The mission of the [Eclipse Adoptium](https://projects.eclipse.org/projects/adoptium) project is to provide an open and reproducible build and test system for [OpenJDK source](https://github.com/openjdk/jdk) across multiple platforms.
 
 That includes the development of a [WiX installer](https://github.com/adoptium/installer/tree/master/wix) (see GitHub project [`adoptium/installer`][adoptium_installer]) *configurable* for various OpenJDK implementations.
 
@@ -19,7 +19,7 @@ That includes the development of a [WiX installer](https://github.com/adoptium/i
 
 Project `OpenJDK` is derived from the [WiX][wix_toolset] installer developed in the project [`adoptium/installer`][adoptium_installer].
 
-> **:mag_right:** Localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `app\OpenJDK-11.0.13_8.txt` (*ignored* by [`git`][git_cmd]) and inserted into the generated file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
+> **:mag_right:** Localization and resource files are the same as well as the source file [`src\Main.wxs`](./OpenJDK/src/Main.wxs) *but* we do not have a source file `src\Fragments.wxs` as in the Adoptium project. GUID values are stored in a separate file named `app\OpenJDK-11.0.13_8.txt` (directory `app\` is *ignored* by [`git`][git_cmd]) and inserted into the generated WiX file `target\src_gen\Fragments.wxs` before calling the [`candle`][wix_candle] tool (compiler).
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -66,7 +66,7 @@ Y:\openjdk-examples\<a href="./OpenJDK">OpenJDK</a>
 > PRODUCT_PATCH_VERSION=0
 > PRODUCT_BUILD_NUMBER=8
 > PRODUCT_UPGRADE_CODE=&lt;guid-for-version-11&gt;
-> # ARCH=x64|x86-32|arm64 or all "x64 x86-32 arm64"
+> <span style="color:green;"># ARCH=x64|x86-32|arm64 or all "x64 x86-32 arm64"</span>
 > ARCH=x64
 > # JVM=hotspot|openj9|dragonwell or both JVM=hotspot openj9
 > JVM=hotspot
