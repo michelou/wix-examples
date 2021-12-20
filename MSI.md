@@ -29,8 +29,8 @@ In case we are suspicious about a Windows installer we can run the Windows comma
 
 The following table gives a small overview of Windows installers available for open-source (or free) software products <sup id="anchor_02"><a href="#footnote_02">2</a></sup> :
 
-| MSI&nbsp;file  | Checksum | Signed | Name   | Destination&nbsp;folder (<i>default</i>) |
-|:---------------|:--------:|:------:|:------:|:----------------------------------|
+| MSI&nbsp;file  | Checksum | Signed | Name | Destination&nbsp;folder (<i>default</i>) |
+|:---------------|:--------:|:------:|:----:|:-----------------------------------------|
 | [`amazon-corretto-11.0.13.8.1-windows-x64.msi`](https://github.com/corretto/corretto-11/releases) | [`MD5`](https://github.com/corretto/corretto-11/releases) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Amazon.com Services LLC | `C:\Program Files\Amazon Corretto\` |
 | [`calibre-64bit-5.34.0.msi`](https://github.com/kovidgoyal/calibre/releases) | <b>No</b> | Yes **<sup>(b)</sup>**| Kovid Goyal | `C:\Program Files\Calibre2\` |
 | [`cmake-3.22.0-windows-x86_64.msi`](https://cmake.org/download/) | [`SHA256`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
@@ -41,6 +41,7 @@ The following table gives a small overview of Windows installers available for o
 | [`OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi`](https://adoptium.net/archive.html?variant=openjdk8&jvmVariant=hotspot) | [`SHA256`](https://adoptopenjdk.net/archive.html?variant=openjdk8&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\` |
 | [`OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi`](https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot) | [`SHA256`](https://adoptopenjdk.net/archive.html?variant=openjdk11&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-11.0.13.8-hotspot\` |
 | [`pandoc-2.16.2-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:red;"><b>No</b></span> | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
+| [`putty-64bit-0.76-installer.msi`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) | [`MD5/SHA1`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files)<br/>[`SHA256/SHA512`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Simon Tatham | `C:\Program Files\PuTTY\`|
 | [`sapmachine-jdk-11.0.14-ea.7_windows-x64_bin.msi`](https://github.com/SAP/SapMachine/releases) | [`SHA256`](https://github.com/SAP/SapMachine/releases) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\SapMachine\JDK\11\` |
 | [`sbt-1.5.7.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.7) | [`SHA256`](https://github.com/sbt/sbt/releases/tag/v1.5.7) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files(x86)\sbt\` |
 | [`scala-2.13.7.msi`](https://scala-lang.org/files/archive/)<br/>(<b>Lightbend's installer</b>) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files (x86)\scala\` |
@@ -136,7 +137,7 @@ As next example we look at the contents of the sbt Windows installer named <a hr
                 sbtopts
 </pre>
 
-> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.6.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.6) but not in MSi file [`sbt-1.5.7.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.7); that's fine !
+> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.7.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.7) but not in MSi file [`sbt-1.5.7.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.7); that's fine !
 
 <dl><dd>
 Finally we extract the contents of the Java 11 Windows installer named <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot"><code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code></a> :
@@ -215,6 +216,12 @@ Software distributions can be installed in several ways, not necessarily using M
 <td></td>
 </tr>
 <tr>
+<td><a href="https://cran.r-project.org/bin/windows/base/">R 4.1.2</a></td>
+<td></td>
+<td style="text-align:center;"><b>x</b> <sup><b>(d)</b></sup></td>
+<td></td>
+</tr>
+<tr>
 <td><a href="https://code.visualstudio.com/download">VSCode 1.63</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td style="text-align:center;"><b>x</b></td>
@@ -229,7 +236,8 @@ Software distributions can be installed in several ways, not necessarily using M
 </table>
 <div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</div>
 <div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).</div>
-<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(c)</b></sup> On Windows <a href="https://sdkman.io/install">SDKMAN</a> (written in Bash) requires WSL, Cygwin or MSYS+MinGW.<br/>&nbsp;</div>
+<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(c)</b></sup> On Windows <a href="https://sdkman.io/install">SDKMAN</a> (written in Bash) requires WSL, Cygwin or MSYS+MinGW.</div>
+<div style="margin:0 0 0 20px;font-size:80%;"><b><sup>(d)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.<br/>&nbsp;</div>
 
 <span id="footnote_03">[3]</span> **`MSI Resources`** [↩](#anchor_03)
 

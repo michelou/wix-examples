@@ -478,11 +478,11 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>N
     set /a __N+=1
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -nologo -file "%__PS1_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Execute PS1 script "!__PS1_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute PowerShell script "!__PS1_FILE:%_ROOT_DIR%=!" 1>&2
 )
 powershell -nologo -file "%__PS1_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute PS1 script "!__PS1_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to execute PowerShell script "!__PS1_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -656,7 +656,7 @@ set "__OUTPUT_FILE=%_API_DIR%\jars\%__ARTIFACT%-%__VERSION%-javadoc.jar"
 if not exist "!__OUTPUT_FILE!" (
     set __CURL_OPTS=--fail --silent --user-agent "Mozilla 5.0" -L --url "%__ARCHIVE_URL%"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__OUTPUT_FILE!" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Download file "%__ARCHIVE_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Download file "!__ARCHIVE_URL!" 1>&2
     )
     call "%_CURL_CMD%" !__CURL_OPTS! > "!__OUTPUT_FILE!"
     if not !ERRORLEVEL!==0 (
