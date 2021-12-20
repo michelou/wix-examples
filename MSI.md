@@ -32,6 +32,7 @@ The following table gives a small overview of Windows installers available for o
 | MSI&nbsp;file  | Checksum | Signed | Name   | Destination&nbsp;folder (<i>default</i>) |
 |:---------------|:--------:|:------:|:------:|:----------------------------------|
 | [`amazon-corretto-11.0.13.8.1-windows-x64.msi`](https://github.com/corretto/corretto-11/releases) | [`MD5`](https://github.com/corretto/corretto-11/releases) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Amazon.com Services LLC | `C:\Program Files\Amazon Corretto\` |
+| [`calibre-64bit-5.34.0.msi`](https://github.com/kovidgoyal/calibre/releases) | <b>No</b> | Yes **<sup>(b)</sup>**| Kovid Goyal | `C:\Program Files\Calibre2\` |
 | [`cmake-3.22.0-windows-x86_64.msi`](https://cmake.org/download/) | [`SHA256`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
 | [`cppcheck-2.6-x64-Setup.msi`](https://github.com/danmar/cppcheck/releases) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\Cppcheck\` |
 | [`GitHubDesktopSetup-x64.msi`](https://desktop.github.com/) | <b>No</b><br/><span style="font-size:70%;">([#8730](https://github.com/desktop/desktop/issues/8730))</span> | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | GitHub,&nbsp;Inc. | `C:\Program Files(x86)\GitHubDesktop\` |
