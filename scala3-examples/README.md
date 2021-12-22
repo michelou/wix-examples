@@ -334,15 +334,15 @@ Create Windows installer "target\scala3-3.1.0.msi"
 
 <span id="footnote_01">[1]</span> **`Fragments.wxs`** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 When we run the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code> in the above projects, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
-</p>
+</dd></dl>
 
 <sapn id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 The Scala 3 Windows installer generated in projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> (but <b><i>not</i></b> <code>Scala3First</code>) will <i>update</i> the system environment as follows :
-</p>
+</dd></dl>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
 SCALA3_HOME=C:\Program Files\Scala 3\
@@ -359,12 +359,12 @@ Scala code runner version 3.1.0 -- Copyright 2002-2021, LAMP/EPFL
 
 <span id="footnote_03">[3]</span> ***Default Java Location*** [↩](#anchor_03)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
-</p>
-<p style="margin:0 0 1em 20px;">
+</dd></dl>
+<dl><dd>
 Unfortunately each Windows installer suggests a <i>different</i> default installation location <b>and</b> follows <i>inconsistent</i> naming conventions:
-</p>
+</dd></dl>
 <table style="margin:0 0 1em 20px;font-size:80%;">
 <tr>
   <th style="padding:6px;">OpenJDK<br/>Implementation</th>
@@ -375,12 +375,16 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
   <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.13_8\</code></td>
 </tr>
 <tr>
-  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">Azul Zulu 8</a></td>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-8-lts&os=windows&architecture=x86-64-bit&package=jdk">Azul Zulu 8</a></td>
   <td style="padding:6px;"><code>Zulu\zulu-8\</code></td>
 </tr>
 <tr>
-  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">Azul Zulu 11</a></td>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-11-lts&os=windows&architecture=x86-64-bit&package=jdk">Azul Zulu 11</a></td>
   <td style="padding:6px;"><code>Zulu\zulu-11\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-17-lts&os=windows&architecture=x86-64-bit&package=jdk">Azul Zulu 17</a></td>
+  <td style="padding:6px;"><code>Zulu\zulu-17\</code></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk8&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;8</a></td>
@@ -414,9 +418,9 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 
 <span id="footnote_04">[4]</span> ***Batch file* `build.bat`** [↩](#anchor_04)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Command <a href="./Scala3First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
-</p>
+</dd></dl>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="./Scala3First/build.bat">build</a> help</b>
