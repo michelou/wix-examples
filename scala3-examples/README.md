@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.<br/>Follow <a href="../scala2-exemples/README.md">this link</a> if you're looking for the Scala 2 Windows installer.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.<br/>Follow <a href="../scala2-examples/README.md">this link</a> if you're looking for the Scala 2 Windows installer.
   </td>
   </tr>
 </table>
@@ -15,7 +15,7 @@ The [WiX][wix_toolset] examples presented in the following sections
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - we *download* and extract the application files from the Zip archive (e.g. [`scala3-3.1.0.zip`][scala3_zip]) if they are not yet present in directory `app\`.
-   - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
+   - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src_gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 The [Scala 3][scala3] Windows installer behaves in *3 different ways* when it detects a [Scala 3][scala3] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
 - if the version to be installed is ***newer than*** the version found on the machine then the Windows installer goes on (it removes the old version and install the new one).
@@ -330,6 +330,18 @@ Compiling 2 WiX source files to directory "target"
 Create Windows installer "target\scala3-3.1.0.msi"
 </pre>
 
+<table>
+<tr>
+<td style="text-align:center;">
+  <a href="images/Scala3Features_CustomSetup.png">
+  <img style="max-width:180px;" src="images/Scala3Features_CustomSetup.png" alt="Welcome" />
+  </a>
+  <div style="font-size:70%;"><b>Figure 4.1 -</b> Custom Setup<br/>(<i>Scala3</i> installer).<br/>&nbsp;
+  </div>
+</td>
+</tr>
+</table>
+
 ## <span id="footnotes">Footnotes</span>
 
 <span id="footnote_01">[1]</span> **`Fragments.wxs`** [↩](#anchor_01)
@@ -377,6 +389,10 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
   <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.13_8\</code></td>
 </tr>
 <tr>
+  <td style="padding:6px;"><a href="https://github.com/corretto/corretto-17/releases">Amazon Corretto 17</a></td>
+  <td style="padding:6px;"><code>Amazon Corretto\</code> <b>&#129092;&#129092;&#129092;</b></td>
+</tr>
+<tr>
   <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-8-lts&os=windows&architecture=x86-64-bit&package=jdk">Azul Zulu 8</a></td>
   <td style="padding:6px;"><code>Zulu\zulu-8\</code></td>
 </tr>
@@ -403,6 +419,10 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 <tr>
   <td style="padding:6px;"><a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11">Microsoft 11</a></td>
   <td style="padding:6px;"><code>Microsoft\jdk-11.0.13.8-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17">Microsoft 17</a></td>
+  <td style="padding:6px;"><code>Microsoft\jdk-17.0.1.12-hotspot\</code></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 8</a></td>

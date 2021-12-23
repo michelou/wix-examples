@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">Scala 2</a> Windows installer.<br/>Follow <a href="../scala3-exemples/README.md">this link</a> if you're looking for the Scala 3 Windows installer.
+    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">Scala 2</a> Windows installer.<br/>Follow <a href="../scala3-examples/README.md">this link</a> if you're looking for the Scala 3 Windows installer.
   </td>
   </tr>
 </table>
