@@ -182,7 +182,7 @@ Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Win
 <b>&gt; <a href="./Scala2UI/build.bat">build</a> -verbose link && <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 Generate auxiliary file "target\src_gen\Fragments.wxs.txt"
 Saved 40 component identifiers to file "target\src_gen\Fragments-cid.txt"
-Execute PS1 script "target\replace.ps1"
+Execute PowerShell script "target\replace.ps1"
 Copy .bat files to directory "target\resources"
 Copy .ico files to directory "target\resources"
 Use banner image found in directory "src\resources"
@@ -490,6 +490,10 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
   <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.13_8\</code></td>
 </tr>
 <tr>
+  <td style="padding:6px;"><a href="https://github.com/corretto/corretto-17/releases">Amazon Corretto 17</a></td>
+  <td style="padding:6px;"><code>Amazon Corretto\</code> <b>&#129092;&#129092;&#129092;</b></td>
+</tr>
+<tr>
   <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">Azul Zulu 8</a></td>
   <td style="padding:6px;"><code>Zulu\zulu-8\</code></td>
 </tr>
@@ -516,6 +520,10 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 <tr>
   <td style="padding:6px;"><a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11">Microsoft 11</a></td>
   <td style="padding:6px;"><code>Microsoft\jdk-11.0.13.8-hotspot\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17">Microsoft 17</a></td>
+  <td style="padding:6px;"><code>Microsoft\jdk-17.0.1.12-hotspot\</code></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 8</a></td>

@@ -43,7 +43,7 @@ The following table gives a small overview of Windows installers available for o
 | [`pandoc-2.16.2-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:red;"><b>No</b></span> | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
 | [`putty-64bit-0.76-installer.msi`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) | [`MD5/SHA1`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files)<br/>[`SHA256/SHA512`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Simon Tatham | `C:\Program Files\PuTTY\`|
 | [`sapmachine-jdk-11.0.14-ea.7_windows-x64_bin.msi`](https://github.com/SAP/SapMachine/releases) | [`SHA256`](https://github.com/SAP/SapMachine/releases) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\SapMachine\JDK\11\` |
-| [`sbt-1.5.7.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.7) | [`SHA256`](https://github.com/sbt/sbt/releases/tag/v1.5.7) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files(x86)\sbt\` |
+| [`sbt-1.5.8.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.8) | [`SHA256`](https://github.com/sbt/sbt/releases/tag/v1.5.8) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files(x86)\sbt\` |
 | [`scala-2.13.7.msi`](https://scala-lang.org/files/archive/)<br/>(<b>Lightbend's installer</b>) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files (x86)\scala\` |
 | [`scala-2.13.7.msi`](https://github.com/michelou/wix-examples/releases)<br/>(<b>our installer</b>) | [`MD5/SHA256`](https://github.com/michelou/wix-examples/releases) | Yes<br/><span style="font-size:70%;">(self-signed)</span> | Stéphane Micheloud | `C:\Program Files\Scala 2\` |
 | [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases)<br/>(<b>our installer</b>) | [`MD5/SHA256`](https://github.com/michelou/wix-examples/releases) | Yes<br/><span style="font-size:70%;">(self-signed)</span> | Stéphane Micheloud | `C:\Program Files\Scala 3\` |
@@ -60,14 +60,15 @@ The following table gives a small overview of Windows installers available for o
 
 <dl><dd>
 With option <code>/a</code> the Windows command <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec"><code>msiexec</code></a> performs a so-called <a href="https://stackoverflow.com/questions/5564619/what-is-the-purpose-of-administrative-installation-initiated-using-msiexec-a">administrative installation</a>. In the following we give 4 examples to illustrate its usage.
-</dd></dl>
-
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> msiexec</b>
 C:\Windows\System32\msiexec.exe
-
+&nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec" rel="external">msiexec</a> /a &lt;msi_file_path&gt; /qn TARGETDIR=c:\Temp\unpacked</b>
 </pre>
+</dd></dl>
 
 > **:mag_right:** Options are:
 > - `/a` - run administrative installation sequence.
@@ -77,11 +78,11 @@ C:\Windows\System32\msiexec.exe
 
 <dl><dd>
 We first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.7_epfl.msi</code> to avoid naming collision with our own <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
-</dd></dl>
-
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://scala-lang.org/files/archive/">scala-2.13.7_epfl.msi</aS> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
-
+&nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f C:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   scala-2.13.7_epfl.msi
 └───<b>PFiles</b>
@@ -91,6 +92,7 @@ We first extract the contents of <a href="https://scala-lang.org/files/archive/"
         ├───<b>doc</b>
         └───<b>lib</b>
 </pre>
+</dd></dl>
 
 > **:mag_right:** We observe that 3 files/directories are <i>missing</i> compared to the corresponding Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.zip</code></a>, namely the two text files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory `man\`.
 
@@ -115,14 +117,14 @@ Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2
 </pre>
 
 <dl><dd>
-As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.5.7"><code>sbt-1.5.7.msi</code></a> : 
-</dd></dl>
-
-<pre style="margin:0 0 1em 20px; font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.5.7">sbt-1.5.7.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
+As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.5.8"><code>sbt-1.5.8.msi</code></a> : 
+</dd>
+<dd>
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.5.8">sbt-1.5.8.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f c:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   sbt-1.5.7.msi
+│   sbt-1.5.8.msi
 └───<b>PFiles</b>
     └───<b>sbt</b>
         │   LICENSE
@@ -136,16 +138,17 @@ As next example we look at the contents of the sbt Windows installer named <a hr
                 sbtconfig.txt
                 sbtopts
 </pre>
+</dd></dl>
 
-> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.7.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.7) but not in MSi file [`sbt-1.5.7.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.7); that's fine !
+> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.8.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.8) but not in MSi file [`sbt-1.5.8.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.8); that's fine !
 
 <dl><dd>
 Finally we extract the contents of the Java 11 Windows installer named <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot"><code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code></a> :
-</dd></dl>
-
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
-
+&nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f c:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi
 └───<b>Eclipse Adoptium</b>
@@ -159,14 +162,15 @@ Finally we extract the contents of the Java 11 Windows installer named <a href="
         ├───<b>legal</b>
         └───<b>lib</b>
 </pre>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***Software Distributions*** [↩](#anchor_02)
 
 <dl><dd>
 Software distributions can be installed in several ways, not necessarily using MSI files, for instance :
-</dd></dl>
-
-<table style="margin:0 0 0 20px;font-size:80%;">
+</dd>
+<dd>
+<table style="font-size:80%;">
 <tr>
 <th>Software distribution</th>
 <th>Zip archive <sup><b>(a)</b></sup></td>
@@ -234,10 +238,11 @@ Software distributions can be installed in several ways, not necessarily using M
 <td></td>
 </tr>
 </table>
-<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</div>
-<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).</div>
-<div style="margin:0 0 0 20px;font-size:80%;"><sup><b>(c)</b></sup> On Windows <a href="https://sdkman.io/install">SDKMAN</a> (written in Bash) requires WSL, Cygwin or MSYS+MinGW.</div>
-<div style="margin:0 0 0 20px;font-size:80%;"><b><sup>(d)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.<br/>&nbsp;</div>
+<div style="font-size:80%;"><sup><b>(a)</b></sup> Sometimes both <code>.zip</code> and <code>.tar.gz</code> archives.</div>
+<div style="font-size:80%;"><sup><b>(b)</b></sup> Windows executable (<code>.exe</code> extension).</div>
+<div style="font-size:80%;"><sup><b>(c)</b></sup> On Windows <a href="https://sdkman.io/install">SDKMAN</a> (written in Bash) requires WSL, Cygwin or MSYS+MinGW.</div>
+<div style="font-size:80%;"><b><sup>(d)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.<br/>&nbsp;</div>
+</dd></dl>
 
 <span id="footnote_03">[3]</span> **`MSI Resources`** [↩](#anchor_03)
 
