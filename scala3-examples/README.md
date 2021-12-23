@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.<br/>Follow <a href="../scala2-exemples/README.md">this link</a> if you're looking for the Scala 2 Windows installer.
   </td>
   </tr>
 </table>
@@ -312,14 +312,14 @@ Concretely the main [`Feature` element](https://wixtoolset.org/documentation/man
 &lt;/<b>Feature</b>&gt;
 </pre>
 
-As before command [`build link`](./Scala3Features/build.bat) generates the MSI file [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases) with the two checksum files `scala3-3.1.0.msi.md5` and `scala3-3.1.0.mis.sha256`.
+As before command [`build link`](./Scala3Features/build.bat) generates the MSI file [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases) with the two checksum files `scala3-3.1.0.msi.md5` and `scala3-3.1.0.msi.sha256`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3Features/build.bat">build</a> -verbose clean link</b>
 Delete directory "target"
 Generate auxiliary file "target\src_gen\Fragments.wxs"
 Saved 54 component identifiers to file "target\src_gen\Fragments-cid.txt"
-Execute PS1 script "target\replace.ps1"
+Execute PowerShell script "target\replace.ps1"
 Copy .bat files to directory "target\resources"
 Copy .ico files to directory "target\resources"
 Use banner image found in directory "src\resources"
@@ -338,12 +338,12 @@ Create Windows installer "target\scala3-3.1.0.msi"
 When we run the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code> in the above projects, we also specify the option <code>-t <a href="./Scala3UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
 </dd></dl>
 
-<sapn id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
 <dl><dd>
 The Scala 3 Windows installer generated in projects <code>Scala3UI</code>, <code>Scala3Localized</code> and <code>Scala3Features</code> (but <b><i>not</i></b> <code>Scala3First</code>) will <i>update</i> the system environment as follows :
-</dd></dl>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd><pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
 SCALA3_HOME=C:\Program Files\Scala 3\
 &nbsp;
@@ -355,17 +355,19 @@ C:\Program Files\Scala 3\bin\scala.bat
 &nbsp;
 <b>&gt; scala -version</b>
 Scala code runner version 3.1.0 -- Copyright 2002-2021, LAMP/EPFL
-</pre>
+</pre></dd>
+</dl>
 
 <span id="footnote_03">[3]</span> ***Default Java Location*** [↩](#anchor_03)
 
 <dl><dd>
 OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
-</dd></dl>
-<dl><dd>
+</dd>
+<dd>
 Unfortunately each Windows installer suggests a <i>different</i> default installation location <b>and</b> follows <i>inconsistent</i> naming conventions:
-</dd></dl>
-<table style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<table style="font-size:80%;">
 <tr>
   <th style="padding:6px;">OpenJDK<br/>Implementation</th>
   <th style="padding:6px;">Default location<br/>in directory <code>%ProgramFiles%</code></th>
@@ -411,18 +413,27 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
   <td style="padding:6px;"><code>RedHat\java-11-openjdk-11.0.13-1\</code></td>
 </tr>
 <tr>
+  <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 17</a></td>
+  <td style="padding:6px;"><code>RedHat\java-17-openjdk-17.0.1.0.12-1\</code></td>
+</tr>
+<tr>
   <td style="padding:6px;"><a href="https://sap.github.io/SapMachine/">SapMachine 11</a></td>
   <td style="padding:6px;"><code>SapMachine\JDK\11\</code></td>
 </tr>
+<tr>
+  <td style="padding:6px;"><a href="https://sap.github.io/SapMachine/">SapMachine 17</a></td>
+  <td style="padding:6px;"><code>SapMachine\JDK\17\</code></td>
+</tr>
 </table>
+</dd></dl>
 
 <span id="footnote_04">[4]</span> ***Batch file* `build.bat`** [↩](#anchor_04)
 
 <dl><dd>
 Command <a href="./Scala3First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
-</dd></dl>
-
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3First/build.bat">build</a> help</b>
 Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
@@ -439,6 +450,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     remove       remove installed program (same as uninstall)
     uninstall    remove installed program
 </pre>
+</dd></dl>
 
 ***
 

@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">Scala 2</a> Windows installer.
+    Directory <strong><code>scala2-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://www.scala-lang.org/" rel="external">Scala 2</a> Windows installer.<br/>Follow <a href="../scala3-exemples/README.md">this link</a> if you're looking for the Scala 3 Windows installer.
   </td>
   </tr>
 </table>
@@ -15,7 +15,7 @@ The [WiX][wix_toolset] examples presented in the following sections
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - application files are downloaded and extracted from the Zip archive (e.g. [`scala-2.13.7.zip`][scala2_zip]) if not yet present in directory `app\`.
-   - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src\gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
+   - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src_gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 The [Scala 2][scala2] Windows installer behaves in *3 different ways* when it detects a [Scala 2][scala2] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
 - if the version to be installed is ***newer than*** the version found on the machine then the Windows installer removes the old version and install the new one.
@@ -358,7 +358,45 @@ Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of t
 
 Project `Scala2Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 2][scala2] Windows installer.
 
-*wip*
+
+Concretely the main [`Feature` element](https://wixtoolset.org/documentation/manual/v3/xsd/wix/feature.html) of the WiX source file [`Scala2Features.wxs`](./Scala2Features/src/Scala2Features.wxs) contains one mandatory `Feature` element and 3 optional `Feature` elements (attribute `Absent="allow"`): 
+
+<pre style="font-size:80%;">
+&lt;<b>Feature</b> Id="AppComponents" Absent="disallow" ...&gt;
+  &lt;<b>Feature</b> Id="AppCore" Absent="disallow" ...&gt;
+    &lt;<b>ComponentGroupRef</b> Id='PackFiles' /&gt;
+    &lt;<b>ComponentRef</b> Id="ApplicationShortcuts" /&gt;
+  &lt;/<b>Feature</b>&gt;
+  &lt;<b>Feature</b> Id="ScalaHome" Absent="allow" ...&gt;
+    &lt;<b>ComponentRef</b> Id="ApplicationScalaHome" /&gt;
+  &lt;/<b>Feature</b>&gt;
+  &lt;<b>Feature</b> Id="UpdatePath" Absent="allow" ...&gt;
+    &lt;<b>ComponentRef</b> Id="ApplicationUpdatePath" /&gt;
+  &lt;/<b>Feature</b>&gt;
+  &lt;<b>Feature</b> Id="AppDocumentation" Absent="allow" ...&gt;
+    &lt;<b>ComponentGroupRef</b> Id="APIFiles" /&gt;
+    &lt;<b>ComponentRef</b> Id="DocumentationShortcuts" /&gt;
+  &lt;/<b>Feature</b>&gt;
+&lt;/<b>Feature</b>&gt;
+</pre>
+
+As before command [`build link`](./Scala3Features/build.bat) generates the MSI file [`scala-2.13.7.msi`](https://github.com/michelou/wix-examples/releases) with the two checksum files `scala-2.13.7.msi.md5` and `scala-2.13.7.msi.sha256`.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./Scala2Features/build.bat">build</a> -verbose clean link</b>
+Delete directory "target"
+Generate auxiliary file "target\src_gen\Fragments.wxs"
+Saved 41 component identifiers to file "target\src_gen\Fragments-cid.txt"
+Execute PowerShell script "target\replace.ps1"
+Copy .bat files to directory "target\resources"
+Copy .ico files to directory "target\resources"
+Use banner image found in directory "src\resources"
+Add logo to banner image "target\resources\BannerTop.bmp"
+Add logo to dialog image "target\resources\Dialog.bmp"
+Set copyright information in file "target\resources\LICENSE.rtf"
+Compiling 3 WiX source files to directory "target"
+Create Windows installer "target\scala-2.13.7.msi"
+</pre>
 
 Figures **5.1** to **5.4** below illustrate the dialog windows of our Windows installer while Figures **5.5** and **5.6** show how the Windws installer behaves when a [Scala 2][scala2] installation is already present on the target machine.
 
@@ -408,16 +446,17 @@ Figures **5.1** to **5.4** below illustrate the dialog windows of our Windows in
 
 <span id="footnote_01">[1]</span> **`Fragments.wxs`** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 In the above projects we not just call the <a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html"><code>heat</code></a> tool to generate the file <code>target\src_gen\Fragments.wxs</code>, we also specify the option <code>-t <a href="./Scala2UI/src/resources/Fragments.xslt">src\resources\Fragments.xslt</a></code> to apply a few XML transformations to the generated <a href="https://wixtoolset.org/">WiX</a> source file (eg. addition of component element <code>"repl.bat"</code>).
-</p>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 The Scala 2 Windows installer generated in projects <code>Scala2Sbt</code>, <code>Scala2UI</code>,  <code>Scala2Localized</code> and <code>Scala2Features</code> (but <b><i>not</i></b> <code>Scala2First</code>) will <i>update</i> the system environment as follows :
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> SCALA</b>
 SCALA_HOME=C:\Program Files\Scala 2\
 &nbsp;
@@ -430,16 +469,18 @@ C:\Program Files\Scala 2\bin\scala.bat
 <b>&gt; scala -version</b>
 Scala code runner version 2.13.7 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
 </pre>
+</dd></dl>
 
 <span id="footnote_03">[3]</span> ***Default Java Location*** [↩](#anchor_03)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 OpenJDK implementations are available either as Zip files (<code>.zip</code/>) or as Windows installers (<code>.msi</code>).
-</p>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 Unfortunately each Windows installer suggests a <i>different</i> default installation location <b>and</b> follows <i>inconsistent</i> naming conventions:
-</p>
-<table style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<table style="font-size:80%;">
 <tr>
   <th style="padding:6px;">OpenJDK<br/>Implementation</th>
   <th style="padding:6px;">Default location<br/>in <code>%ProgramFiles%</code> folder</th>
@@ -455,6 +496,10 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 <tr>
   <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">Azul Zulu 11</a></td>
   <td style="padding:6px;"><code>Zulu\zulu-11\</code></td>
+</tr>
+<tr>
+  <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-17-lts&os=windows&architecture=x86-64-bit&package=jdk">Azul Zulu 17</a></td>
+  <td style="padding:6px;"><code>Zulu\zulu-17\</code></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://adoptium.net/?variant=openjdk8&jvmVariant=hotspot">Eclipse&nbsp;Temurin&nbsp;8</a></td>
@@ -481,18 +526,27 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
   <td style="padding:6px;"><code>RedHat\java-11-openjdk-11.0.13-1\</code></td>
 </tr>
 <tr>
+  <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 17</a></td>
+  <td style="padding:6px;"><code>RedHat\java-17-openjdk-17.0.1.0.12-1\</code></td>
+</tr>
+<tr>
   <td style="padding:6px;"><a href="https://sap.github.io/SapMachine/">SapMachine 11</a></td>
   <td style="padding:6px;"><code>SapMachine\JDK\11\</code></td>
 </tr>
+<tr>
+  <td style="padding:6px;"><a href="https://sap.github.io/SapMachine/">SapMachine 17</a></td>
+  <td style="padding:6px;"><code>SapMachine\JDK\17\</code></td>
+</tr>
 </table>
+</dd></dl>
 
 <span id="footnote_04">[4]</span> ***Batch file* `build.bat`** [↩](#anchor_04)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Command <a href="./Scala2First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
-</p>
-
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="./Scala2First/build.bat">build</a> help</b>
 Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
@@ -509,6 +563,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     remove       remove installed program (same as uninstall)
     uninstall    remove installed program
 </pre>
+</dd></dl>
 
 ***
 

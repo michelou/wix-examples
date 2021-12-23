@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/"><img src="./images/wixtoolset.png" width="100" alt="WiX toolset"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/"><img src="./images/wixtoolset.png" width="100" alt="WiX Toolset"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> related resources we have collected so far.
   </td>
   </tr>
