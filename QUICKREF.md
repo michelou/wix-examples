@@ -52,31 +52,34 @@ Copyright (c) .NET Foundation and contributors. All rights reserved.
 
 <span id="footnote_01">[1]</span> ***Windows System Information*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 On the Windows prompt we call the command <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic</code></b></a> to display information about the installed Windows operating system :
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic">wmic</a> os get BuildNumber, Caption, OSArchitecture, Version</b>
 BuildNumber  Caption                   OSArchitecture  Version
 19042        Microsoft Windows 10 Pro  64-bit          10.0.19042
 </pre>
 
   > **&#9755;** ***WMIC Deprecation***<br/><a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic</code></b></a> is deprecated since the <a href="https://en.wikipedia.org/wiki/Windows_10_version_history">Windows May 2021 Update</a> (21H1).
-
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd">
 Alternatively we get the same system information with the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1"><b><code>Get-WmiObject</code></b></a>  :
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1" rel="external">powershell</a> -c "<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1">Get-WmiObject</a> -ClassName <a href="https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem">Win32_OperatingSystem</a> | <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object?view=powershell-5.1">Select</a> BuildNumber,Caption,Version,OSArchitecture"</b>
 &nbsp;
 BuildNumber Caption                  Version    OSArchitecture
 ----------- -------                  -------    --------------
 19042       Microsoft Windows 10 Pro 10.0.19042 64-bit
 </pre>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -41,11 +41,11 @@ Y:\firegiant-examples\SampleFirst
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
 │   <a href="./SampleFirst/build.bat">build.bat</a>
-├───<b>app</b>
+├───<a href="./SampleFirst/app/"><b>app</b></a>
 │       FoobarAppl10.exe
 │       Helper.dll
 │       Manual.pdf
-└───<b>src</b>
+└───<a href="./SampleFirst/src/"><b>src</b></a>
         <a href="./SampleFirst/src/SampleFirst.wxs">SampleFirst.wxs</a>
 </pre>
 
@@ -136,36 +136,39 @@ http://www.lingoes.net/en/translator/langcode.htm
 
 <span id="footnote_01">[1]</span> ***Archive contents*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 The contents of each archive file is minimal; for instance the <code>SampleFirst.zip</code> example contains one <a href="https://wixtoolset.org/documentation/manual/v3/overview/files.html">WiX source file</a> and 3 dummy (<i>and invalid</i>) binary files:
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> -Z1 SampleFirst.zip</b>
 Helper.dll
 FoobarAppl10.exe
 Manual.pdf
 SampleFirst.wxs
-</pre>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 Concretely, we undertake the following modifications of the original examples:
-</p>
-<ul style="margin:0 0 1em 20px;">
+</dd>
+<dd>
+<ul>
 <li>
 We modify the original <a href="./SampleFirst/src/SampleFirst.wxs"><code>SampleFirst.wxs</code></a> file as follows:
   <ul>
   <li>We replace the <code>YOURGUID-<...></code> placeholders by unique symbolic names (e.g. <code>Id='YOURGUID-86C7-4D14-AEC0-86416A69ABDE'</code> becomes <code>Id='YOURGUID-PRODUCT_ID'</code>) in order to delay <i>and</i> automatize their substitution (more details below).
   </li>
   <li>We introduce <a href="https://wixtoolset.org/documentation/manual/v3/howtos/general/specifying_source_files.html">bindpath variables</a> to specify the file location in the <code>Source</code> tags (e.g. <code>Source='FoobarAppl10.exe'</code> becomes <code>Source='!(bindpath.app)\FoobarAppl10.exe'</code>). The real file location is resolved at build time using the <code>-b "&lt;var&gt;=&lt;path&gt;"</code> option of the <a href="https://wixtoolset.org/">WiX</a> linker <a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html"><code>light</code></a>.
-  </liS>
+  </li>
   </ul>
 </li>
 <li>
 We replace <code>Manual.pdf</code> by a <i>valid</i> <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">dummy PDF file</a> available from the <a href="https://www.w3.org/) [ERT working group](https://www.w3.org/WAI/ER/">W3C</a>. In this way the user can successfully open the PDF file (e.g. from the program menu "SampleFirst") after the installation is done.
 </li>
 </ul>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 The build steps to generate a Windows installer are:
-</p>
+</dd>
 <div style="width:300px;border:solid lightgray 2px;text-align:center;margin:0 0 10px 50px;">
 <div><a href="./SampleFirst/src/SampleFirst.wxs"><code>src\SampleFirst.wxs</code></a></div>
 <div>
@@ -189,24 +192,27 @@ The build steps to generate a Windows installer are:
   <code>target\SampleFirst.msi</code>
 </div>
 </div>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 The preprocessing step consists of several operations:
-</p>
-<ul style="margin:0 0 1em 20px;">
+</dd>
+<dd>
+<ul>
 <li>We generate a GUID <sup id="anchor_02"><a href="#footnote_02">2</a></sup> with the <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PS</a> cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.1"><code>New-Guid</code></a>.</li>
 <li>We associate a new GUID to each symbolic name (e.g. <code>'YOURGUID-PRODUCT_ID'</code>) found in file <code>src\SampleFirst.wxs</code>.</li>
 <li>We save the association into the file `build.properties` to ensure the same GUID is <i>reused</i> when generating the MSI package again <a href="./SampleFirst/build.bat"></code>build.bat</code></a> takes existing GUIDs from <code>build.properties</code> instead of generating new ones).</li>
 </ul>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***GUID*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated.
-</p>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

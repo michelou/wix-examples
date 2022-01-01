@@ -40,7 +40,7 @@ Y:\scala2-examples\Scala2First
 │   │       <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a><i>)</i>
 │   └───<b>scala-2.13.7</b>
 │           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a><i>)</i>
-└───<b>src</b>
+└───<a href="./Scala2First/src/"><b>src</b></a>
     │   <a href="./Scala2First/src/Scala2First.wxs">Scala2First.wxs</a>
     └───<b>resources</b>
             favicon.ico
@@ -575,7 +575,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -28,7 +28,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*December 2021*) <sup id="anchor_05"><a href="#footnote_05">5</a></sup>:
+For instance our development environment looks as follows (*January 2022*) <sup id="anchor_05">[5](#footnote_05)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.34.1\             <i>(280 MB)</i>
@@ -103,52 +103,56 @@ Environment variables:
 
 <span id="footnote_01">[1]</span> ***ImageMagick*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 <a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize the dialog windows in the generated Windows installer.
-</p>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***InstEd*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 <a href="http://www.instedit.com/download.html">InstEd</a> is a free MSI editor built for professionals. In this project we use that tool to inspect Windows installers available for other software products, e.g.
-</p>
-<ul style="margin:0 0 1em 20px;">
+</dd>
+<dd>
+<ul>
   <li><a href="https://github.com/corretto/corretto-11/releases"><code>amazon-corretto-11.0.13.8.1-windows-x64.msi</code></a>
   <li><a href="https://developers.redhat.com/products/openjdk/download"><code>java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi</code></a></li>
   <li><a href="https://adoptium.net/"><code>OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi</code></a></li>
 </ul>
+</dd></dl>
 
-<span name="footnote_03">[3]</span> ***Visual Studio 2019*** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> ***Visual Studio 2019*** [↩](#anchor_03)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 <a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">GUI</a> applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the <a href="https://wixtoolset.org/">WiX tools</a> to create a Windows installer.
-</p>
+</dd></dl>
 
 <span id="footnote_04">[4]</span> ***Windows SDK*** [↩](#anchor_04)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 The <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a> provides libraries and tools for building Windows applications; for instance <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool"><code>signtool.exe</code></a> is the security tool we use in this project to sign the generated Windows installers.
-</p>
+</dd></dl>
 
 <span id="footnote_05">[5]</span> ***Downloads*** [↩](#anchor_05)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
-</p>
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <a href="https://imagemagick.org/script/download.php#windows">ImageMagick-7.1.0-portable-Q16-x64.zip</a>  <i>(111 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>        <i>( 44 MB)</i>
 vs_2019_community.exe                   <i>(1.7 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                         <i>(  1 MB)</i>
 <a href="https://github.com/wixtoolset/wix3/releases">wix311-binaries.zip</a>                     <i>( 33 MB)</i>
 </pre>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 Microsoft doesn't provide an offline installer for <a href="https://visualstudio.microsoft.com/vs/2019/">VS 2019</a> but we can follow the <a href="https://docs.microsoft.com/en-us/visualstudio/install/create-an-offline-installation-of-visual-studio?view=vs-2019">following instructions</a> to create a local installer (so called <i>layout cache</i>) for later (re-)installation.
-</p>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

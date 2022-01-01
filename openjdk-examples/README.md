@@ -147,10 +147,11 @@ Figures **1.1** to **1.4** below illustrate the dialog windows of our [OpenJDK 1
 
 <span id="footnote_01">[1]</span> ***Configuration file* `build.properties`** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 We can adapt the properties as follow in order to create an <a href="https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot">OpenJDK 17</a> Windows installer :
-</p>
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <span style="color:green;"># OpenJDK 17.0.1.12</span>
 PRODUCT_MAJOR_VERSION=17
 PRODUCT_MINOR_VERSION=0
@@ -159,11 +160,12 @@ PRODUCT_PATCH_VERSION=0
 PRODUCT_BUILD_NUMBER=12
 PRODUCT_UPGRADE_CODE=&lt;guid-for-version-17&gt;
 </pre>
-
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 Similarly we can adapt the properties as follows to create an <a href="https://adoptium.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK 1.8</a> Windows installer :
-</p>
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <span style="color:green;"># OpenJDK 1.8 (aka 8u312b07)</span>
 PRODUCT_MAJOR_VERSION=8
 PRODUCT_MINOR_VERSION=0
@@ -172,14 +174,15 @@ PRODUCT_PATCH_VERSION=0
 PRODUCT_BUILD_NUMBER=07
 PRODUCT_UPGRADE_CODE=&lt;guid-for-version-8&gt;
 </pre>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***Batch file* `build.bat`** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Command <a href="./OpenJDK/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
-</p>
-
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="./OpenJDK/build.bat">build</a> help</b>
 Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
@@ -196,13 +199,15 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     remove       remove installed program (same as uninstall)
     uninstall    remove installed program
 </pre>
+</dd></dl>
 
 <span id="footnote_03">[3]</span> ***File naming conventions*** [↩](#anchor_03)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code> can be decomposed as follows (see also the Swagger descriptions of the <a href="https://api.adoptium.net/q/swagger-ui/#/Installer">OpenAPI UI</a>):
-</p>
-<table style="margin:0 0 1em 20px;">
+</dd>
+<dd>
+<table>
 <tr>
    <th>Name&nbsp;part</th>
    <th>Description</th>
@@ -254,10 +259,11 @@ For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8
   <td><code>msi</code>, <code>zip</code></td>
 </tr>
 </table>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

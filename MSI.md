@@ -36,12 +36,14 @@ The following table gives a small overview of Windows installers available for o
 | [`cmake-3.22.0-windows-x86_64.msi`](https://cmake.org/download/) | [`SHA256`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
 | [`cppcheck-2.6-x64-Setup.msi`](https://github.com/danmar/cppcheck/releases) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\Cppcheck\` |
 | [`GitHubDesktopSetup-x64.msi`](https://desktop.github.com/) | <b>No</b><br/><span style="font-size:70%;">([#8730](https://github.com/desktop/desktop/issues/8730))</span> | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | GitHub,&nbsp;Inc. | `C:\Program Files(x86)\GitHubDesktop\` |
+| [`go1.17.5.windows-amd64.msi`](https://go.dev/dl/#stable) | [`SHA256`](https://go.dev/dl/#stable) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Google LLC | `C:\Program Files\Go\` |
 | [`java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi`](https://developers.redhat.com/products/openjdk/download) | <span style="color:red;"><b>No</b></span> | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | Red Hat, Inc. | `C:\Program Files\RedHat\java-1.8.0-openjdk-1.8.0.312-2` |
 | [`node-v16.13.0-x64.msi`](https://nodejs.org/en/download/) | [`SHA256`](https://nodejs.org/en/download/) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | OpenJS Foundation | `C:\Program Files\nodejs\` |
 | [`OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi`](https://adoptium.net/archive.html?variant=openjdk8&jvmVariant=hotspot) | [`SHA256`](https://adoptopenjdk.net/archive.html?variant=openjdk8&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\` |
 | [`OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi`](https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot) | [`SHA256`](https://adoptopenjdk.net/archive.html?variant=openjdk11&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-11.0.13.8-hotspot\` |
 | [`pandoc-2.16.2-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:red;"><b>No</b></span> | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
 | [`putty-64bit-0.76-installer.msi`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) | [`MD5/SHA1`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files)<br/>[`SHA256/SHA512`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Simon Tatham | `C:\Program Files\PuTTY\`|
+| [`rust-1.57.0-x86_64-pc-windows-msvc.msi`](https://forge.rust-lang.org/infra/other-installation-methods.html#standalone-installers) | [`GPG`](https://forge.rust-lang.org/infra/other-installation-methods.html#standalone-installers) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\Rust stable MSVC 1.57\`|
 | [`sapmachine-jdk-11.0.14-ea.7_windows-x64_bin.msi`](https://github.com/SAP/SapMachine/releases) | [`SHA256`](https://github.com/SAP/SapMachine/releases) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\SapMachine\JDK\11\` |
 | [`sbt-1.5.8.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.8) | [`SHA256`](https://github.com/sbt/sbt/releases/tag/v1.5.8) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files(x86)\sbt\` |
 | [`scala-2.13.7.msi`](https://scala-lang.org/files/archive/)<br/>(<b>Lightbend's installer</b>) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files (x86)\scala\` |
@@ -98,9 +100,9 @@ We first extract the contents of <a href="https://scala-lang.org/files/archive/"
 
 <dl><dd>
 Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
-</dd></dl>
-
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/michelou/wix-examples/releases/tag/scala-2.13.7.msi">scala-2.13.7.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f C:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
@@ -115,8 +117,8 @@ Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2
         ├───<b>lib</b>
         └───<b>man</b>
 </pre>
-
-<dl><dd>
+</dd>
+<dd>
 As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.5.8"><code>sbt-1.5.8.msi</code></a> : 
 </dd>
 <dd>
@@ -252,7 +254,7 @@ Software distributions can be installed in several ways, not necessarily using M
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
