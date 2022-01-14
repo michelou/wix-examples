@@ -153,7 +153,7 @@ set _ARCH=x64
 
 set _PRODUCT_SKU=scala
 set _PRODUCT_UPGRADE_CODE=
-set _PRODUCT_VERSION=2.13.7
+set _PRODUCT_VERSION=2.13.8
 
 for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_END_YEAR=%%i
 set _COPYRIGHT_OWNER=EPFL
