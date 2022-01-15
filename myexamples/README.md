@@ -1,4 +1,4 @@
-# <span id="top">WiX toolset examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX Toolset examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>myexamples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX toolset</a> examples written by ourself.
+    Directory <strong><code>myexamples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> examples written by ourself.
   </td>
   </tr>
 </table>
@@ -204,33 +204,36 @@ Project `MyAppFeatures` adds feature customization to the *MyApp* Windows instal
 
 ## <span id="footnotes">Footnotes</span>
 
-
 <span id="footnote_01">[1]</span> ***File Checksums*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 We rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash"><code>Get-FileHash</code></a> to generate <code>.md5</code> and <code>.sha256</code> checksum files. MD5 checksums can also be generated with command-line tools such as <a href="https://www.fourmilab.ch/md5/" rel="external" title="MD5">MD5</a> or <a href="http://www.pc-tools.net/win32/md5sums/" rel="external" title="MD5sums">MD5sums</a> (see also document <a href="../SECURITY.md"><code>SECURITY.md</code></a>).
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b> &gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -C "(<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash" rel="external" title="Get-FileHash">Get-FileHash</a> 'target\MyApp-1.0.0.msi' -Algorithm md5).Hash"</b>
 38C2F1D6F7FF5D40A75DAEA0950CF949
 </pre>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***GUID*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated (<i>see also</i> the nice article series from <a href="https://ericlippert.com/about-eric-lippert/">Eric Lippert</a>'s <i>"Guid guide"</i>, <a href="https://ericlippert.com/2012/04/24/guid-guide-part-one/">part 1</a>, <a href="https://ericlippert.com/2012/04/30/guid-guide-part-two/">part 2</a> and <a href="https://ericlippert.com/2012/05/07/guid-guide-part-three/">part 3</a>).
-</p>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 <a href="https://wixtoolset.org/">WiX</a> examples developed in this project rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples"><code>New-Guid</code></a> to generate GUID values; for instance :
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -C <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples">"(New-Guid).Guid"</a></b>
 2d30a843-3eb2-497a-99a1-49a368bba5f7
 </pre>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
