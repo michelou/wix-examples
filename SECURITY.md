@@ -112,7 +112,7 @@ Figures **1.1** to **1.2** below show that a digital signature was indeed added 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

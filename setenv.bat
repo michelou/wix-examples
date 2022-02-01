@@ -37,7 +37,7 @@ call :git
 if not %_EXITCODE%==0 goto end
 
 @rem required by sbt
-call :java "openjdk" 11
+call :java "temurin" 11
 if not %_EXITCODE%==0 goto end
 
 call :magick
