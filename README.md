@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Python 3][python_examples], [Rust][rust_examples], [Scala 3][scala3_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Python 3][python_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -158,6 +158,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 <!-- link refs -->
 
 [ada_examples]: https://github.com/michelou/ada-examples
+[akka_examples]: https://github.com/michelou/akka-examples
 [cargo_cli]: https://doc.rust-lang.org/cargo/commands/cargo.html
 [deno_examples]: https://github.com/michelou/deno-examples
 [firegiant]: https://www.firegiant.com/
@@ -193,6 +194,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [scala2]: https://www.scala-lang.org/download/scala2.html
 [scala3]: https://www.scala-lang.org/download/scala3.html
 [scala3_examples]: https://github.com/michelou/dotty-examples
+[spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [vs2019_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/
 [vs2019_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes
