@@ -4,19 +4,19 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./images/wixtoolset.png" width="100" alt="WiX project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">Windows installer</a> examples coming from various websites and books.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX toolset</a> on the <b>Microsoft Windows</b> platform.
+  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Python 3][python_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Python 3][python_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Git 2.35][git_downloads] ([*release notes*][git_relnotes])
-- [WiX 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
+- [WiX Toolset 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
 
 Optionally one may also install the following software:
 
@@ -28,7 +28,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*February 2022*) <sup id="anchor_05">[5](#footnote_05)</sup>:
+For instance our development environment looks as follows (*March 2022*) <sup id="anchor_05">[5](#footnote_05)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.35.1\             <i>(280 MB)</i>
@@ -104,7 +104,7 @@ Environment variables:
 <span id="footnote_01">[1]</span> ***ImageMagick*** [↩](#anchor_01)
 
 <dl><dd>
-<a href="https://imagemagick.org/">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> tool to customize the dialog windows in the generated Windows installer.
+<a href="https://imagemagick.org/ rel="external">ImageMagick</a> is a free software to create, edit, compose, or convert digital images. In this project we rely on the <a href="https://imagemagick.org/script/convert.php" rel="external"><code>convert</code></a> tool to customize the dialog windows in the generated Windows installer.
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***InstEd*** [↩](#anchor_02)
@@ -123,13 +123,13 @@ Environment variables:
 <span id="footnote_03">[3]</span> ***Visual Studio 2019*** [↩](#anchor_03)
 
 <dl><dd>
-<a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">GUI</a> applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the <a href="https://wixtoolset.org/">WiX tools</a> to create a Windows installer.
+<a href="https://visualstudio.microsoft.com/vs/older-downloads/">Microsoft Visual Studio 2019</a> is the defacto <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a> for devopping Microsoft Windows application (either console applications or <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">GUI</a> applications). In this project we use the <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild">MSBuild</a> tool to build a basic GUI application and the <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> to create a Windows installer.
 </dd></dl>
 
 <span id="footnote_04">[4]</span> ***Windows SDK*** [↩](#anchor_04)
 
 <dl><dd>
-The <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a> provides libraries and tools for building Windows applications; for instance <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool"><code>signtool.exe</code></a> is the security tool we use in this project to sign the generated Windows installers.
+The <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/" rel="external">Windows SDK</a> provides libraries and tools for building Windows applications; for instance <a href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/signtool" rel="external"><code>signtool.exe</code></a> is the security tool we use in this project to sign the generated Windows installers.
 </dd></dl>
 
 <span id="footnote_05">[5]</span> ***Downloads*** [↩](#anchor_05)
@@ -152,7 +152,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -160,6 +160,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [cargo_cli]: https://doc.rust-lang.org/cargo/commands/cargo.html
+[cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [firegiant]: https://www.firegiant.com/
 [git_docs]: https://git-scm.com/docs/git

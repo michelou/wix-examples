@@ -263,7 +263,7 @@ For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
