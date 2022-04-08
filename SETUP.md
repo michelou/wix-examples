@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/"><img src="./docs/wixtoolset.png" width="100" alt="WiX Toolset"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This document presents some <a href="https://wixtoolset.org//" rel="external">WiX</a> setup details on the Windows platform.
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./docs/wixtoolset.png" width="100" alt="WiX Toolset"/></a></td>
+  <td style="border:0;padding:0;vertical-align:text-top;">This document presents some <a href="https://wixtoolset.org/" rel="external">WiX</a> setup details on the Windows platform.
   </td>
   </tr>
 </table>
@@ -49,7 +49,7 @@ C:\opt\Wix-3.11.2
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

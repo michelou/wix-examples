@@ -390,7 +390,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://github.com/corretto/corretto-17/releases">Amazon Corretto 17</a></td>
-  <td style="padding:6px;"><code>Amazon Corretto\</code> <b>&#129092;&#129092;&#129092;</b></td>
+  <td style="padding:6px;"><code>Amazon Corretto\</code> <b>&#8678;&#8678; !!</b></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://www.azul.com/downloads/?version=java-8-lts&os=windows&architecture=x86-64-bit&package=jdk">Azul Zulu 8</a></td>
@@ -474,7 +474,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

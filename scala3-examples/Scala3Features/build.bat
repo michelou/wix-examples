@@ -207,6 +207,16 @@ if not defined _PRODUCT_MSI_VERSION (
     goto :eof
 )
 for /f "delims=. tokens=1,2,*" %%i in ("%_PRODUCT_VERSION%") do set "_PRODUCT_MINOR_VERSION=%%~j"
+
+@rem How can this be improved ?
+if "%_PRODUCT_VERSION:~0,3%"=="3.1" (
+    set "__BUILD_VERSION=%_PRODUCT_VERSION:~4%"
+    if !__BUILD_VERSION! lss 2 ( set _SCALA_BINARY_VERSION=2.13.6
+    ) else ( set _SCALA_BINARY_VERSION=2.13.8
+    )
+) else if "%_PRODUCT_VERSION:~0,3%"=="3.2" ( set _SCALA_BINARY_VERSION=2.13.8
+) else ( set _SCALA_BINARY_VERSION=2.13.6
+)
 goto :eof
 
 :args
@@ -291,7 +301,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_MINOR_VERSION=%_PRODUCT_MINOR_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_MSI_VERSION=%_PRODUCT_MSI_VERSION% 1>&2
     echo %_DEBUG_LABEL% Variables  : _PRODUCT_SKU=%_PRODUCT_SKU% 1>&2
-    echo %_DEBUG_LABEL% Variables  : _PRODUCT_VERSION=%_PRODUCT_VERSION% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _PRODUCT_VERSION=%_PRODUCT_VERSION% _SCALA_BINARY_VERSION=%_SCALA_BINARY_VERSION% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -602,7 +612,7 @@ goto :eof
 :gen_api
 if not exist "%_API_DIR%\jars\" mkdir "%_API_DIR%\jars"
 
-call :gen_api_javadoc scala-library "2.13.6"
+call :gen_api_javadoc scala-library "%_SCALA_BINARY_VERSION%"
 if not %_EXITCODE%==0 goto :eof
 
 call :gen_api_javadoc scala3-compiler_3 "%_PRODUCT_VERSION%"

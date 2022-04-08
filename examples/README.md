@@ -210,13 +210,13 @@ Successfully signed: Y:\examples\WiXCustomDialog\target\WiXCustomDialog-1.0.0.ms
 
 <span id="footnote_01">[1]</span> ***Missing application files*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Since the original application (resp. its source files) is not available we must be satisfied with a "<a href="https://en.wikipedia.org/wiki/Double_(filmmaking)"><i>body double</i></a>" instead of the orginal one; concretely we simply copy (and rename) the <a href="https://en.wikipedia.org/wiki/Windows_Calculator">Windows Calculator</a> (aka. <code><a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables#variables-that-are-processed-for-the-operating-system-and-in-the-context-of-each-user">%WINDIR%</a>\system32\calc.exe</code>) during the build process.
-</p>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

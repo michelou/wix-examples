@@ -248,13 +248,17 @@ Software distributions can be installed in several ways, not necessarily using M
 
 <span id="footnote_03">[3]</span> **`MSI Resources`** [↩](#anchor_03)
 
-- [Elastic Windows Installer][project_elastic] - Windows installers for the Elastic stack.
-- &#128077; [InstEd][tool_insted] - a free MSI editor built for professionals.
-- [lessmi][tool_lessmsi] - a tool to view and extract the contents of an Windows Installer.
+<dl><dd>
+<ul>
+<li><a href="https://github.com/elastic/windows-installers">Elastic Windows Installer</a> - Windows installers for the Elastic stack.</li>
+<li>&#128077; <a href="http://www.instedit.com/">InstEd</a> - a free MSI editor built for professionals.</li>
+<li><a href="https://github.com/activescott/lessmsi">lessmi</a> - a tool to view and extract the contents of an Windows Installer.</li>
+</ul>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
