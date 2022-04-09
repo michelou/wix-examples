@@ -1,7 +1,7 @@
 ### Release notes &ndash; `scala3-3.1.2.msi`
 
 #### General informations
-- `scala3-3.1.2.msi` (102 MB) is a [*self-signed*](https://en.wikipedia.org/wiki/Self-signed_certificate) Windows installer built from [`scala3-3.1.2.zip`](https://github.com/lampepfl/dotty/releases/tag/3.1.1) (33 MB), [`scala3-library_3-3.1.2-javadoc.jar`](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.1.2/) **and**  [`scala-library-2.13.8-javadoc.jar`](https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.8/).
+- `scala3-3.1.2.msi` (103 MB) is a [*self-signed*](https://en.wikipedia.org/wiki/Self-signed_certificate) Windows installer built from [`scala3-3.1.2.zip`](https://github.com/lampepfl/dotty/releases/tag/3.1.1) (33 MB), [`scala3-library_3-3.1.2-javadoc.jar`](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.1.2/) **and**  [`scala-library-2.13.8-javadoc.jar`](https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.8/).
 - The [installation context](https://docs.microsoft.com/en-us/windows/win32/msi/installation-context) is *per-machine*, **not** *per-user*.
 - The installer targets 64-bit Windows systems (MS Windows 7 or newer); it was tested on Win10 Pro/Home and Win11 Pro.
 - The project description is available on page [`README.md`](../../scala3-examples/README.md) (GitHub project [`michelou/wix-examples`](https://github.com/michelou/wix-examples)).

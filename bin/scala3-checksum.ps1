@@ -1,7 +1,7 @@
 [CmdletBinding()]
 Param (
-    [ValidateSet('3.0.2', '3.1.0')]
-    [string]$version = '3.1.0',
+    [ValidateSet('3.0.2', '3.1.0', '3.1.1', '3.1.2')]
+    [string]$version = '3.1.2',
     [ValidateSet('md5', 'sha256')]
     [string]$algorithm = 'md5'
 )
