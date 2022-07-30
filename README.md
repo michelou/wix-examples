@@ -15,7 +15,7 @@
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.35][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.37][git_downloads] ([*release notes*][git_relnotes])
 - [WiX Toolset 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
 
 Optionally one may also install the following software:
@@ -28,10 +28,10 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*April 2022*) <sup id="anchor_05">[5](#footnote_05)</sup>:
+For instance our development environment looks as follows (*July 2022*) <sup id="anchor_05">[5](#footnote_05)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.35.1\             <i>(280 MB)</i>
+C:\opt\Git-2.37.1\             <i>(280 MB)</i>
 C:\opt\ImageMagick-7.1.0-Q16\  <i>(300 MB)</i>
 C:\opt\WiX-3.11.2\             <i>( 99 MB)</i>
 C:\Program Files (x86)\instedit.com\InstEd\  <i>(  7 MB)</i>
@@ -83,17 +83,17 @@ where
 Tool versions:
    candle 3.11.2.4516, light 3.11.2.4516,
    msiinfo 5.0, uuidgen v1.01
-   magick 7.1.0-7, git 2.35.1.windows.1, diff 3.8
+   magick 7.1.0-7, git 2.37.1.windows.1, diff 3.8
 Tool paths:
    C:\opt\Wix-3.11.2\candle.exe
    C:\opt\WiX-3.11.2\light.exe
    C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\MsiInfo.exe
    C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\uuidgen.exe
    C:\opt\ImageMagick-7.1.0-Q16\magick.exe
-   C:\opt\Git-2.35.1\bin\git.exe
-   C:\opt\Git-2.35.1\usr\bin\diff.exe
+   C:\opt\Git-2.37.1\bin\git.exe
+   C:\opt\Git-2.37.1\usr\bin\diff.exe
 Environment variables:
-   "GIT_HOME=C:\opt\Git-2.35.1"
+   "GIT_HOME=C:\opt\Git-2.37.1"
    "MAGICK_HOME=C:\opt\ImageMagick-7.1.0-Q16"
    "WINSDK_HOME=C:\Program Files (x86)\Windows Kits\10"
    "WIX=C:\opt\WiX-3.11.2"
@@ -140,7 +140,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://imagemagick.org/script/download.php#windows">ImageMagick-7.1.0-portable-Q16-x64.zip</a>  <i>(111 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>        <i>( 44 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.37.1-64-bit.7z.exe</a>        <i>( 44 MB)</i>
 vs_2019_community.exe                   <i>(1.7 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                         <i>(  1 MB)</i>
 <a href="https://github.com/wixtoolset/wix3/releases">wix311-binaries.zip</a>                     <i>( 33 MB)</i>
@@ -152,7 +152,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -167,7 +167,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [git_downloads]: https://git-scm.com/download/win
 [git_scm]: https://git-scm.com/
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.35.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.1.txt
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gui]: https://en.wikipedia.org/wiki/Graphical_user_interface

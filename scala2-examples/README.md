@@ -487,7 +487,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://github.com/corretto/corretto-11/releases">Amazon Corretto 11</a></td>
-  <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.13_8\</code></td>
+  <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.16_8\</code></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://github.com/corretto/corretto-17/releases">Amazon Corretto 17</a></td>
@@ -575,7 +575,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
