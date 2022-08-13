@@ -14,7 +14,7 @@
 The [WiX][wix_toolset] examples presented in the following sections
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
-   - application files are downloaded and extracted from the Zip archive (e.g. [`scala-2.13.7.zip`][scala2_zip]) if not yet present in directory `app\`.
+   - application files are downloaded and extracted from the Zip archive (e.g. [`scala-2.13.8.zip`][scala2_zip]) if not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src_gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 The [Scala 2][scala2] Windows installer behaves in *3 different ways* when it detects a [Scala 2][scala2] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
@@ -38,8 +38,8 @@ Y:\scala2-examples\Scala2First
 ├───<b>app</b>
 │   ├───<b>scala-2.12.15</b>
 │   │       <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a><i>)</i>
-│   └───<b>scala-2.13.7</b>
-│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a><i>)</i>
+│   └───<b>scala-2.13.8</b>
+│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.8.zip</b></a><i>)</i>
 └───<a href="./Scala2First/src/"><b>src</b></a>
     │   <a href="./Scala2First/src/Scala2First.wxs">Scala2First.wxs</a>
     └───<b>resources</b>
@@ -57,10 +57,10 @@ Command [`build link`](./Scala2First/build.bat) <sup id="anchor_04">[4](#footnot
 │   candle_sources.txt
 │   Fragments.wixobj
 │   light_opts.txt
-│   scala-2.13.7.msi
-│   scala-2.13.7.msi.md5
-│   scala-2.13.7.msi.sha256
-│   scala-2.13.7.wixpdb
+│   scala-2.13.8.msi
+│   scala-2.13.8.msi.md5
+│   scala-2.13.8.msi.sha256
+│   scala-2.13.8.wixpdb
 │   Scala2First.wixobj
 ├───<b>resources</b>
 │       favicon.ico
@@ -158,8 +158,8 @@ Y:\scala-examples\Scala2UI
 ├───<b>app</b>
 │   ├───<b>scala-2.12.15</b>
 │   │       <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a><i>)</i>
-│   └───<b>scala-2.13.7</b>
-│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a><i>)</i>
+│   └───<b>scala-2.13.8</b>
+│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.8.zip</b></a><i>)</i>
 └───<a href="./Scala2UI/src/"><b>src</b></a>
     │   <a href="./Scala2UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2UI/src/Scala2UI.wxs">Scala2UI.wxs</a>
@@ -176,7 +176,7 @@ Y:\scala-examples\Scala2UI
             <a href="./Scala2UI/src/resources/rtf.ico">rtf.ico</a>
 </pre>
 
-Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.7.msi`.
+Command [`build link`](./Scala2UI/build.bat) generates the [Scala 2][scala2] Windows installer with file name `scala-2.13.8.msi`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala2UI/build.bat">build</a> -verbose link && <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
@@ -189,16 +189,16 @@ Use banner image found in directory "src\resources"
 Add logo to top banner image "target\resources\BannerTop.bmp"
 Add logo to dialog image "target\resources\Dialog.bmp"
 Compiling 2 WiX source files to directory "target"
-Create Windows installer "target\scala-2.13.7.msi"
+Create Windows installer "target\scala-2.13.8.msi"
 │   candle_opts.txt
 │   candle_sources.txt
 │   Fragments.wixobj
 │   light_opts.txt
 │   replace.ps1
-│   scala-2.13.7.msi
-│   scala-2.13.7.msi.md5
-│   scala-2.13.7.msi.sha256
-│   scala-2.13.7.wixpdb
+│   scala-2.13.8.msi
+│   scala-2.13.8.msi.md5
+│   scala-2.13.8.msi.sha256
+│   scala-2.13.8.wixpdb
 │   Scala2UI.wixobj
 ├───<b>resources</b>
 │       BannerTop.bmp
@@ -273,8 +273,8 @@ Y:\scala2-examples\Scala2Localized
 ├───<b>app</b>
 │   ├───<b>scala-2.12.15</b>
 │   │       <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.12.15.zip</b></a><i>)</i>
-│   └───<b>scala-2.13.7</b>
-│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.7.zip</b></a><i>)</i>
+│   └───<b>scala-2.13.8</b>
+│           <i>(files extracted from</i> <a href="https://scala-lang.org/files/archive/"><b>scala-2.13.8.zip</b></a><i>)</i>
 └───<a href="./Scala2Localized/src/"><b>src</b></a>
     │   <a href="./Scala2Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala2Localized/src/Scala2Localized.wxs">Scala2Localized.wxs</a>
@@ -295,7 +295,7 @@ Y:\scala2-examples\Scala2Localized
             <a href="./Scala2Localized/src/resources/rtf.ico">rtf.ico</a>
 </pre>
 
-Command [`build link`](./Scala2Localized/build.bat) generates a separate MSI file for each language localization, e.g. `scala-2.13.7-sv-SE.msi` is the swedish version of the [Scala 2][scala2] Windows installer.
+Command [`build link`](./Scala2Localized/build.bat) generates a separate MSI file for each language localization, e.g. `scala-2.13.8-sv-SE.msi` is the swedish version of the [Scala 2][scala2] Windows installer.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala2Localized/build.bat">build</a> clean link && <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /a-d target</b>
@@ -304,22 +304,22 @@ candle_sources.txt
 Fragments.wixobj
 light_opts.txt
 replace.ps1
-<b>scala-2.13.7.msi</b>
-scala-2.13.7.msi.md5
-scala-2.13.7.msi.sha256
-scala-2.13.7.wixpdb
-<b>scala-2.13.7_de-DE.msi</b>
-scala-2.13.7_de-DE.msi.md5
-scala-2.13.7_de-DE.msi.sha256
-scala-2.13.7_de-DE.wixpdb
-<b>scala-2.13.7_fr-FR.msi</b>
-scala-2.13.7_fr-FR.msi.md5
-scala-2.13.7_fr-FR.msi.sha256
-scala-2.13.7_fr-FR.wixpdb
-<b>scala-2.13.7_sv-SE.msi</b>
-scala-2.13.7_sv-SE.msi.md5
-scala-2.13.7_sv-SE.msi.sha256
-scala-2.13.7_sv-SE.wixpdb
+<b>scala-2.13.8.msi</b>
+scala-2.13.8.msi.md5
+scala-2.13.8.msi.sha256
+scala-2.13.8.wixpdb
+<b>scala-2.13.8_de-DE.msi</b>
+scala-2.13.8_de-DE.msi.md5
+scala-2.13.8_de-DE.msi.sha256
+scala-2.13.8_de-DE.wixpdb
+<b>scala-2.13.8_fr-FR.msi</b>
+scala-2.13.8_fr-FR.msi.md5
+scala-2.13.8_fr-FR.msi.sha256
+scala-2.13.8_fr-FR.wixpdb
+<b>scala-2.13.8_sv-SE.msi</b>
+scala-2.13.8_sv-SE.msi.md5
+scala-2.13.8_sv-SE.msi.sha256
+scala-2.13.8_sv-SE.wixpdb
 Scala2Localized.wixobj
 </pre>
 
@@ -380,7 +380,7 @@ Concretely the main [`Feature` element](https://wixtoolset.org/documentation/man
 &lt;/<b>Feature</b>&gt;
 </pre>
 
-As before command [`build link`](./Scala3Features/build.bat) generates the MSI file [`scala-2.13.7.msi`](https://github.com/michelou/wix-examples/releases) with the two checksum files `scala-2.13.7.msi.md5` and `scala-2.13.7.msi.sha256`.
+As before command [`build link`](./Scala3Features/build.bat) generates the MSI file [`scala-2.13.8.msi`](https://github.com/michelou/wix-examples/releases) with the two checksum files `scala-2.13.8.msi.md5` and `scala-2.13.8.msi.sha256`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala2Features/build.bat">build</a> -verbose clean link</b>
@@ -395,7 +395,7 @@ Add logo to banner image "target\resources\BannerTop.bmp"
 Add logo to dialog image "target\resources\Dialog.bmp"
 Set copyright information in file "target\resources\LICENSE.rtf"
 Compiling 3 WiX source files to directory "target"
-Create Windows installer "target\scala-2.13.7.msi"
+Create Windows installer "target\scala-2.13.8.msi"
 </pre>
 
 Figures **5.1** to **5.4** below illustrate the dialog windows of our Windows installer while Figures **5.5** and **5.6** show how the Windws installer behaves when a [Scala 2][scala2] installation is already present on the target machine.
@@ -467,7 +467,7 @@ C:\Program Files\Scala 2\bin\scala.bat
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> JAVA_HOME=c:\opt\<a href="https://bell-sw.com/pages/downloads/#/java-8-lts">jdk-bellsoft-1.8.0u312</a></b>
 &nbsp;
 <b>&gt; scala -version</b>
-Scala code runner version 2.13.7 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
+Scala code runner version 2.13.8 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
 </pre>
 </dd></dl>
 
@@ -527,7 +527,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 8</a></td>
-  <td style="padding:6px;"><code>RedHat\java-1.8.0-openjdk-1.8.0.312.2\</code></td>
+  <td style="padding:6px;"><code>RedHat\java-1.8.0-openjdk-1.8.0.342.1\</code></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://developers.redhat.com/products/openjdk/download">RedHat 11</a></td>
@@ -575,7 +575,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

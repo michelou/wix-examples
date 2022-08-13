@@ -31,25 +31,25 @@ The following table gives a small overview of Windows installers available for o
 
 | MSI&nbsp;file  | Checksum | Signed | Name | Destination&nbsp;folder (<i>default</i>) |
 |:---------------|:--------:|:------:|:----:|:-----------------------------------------|
-| [`amazon-corretto-11.0.13.8.1-windows-x64.msi`](https://github.com/corretto/corretto-11/releases) | [`MD5`](https://github.com/corretto/corretto-11/releases) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Amazon.com Services LLC | `C:\Program Files\Amazon Corretto\` |
-| [`calibre-64bit-5.34.0.msi`](https://github.com/kovidgoyal/calibre/releases) | <b>No</b> | Yes **<sup>(b)</sup>**| Kovid Goyal | `C:\Program Files\Calibre2\` |
-| [`cmake-3.22.0-windows-x86_64.msi`](https://cmake.org/download/) | [`SHA256`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
-| [`cppcheck-2.6-x64-Setup.msi`](https://github.com/danmar/cppcheck/releases) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\Cppcheck\` |
+| [`amazon-corretto-11.0.16.8.1-windows-x64.msi`](https://github.com/corretto/corretto-11/releases) | [`MD5`](https://github.com/corretto/corretto-11/releases) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Amazon.com Services LLC | `C:\Program Files\Amazon Corretto\` |
+| [`calibre-64bit-6.2.1.msi`](https://github.com/kovidgoyal/calibre/releases) | <b>No</b> | Yes **<sup>(b)</sup>**| Kovid Goyal | `C:\Program Files\Calibre2\` |
+| [`cmake-3.24.0-windows-x86_64.msi`](https://cmake.org/download/) | [`SHA256`](https://cmake.org/download/) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Kitware,&nbsp;Inc. | `C:\Program Files\CMake\` |
+| [`cppcheck-2.8-x64-Setup.msi`](https://github.com/danmar/cppcheck/releases) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\Cppcheck\` |
 | [`GitHubDesktopSetup-x64.msi`](https://desktop.github.com/) | <b>No</b><br/><span style="font-size:70%;">([#8730](https://github.com/desktop/desktop/issues/8730))</span> | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | GitHub,&nbsp;Inc. | `C:\Program Files(x86)\GitHubDesktop\` |
-| [`go1.17.5.windows-amd64.msi`](https://go.dev/dl/#stable) | [`SHA256`](https://go.dev/dl/#stable) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Google LLC | `C:\Program Files\Go\` |
+| [`go1.19.windows-amd64.msi`](https://go.dev/dl/#stable) | [`SHA256`](https://go.dev/dl/#stable) | <span style="color:green;">Yes</span> **<sup>(a)</sup>** | Google LLC | `C:\Program Files\Go\` |
 | [`java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi`](https://developers.redhat.com/products/openjdk/download) | <span style="color:red;"><b>No</b></span> | <span style="color:green;">Yes</span> **<sup>(b)</sup>** | Red Hat, Inc. | `C:\Program Files\RedHat\java-1.8.0-openjdk-1.8.0.312-2` |
-| [`node-v16.13.0-x64.msi`](https://nodejs.org/en/download/) | [`SHA256`](https://nodejs.org/en/download/) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | OpenJS Foundation | `C:\Program Files\nodejs\` |
+| [`node-v16.16.0-x64.msi`](https://nodejs.org/en/download/) | [`SHA256`](https://nodejs.org/en/download/) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | OpenJS Foundation | `C:\Program Files\nodejs\` |
 | [`OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi`](https://adoptium.net/archive.html?variant=openjdk8&jvmVariant=hotspot) | [`SHA256`](https://adoptopenjdk.net/archive.html?variant=openjdk8&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-8.0.312.7-hotspot\` |
 | [`OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi`](https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot) | [`SHA256`](https://adoptopenjdk.net/archive.html?variant=openjdk11&jvmVariant=hotspot) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Eclipse.org Foundation, Inc. | `C:\Program Files\Eclipse Adoptium\jdk-11.0.13.8-hotspot\` |
-| [`pandoc-2.16.2-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:red;"><b>No</b></span> | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
+| [`pandoc-2.19-windows-x86_64.msi`](https://pandoc.org/installing.html) | <span style="color:red;"><b>No</b></span> | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | John MacFarlane | `C:\Program Files\Pandoc\` |
 | [`putty-64bit-0.76-installer.msi`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) | [`MD5/SHA1`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files)<br/>[`SHA256/SHA512`](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html#Checksum%20files) | <span style="color:green;">Yes</span> **<sup>(c)</sup>** | Simon Tatham | `C:\Program Files\PuTTY\`|
 | [`rust-1.57.0-x86_64-pc-windows-msvc.msi`](https://forge.rust-lang.org/infra/other-installation-methods.html#standalone-installers) | [`GPG`](https://forge.rust-lang.org/infra/other-installation-methods.html#standalone-installers) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\Rust stable MSVC 1.57\`|
 | [`sapmachine-jdk-11.0.14-ea.7_windows-x64_bin.msi`](https://github.com/SAP/SapMachine/releases) | [`SHA256`](https://github.com/SAP/SapMachine/releases) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files\SapMachine\JDK\11\` |
-| [`sbt-1.5.8.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.8) | [`SHA256`](https://github.com/sbt/sbt/releases/tag/v1.5.8) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files(x86)\sbt\` |
-| [`scala-2.13.7.msi`](https://scala-lang.org/files/archive/)<br/>(<b>Lightbend's installer</b>) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files (x86)\scala\` |
-| [`scala-2.13.7.msi`](https://github.com/michelou/wix-examples/releases)<br/>(<b>our installer</b>) | [`MD5/SHA256`](https://github.com/michelou/wix-examples/releases) | Yes<br/><span style="font-size:70%;">(self-signed)</span> | Stéphane Micheloud | `C:\Program Files\Scala 2\` |
+| [`sbt-1.7.1.msi`](https://github.com/sbt/sbt/releases) | [`SHA256`](https://github.com/sbt/sbt/releases/tag/v1.7.1) | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files(x86)\sbt\` |
+| [`scala-2.13.8.msi`](https://scala-lang.org/files/archive/)<br/>(<b>Lightbend's installer</b>) | <span style="color:red;"><b>No</b></span> | <span style="color:red;"><b>No</b></span> | n.a. | `C:\Program Files (x86)\scala\` |
+| [`scala-2.13.8.msi`](https://github.com/michelou/wix-examples/releases)<br/>(<b>our installer</b>) | [`MD5/SHA256`](https://github.com/michelou/wix-examples/releases) | Yes<br/><span style="font-size:70%;">(self-signed)</span> | Stéphane Micheloud | `C:\Program Files\Scala 2\` |
 | [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases)<br/>(<b>our installer</b>) | [`MD5/SHA256`](https://github.com/michelou/wix-examples/releases) | Yes<br/><span style="font-size:70%;">(self-signed)</span> | Stéphane Micheloud | `C:\Program Files\Scala 3\` |
-| [`TortoiseGit-2.12.0.0-64bit.msi`](https://tortoisegit.org/download/) | [`RSA`](https://download.tortoisegit.org/tgit/2.12.0.0/)**<sup>(d)</sup>** | <span style="color:green;">Yes</span> **<sup>(e)</sup>** | Open Source Developer | `C:\Program Files\TortoiseGit\` |
+| [`TortoiseGit-2.13.0.1-64bit.msi`](https://tortoisegit.org/download/) | [`RSA`](https://download.tortoisegit.org/tgit/2.13.0.0/)**<sup>(d)</sup>** | <span style="color:green;">Yes</span> **<sup>(e)</sup>** | Open Source Developer | `C:\Program Files\TortoiseGit\` |
 <div style="font-size:70%;"><b><sup>(a)</sup></b> Signer: <a href="https://www.digicert.com/kb/code-signing/signcode-signtool-command-line.htm">Digicert Timestamp 2021</a>.</div>
 <div style="font-size:70%;"><b><sup>(b)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.</div>
 <div style="font-size:70%;"><b><sup>(c)</sup></b> Signer: Sectigo RSA Time Stamping Signer #2.</div>
@@ -79,14 +79,14 @@ C:\Windows\System32\msiexec.exe
 > - `TARGETDIR=<dir_path>` - extract files into `<dir_path>` (top level folder).
 
 <dl><dd>
-We first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.7_epfl.msi</code> to avoid naming collision with our own <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
+We first extract the contents of <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.8.msi</code></a> - the <i>official</i> Scala 2 Windows installer - <i>renamed</i> here to <code>scala-2.13.8_epfl.msi</code> to avoid naming collision with our own <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://scala-lang.org/files/archive/">scala-2.13.7_epfl.msi</aS> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://scala-lang.org/files/archive/">scala-2.13.8_epfl.msi</aS> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f C:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   scala-2.13.7_epfl.msi
+│   scala-2.13.8_epfl.msi
 └───<b>PFiles</b>
     └───<b>scala</b>
         ├───<b>api</b>   <i>(600 MB !)</i>
@@ -96,7 +96,7 @@ We first extract the contents of <a href="https://scala-lang.org/files/archive/"
 </pre>
 </dd></dl>
 
-> **:mag_right:** We observe that 3 files/directories are <i>missing</i> compared to the corresponding Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.7.zip</code></a>, namely the two text files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory `man\`.
+> **:mag_right:** We observe that 3 files/directories are <i>missing</i> compared to the corresponding Zip archive <a href="https://scala-lang.org/files/archive/"><code>scala-2.13.8.zip</code></a>, namely the two text files <code>LICENSE</code> and <code>NOTICE</code> and the subdirectory `man\`.
 
 <dl><dd>
 Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2 Windows installer</a> :
@@ -106,7 +106,7 @@ Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/michelou/wix-examples/releases/tag/scala-2.13.7.msi">scala-2.13.7.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f C:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   scala-2.13.7.msi
+│   scala-2.13.8.msi
 └───<b>PFiles</b>
     └───<b>Scala 2</b>
         │   LICENSE
@@ -119,14 +119,14 @@ Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2
 </pre>
 </dd>
 <dd>
-As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.5.8"><code>sbt-1.5.8.msi</code></a> : 
+As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.7.1"><code>sbt-1.7.1.msi</code></a> : 
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.5.8">sbt-1.5.8.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.5.8">sbt-1.7.1.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f c:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   sbt-1.5.8.msi
+│   sbt-1.7.1.msi
 └───<b>PFiles</b>
     └───<b>sbt</b>
         │   LICENSE
@@ -142,19 +142,19 @@ As next example we look at the contents of the sbt Windows installer named <a hr
 </pre>
 </dd></dl>
 
-> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.5.8.zip`](https://github.com/sbt/sbt/releases/tag/v1.5.8) but not in MSi file [`sbt-1.5.8.msi`](https://github.com/sbt/sbt/releases/tag/v1.5.8); that's fine !
+> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.7.1.zip`](https://github.com/sbt/sbt/releases/tag/v1.7.1) but not in MSi file [`sbt-1.7.1.msi`](https://github.com/sbt/sbt/releases/tag/v1.7.1); that's fine !
 
 <dl><dd>
-Finally we extract the contents of the Java 11 Windows installer named <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot"><code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi</code></a> :
+Finally we extract the contents of the Java 11 Windows installer named <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot"><code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.msi</code></a> :
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.msi ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f c:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi
+│   OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.msi
 └───<b>Eclipse Adoptium</b>
-    └───<b>jdk-11.0.13.8-hotspot</b>
+    └───<b>jdk-11.0.16.8-hotspot</b>
         │   NOTICE
         │   release
         ├───<b>bin</b>
@@ -210,7 +210,7 @@ Software distributions can be installed in several ways, not necessarily using M
 <td></td>
 </tr>
 <tr>
-<td><a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-13.0.0">LLVM 13</a></td>
+<td><a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM 14</a></td>
 <td></td>
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
@@ -228,7 +228,7 @@ Software distributions can be installed in several ways, not necessarily using M
 <td></td>
 </tr>
 <tr>
-<td><a href="https://code.visualstudio.com/download">VSCode 1.63</a></td>
+<td><a href="https://code.visualstudio.com/download">VSCode 1.70</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
@@ -258,7 +258,7 @@ Software distributions can be installed in several ways, not necessarily using M
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
