@@ -178,15 +178,15 @@ The build steps to generate a Windows installer are:
 </div>
 <div><code>target\src_gen\SampleFirst.wxs</code></div>
 <div>
-  <span style="font-size:70%;padding:0 0 0 45px;">Compilation</span>
+  <span style="font-size:70%;">Compilation with</span>
   <span style="font-size:200%;">⇩</span>
-  <span style="font-size:70%;">with <code>%WIX%\<a href="https://wixtoolset.org/documentation/manual/v3/overview/candle.html">candle.exe</a></code></span>
+  <span style="font-size:70%;"><code>%WIX%\<a href="https://wixtoolset.org/documentation/manual/v3/overview/candle.html">candle.exe</a></code></span>
 </div>
 <div><code>target\SampleFirst.wixObj</code></div>
 <div>
-  <span style="font-size:70%;padding:0 0 0 65px;">Linking</span>
+  <span style="font-size:70%;padding:0 0 0 20px;">Linking with</span>
   <span style="font-size:200%;">⇩</span>
-  <span style="font-size:70%;">with <code>%WIX%\<a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html">light.exe</a></code></span>
+  <span style="font-size:70%;"><code>%WIX%\<a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html">light.exe</a></code></span>
 </div>
 <div style="padding:0 0 5px 0;">
   <code>target\SampleFirst.msi</code>
@@ -212,7 +212,7 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

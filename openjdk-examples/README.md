@@ -263,11 +263,7 @@ For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8
 
 ***
 
-<<<<<<< HEAD
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
-=======
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
->>>>>>> 11aa1c9092c9f144cdd158183aab1160acb73384
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
