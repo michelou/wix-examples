@@ -1,4 +1,4 @@
-# <span id="top">WiX examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX Toolset examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-The [WiX][wix_toolset] examples presented in the following sections 
+The [WiX Toolset][wix_toolset] examples presented in the following sections 
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
    - we slightly modified the main [WiX][wix_toolset] source file to match our project settings.
@@ -216,7 +216,7 @@ Since the original application (resp. its source files) is not available we must
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -1,8 +1,8 @@
-# <span id="top">WiX Setup</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">WiX Toolset Setup</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./docs/wixtoolset.png" width="100" alt="WiX Toolset"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./images/wixtoolset.png" width="100" alt="WiX Toolset"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document presents some <a href="https://wixtoolset.org/" rel="external">WiX</a> setup details on the Windows platform.
   </td>
   </tr>
@@ -17,7 +17,7 @@ sdk
 x86
 <a href="https://wixtoolset.org/documentation/manual/v3/overview/candle.html">candle.exe</a>    <i>(compiler)</i>
 dark.exe
-<a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat.exe</a>      <i>(WXS generator)
+<a href="https://wixtoolset.org/documentation/manual/v3/overview/heat.html">heat.exe</a>      <i>(WXS generator)</i>
 insignia.exe
 <a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html">light.exe</a>     <i>(linker)</i>
 lit.exe
@@ -37,7 +37,7 @@ WixCop.exe
 
 [WiX][wixtoolset_wix3] tools recognize several environment variables:
 - `WIX` defines the path of the installation directory.
-- `WIX_TEMP` overrides the temporary directory used for CAB creation, [MSM][microsoft_msm] exploding, etc.
+- `WIX_TEMP` overrides the temporary directory used for [CAB][microsoft_cab] creation, [MSM][microsoft_msm] exploding, etc.
 
 > **:mag_right:** The WiX Burn Engine also offers a set of [built-in variables](https://wixtoolset.org/documentation/manual/v3/bundle/bundle_built_in_variables.html) to be used in WXS files.
 
@@ -49,10 +49,11 @@ C:\opt\Wix-3.11.2
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[microsoft_cab]: https://learn.microsoft.com/en-us/windows-hardware/drivers/install/cabinet-file-function
 [microsoft_msm]: https://docs.microsoft.com/en-us/windows/win32/msi/merge-module-database
 [wixtoolset_wix3]: https://github.com/wixtoolset/wix3

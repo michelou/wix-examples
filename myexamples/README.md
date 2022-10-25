@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-The [WiX][wix_toolset] examples presented in the following sections share the same project organization, i.e.
+The [WiX Toolset][wix_toolset] examples presented in the following sections share the same project organization, i.e.
 - directory `app\` contains the application files
 - directory `src\` contains the [WiX][wix_toolset] source files and resource files
 - batch file `build.bat` creates the Windows installer from the two input directories.
@@ -45,7 +45,7 @@ Y:\myexamples\MyApp
 
 > **:mag_right:** In order the have a *self-contained* example we include the [`HelloWorld`](./MyApp/HelloWorld/) subproject which contains a simple [Visual Studio solution][vs_solution] for generating `MyApp.exe` to be added to the *MyApp* Windows installer.
 
-Our main batch file [`build.bat`](./MyApp/build.bat) invokes the [WiX][wix_toolset] tools [`candle`][wix_candle] (compiler) and [`light`][wix_light] (linker) with the appropriate settings and inputs.
+Our main batch file [`build.bat`](./MyApp/build.bat) invokes the [WiX][wix_toolset] tools [`candle.exe`][wix_candle] (compiler) and [`light.exe`][wix_light] (linker) with the appropriate settings and inputs.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./MyApp/build.bat">build</a> -verbose install</b>
@@ -233,7 +233,7 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
