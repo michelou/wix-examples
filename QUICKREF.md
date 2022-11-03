@@ -53,7 +53,7 @@ Copyright (c) .NET Foundation and contributors. All rights reserved.
 <span id="footnote_01">[1]</span> ***Windows System Information*** [↩](#anchor_01)
 
 <dl><dd>
-On the Windows prompt we call the command <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic</code></b></a> to display information about the installed Windows operating system :
+On the Windows prompt we call the command <a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic.exe</code></b></a> to display information about the installed Windows operating system :
 </dd>
 <dd>
 <pre style="font-size:80%;">
@@ -62,7 +62,7 @@ BuildNumber  Caption                   OSArchitecture  Version
 19042        Microsoft Windows 10 Pro  64-bit          10.0.19042
 </pre>
 
-  > **&#9755;** ***WMIC Deprecation***<br/><a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic</code></b></a> is deprecated since the <a href="https://en.wikipedia.org/wiki/Windows_10_version_history">Windows May 2021 Update</a> (21H1).
+  > **&#9755;** ***WMIC Deprecation***<br/><a href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic"><b><code>wmic.exe</code></b></a> is deprecated since the <a href="https://en.wikipedia.org/wiki/Windows_10_version_history">Windows May 2021 Update</a> (21H1).
 </dd>
 <dd">
 Alternatively we get the same system information with the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1"><b><code>Get-WmiObject</code></b></a>  :
@@ -79,7 +79,7 @@ BuildNumber Caption                  Version    OSArchitecture
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

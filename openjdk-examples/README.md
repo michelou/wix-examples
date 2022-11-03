@@ -78,7 +78,7 @@ Y:\openjdk-examples\<a href="./OpenJDK">OpenJDK</a>
 > BUNDLE_ICEDTEAWEB=false
 > </pre>
 
-Command [`build link`](./OpenJDK/build.bat) <sup id="anchor_02">[2](#footnote_02)</sup> generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi` <sup id="anchor_03">[3](#footnote_03)</sup> based on the properties defined in file `build.properties`.
+Command [`build.bat link`](./OpenJDK/build.bat) <sup id="anchor_02">[2](#footnote_02)</sup> generates the [OpenJDK 11][adoptium_openjdk11] Windows installer with file name `OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.msi` <sup id="anchor_03">[3](#footnote_03)</sup> based on the properties defined in file `build.properties`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./OpenJDK/build.bat">build</a> -verbose clean link</b>
@@ -179,7 +179,7 @@ PRODUCT_UPGRADE_CODE=&lt;guid-for-version-8&gt;
 <span id="footnote_02">[2]</span> ***Batch file* `build.bat`** [↩](#anchor_02)
 
 <dl><dd>
-Command <a href="./OpenJDK/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
+Command <a href="./OpenJDK/build.bat"><code>build.bat help</code></a> displays the batch file options and subcommands :
 </dd>
 <dd>
 <pre style="font-size:80%;">
@@ -263,7 +263,7 @@ For instance the name of file <code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

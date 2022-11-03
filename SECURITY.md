@@ -52,7 +52,7 @@ The two checksums are equal
 
 ## <span id="certificates">Self-signed Certificates</span> <sup id="anchor_02"><a href="#footnote_02">2</a></sup>
 
-Command [`signtool`][signtool_cmd] (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the standard tool to sign executable files on MS Windows, i.e. the  Windows installers in our case.
+Command [`signtool.exe`][signtool_cmd] (part of the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Windows SDK</a>) is the standard tool to sign executable files on MS Windows, i.e. the  Windows installers in our case.
 
 In project [`Scala3Features`](./scala3-examples/Scala3Features/), for instance, we execute [`signtool`][signtool_cmd] to sign the file [`scala3-3.1.0.msi`](https://github.com/michelou/wix-examples/releases/tag/scala3-3.1.0.msi) :
 
@@ -112,7 +112,7 @@ Figures **1.1** to **1.2** below show that a digital signature was indeed added 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
