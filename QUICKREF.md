@@ -48,7 +48,7 @@ Copyright (c) .NET Foundation and contributors. All rights reserved.
 [...]
 </pre>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Windows System Information*** [↩](#anchor_01)
 
@@ -79,7 +79,7 @@ BuildNumber Caption                  Version    OSArchitecture
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

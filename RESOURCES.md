@@ -45,7 +45,7 @@
 - [WiX: The Pain of WiX (Part 2 of 3)][blog_robbin2] by John Robbins, October 2007.
 - [WiX: Hints for New Users (Part 1 of 3)][blog_robbin1] by John Robbin, October 2007.
 
-## <span id="books">Books</span>
+## <span id="books">Books</span> [**&#x25B4;**](#top)
 
 - [WiX Cookbook][book_ramirez2] by Nick Ramirez, January 2015.<br/><span style="font-size:80%;">(Packt, ISBN 978-1-7843-9321-2, 260 pages)</span>
 - [WiX 3.6: A Developer's Guide to Windows Installer XML][book_ramirez1] by Nick Ramirez, December 2012.<br/><span style="font-size:80%;">(Packt, ISBN 978-1-7821-6042-7, 488 pages)</span>
@@ -103,7 +103,7 @@ version = "12"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

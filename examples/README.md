@@ -146,7 +146,7 @@ Figures **2.1** to **2.4** below illustrate the localized graphical user interfa
 </tr>
 </table>
 
-## <span id="customdialog">WiXCustomDialog</span>
+## <span id="customdialog">WiXCustomDialog</span> [**&#x25B4;**](#top)
 
 Project `WiXCustomDialog` is adapted from glytzhkof's GitHub repository [`glytzhkof/WiXCustomDialog`](https://github.com/glytzhkof/WiXCustomDialog) (February 2021).
 
@@ -216,7 +216,7 @@ Since the original application (resp. its source files) is not available we must
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

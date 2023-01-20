@@ -22,7 +22,7 @@ In case we are suspicious about a Windows installer we can run the Windows comma
 > **:mag_right:** Visit Microsoft's page [Released Versions of Windows Installer](https://docs.microsoft.com/en-us/windows/win32/msi/released-versions-of-windows-installer) to find the correspondance between Windows installer versions and MS Windows OS versions. For instance [`msiexec`][msiexec_cmd] has version 5.0 on MS Windows 7 and newer :
 > <pre>
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1">powershell</a> -c "(<a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-item?view=powershell-7.2">Get-Item</a> C:\Windows\System32\msiexec.exe).VersionInfo.ProductVersion"</b>
-> 5.0.19041.320
+> 5.0.22621.1
 > </pre>
 
 ## <span id="installers">Windows Installers</span>
@@ -54,9 +54,9 @@ The following table gives a small overview of Windows installers available for o
 <div style="font-size:70%;"><b><sup>(b)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.</div>
 <div style="font-size:70%;"><b><sup>(c)</sup></b> Signer: Sectigo RSA Time Stamping Signer #2.</div>
 <div style="font-size:70%;"><b><sup>(d)</sup></b> DigiCert: <a href="https://knowledge.digicert.com/alerts/code-signing-new-minimum-rsa-keysize.html">RSA Code signing changes in 2021</a>.</div>
-<div style="font-size:70%;"><b><sup>(e)</sup></b> Signer: <a href="https://www.certum.eu/en/cert_expertise_root_certificates/">Certum EV TSA SHA2</a>.</div>
+<div style="font-size:70%;"><b><sup>(e)</sup></b> Signer: <a href="https://www.certum.eu/en/cert_expertise_root_certificates/">Certum EV TSA SHA2</a>.<br/>&nbsp;</div>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> **`Administrative Installation`** [↩](#anchor_01)
 
@@ -258,7 +258,7 @@ Software distributions can be installed in several ways, not necessarily using M
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

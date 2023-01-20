@@ -75,7 +75,7 @@ Figures **1.1** and **1.2** below illustrate the updated user environment after 
 </tr>
 </table>
 
-## <span id="myapp_shortcuts">MyAppShortcuts</span>
+## <span id="myapp_shortcuts">MyAppShortcuts</span> [**&#x25B4;**](#top)
 
 This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above [*MyApp*](#myapp) example.
 
@@ -202,7 +202,7 @@ Project `MyAppFeatures` adds feature customization to the *MyApp* Windows instal
 </table>
 
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***File Checksums*** [↩](#anchor_01)
 
@@ -233,7 +233,7 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
