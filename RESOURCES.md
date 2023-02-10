@@ -26,6 +26,7 @@
   - [Set up WiX to create Windows Installer for program distribution](https://sorceryforce.net/en/tips/wix-setup), April 2020.
 - [WiX setup saving user input values](https://siderite.dev/blog/wix-setup-windows-installer-saving-user.html/) by Siderite, November 2018.
 - [WiX Software Blog](https://www.hass.de/category/software/wix) from Alexander Haas :
+  - [WiX: How to use RemoveFolderEx in your XML scripts](https://www.hass.de/content/wix-how-use-removefolderex-your-xml-scripts).
   - [How to create MSI packages with multilingual user interface (MUI) ?](https://www.hass.de/content/how-create-msi-packages-multilingual-user-interface-mui)
   - [How to create a MSI for deploying Fonts in Enterprise ?](https://www.hass.de/content/how-create-msi-deploying-fonts-enterprise), September 2016.
 - [Variables and Conditional Statements in WiX][blog_kumar] by Arun Kumar, June 2014.
