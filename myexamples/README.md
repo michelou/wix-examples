@@ -1,6 +1,6 @@
 # <span id="top">WiX Toolset examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
@@ -17,7 +17,7 @@ The [WiX Toolset][wix_toolset] examples presented in the following sections shar
 - batch file `build.bat` creates the Windows installer from the two input directories.
 - output directory `target\` contains the generated `.msi`, `.msi.md5` <sup id="anchor_01"><a href="#footnote_01">1</a></sup> and `.msi.sha256` files.
 
-## <span id="myapp">`MyApp`</span>
+## <span id="myapp">`MyApp` Example</span>
 
 In this first example we aim to install a *single file*, concretely the Windows application `MyApp.exe`, accessible for all users and located in the *MyApp* directory inside the [*Program Files*][windows_program_files] system folder.
 
@@ -75,7 +75,7 @@ Figures **1.1** and **1.2** below illustrate the updated user environment after 
 </tr>
 </table>
 
-## <span id="myapp_shortcuts">MyAppShortcuts</span> [**&#x25B4;**](#top)
+## <span id="myapp_shortcuts">`MyAppShortcuts` Example</span> [**&#x25B4;**](#top)
 
 This second example adds *Start Menu* shortcuts (see [WiX manual](https://wixtoolset.org/documentation/manual/v3/howtos/files_and_registry/create_start_menu_shortcut.html)) to the above [*MyApp*](#myapp) example.
 
@@ -119,7 +119,7 @@ Figures **2.1** to **2.4** below illustrate the updated user environment after t
 > PRODUCT_UPGRADE_CODE=...
 > </pre>
 
-## <span id="myapp_localized">MyAppLocalized</span>
+## <span id="myapp_localized">`MyAppLocalized` Example</span>
 
 Project `MyAppLocalized` adds language localization to the [WiX][wix_toolset] source files of the *MyApp* Windows installer.
 
@@ -182,7 +182,7 @@ Figures **3.1** and **3.2** below illustrate the updated user environment after 
 </tr>
 </table>
 
-## <span id="myapp_features">MyAppFeatures</span>
+## <span id="myapp_features">`MyAppFeatures` Example</span>
 
 Project `MyAppFeatures` adds feature customization to the *MyApp* Windows installer.
 
@@ -219,10 +219,10 @@ We rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/power
 <span id="footnote_02">[2]</span> ***GUID*** [↩](#anchor_02)
 
 <dl><dd>
-A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated (<i>see also</i> the nice article series from <a href="https://ericlippert.com/about-eric-lippert/">Eric Lippert</a>'s <i>"Guid guide"</i>, <a href="https://ericlippert.com/2012/04/24/guid-guide-part-one/">part 1</a>, <a href="https://ericlippert.com/2012/04/30/guid-guide-part-two/">part 2</a> and <a href="https://ericlippert.com/2012/05/07/guid-guide-part-three/">part 3</a>).
+A <a href="http://guid.one/guid" rel="external">GUID</a> is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated (<i>see also</i> the nice article series from <a href="https://ericlippert.com/about-eric-lippert/">Eric Lippert</a>'s <i>"Guid guide"</i>, <a href="https://ericlippert.com/2012/04/24/guid-guide-part-one/">part 1</a>, <a href="https://ericlippert.com/2012/04/30/guid-guide-part-two/">part 2</a> and <a href="https://ericlippert.com/2012/05/07/guid-guide-part-three/">part 3</a>).
 </dd>
 <dd>
-<a href="https://wixtoolset.org/">WiX</a> examples developed in this project rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples"><code>New-Guid</code></a> to generate GUID values; for instance :
+<a href="https://wixtoolset.org/">WiX</a> examples developed in this project rely on the PowerShell cmdlet <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.2#examples"><code>New-Guid</code></a> to generate <a href="http://guid.one/guid" rel="external">GUID</a> values; for instance :
 </dd>
 <dd>
 <pre style="font-size:80%;">
@@ -233,7 +233,7 @@ A GUID is a 128-bit integer (16 bytes) that can be used across all computers and
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

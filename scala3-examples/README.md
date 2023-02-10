@@ -1,12 +1,12 @@
 # <span id="top">WiX examples with Scala 3 distribution</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.<br/>Follow <a href="../scala2-examples/README.md">this link</a> if you're looking for the Scala 2 Windows installer.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.<br/>Follow <a href="../scala2-examples/README.md">this link</a> if you're looking for the Scala 2 Windows installer.
   </td>
   </tr>
 </table>
@@ -24,9 +24,9 @@ The [Scala 3][scala3] Windows installer behaves in *3 different ways* when it de
 
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 3][scala3] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
-## <span id="scala3_first">Scala3First</span>
+## <span id="scala3_first">`Scala3First` Example</span>
 
-Project `Scala3First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 3][scala3_releases] software distribution.
+`Scala3First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 3][scala3_releases] software distribution.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -118,9 +118,9 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 </tr>
 </table>
 
-## <span id="scala3_ui">Scala3UI</span>
+## <span id="scala3_ui">`Scala3UI` Example</span>
 
-Project `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer. Concretely, we define two images to customize the dialog windows of the Windows installer, ie. :
+`Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer. Concretely, we define two images to customize the dialog windows of the Windows installer, ie. :
 - image [`Dialog.bmp`](./Scala3UI/src/resources/Dialog.bmp) appears in the *Welcome* and *Completed* dialog windows.
 - image [`BannerTop.bmp`](./Scala3UI/src/resources/BannerTop.bmp) appears at the top of the other dialog windows.
 
@@ -287,9 +287,9 @@ Figures **3.1** to **3.4** below illustrate the "**Welcome**" dialog window of t
 </tr>
 </table>
 
-## <span id="scala3_features">Scala3Features</span>
+## <span id="scala3_features">`Scala3Features` Example</span>
 
-Project `Scala3Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 3][scala3] Windows installer.
+`Scala3Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 3][scala3] Windows installer.
 
 Concretely the main [`Feature` element](https://wixtoolset.org/documentation/manual/v3/xsd/wix/feature.html) of the WiX source file [`Scala3Features.wxs`](./Scala3Features/src/Scala3Features.wxs) contains one mandatory `Feature` element and 3 optional `Feature` elements (attribute `Absent="allow"`): 
 
@@ -474,7 +474,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

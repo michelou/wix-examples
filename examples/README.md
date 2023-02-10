@@ -1,6 +1,6 @@
 # <span id="top">WiX Toolset examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
@@ -17,9 +17,9 @@ The [WiX Toolset][wix_toolset] examples presented in the following sections
    - we slightly modified the main [WiX][wix_toolset] source file to match our project settings.
    - we recreated most resource files (e.g. images) not made available by the original author.
 
-## <span id="mini_app_killer">MiniAppKiller</span>
+## <span id="mini_app_killer">`MiniAppKiller` Example</span>
 
-Project `MinAppKiller` is adapted from Heiswayi Nrird's blog post *[What is WiX Toolset & how to use it][MiniAppKiller]* (May 2018).
+`MinAppKiller` is adapted from Heiswayi Nrird's blog post *[What is WiX Toolset & how to use it][MiniAppKiller]* (May 2018).
 
 The project directory is organized as follows :
 
@@ -86,9 +86,9 @@ Figures **1.1** to **1.4** below illustrate the localized graphical user interfa
 </tr>
 </table>
 
-## <span id="uber_agent">uberAgent</span>
+## <span id="uber_agent">`uberAgent` Example</span>
 
-Project `uberAgent` is adapted from Helge Klein's blog post *[Real-World Example: WiX/MSI Application Installer][uberAgent]* (February 2021).
+`uberAgent` is adapted from Helge Klein's blog post *[Real-World Example: WiX/MSI Application Installer][uberAgent]* (February 2021).
 
 The project directory is organized in the same way as the previous [WiX][wix_toolset] example :
 
@@ -146,9 +146,9 @@ Figures **2.1** to **2.4** below illustrate the localized graphical user interfa
 </tr>
 </table>
 
-## <span id="customdialog">WiXCustomDialog</span> [**&#x25B4;**](#top)
+## <span id="customdialog">`WiXCustomDialog` Example</span> [**&#x25B4;**](#top)
 
-Project `WiXCustomDialog` is adapted from glytzhkof's GitHub repository [`glytzhkof/WiXCustomDialog`](https://github.com/glytzhkof/WiXCustomDialog) (February 2021).
+`WiXCustomDialog` is adapted from glytzhkof's GitHub repository [`glytzhkof/WiXCustomDialog`](https://github.com/glytzhkof/WiXCustomDialog) (February 2021).
 
 
 The project directory is organized in the same way as the previous [WiX][wix_toolset] example :
@@ -216,7 +216,7 @@ Since the original application (resp. its source files) is not available we must
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

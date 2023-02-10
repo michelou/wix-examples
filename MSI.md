@@ -1,6 +1,6 @@
 # <span id="top">MSI Files</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-development-tools" rel="external"><img src="./images/win-installer.png" width="100" alt=".msi files"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document gathers resources related to <code>.msi</code> files (aka. <a href="https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-development-tools" rel="external">Windows installers</a>).
@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-MSI ("*Microsoft Silent Installer*") files are database files (with components and features) which are executed with the help of [`msiexec.exe`][msiexec_cmd]. MSI files are the current recommended method for installations on MS Windows.
+MSI ("*Microsoft Silent Installer*") files are database files (with components and features) which are executed with the help of [`msiexec.exe`][msiexec_cmd]. MSI files are the current recommended method for installations on Microsoft Windows.
 
 > **:mag_right:** Here are two discussion feeds for people interested in a deeper insight :
 > - [The corporate benefits of using MSI files](https://serverfault.com/questions/11670/the-corporate-benefits-of-using-msi-files/274609)
@@ -142,7 +142,7 @@ As next example we look at the contents of the sbt Windows installer named <a hr
 </pre>
 </dd></dl>
 
-> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.7.1.zip`](https://github.com/sbt/sbt/releases/tag/v1.7.1) but not in MSi file [`sbt-1.7.1.msi`](https://github.com/sbt/sbt/releases/tag/v1.7.1); that's fine !
+> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.8.2.zip`](https://github.com/sbt/sbt/releases/tag/v1.8.2) but not in MSi file [`sbt-1.8.2.msi`](https://github.com/sbt/sbt/releases/tag/v1.8.2); that's fine !
 
 <dl><dd>
 Finally we extract the contents of the Java 11 Windows installer named <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot"><code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.msi</code></a> :
@@ -180,13 +180,13 @@ Software distributions can be installed in several ways, not necessarily using M
 <th>Package manager</th>
 </tr>
 <tr>
-<td><a href="https://maven.apache.org/download.cgi#files">Apache Maven 3.8</a></td>
+<td><a href="https://maven.apache.org/download.cgi#files">Apache Maven 3.9</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td><a href="https://github.com/bazelbuild/bazel/releases">Bazel 4.2</a></td>
+<td><a href="https://github.com/bazelbuild/bazel/releases">Bazel 6.0</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
@@ -198,7 +198,7 @@ Software distributions can be installed in several ways, not necessarily using M
 <td><a href="https://formulae.brew.sh/formula/deno">Homebrew</a>, <a href="https://chocolatey.org/packages/deno">Chocolatery</a>, <a href="https://scoop.sh/">Scoop</a>, <a href="https://crates.io/crates/deno">Cargo</a></td>
 </tr>
 <tr>
-<td><a href="https://gradle.org/install/">Gradle 4.2</a></td>
+<td><a href="https://gradle.org/install/">Gradle 7.6</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td style="text-align:center;"><b>x</b></td>
 <td><a href="https://sdkman.io/">SDKMAN</a> <sup><b>(c)</b></sup></td>
@@ -210,7 +210,7 @@ Software distributions can be installed in several ways, not necessarily using M
 <td></td>
 </tr>
 <tr>
-<td><a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM 14</a></td>
+<td><a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7">LLVM 15</a></td>
 <td></td>
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
@@ -222,13 +222,13 @@ Software distributions can be installed in several ways, not necessarily using M
 <td></td>
 </tr>
 <tr>
-<td><a href="https://cran.r-project.org/bin/windows/base/">R 4.1.2</a></td>
+<td><a href="https://cran.r-project.org/bin/windows/base/">R 4.2.2</a></td>
 <td></td>
 <td style="text-align:center;"><b>x</b> <sup><b>(d)</b></sup></td>
 <td></td>
 </tr>
 <tr>
-<td><a href="https://code.visualstudio.com/download">VSCode 1.70</a></td>
+<td><a href="https://code.visualstudio.com/download">VSCode 1.75</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
@@ -246,7 +246,7 @@ Software distributions can be installed in several ways, not necessarily using M
 <div style="font-size:80%;"><b><sup>(d)</sup></b> Signer: Symantec SHA256 TimeStamping Signer - G3.<br/>&nbsp;</div>
 </dd></dl>
 
-<span id="footnote_03">[3]</span> **`MSI Resources`** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> ***MSI Resources*** [↩](#anchor_03)
 
 <dl><dd>
 <ul>
@@ -258,7 +258,7 @@ Software distributions can be installed in several ways, not necessarily using M
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

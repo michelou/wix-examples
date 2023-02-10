@@ -1,12 +1,12 @@
 # <span id="top">Firegiant's WiX examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://www.firegiant.com/" rel="external"><img style="border:0;width:120px;" src="https://www.firegiant.com/assets/img/logo_firegiant.png" alt="Firegiant Company" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>firegiant-examples\</code></strong> contains the <a href="https://wixtoolset.org/" rel="external">WiX</a> examples presented in the Firegiant's online <a href="https://www.firegiant.com/wix/tutorial/" rel="external">WiX Toolset Tutorial</a>, the authoritative guide for <a href="https://wixtoolset.org/" rel="external">WiX</a> developers.
+    Directory <strong><code>firegiant-examples\</code></strong> contains the <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> examples presented in the Firegiant's online <a href="https://www.firegiant.com/wix/tutorial/" rel="external">WiX Toolset Tutorial</a>, the authoritative guide for <a href="https://wixtoolset.org/" rel="external">WiX</a> developers.
   </td>
   </tr>
 </table>
@@ -30,7 +30,7 @@ The [WiX][wix_toolset] examples presented in the following sections are adapted<
 5. [User Interface Revisited](https://www.firegiant.com/wix/tutorial/user-interface-revisited/)
     - [A Single Dialog](https://www.firegiant.com/wix/tutorial/user-interface-revisited/a-single-dialog/) : [`SampleCustomUI.zip`](https://www.firegiant.com/system/files/samples/SampleCustomUI.zip)
 
-## <span id="sample_first">SampleFirst</span>
+## <span id="sample_first">`SampleFirst` Example</span>
 
 In this first example the [WiX][wix_toolset] source file [`SampleFirst.wxs`](./SampleFirst/src/SampleFirst.wxs) declares 4 `component` elements for the 3 application files and one menu shortcut.
 
@@ -66,7 +66,7 @@ Command [`build pack`](./SampleFirst/build.bat) generates the MSI package file:
         SampleFirst.wxs
 </pre>
 
-> **:mag_right:** In the above listing of the `target\` directory file `target\src_gen\SampleFirst.wxs` contains the real GUIDs instead of the symbol names defined in file [`src\SampleFirst.wxs`](./SampleFirst/src/SampleFirst.wxs).
+> **:mag_right:** In the above listing of the `target\` directory file `target\src_gen\SampleFirst.wxs` contains the real [GUID](http://guid.one/guid)s instead of the symbol names defined in file [`src\SampleFirst.wxs`](./SampleFirst/src/SampleFirst.wxs).
 
 Figures **1.1** to **1.3** below illustrate the updated user environment after the successful execution of the *SampleFirst* Windows installer.
 
@@ -99,13 +99,13 @@ Figures **1.1** to **1.3** below illustrate the updated user environment after t
 
 ***WIP***
 
-## <span id="sample_wixui_3">SampleWixUIAddDlgLoc</span>
+## <span id="sample_wixui_3">`SampleWixUIAddDlgLoc` Example</span>
 
 ***WIP***
 
-## <span id="sample_registry">SampleRegistry</span>
+## <span id="sample_registry">`SampleRegistry` Example</span>
 
-Example `SampleRegistry` is organized in the same way as the previous examples.
+`SampleRegistry` is organized in the same way as the previous examples.
 
 Again command [`build pack`](./SampleFirst/build.bat) generates the Windows installer:
 
@@ -122,9 +122,9 @@ Again command [`build pack`](./SampleFirst/build.bat) generates the Windows inst
         SampleRegistry.wxs
 </pre>
 
-## <span id="Sample_localization">SampleLocalization</span>
+## <span id="Sample_localization">`SampleLocalization` Example</span>
 
-Example `SampleLocalization` implements the user interface of the Windows installer.
+`SampleLocalization` implements the user interface of the Windows installer.
 
 ***WIP***
 
@@ -207,12 +207,12 @@ The preprocessing step consists of several operations:
 <span id="footnote_02">[2]</span> ***GUID*** [↩](#anchor_02)
 
 <dl><dd>
-A GUID is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated.
+A <a href="http://guid.one/guid" rel="external">GUID</a> is a 128-bit integer (16 bytes) that can be used across all computers and networks wherever a unique identifier is required. Such an identifier has a very low probability of being duplicated.
 </dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

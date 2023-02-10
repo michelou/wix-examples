@@ -1,6 +1,6 @@
 # <span id="top">WiX examples with Scala 2 distribution</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
@@ -24,9 +24,9 @@ The [Scala 2][scala2] Windows installer behaves in *3 different ways* when it de
 
 > **&#9755;** Visit our [Releases](https://github.com/michelou/wix-examples/releases) page to download and try the latest *self-signed* [Scala 2][scala2] Windows installer. The document [`SECURITY.md`](../SECURITY.md) provides more information about [*self-signed certificates*](https://en.wikipedia.org/wiki/Self-signed_certificate).
 
-## <span id="scala2_first">Scala2First</span>
+## <span id="scala2_first">`Scala2First` Example</span>
 
-Project `Scala2First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 2][scala2_releases] software distribution.
+`Scala2First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 2][scala2_releases] software distribution.
 
 The project directory is organized as follows :
 <pre style="font-size:80%;">
@@ -100,9 +100,9 @@ Figures **1.1** to **1.4** below illustrate the updated user environment after t
 </tr>
 </table>
 
-## <span id="scala2_sbt">Scala2Sbt</span>
+## <span id="scala2_sbt">`Scala2Sbt` Example</span>
 
-Project `Scala2Sbt` <sup id="anchor_02">[2](#footnote_02)</sup> relies on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
+`Scala2Sbt` <sup id="anchor_02">[2](#footnote_02)</sup> relies on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
 
 Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows installer while Figure **2.5** shows the updated user environment after the successful execution of the [Scala 2][scala2] Windows installer.
 
@@ -142,9 +142,9 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the Windows in
 </tr>
 </table>
 
-## <span id="scala2_ui">Scala2UI</span>
+## <span id="scala2_ui">`Scala2UI` Example</span>
 
-Project `Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 2][scala2] Windows installer. Concretely, we can define two images to customize the dialog windows of the Windows installer, ie. :
+`Scala2UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 2][scala2] Windows installer. Concretely, we can define two images to customize the dialog windows of the Windows installer, ie. :
 - image [`Dialog.bmp`](./Scala2UI/src/resources/Dialog.bmp) appears in the *Welcome* and *Completed* dialog windows.
 - image [`BannerTop.bmp`](./Scala2UI/src/resources/BannerTop.bmp) appears at the top of the other dialog windows.
 
@@ -258,9 +258,9 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
 </tr>
 </table>
 
-## <span id="scala2_localized">Scala2Localized</span>
+## <span id="scala2_localized">`Scala2Localized` Example</span>
 
-Project `Scala2Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 2][scala2] Windows installer.
+`Scala2Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 2][scala2] Windows installer.
 
 This project contains the additional directory [`src\localizations\`](./Scala2Localized/src/localizations/) with 4 [WiX localization files](https://wixtoolset.org//documentation/manual/v3/wixui/wixui_localization.html):
 
@@ -354,9 +354,9 @@ Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of t
 </tr>
 </table>
 
-## <span id="scala2_features">Scala2Features</span>
+## <span id="scala2_features">`Scala2Features` Example</span>
 
-Project `Scala2Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 2][scala2] Windows installer.
+`Scala2Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 2][scala2] Windows installer.
 
 
 Concretely the main [`Feature` element](https://wixtoolset.org/documentation/manual/v3/xsd/wix/feature.html) of the WiX source file [`Scala2Features.wxs`](./Scala2Features/src/Scala2Features.wxs) contains one mandatory `Feature` element and 3 optional `Feature` elements (attribute `Absent="allow"`): 
@@ -575,7 +575,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

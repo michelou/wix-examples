@@ -1,6 +1,6 @@
 # <span id="top">Security of MSI files</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://en.wikipedia.org/wiki/Self-signed_certificate/" rel="external"><img src="images/security.png" width="100" alt="Security"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document aims to response to the security concerns regarding <code>.msi</code> files (aka. Windows installers).<br/>We present several ways to address those concerns, e.g. using file checksums and <a href="https://en.wikipedia.org/wiki/Self-signed_certificate/" rel="external">self-signed certificates</a>.
@@ -112,7 +112,7 @@ Figures **1.1** to **1.2** below show that a digital signature was indeed added 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

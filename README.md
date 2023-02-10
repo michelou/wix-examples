@@ -4,12 +4,12 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./images/wixtoolset.png" width="100" alt="WiX project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">Windows installer</a> examples coming from various websites and books.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> on the <b>Microsoft Windows</b> platform.
+  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> on a Windows machine.
   </td>
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Python 3][python_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_exmples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -28,7 +28,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2023*) <sup id="anchor_05">[5](#footnote_05)</sup>:
+For instance our development environment looks as follows (*February 2023*) <sup id="anchor_05">[5](#footnote_05)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.39.1\             <i>(317 MB)</i>
@@ -115,7 +115,7 @@ Environment variables:
 <dd>
 <ul>
   <li><a href="https://github.com/corretto/corretto-11/releases"><code>amazon-corretto-11.0.18.10.1-windows-x64.msi</code></a>
-  <li><a href="https://developers.redhat.com/products/openjdk/download"><code>java-1.8.0-openjdk-1.8.0.312-2.b07.dev.redhat.windows.x86_64.msi</code></a></li>
+  <li><a href="https://developers.redhat.com/products/openjdk/download"><code>java-1.8.0-openjdk-1.8.0.362-1.b08.redhat.windows.x86_64.msi</code></a></li>
   <li><a href="https://adoptium.net/"><code>OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi</code></a></li>
 </ul>
 </dd></dl>
@@ -152,7 +152,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -161,6 +161,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [akka_examples]: https://github.com/michelou/akka-examples
 [cargo_cli]: https://doc.rust-lang.org/cargo/commands/cargo.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
+[dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [flix_examples]: https://github.com/michelou/flix-examples
 [firegiant]: https://www.firegiant.com/
@@ -176,6 +177,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [imagemagick]: https://imagemagick.org/
 [insted_downloads]: http://www.instedit.com/download.html
 [insted_relnotes]: http://www.instedit.com/features2.html
+[kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [linux_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [llvm_examples]: https://github.com/michelou/llvm-examples
@@ -196,6 +198,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [scala2]: https://www.scala-lang.org/download/scala2.html
 [scala3]: https://www.scala-lang.org/download/scala3.html
 [scala3_examples]: https://github.com/michelou/dotty-examples
+[spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [vs2019_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/
