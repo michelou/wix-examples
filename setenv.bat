@@ -181,7 +181,10 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%__DRIVE_NAME%" "%__GIVEN_PATH%" 1>&
 )
 subst "%__DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assigned drive %__DRIVE_NAME% to path 1>&2
+    for /f "delims=" %%f in ('subst ^| findstr /b "%__DRIVE_NAME%"') do (
+        set "__ALREADY_ASSIGNED_PATH=%%f"
+    )
+    echo %_ERROR_LABEL% Failed to assign drive %__DRIVE_NAME% to path ^(!__ALREADY_ASSIGNED_PATH:%USERPROFILE%=%%USERPROFILE%%!^) 1>&2 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -189,7 +192,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -202,7 +205,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%

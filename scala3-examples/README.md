@@ -118,7 +118,7 @@ Figures **1.1** to **1.5** below illustrate the updated user environment after t
 </tr>
 </table>
 
-## <span id="scala3_ui">`Scala3UI` Example</span>
+## <span id="scala3_ui">`Scala3UI` Example</span> [**&#x25B4;**](#top)
 
 `Scala3UI` <sup id="anchor_02">[2](#footnote_02)</sup> adds customizations to the graphical user interface of the [Scala 3][scala3] Windows installer. Concretely, we define two images to customize the dialog windows of the Windows installer, ie. :
 - image [`Dialog.bmp`](./Scala3UI/src/resources/Dialog.bmp) appears in the *Welcome* and *Completed* dialog windows.
@@ -194,7 +194,7 @@ Figures **2.1** to **2.4** below illustrate the dialog windows of the [Scala 3][
 </tr>
 </table>
 
-## <span id="scala3_localized">Scala3Localized</span>
+## <span id="scala3_localized">`Scala3Localized` Example</span> [**&#x25B4;**](#top)
 
 Project `Scala3Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 3][scala3] Windows installer.
 
@@ -474,7 +474,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

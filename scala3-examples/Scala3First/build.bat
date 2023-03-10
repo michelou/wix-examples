@@ -283,7 +283,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -341,7 +341,7 @@ if not exist "%_VERSION_FILE%" (
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
     if not exist "!__OUTPUT_FILE!" (
-        set __CURL_OPTS=--fail --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!"
+        set __CURL_OPTS=--fail --insecure --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!"
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__OUTPUT_FILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
         )

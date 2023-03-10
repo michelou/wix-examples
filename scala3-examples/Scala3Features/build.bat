@@ -153,7 +153,7 @@ set _ARCH=x64
 
 set _PRODUCT_SKU=scala3
 set _PRODUCT_UPGRADE_CODE=
-set _PRODUCT_VERSION=3.1.3
+set _PRODUCT_VERSION=3.2.1
 
 for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
 set _COPYRIGHT_OWNER=EPFL
@@ -214,7 +214,11 @@ if "%_PRODUCT_VERSION:~0,3%"=="3.1" (
     if !__BUILD_VERSION! lss 2 ( set _SCALA_BINARY_VERSION=2.13.6
     ) else ( set _SCALA_BINARY_VERSION=2.13.8
     )
-) else if "%_PRODUCT_VERSION:~0,3%"=="3.2" ( set _SCALA_BINARY_VERSION=2.13.8
+) else if "%_PRODUCT_VERSION:~0,3%"=="3.2" (
+    set "__BUILD_VERSION=%_PRODUCT_VERSION:~4%"
+    if !__BUILD_VERSION! lss 2 ( set _SCALA_BINARY_VERSION=2.13.8
+    ) else ( set _SCALA_BINARY_VERSION=2.13.10
+    )
 ) else ( set _SCALA_BINARY_VERSION=2.13.6
 )
 goto :eof
@@ -308,7 +312,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -321,7 +325,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%       show commands executed by this script
+echo     %__BEG_O%-debug%__END%       display commands executed by this script
 echo     %__BEG_O%-timer%__END%       display total execution time
 echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
@@ -347,6 +351,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -366,7 +371,7 @@ if not exist "%_VERSION_FILE%" (
     set "__OUTPUT_FILE=%TEMP%\!__ARCHIVE_FILE!"
 
     if not exist "!__OUTPUT_FILE!" (
-        set __CURL_OPTS=--fail --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!"
+        set __CURL_OPTS=--fail --insecure --silent --user-agent "Mozilla 5.0" -L --url "!__ARCHIVE_URL!"
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__OUTPUT_FILE!" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download zip archive file "!__ARCHIVE_FILE!" 1>&2
         )
@@ -664,7 +669,7 @@ set "__ARCHIVE_URL=%__SCALA_LANG_URL%/%__ARTIFACT%/%__VERSION%/%__ARTIFACT%-%__V
 set "__OUTPUT_FILE=%_API_DIR%\jars\%__ARTIFACT%-%__VERSION%-javadoc.jar"
 
 if not exist "!__OUTPUT_FILE!" (
-    set __CURL_OPTS=--fail --silent --user-agent "Mozilla 5.0" -L --url "%__ARCHIVE_URL%"
+    set __CURL_OPTS=--fail --insecure --silent --user-agent "Mozilla 5.0" -L --url "%__ARCHIVE_URL%"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__OUTPUT_FILE!" 1>&2
     ) else if %_VERBOSE%==1 ( echo Download file "!__ARCHIVE_URL!" 1>&2
     )

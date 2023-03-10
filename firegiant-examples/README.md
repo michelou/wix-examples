@@ -103,7 +103,7 @@ Figures **1.1** to **1.3** below illustrate the updated user environment after t
 
 ***WIP***
 
-## <span id="sample_registry">`SampleRegistry` Example</span>
+## <span id="sample_registry">`SampleRegistry` Example</span> [**&#x25B4;**](#top)
 
 `SampleRegistry` is organized in the same way as the previous examples.
 
@@ -132,7 +132,7 @@ Again command [`build pack`](./SampleFirst/build.bat) generates the Windows inst
 http://www.lingoes.net/en/translator/langcode.htm
 -->
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Archive contents*** [↩](#anchor_01)
 
@@ -212,7 +212,7 @@ A <a href="http://guid.one/guid" rel="external">GUID</a> is a 128-bit integer (1
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

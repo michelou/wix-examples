@@ -100,7 +100,7 @@ Figures **1.1** to **1.4** below illustrate the updated user environment after t
 </tr>
 </table>
 
-## <span id="scala2_sbt">`Scala2Sbt` Example</span>
+## <span id="scala2_sbt">`Scala2Sbt` Example</span> [**&#x25B4;**](#top)
 
 `Scala2Sbt` <sup id="anchor_02">[2](#footnote_02)</sup> relies on the sbt [Windows Plugin][sbt_windows_plugin] to generate the [Scala 2][scala2] Windows installer; this is the way the [Scala team][lightbend_scala] at Lightbend publishes the [Scala 2][scala2] Windows installer (see [Scala Archive](https://www.scala-lang.org/files/archive/)).
 
@@ -258,7 +258,7 @@ Figures **3.1** to **3.4** below illustrate the dialog windows of our Windows in
 </tr>
 </table>
 
-## <span id="scala2_localized">`Scala2Localized` Example</span>
+## <span id="scala2_localized">`Scala2Localized` Example</span> [**&#x25B4;**](#top)
 
 `Scala2Localized` <sup id="anchor_02">[2](#footnote_02)</sup> adds language localization to the [WiX][wix_toolset] source files of the [Scala 2][scala2] Windows installer.
 
@@ -354,7 +354,7 @@ Figures **4.1** to **4.4** below illustrate the "**Welcome**" dialog window of t
 </tr>
 </table>
 
-## <span id="scala2_features">`Scala2Features` Example</span>
+## <span id="scala2_features">`Scala2Features` Example</span> [**&#x25B4;**](#top)
 
 `Scala2Features` <sup id="anchor_02">[2](#footnote_02)</sup> adds feature customization to the [Scala 2][scala2] Windows installer.
 
@@ -575,7 +575,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
