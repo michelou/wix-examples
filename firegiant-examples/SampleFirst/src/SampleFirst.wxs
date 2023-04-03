@@ -60,7 +60,7 @@
       <ComponentRef Id='ProgramMenuDir' />
     </Feature>
 
-    <Icon Id="Foobar10.exe" SourceFile="!(bindpath.exe)\FoobarAppl10.exe" />
+    <Icon Id="Foobar10.exe" SourceFile="!(bindpath.app)\FoobarAppl10.exe" />
 
   </Product>
 </Wix>

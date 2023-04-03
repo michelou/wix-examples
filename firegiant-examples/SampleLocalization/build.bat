@@ -147,9 +147,9 @@ if exist "%__PROPS_FILE%" (
         )
     )
     if defined __cultures set "_CULTURES_DEFAULT=!__cultures!"
-    @rem PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR
+    @rem PRODUCT_CODE PRODUCT_UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR
     if defined __PRODUCT_CODE set "_GUID[PRODUCT_CODE]=!__PRODUCT_CODE!"
-    if defined __UPGRADE_CODE set "_GUID[UPGRADE_CODE]=!__UPGRADE_CODE!"
+    if defined __PRODUCT_UPGRADE_CODE set "_GUID[PRODUCT_UPGRADE_CODE]=!__PRODUCT_UPGRADE_CODE!"
     if defined __MAIN_EXECUTABLE set "_GUID[MAIN_EXECUTABLE]=!__MAIN_EXECUTABLE!"
     if defined __HELPER_LIBRARY set "_GUID[HELPER_LIBRARY]=!__HELPER_LIBRARY!"
     if defined __MANUAL set "_GUID[MANUAL]=!__MANUAL!"
@@ -241,14 +241,14 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%       show commands executed by this script
+echo     %__BEG_O%-debug%__END%       display commands executed by this script
 echo     %__BEG_O%-timer%__END%       display total execution time
 echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%        delete generated files
 echo     %__BEG_O%help%__END%         display this help message
-echo     %__BEG_O%install%__END%      execute Windows installer %__BEG_O%%_PROJECT_NAME%%__END%
+echo     %__BEG_O%install%__END%      execute Windows installer "%__BEG_O%%_PROJECT_NAME%%__END%"
 echo     %__BEG_O%link%__END%         create Windows installer from WXS/WXI/WXL files
 echo     %__BEG_O%remove%__END%       remove installed program ^(same as %__BEG_O%uninstall%__END%^)
 echo     %__BEG_O%uninstall%__END%    remove installed program
@@ -267,6 +267,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -276,7 +277,7 @@ goto :eof
 if not exist "%_GEN_DIR%" mkdir "%_GEN_DIR%"
 
 set __REPLACE_PAIRS=
-for %%i in (PRODUCT_CODE UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR) do (
+for %%i in (PRODUCT_CODE PRODUCT_UPGRADE_CODE MAIN_EXECUTABLE HELPER_LIBRARY MANUAL PROGRAM_MENU_DIR) do (
     if defined _GUID[%%i] ( set "__GUID=!_GUID[%%i]!"
     ) else (
         for /f %%u in ('powershell -C "(New-Guid).Guid"') do set "__GUID=%%u"

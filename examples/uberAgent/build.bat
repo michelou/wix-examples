@@ -234,7 +234,7 @@ echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%        delete generated files
 echo     %__BEG_O%help%__END%         display this help message
-echo     %__BEG_O%install%__END%      execute Windows installer %__BEG_O%%_PROJECT_NAME%%__END%
+echo     %__BEG_O%install%__END%      execute Windows installer "%__BEG_O%%_PROJECT_NAME%%__END%"
 echo     %__BEG_O%link%__END%         create Windows installer from WXS/WXI/WXL files
 echo     %__BEG_O%remove%__END%       remove installed program ^(same as %__BEG_O%uninstall%__END%^)
 echo     %__BEG_O%uninstall%__END%    remove installed program

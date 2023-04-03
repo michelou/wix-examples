@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="https://wixtoolset.org/" rel="external"><img src="./images/wixtoolset.png" width="100" alt="WiX project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://wixtoolset.org/" rel="external">Windows installer</a> examples coming from various websites and books.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a> for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> on a Windows machine.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>) for experimenting with the <a href="https://wixtoolset.org/" rel="external">WiX Toolset</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -15,7 +15,7 @@
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.39][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.40][git_downloads] ([*release notes*][git_relnotes])
 - [WiX Toolset 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
 
 Optionally one may also install the following software:
@@ -28,10 +28,10 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*March 2023*) <sup id="anchor_05">[5](#footnote_05)</sup>:
+For instance our development environment looks as follows (*April 2023*) <sup id="anchor_05">[5](#footnote_05)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.39.2\             <i>(314 MB)</i>
+C:\opt\Git-2.40.0\             <i>(314 MB)</i>
 C:\opt\ImageMagick-7.1.0-Q16\  <i>(300 MB)</i>
 C:\opt\WiX-3.11.2\             <i>( 99 MB)</i>
 C:\Program Files (x86)\instedit.com\InstEd\  <i>(  7 MB)</i>
@@ -78,25 +78,23 @@ where
 - file [**`SETUP.md`**](SETUP.md) gives some [WiX] setup details.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
+## <span id="commands">Batch commands</span>
+
+### **`setenv.bat`** <sup id="anchor_06">[6](#footnote_06)</sup>
+
+Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`code.cmd`**][code_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+
 <pre style="font-size:80%;">
 <b>&gt; <a href="./setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    candle 3.11.2.4516, light 3.11.2.4516,
    msiinfo 5.0, uuidgen v1.01
-   magick 7.1.0-7, git 2.39.2.windows.1, diff 3.8
-Tool paths:
-   C:\opt\Wix-3.11.2\candle.exe
-   C:\opt\WiX-3.11.2\light.exe
-   C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\MsiInfo.exe
-   C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\uuidgen.exe
-   C:\opt\ImageMagick-7.1.0-Q16\magick.exe
-   C:\opt\Git-2.39.2\bin\git.exe
-   C:\opt\Git-2.39.2\usr\bin\diff.exe
-Environment variables:
-   "GIT_HOME=C:\opt\Git-2.39.2"
-   "MAGICK_HOME=C:\opt\ImageMagick-7.1.0-Q16"
-   "WINSDK_HOME=C:\Program Files (x86)\Windows Kits\10"
-   "WIX=C:\opt\WiX-3.11.2"
+   magick 7.1.0-7, git 2.40.0.windows.1, diff 3.9
+&nbsp;
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> msiinfo git</b>
+C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\MsiInfo.exe
+C:\opt\Git-2.40.0\bin\git.exe
+C:\opt\Git-2.40.0\mingw64\bin\git.exe
 </pre>
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
@@ -140,7 +138,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://imagemagick.org/script/download.php#windows">ImageMagick-7.1.0-portable-Q16-x64.zip</a>  <i>(111 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.39.2-64-bit.7z.exe</a>        <i>( 44 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.40.0-64-bit.7z.exe</a>        <i>( 44 MB)</i>
 vs_2019_community.exe                   <i>(1.7 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                         <i>(  1 MB)</i>
 <a href="https://github.com/wixtoolset/wix3/releases">wix311-binaries.zip</a>                     <i>( 33 MB)</i>
@@ -150,9 +148,30 @@ vs_2019_community.exe                   <i>(1.7 GB)</i>
 Microsoft doesn't provide an offline installer for <a href="https://visualstudio.microsoft.com/vs/2019/">VS 2019</a> but we can follow the <a href="https://docs.microsoft.com/en-us/visualstudio/install/create-an-offline-installation-of-visual-studio?view=vs-2019">following instructions</a> to create a local installer (so called <i>layout cache</i>) for later (re-)installation.
 </dd></dl>
 
+<span id="footnote_06">[6]</span> **`setenv.bat` *usage*** [↩](#anchor_06)
+
+<dl><dd>
+<a href=./setenv.bat><code><b>setenv.bat</b></code></a> has specific environment variables set that enable us to use command-line developer tools more easily.
+</dd>
+<dd>It is similar to the setup scripts described on the page <a href="https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell" rel="external">"Visual Studio Developer Command Prompt and Developer PowerShell"</a> of the <a href="https://learn.microsoft.com/en-us/visualstudio/windows" rel="external">Visual Studio</a> online documentation.
+</dd>
+<dd>
+For instance we can quickly check that the two scripts <code>Launch-VsDevShell.ps1</code> and <code>VsDevCmd.bat</code> are indeed available in our Visual Studio 2019 installation :
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> /r "C:\Program Files (x86)\Microsoft Visual Studio" *vsdev*</b>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\Launch-VsDevShell.ps1
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsdevcmd\core\vsdevcmd_end.bat
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsdevcmd\core\vsdevcmd_start.bat
+</pre>
+</dd>
+<dd>
+Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>) do invoke <code>VsDevCmd.bat</code> (resp. <code>vcvarall.bat</code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
+</dd></dl>
+
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -169,7 +188,7 @@ Microsoft doesn't provide an offline installer for <a href="https://visualstudio
 [git_downloads]: https://git-scm.com/download/win
 [git_scm]: https://git-scm.com/
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.0.txt
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gui]: https://en.wikipedia.org/wiki/Graphical_user_interface
