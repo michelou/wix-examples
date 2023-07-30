@@ -467,7 +467,7 @@ C:\Program Files\Scala 2\bin\scala.bat
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> JAVA_HOME=c:\opt\<a href="https://bell-sw.com/pages/downloads/#/java-8-lts">jdk-bellsoft-1.8.0u312</a></b>
 &nbsp;
 <b>&gt; scala -version</b>
-Scala code runner version 2.13.8 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
+Scala code runner version 2.13.11 -- Copyright 2002-2023, LAMP/EPFL and Lightbend, Inc.
 </pre>
 </dd></dl>
 
@@ -487,7 +487,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://github.com/corretto/corretto-11/releases">Amazon Corretto 11</a></td>
-  <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.16_8\</code></td>
+  <td style="padding:6px;"><code>Amazon Corretto\jdk11.0.20_8\</code></td>
 </tr>
 <tr>
   <td style="padding:6px;"><a href="https://github.com/corretto/corretto-17/releases">Amazon Corretto 17</a></td>
@@ -575,7 +575,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

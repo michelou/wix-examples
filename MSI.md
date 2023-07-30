@@ -119,14 +119,14 @@ Now we look at the contents of our <a href="./scala2-examples/README.md">Scala 2
 </pre>
 </dd>
 <dd>
-As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.7.1"><code>sbt-1.7.1.msi</code></a> : 
+As next example we look at the contents of the sbt Windows installer named <a href="https://github.com/sbt/sbt/releases/tag/v1.9.3"><code>sbt-1.9.3.msi</code></a> : 
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.5.8">sbt-1.7.1.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec">msiexec</a> /a <a href="https://github.com/sbt/sbt/releases/tag/v1.9.3">sbt-1.9.3.msi</a> ^<br/>          /qn TARGETDIR=c:\Temp\unpacked</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f c:\Temp\unpacked | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
-│   sbt-1.7.1.msi
+│   sbt-1.9.3.msi
 └───<b>PFiles</b>
     └───<b>sbt</b>
         │   LICENSE
@@ -142,7 +142,7 @@ As next example we look at the contents of the sbt Windows installer named <a hr
 </pre>
 </dd></dl>
 
-> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.8.2.zip`](https://github.com/sbt/sbt/releases/tag/v1.8.2) but not in MSi file [`sbt-1.8.2.msi`](https://github.com/sbt/sbt/releases/tag/v1.8.2); that's fine !
+> **:mag_right:** We observe that the two *experimental* thin clients `sbtn-x86_64-apple-darwin` (MacOS executable) and `sbtn-x86_64-pc-linux` (Linux executable) are present in Zip file [`sbt-1.9.3.zip`](https://github.com/sbt/sbt/releases/tag/v1.9.3) but not in MSi file [`sbt-1.9.3.msi`](https://github.com/sbt/sbt/releases/tag/v1.9.3); that's fine !
 
 <dl><dd>
 Finally we extract the contents of the Java 11 Windows installer named <a href="https://adoptium.net/archive.html?variant=openjdk11&jvmVariant=hotspot"><code>OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.msi</code></a> :
@@ -186,7 +186,7 @@ Software distributions can be installed in several ways, not necessarily using M
 <td></td>
 </tr>
 <tr>
-<td><a href="https://github.com/bazelbuild/bazel/releases">Bazel 6.0</a></td>
+<td><a href="https://github.com/bazelbuild/bazel/releases">Bazel 6.3</a></td>
 <td style="text-align:center;"><b>x</b></td>
 <td style="text-align:center;"><b>x</b></td>
 <td></td>
@@ -258,7 +258,7 @@ Software distributions can be installed in several ways, not necessarily using M
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

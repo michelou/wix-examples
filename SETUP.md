@@ -21,7 +21,7 @@ dark.exe
 insignia.exe
 <a href="https://wixtoolset.org/documentation/manual/v3/overview/light.html">light.exe</a>     <i>(linker)</i>
 lit.exe
-lux.exe
+<a href="https://wixtoolset.org/docs/v3/overview/lux/">lux.exe</a>
 melt.exe
 nit.exe
 pyro.exe
@@ -49,7 +49,7 @@ C:\opt\Wix-3.11.2
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
