@@ -182,6 +182,7 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
+[docker_examples]: https://github.com/michelou/docker-examples
 [flix_examples]: https://github.com/michelou/flix-examples
 [firegiant]: https://www.firegiant.com/
 [git_docs]: https://git-scm.com/docs/git

@@ -153,7 +153,7 @@ set _ARCH=x64
 
 set _PRODUCT_SKU=scala3
 set _PRODUCT_UPGRADE_CODE=
-set _PRODUCT_VERSION=3.2.1
+set _PRODUCT_VERSION=3.3.0
 
 for /f %%i in ('powershell -c "Get-Date -format yyyy"') do set _COPYRIGHT_YEAR_RANGE=2002-%%i
 set _COPYRIGHT_OWNER=EPFL
@@ -219,7 +219,11 @@ if "%_PRODUCT_VERSION:~0,3%"=="3.1" (
     if !__BUILD_VERSION! lss 2 ( set _SCALA_BINARY_VERSION=2.13.8
     ) else ( set _SCALA_BINARY_VERSION=2.13.10
     )
-) else ( set _SCALA_BINARY_VERSION=2.13.6
+)  else if "%_PRODUCT_VERSION:~0,3%"=="3.3" (
+    set _SCALA_BINARY_VERSION=2.13.10
+) else (
+    @rem use the latest available version
+    set _SCALA_BINARY_VERSION=2.13.11
 )
 goto :eof
 

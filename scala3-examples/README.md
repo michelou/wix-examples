@@ -6,7 +6,7 @@
     <a href="https://wixtoolset.org/" rel="external"><img style="border:0;width:120px;" src="../images/wixtoolset.png" alt="WiX Toolset" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.<br/>Follow <a href="../scala2-examples/README.md">this link</a> if you're looking for the Scala 2 Windows installer.
+    Directory <strong><code>scala3-examples\</code></strong> contains <a href="https://wixtoolset.org/" rel="external">WiX</a> examples written by ourself to create a <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> Windows installer.<br/>This work is mainly motivated by <a href="https://github.com/lampepfl/dotty/issues/12502">issue 12502</a> (<i>Distribute releases as .deb and .msi</i>) of the <a href="https://github.com/lampepfl/dotty" rel="external">Dotty project</a>.<br/>Follow <a href="https://github.com/michelou/wix-examples/blob/main/scala2-examples/README.md">this link</a> if you're looking for the Scala 2 Windows installer.
   </td>
   </tr>
 </table>
@@ -14,7 +14,7 @@
 The [WiX][wix_toolset] examples presented in the following sections
 - *share* the same project organisation as the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md).
 - *differ* in several respects from the [WiX][wix_toolset] examples from page [`myexamples/README.md`](../myexamples/README.md), in particular :
-   - we *download* and extract the application files from the Zip archive (e.g. [`scala3-3.1.0.zip`][scala3_zip]) if they are not yet present in directory `app\`.
+   - we *download* and extract the application files from the Zip archive (e.g. [`scala3-3.3.0.zip`][scala3_zip]) if they are not yet present in directory `app\`.
    - we *do not* maintain a source file `Fragments.wxs` in directory `src\`; the file `target\src_gen\Fragments.wxs` <sup id="anchor_01">[1](#footnote_01)</sup> ‒ which contains a *list of links* to the application files ‒ is generated on each run with GUID values inserted on the fly. 
 
 The [Scala 3][scala3] Windows installer behaves in *3 different ways* when it detects a [Scala 3][scala3] installation on the target machine (see [WiX element `MajorUpgrade`](https://wixtoolset.org/documentation/manual/v3/xsd/wix/majorupgrade.html)) :
@@ -50,7 +50,7 @@ Y:\scala3-examples\Scala3First
 
 > **:mag_right:** During installation the batch file [`src\resources\repl.bat`](./Scala3First/src/resources/repl.bat) is added to the `bin\` directory; the goal of that wrapper script is to look for a Java installation <sup id="anchor_03">[3](#footnote_03)</sup> before starting the Scala 3 REPL (Scala commands require either variable **`JAVA_HOME`** or variable **`JAVACMD`** to be defined).
 
-Command [`build link`](./Scala3First/build.bat) <sup id="anchor_04">[4](#footnote_04)</sup> generates the [Scala 3][scala3] Windows installer with file name `scala3-3.1.0.msi`.
+Command [`build link`](./Scala3First/build.bat) <sup id="anchor_04">[4](#footnote_04)</sup> generates the [Scala 3][scala3] Windows installer with file name `scala3-3.3.0.msi`.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./Scala3First/build.bat">build</a> clean link &amp;&amp; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
@@ -137,6 +137,8 @@ Y:\scala3-examples\Scala3UI
 │   │       <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a><i>)</i>
 │   └───<b>scala3-3.1.0</b>
 │           <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a><i>)</i>
+│   └───<b>scala3-3.3.0</b>
+│           <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.3.0"><b>scala3-3.3.0.zip</b></a><i>)</i>
 └───<a href="./Scala3UI/src/"><b>src</b></a>
     │   <a href="./Scala3UI/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3UI/src/Scala3UI.wxs">Scala3UI.wxs</a>
@@ -210,6 +212,8 @@ Y:\scala3-examples\Scala3Localized
 │   │       <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2"><b>scala3-3.0.2.zip</b></a><i>)</i>
 │   └───<b>scala3-3.1.0</b>
 │           <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0"><b>scala3-3.1.0.zip</b></a><i>)</i>
+│   └───<b>scala3-3.3.0</b>
+│           <i>(files extracted from</i> <a href="https://github.com/lampepfl/dotty/releases/tag/3.3.0"><b>scala3-3.3.0.zip</b></a><i>)</i>
 └───<a href="./Scala3Localized/src/"><b>src</b></a>
     │   <a href="./Scala3Localized/src/Includes.wxi">Includes.wxi</a>
     │   <a href="./Scala3Localized/src/Scala3Localized.wxs">Scala3Localized.wxs</a>
@@ -366,7 +370,7 @@ C:\Program Files\Scala 3\bin\scala.bat
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> JAVA_HOME=c:\opt\jdk-bellsoft-1.8.0u312</b>
 &nbsp;
 <b>&gt; scala -version</b>
-Scala code runner version 3.1.0 -- Copyright 2002-2021, LAMP/EPFL
+Scala code runner version 3.3.0 -- Copyright 2002-2023, LAMP/EPFL
 </pre></dd>
 </dl>
 
@@ -483,7 +487,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [scala3]: https://dotty.epfl.ch
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_zip]: https://github.com/lampepfl/dotty/releases/tag/3.1.0
+[scala3_zip]: https://github.com/lampepfl/dotty/releases/tag/3.3.0
 [windows_program_files]: https://en.wikipedia.org/wiki/Program_Files
 [windows_settings]: https://support.microsoft.com/en-us/windows/find-settings-in-windows-10-6ffbef87-e633-45ac-a1e8-b7a834578ac6
 [windows_start_menu]: https://support.microsoft.com/en-us/windows/see-what-s-on-the-start-menu-a8ccb400-ad49-962b-d2b1-93f453785a13
