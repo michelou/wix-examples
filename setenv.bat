@@ -114,7 +114,6 @@ goto :eof
 set _BASH=0
 set _HELP=0
 set _VERBOSE=0
-set __N=0
 :args_loop
 set "__ARG=%~1"
 if not defined __ARG goto args_done
@@ -137,7 +136,6 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
-    set /a __N+=1
 )
 shift
 goto args_loop
@@ -229,6 +227,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
 echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
@@ -286,7 +285,7 @@ goto :eof
 set _MAGICK_HOME=
 
 set __MAGICK_CMD=
-for /f %%f in ('where magick.exe 2^>NUL') do set "__MAGICK_CMD=%%f"
+for /f "delims=" %%f in ('where magick.exe 2^>NUL') do set "__MAGICK_CMD=%%f"
 if defined __MAGICK_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of ImageMagick executable found in PATH 1>&2
     for /f "delims=" %%f in ("%__MAGICK_CMD%") do set "_MAGICK_HOME=%%~dpf"
@@ -381,7 +380,7 @@ set _SBT_HOME=
 set _SBT_PATH=
 
 set __SBT_CMD=
-for /f %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
+for /f "delims=" %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
 if defined __SBT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of sbt executable found in PATH 1>&2
     @rem keep _SBT_PATH undefined since executable already in path
@@ -443,7 +442,7 @@ if defined __GIT_CMD (
     )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo %_ERROR_LABEL% Git executable not found ^(%_GIT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Git executable not found ^("%_GIT_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
