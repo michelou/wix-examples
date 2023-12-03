@@ -249,7 +249,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -262,7 +262,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="remove" ( set _REMOVE=1
     ) else if "%__ARG%"=="uninstall" ( set _REMOVE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -329,13 +329,13 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%       display commands executed by this script
-echo     %__BEG_O%-timer%__END%       display total execution time
-echo     %__BEG_O%-verbose%__END%     display progress messages
+echo     %__BEG_O%-debug%__END%       print commands executed by this script
+echo     %__BEG_O%-timer%__END%       print total execution time
+echo     %__BEG_O%-verbose%__END%     print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%        delete generated files
-echo     %__BEG_O%help%__END%         display this help message
+echo     %__BEG_O%help%__END%         print this help message
 echo     %__BEG_O%install%__END%      execute Windows installer %__BEG_O%%_PRODUCT_SKU%%__END%
 echo     %__BEG_O%link%__END%         create Windows installer from WXS/WXI/WXL files
 echo     %__BEG_O%remove%__END%       remove installed program ^(same as %__BEG_O%uninstall%__END%^)
@@ -485,7 +485,7 @@ if exist "%__PS1_FILE%" del "%__PS1_FILE%"
 
 @rem replace GUID placeholders found in .wx? files by their GUID values
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_DIR%\*.wx?" "%_GEN_DIR%\Fragments*.wx?" 2^>NUL') do (
     set "__VAR_IN=$in!__N!"
     set "__VAR_OUT=$out!__N!"
     echo !__VAR_IN!='%%f'>> "%__PS1_FILE%"
@@ -725,7 +725,7 @@ echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
-for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
     echo %%f>> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -823,7 +823,7 @@ echo %__LIGHT_OPTS% -out "%_MSI_FILE:\=\\%"> "%__OPTS_FILE%"
 
 set __WIXOBJ_FILES=
 set __N=0
-for /f %%f in ('dir /s /b "%_TARGET_DIR%\*.wixobj" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_TARGET_DIR%\*.wixobj" 2^>NUL') do (
     set __WIXOBJ_FILES=!__WIXOBJ_FILES! "%%f"
     set /a __N+=1
 )
@@ -907,7 +907,7 @@ if not exist "%_MSI_FILE%" (
 )
 set "__LOG_FILE=%_TARGET_DIR%\%_PROJECT_NAME%.log"
 
-if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Windows installer "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_MSIEXEC_CMD%" /i "%_MSI_FILE%" /l* "%__LOG_FILE%"
@@ -946,7 +946,7 @@ set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 @rem     echo %_WARNING_LABEL% Product "%_PRODUCT_SKU%" is not installed 1>&2
 @rem     goto :eof
 @rem )
-if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Remove installation "!_MSI_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_MSIEXEC_CMD%" /x "%_MSI_FILE%"

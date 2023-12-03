@@ -177,7 +177,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -190,7 +190,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="remove" ( set _REMOVE=1
     ) else if "%__ARG%"=="uninstall" ( set _REMOVE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -227,13 +227,13 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%       display commands executed by this script
-echo     %__BEG_O%-timer%__END%       display total execution time
-echo     %__BEG_O%-verbose%__END%     display progress messages
+echo     %__BEG_O%-debug%__END%       print commands executed by this script
+echo     %__BEG_O%-timer%__END%       print total execution time
+echo     %__BEG_O%-verbose%__END%     print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%        delete generated files
-echo     %__BEG_O%help%__END%         display this help message
+echo     %__BEG_O%help%__END%         print this help message
 echo     %__BEG_O%install%__END%      execute Windows installer "%__BEG_O%%_PROJECT_NAME%%__END%"
 echo     %__BEG_O%link%__END%         create Windows installer from WXS/WXI/WXL files
 echo     %__BEG_O%remove%__END%       remove installed program ^(same as %__BEG_O%uninstall%__END%^)
@@ -263,9 +263,12 @@ goto :eof
 set "__TARGET_FILE=%_APP_DIR%\uberAgent.exe"
 if exist "%__TARGET_FILE%" goto :eof
 
-if %_DEBUG%==1 echo %_DEBUG_LABEL% xcopy /y "%WINDIR%\System32\calc.exe" "%__TARGET_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /y "%WINDIR%\System32\calc.exe" "%__TARGET_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy calculator application to directory "!_APP_DIR:%_ROOT_DIR%=!" 1>&2
+)
 echo F|xcopy /y "%WINDIR%\System32\calc.exe" "%__TARGET_FILE%"
 if not !ERRORLEVEL!==0 (
+    echo %_ERROR_LABEL% Failed to copy calculator application to directory "!_APP_DIR:%_ROOT_DIR%=!"
     set _EXITCODE=1
     goto :eof
 )
@@ -349,7 +352,7 @@ echo %__CANDLE_OPTS% -out "%_TARGET_DIR:\=\\%\\"> "%__OPTS_FILE%"
 set "__SOURCES_FILE=%_TARGET_DIR%\candle_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
 set __N=0
-for /f %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_GEN_DIR%\*.wxs" 2^>NUL') do (
     echo %%f>> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -415,7 +418,7 @@ echo %__LIGHT_OPTS% %__LIGHT_LOCALIZED_OPTS:\=\\% -out "%_MSI_FILE:\=\\%"> "%__O
 
 set __WIXOBJ_FILES=
 set __N=0
-for /f %%f in ('dir /s /b "%_TARGET_DIR%\*.wixobj" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_TARGET_DIR%\*.wixobj" 2^>NUL') do (
     set __WIXOBJ_FILES=!__WIXOBJ_FILES! "%%f"
     set /a __N+=1
 )
@@ -521,7 +524,7 @@ set "__HKLM_UNINSTALL=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 @rem     echo %_WARNING_LABEL% Product "%_PROJECT_NAME%" is not installed 1>&2
 @rem     goto :eof
 @rem )
-if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSIEXEC_CMD%" /x "%_MSI_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Remove installation 1>&2
 )
 call "%_MSIEXEC_CMD%" /x "%_MSI_FILE%"

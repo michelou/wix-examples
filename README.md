@@ -15,7 +15,7 @@
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.43][git_downloads] ([*release notes*][git_relnotes])
 - [WiX Toolset 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
 
 Optionally one may also install the following software:
@@ -28,10 +28,10 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2023*) <sup id="anchor_05">[5](#footnote_05)</sup>:
+For instance our development environment looks as follows (*December 2023*) <sup id="anchor_05">[5](#footnote_05)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.41.0\             <i>(314 MB)</i>
+C:\opt\Git\                    <i>(314 MB)</i>
 C:\opt\ImageMagick-7.1.0-Q16\  <i>(300 MB)</i>
 C:\opt\WiX-3.11.2\             <i>( 99 MB)</i>
 C:\Program Files (x86)\instedit.com\InstEd\  <i>(  7 MB)</i>
@@ -89,12 +89,12 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 Tool versions:
    candle 3.11.2.4516, light 3.11.2.4516,
    msiinfo 5.0, uuidgen v1.01
-   magick 7.1.0-7, git 2.41.0.windows.1, diff 3.9
+   magick 7.1.0-7, git 2.43.0.windows.1, diff 3.10
 &nbsp;
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> msiinfo git</b>
 C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\MsiInfo.exe
-C:\opt\Git-2.41.0\bin\git.exe
-C:\opt\Git-2.41.0\mingw64\bin\git.exe
+C:\opt\Git\bin\git.exe
+C:\opt\Git\mingw64\bin\git.exe
 </pre>
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
@@ -138,7 +138,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://imagemagick.org/script/download.php#windows">ImageMagick-7.1.0-portable-Q16-x64.zip</a>  <i>(111 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>        <i>( 44 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.43.0-64-bit.7z.exe</a>        <i>( 44 MB)</i>
 vs_2019_community.exe                   <i>(1.7 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                         <i>(  1 MB)</i>
 <a href="https://github.com/wixtoolset/wix3/releases">wix311-binaries.zip</a>                     <i>( 33 MB)</i>
@@ -171,7 +171,7 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -179,17 +179,19 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [cargo_cli]: https://doc.rust-lang.org/cargo/commands/cargo.html
+[code_cli]: https://code.visualstudio.com/docs/editor/command-line
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [docker_examples]: https://github.com/michelou/docker-examples
 [flix_examples]: https://github.com/michelou/flix-examples
 [firegiant]: https://www.firegiant.com/
+[git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_scm]: https://git-scm.com/
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.43.0.txt
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gui]: https://en.wikipedia.org/wiki/Graphical_user_interface

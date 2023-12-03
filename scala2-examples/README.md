@@ -551,7 +551,7 @@ Unfortunately each Windows installer suggests a <i>different</i> default install
 <span id="footnote_04">[4]</span> ***Batch file* `build.bat`** [↩](#anchor_04)
 
 <dl><dd>
-Command <a href="./Scala2First/build.bat"><code>build help</code></a> displays the batch file options and subcommands :
+Command <a href="./Scala2First/build.bat"><code>build help</code></a> prints the batch file options and subcommands :
 </dd>
 <dd>
 <pre style="font-size:80%;">
@@ -559,13 +559,13 @@ Command <a href="./Scala2First/build.bat"><code>build help</code></a> displays t
 Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
-    -debug       show commands executed by this script
-    -timer       display total execution time
-    -verbose     display progress messages
+    -debug       print commands executed by this script
+    -timer       print total execution time
+    -verbose     print progress messages
 &nbsp;
   Subcommands:
     clean        delete generated files
-    help         display this help message
+    help         print this help message
     install      execute Windows installer scala
     link         create Windows installer from WXS/WXI/WXL files
     remove       remove installed program (same as uninstall)
@@ -575,7 +575,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

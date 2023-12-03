@@ -124,7 +124,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -132,7 +132,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="help" ( set _HELP=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -195,11 +195,11 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign path "%__GIVEN_PATH%" to drive %_DRIVE_NAME% 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -228,11 +228,11 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 goto :eof
 
 @rem output parameters: _WINSDK_HOME, _WINSDK_PATH
@@ -256,9 +256,9 @@ goto :eof
 set _WIX_HOME=
 
 set __CANDLE_CMD=
-for /f %%f in ('where candle.exe 2^>NUL') do set "__CANDLE_CMD=%%f"
+for /f "delims=" %%f in ('where candle.exe 2^>NUL') do set "__CANDLE_CMD=%%f"
 if defined __CANDLE_CMD (
-    for %%i in ("%__CANDLE_CMD%") do set "_WIX_HOME=%%~dpi"
+    for /f "delims=" %%i in ("%__CANDLE_CMD%") do set "_WIX_HOME=%%~dpi"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Candle executable found in PATH 1>&2
     goto :eof
 ) else if defined WIX (
@@ -266,10 +266,10 @@ if defined __CANDLE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable WIX 1>&2
 ) else (
     set "__PATH=C:\opt"
-    for /f %%f in ('dir /ad /b "!__PATH!\Wix-3*" 2^>NUL') do set "_WIX_HOME=!__PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Wix-3*" 2^>NUL') do set "_WIX_HOME=!__PATH!\%%f"
 	if not defined _WIX_HOME (
         set "__PATH=%ProgramFiles(x86)%"
-        for /f %%f in ('dir /ad /b "!__PATH!\NSIS*" 2^>NUL') do set "_WIX_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\NSIS*" 2^>NUL') do set "_WIX_HOME=!__PATH!\%%f"
     )
 )
 if not exist "%_WIX_HOME%\candle.exe" (
@@ -296,15 +296,15 @@ if defined __MAGICK_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\ImageMagick\" ( set "_MAGICK_HOME=!__PATH!\ImageMagick"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\ImageMagick-7*" 2^>NUL') do set "_MAGICK_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\ImageMagick-7*" 2^>NUL') do set "_MAGICK_HOME=!__PATH!\%%f"
         if not defined _MAGICK_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\ImageMagick-7*" 2^>NUL') do set "_MAGICK_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\ImageMagick-7*" 2^>NUL') do set "_MAGICK_HOME=!__PATH!\%%f"
         )
     )
 )
 if not exist "%_MAGICK_HOME%\magick.exe" (
-    echo %_ERROR_LABEL% ImageMagick executable not found ^(%_MAGICK_HOME%^) 1>&2
+    echo %_ERROR_LABEL% ImageMagick executable not found ^("%_MAGICK_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -321,12 +321,12 @@ if not defined __VENDOR ( set __JDK_NAME=jdk-%__VERSION%
 ) else ( set __JDK_NAME=jdk-%__VENDOR%-%__VERSION%
 )
 set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
+for /f "delims=" %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
 if defined __JAVAC_CMD (
     call :jdk_version "%__JAVAC_CMD%"
     if !_JDK_VERSION!==%__VERSION% (
-        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
-        for %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
+        for /f "delims=" %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
+        for /f "delims=" %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
     ) else (
         echo %_ERROR_LABEL% Required JDK installation not found ^(%__JDK_NAME%^) 1>&2
         set _EXITCODE=1
@@ -341,14 +341,14 @@ if defined JAVA_HOME (
     for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
     if not defined _JAVA_HOME (
         set "_PATH=%ProgramFiles%\Java"
-        for /f %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
     )
     if defined _JAVA_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JAVA_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory "!_JAVA_HOME!" 1>&2
     )
 )
 if not exist "%_JAVA_HOME%\bin\javac.exe" (
-    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JAVA_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Executable javac.exe not found ^("%_JAVA_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -392,10 +392,10 @@ if defined __SBT_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\sbt\" ( set "_SBT_HOME=!__PATH!\sbt"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
         if not defined _SBT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
         )
     )
 )
@@ -413,13 +413,13 @@ set _GIT_HOME=
 set _GIT_PATH=
 
 set __GIT_CMD=
-for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
+for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
-    for %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
-        for %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
+        for /f "delims=" %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path
@@ -431,10 +431,10 @@ if defined __GIT_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\Git\" ( set "_GIT_HOME=!__PATH!\Git"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
     if defined _GIT_HOME (
@@ -485,12 +485,12 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SBT_HOME%\bin:sbt.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,*" %%i in ('"%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
+    for /f "tokens=1-3,*" %%i in ('call "%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
 )
 where /q "%MAGICK_HOME%:magick.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('call "%MAGICK_HOME%\magick.exe" --version^|findstr /b Version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% magick %%k,"
+    for /f "tokens=1,2,3,*" %%i in ('"%MAGICK_HOME%\magick.exe" --version^|findstr /b Version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% magick %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MAGICK_HOME%:magick.exe"
 )
 where /q "%GIT_HOME%\bin:git.exe"
