@@ -9,21 +9,23 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.43][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
 - [WiX Toolset 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
 
 Optionally one may also install the following software:
 
+- [ConEmu][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [ImageMagick 7.1][magick_downloads] <sup id="anchor_01"><a href="#footnote_01">1</a></sup> ([*change log*][magick_changelog])
 - [InstEd 1.5][insted_downloads] <sup id="anchor_02"><a href="#footnote_02">2</a></sup> ([*release notes*][insted_relnotes])
 - [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_03"><a href="#footnote_03">3</a></sup> ([*release notes*][vs2019_relnotes])
 - [Microsoft Windows 10 SDK][windows_sdk] <sup id="anchor_04"><a href="#footnote_04">4</a></sup> ([*release notes*][windows_sdk_relnotes])
+- [Visual Studio Code 1.89][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
@@ -31,9 +33,11 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*December 2023*) <sup id="anchor_05">[5](#footnote_05)</sup>:
 
 <pre style="font-size:80%;">
+C:\opt\ConEmu\                 <i>( 26 MB)</i>
 C:\opt\Git\                    <i>(314 MB)</i>
 C:\opt\ImageMagick-7.1.0-Q16\  <i>(300 MB)</i>
-C:\opt\WiX-3.11.2\             <i>( 99 MB)</i>
+C:\opt\VSCode\                 <i>(341 MB)</i>
+C:\opt\WiX-3.14.1\             <i>(116 MB)</i>
 C:\Program Files (x86)\instedit.com\InstEd\  <i>(  7 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(2.98 GB)</i>
 C:\Program Files (x86)\Windows Kits\10\      <i>(5.46 GB)</i>
@@ -87,9 +91,9 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="./setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   candle 3.11.2.4516, light 3.11.2.4516,
+   candle 3.14.1.8722, light 3.14.1.8722,
    msiinfo 5.0, uuidgen v1.01
-   magick 7.1.0-7, git 2.43.0.windows.1, diff 3.10
+   magick 7.1.0-7, git 2.45.0, diff 3.10
 &nbsp;
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> msiinfo git</b>
 C:\Program Files (x86)\Windows Kits\10\bin\10.0.22000.0\x86\MsiInfo.exe
@@ -137,11 +141,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
+<a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                    <i>(  5 MB)</i>
 <a href="https://imagemagick.org/script/download.php#windows">ImageMagick-7.1.0-portable-Q16-x64.zip</a>  <i>(111 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.43.0-64-bit.7z.exe</a>        <i>( 44 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.45.0-64-bit.7z.exe</a>        <i>( 44 MB)</i>
 vs_2019_community.exe                   <i>(1.7 GB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.89.1.zip</a>             <i>(131 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                         <i>(  1 MB)</i>
-<a href="https://github.com/wixtoolset/wix3/releases">wix311-binaries.zip</a>                     <i>( 33 MB)</i>
+<a href="https://github.com/wixtoolset/wix3/releases">wix314-binaries.zip</a>                     <i>( 39 MB)</i>
 </pre>
 </dd>
 <dd>
@@ -171,7 +177,7 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -180,10 +186,14 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [akka_examples]: https://github.com/michelou/akka-examples
 [cargo_cli]: https://doc.rust-lang.org/cargo/commands/cargo.html
 [code_cli]: https://code.visualstudio.com/docs/editor/command-line
+[cobol_examples]: https://github.com/michelou/cobol-examples
+[conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
+[conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [docker_examples]: https://github.com/michelou/docker-examples
+[erlang_examples]: https://github.com/michelou/erlang-examples
 [flix_examples]: https://github.com/michelou/flix-examples
 [firegiant]: https://www.firegiant.com/
 [git_cli]: https://git-scm.com/docs/git
@@ -191,7 +201,7 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [git_downloads]: https://git-scm.com/download/win
 [git_scm]: https://git-scm.com/
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.43.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.0.txt
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gui]: https://en.wikipedia.org/wiki/Graphical_user_interface
@@ -225,6 +235,8 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [vs2019_downloads]: https://visualstudio.microsoft.com/vs/older-downloads/
 [vs2019_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes
+[vscode_downloads]: https://code.visualstudio.com/#alt-downloads
+[vscode_relnotes]: https://code.visualstudio.com/updates/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_sdk]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
 [windows_sdk_relnotes]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/#relnote
