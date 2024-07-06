@@ -1,4 +1,4 @@
-# <span id="top">WiX examples with Scala 3 distribution</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX examples with Scala 3 distribution</span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -33,7 +33,7 @@ The project directory is organized as follows :
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 Y:\scala3-examples\Scala3First
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3First/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala3-3.0.2</b>
@@ -130,7 +130,7 @@ The project directory is organized as follows :
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 Y:\scala3-examples\Scala3UI
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3UI/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala3-3.0.2</b>
@@ -205,7 +205,7 @@ This project contains the additional directory [`src\localizations\`](./Scala3Lo
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 Y:\scala3-examples\Scala3Localized
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [a-z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [a-z]</b>
 │   <a href="./Scala3Localized/build.bat">build.bat</a>
 ├───<b>app</b>
 │   ├───<b>scala3-3.0.2</b>
@@ -478,7 +478,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

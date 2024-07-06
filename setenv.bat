@@ -43,9 +43,6 @@ if not %_EXITCODE%==0 goto end
 call :magick
 if not %_EXITCODE%==0 goto end
 
-call :sbt
-if not %_EXITCODE%==0 goto end
-
 goto end
 
 @rem #########################################################################
@@ -376,39 +373,6 @@ if "%__PREFIX%"=="1." ( set _JDK_VERSION=%__JAVAC_VERSION:~2,1%
 )
 goto :eof
 
-@rem output parameters: _SBT_HOME, _SBT_PATH
-:sbt
-set _SBT_HOME=
-set _SBT_PATH=
-
-set __SBT_CMD=
-for /f "delims=" %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
-if defined __SBT_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of sbt executable found in PATH 1>&2
-    @rem keep _SBT_PATH undefined since executable already in path
-    goto :eof
-) else if defined SBT_HOME (
-    set "_SBT_HOME=%SBT_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SBT_HOME 1>&2
-) else (
-    set __PATH=C:\opt
-    if exist "!__PATH!\sbt\" ( set "_SBT_HOME=!__PATH!\sbt"
-    ) else (
-        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
-        if not defined _SBT_HOME (
-            set "__PATH=%ProgramFiles%"
-            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
-        )
-    )
-)
-if not exist "%_SBT_HOME%\bin\sbt.bat" (
-    echo %_ERROR_LABEL% sbt executable not found ^(%_SBT_HOME%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_SBT_PATH=;%_SBT_HOME%\bin"
-goto :eof
-
 @rem output parameters: _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
@@ -485,14 +449,9 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,4,*" %%i in ('"%__WINSDK_BIN_DIR%\uuidgen.exe" -v^|findstr UUID') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% uuidgen %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__WINSDK_BIN_DIR%:uuidgen.exe"
 )
-where /q "%SBT_HOME%\bin:sbt.bat"
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,*" %%i in ('call "%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
-)
 where /q "%MAGICK_HOME%:magick.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('"%MAGICK_HOME%\magick.exe" --version^|findstr /b Version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% magick %%k,"
+    for /f "tokens=1,2,3,*" %%i in ('"%MAGICK_HOME%\magick.exe" --version^|findstr /b Version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% magick %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MAGICK_HOME%:magick.exe"
 )
 where /q "%GIT_HOME%\bin:git.exe"
@@ -504,12 +463,16 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l"
+    for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\usr\bin:diff.exe"
 )
-where "%GIT_HOME%\bin:bash.exe"
+where /q "%GIT_HOME%\bin:bash.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,4,*" %%i in ('"%GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash %%l"
+    for /f "tokens=1-3,4,*" %%i in ('"%GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do (
+        set "__VERSION=%%l"
+        setlocal enabledelayedexpansion
+        set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash !__VERSION:-release=!"
+    )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:bash.exe"
 )
 echo Tool versions:
@@ -518,7 +481,11 @@ echo %__VERSIONS_LINE2%
 echo %__VERSIONS_LINE3%
 if %__VERBOSE%==1 if defined __WHERE_ARGS (
     echo Tool paths: 1>&2
-    for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
+    for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do (
+        set "__LINE=%%p"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
     echo Environment variables: 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
@@ -526,6 +493,12 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined SBT_HOME echo    "SBT_HOME=%SBT_HOME%" 1>&2
     if defined WINSDK_HOME echo    "WINSDK_HOME=%WINSDK_HOME%" 1>&2
     if defined WIX echo    "WIX=%WIX%" 1>&2
+    echo Path associations: 1>&2
+    for /f "delims=" %%i in ('subst') do (
+        set "__LINE=%%i"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
 )
 goto :eof
 

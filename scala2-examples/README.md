@@ -1,4 +1,4 @@
-# <span id="top">WiX examples with Scala 2 distribution</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX examples with Scala 2 distribution</span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -28,7 +28,8 @@ The [Scala 2][scala2] Windows installer behaves in *3 different ways* when it de
 
 `Scala2First` <sup id="anchor_02">[2](#footnote_02)</sup> is our first iteration to create a Windows installer (aka. `.msi` file) for the [Scala 2][scala2_releases] software distribution.
 
-The project directory is organized as follows :
+This project has the following directory structure :
+
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 Y:\scala2-examples\Scala2First
@@ -575,7 +576,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

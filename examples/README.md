@@ -1,4 +1,4 @@
-# <span id="top">WiX Toolset examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">WiX Toolset examples</span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -216,7 +216,7 @@ Since the original application (resp. its source files) is not available we must
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
