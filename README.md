@@ -16,7 +16,7 @@
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
-- [WiX Toolset 3.11][wix3_downloads] ([*release notes*][wix3_relnotes])
+- [WiX Toolset 3.14][wix3_downloads] ([*release notes*][wix3_relnotes])
 
 Optionally one may also install the following software:
 
@@ -25,7 +25,7 @@ Optionally one may also install the following software:
 - [InstEd 1.5][insted_downloads] <sup id="anchor_02"><a href="#footnote_02">2</a></sup> ([*release notes*][insted_relnotes])
 - [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_03"><a href="#footnote_03">3</a></sup> ([*release notes*][vs2019_relnotes])
 - [Microsoft Windows 10 SDK][windows_sdk] <sup id="anchor_04"><a href="#footnote_04">4</a></sup> ([*release notes*][windows_sdk_relnotes])
-- [Visual Studio Code 1.90][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.91][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*similar to* the [`/opt/`][linux_opt] directory on Unix).
@@ -161,7 +161,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://imagemagick.org/script/download.php#windows">ImageMagick-7.1.0-portable-Q16-x64.zip</a>  <i>(111 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>        <i>( 44 MB)</i>
 vs_2019_community.exe                   <i>(1.7 GB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.90.2.zip</a>             <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.91.0.zip</a>             <i>(131 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                         <i>(  1 MB)</i>
 <a href="https://github.com/wixtoolset/wix3/releases">wix314-binaries.zip</a>                     <i>( 39 MB)</i>
 </pre>
@@ -217,7 +217,7 @@ Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visua
 [git_downloads]: https://git-scm.com/download/win
 [git_scm]: https://git-scm.com/
 [github_markdown]: https://github.github.com/gfm/
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
 [gui]: https://en.wikipedia.org/wiki/Graphical_user_interface
